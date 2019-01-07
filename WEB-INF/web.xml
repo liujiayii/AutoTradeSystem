@@ -28,7 +28,13 @@
 	<!--全局范围内参数初始化 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>              <!--参数名称 -->
-		<param-value>classpath:spring-*.xml</param-value> <!--参数取值 -->
+		<!-- 这种方法配置是为了调整加载优先级 -->
+		<param-value>
+			classpath:spring-service.xml
+			classpath:spring-dao.xml
+			classpath:spring-shiro.xml
+			classpath:spring-mvc.xml
+		</param-value> 
 	</context-param>
 	<context-param>
 		<param-name>AREACODE</param-name>
@@ -36,6 +42,30 @@
 	</context-param>
 
 	<!-- 静态资源文件的引入 -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.ico</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.ttf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.woff</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.woff2</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
