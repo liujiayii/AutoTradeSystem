@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autotrade.dao.PurchaseDao">
+  <!-- 公共结果映射 -->
+  <resultMap id="BaseResultMap" type="com.autotrade.entity.Purchase">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="purchase" jdbcType="VARCHAR" property="purchase" />
+    <result column="purchase_money" jdbcType="DECIMAL" property="purchaseMoney" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <!-- 公共sql字段 -->
+  <sql id="Base_Column_List">
+    id, name, purchase, purchase_money, create_time
+  </sql>
+  <!-- 通过主键查询 -->
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_purchase
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <!-- 通过主键删除 -->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from t_purchase
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <!-- 插入全部字段 -->
+  <insert id="insertAll" parameterType="com.autotrade.entity.Purchase">
+    insert into t_purchase (id, name, purchase, 
+      purchase_money, create_time)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{purchase,jdbcType=VARCHAR}, 
+      #{purchaseMoney,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <!-- 插入指定字段数据 -->
+  <insert id="insertSelective" parameterType="com.autotrade.entity.Purchase">
+    insert into t_purchase
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="purchase != null">
+        purchase,
+      </if>
+      <if test="purchaseMoney != null">
+        purchase_money,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="purchase != null">
+        #{purchase,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseMoney != null">
+        #{purchaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <!-- 修改指定字段 -->
+  <update id="updateByIdSelective" parameterType="com.autotrade.entity.Purchase">
+    update t_purchase
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="purchase != null">
+        purchase = #{purchase,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseMoney != null">
+        purchase_money = #{purchaseMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 修改全部 -->
+  <update id="updateAllById" parameterType="com.autotrade.entity.Purchase">
+    update t_purchase
+    set name = #{name,jdbcType=VARCHAR},
+      purchase = #{purchase,jdbcType=VARCHAR},
+      purchase_money = #{purchaseMoney,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

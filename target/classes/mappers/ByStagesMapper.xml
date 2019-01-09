@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autotrade.dao.ByStagesDao">
+  <!-- 公共结果映射 -->
+  <resultMap id="BaseResultMap" type="com.autotrade.entity.ByStages">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="buying_id" jdbcType="BIGINT" property="buyingId" />
+    <result column="total_period" jdbcType="INTEGER" property="totalPeriod" />
+    <result column="monthly_supply" jdbcType="DECIMAL" property="monthlySupply" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <!-- 公共sql字段 -->
+  <sql id="Base_Column_List">
+    id, buying_id, total_period, monthly_supply, create_time
+  </sql>
+  <!-- 通过主键查询 -->
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_by_stages
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <!-- 通过主键删除 -->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from t_by_stages
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <!-- 插入全部字段 -->
+  <insert id="insertAll" parameterType="com.autotrade.entity.ByStages">
+    insert into t_by_stages (id, buying_id, total_period, 
+      monthly_supply, create_time)
+    values (#{id,jdbcType=BIGINT}, #{buyingId,jdbcType=BIGINT}, #{totalPeriod,jdbcType=INTEGER}, 
+      #{monthlySupply,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <!-- 插入指定字段数据 -->
+  <insert id="insertSelective" parameterType="com.autotrade.entity.ByStages">
+    insert into t_by_stages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buyingId != null">
+        buying_id,
+      </if>
+      <if test="totalPeriod != null">
+        total_period,
+      </if>
+      <if test="monthlySupply != null">
+        monthly_supply,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buyingId != null">
+        #{buyingId,jdbcType=BIGINT},
+      </if>
+      <if test="totalPeriod != null">
+        #{totalPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="monthlySupply != null">
+        #{monthlySupply,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <!-- 修改指定字段 -->
+  <update id="updateByIdSelective" parameterType="com.autotrade.entity.ByStages">
+    update t_by_stages
+    <set>
+      <if test="buyingId != null">
+        buying_id = #{buyingId,jdbcType=BIGINT},
+      </if>
+      <if test="totalPeriod != null">
+        total_period = #{totalPeriod,jdbcType=INTEGER},
+      </if>
+      <if test="monthlySupply != null">
+        monthly_supply = #{monthlySupply,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 修改全部 -->
+  <update id="updateAllById" parameterType="com.autotrade.entity.ByStages">
+    update t_by_stages
+    set buying_id = #{buyingId,jdbcType=BIGINT},
+      total_period = #{totalPeriod,jdbcType=INTEGER},
+      monthly_supply = #{monthlySupply,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
