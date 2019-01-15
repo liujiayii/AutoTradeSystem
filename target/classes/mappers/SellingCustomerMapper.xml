@@ -12,7 +12,7 @@
   </select>
   <!-- 根据姓名查询 -->
   <select id="selectByName" resultType="com.autotrade.entity.SellingCustomer">
-  	select * from t_selling_customers where name like #{name}
+  	select * from t_selling_customers where name=#{name}
   </select>
   <!-- 根据电话查询 -->
   <select id="selectByPhone" resultType="com.autotrade.entity.SellingCustomer">
