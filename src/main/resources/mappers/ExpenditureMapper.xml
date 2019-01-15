@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.autotrade.dao.ExpenditureDao">
-
+ <resultMap id="BaseResultMap" type="com.autotrade.entity.Expenditure" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="expenditure" property="expenditure" jdbcType="VARCHAR" />
+    <result column="detailed_expenditure" property="detailedExpenditure" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="BIGINT" />
+    <result column="expenditure_money" property="expenditureMoney" jdbcType="DECIMAL" />
+  </resultMap>
 	<!-- 插入支出表 -->
 	<insert id="insert" parameterType="com.autotrade.entity.Expenditure">
 		insert into t_expenditure (id, expenditure, detailed_expenditure,
@@ -46,7 +52,7 @@
 	</update>
 
     <!-- 分页查询 所有-->
-    <select id="selectAllExpenditure" resultType="com.autotrade.entity.Expenditure"> 
+    <select id="selectAllExpenditure" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap"> 
     select
 		*
 		from t_expenditure limit #{star},#{limit}
@@ -60,7 +66,7 @@
 
 
     <!-- 根据id查询 -->
-	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.autotrade.entity.Expenditure">
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap">
 		select *	
 		from 
 		t_expenditure
@@ -69,7 +75,7 @@
 	
 	
 	<!-- 根据部门id分页所有数据-->
-    <select id="selectExpenditureByDepartmentId" parameterType="java.lang.Long" resultType="com.autotrade.entity.Expenditure" > 
+    <select id="selectExpenditureByDepartmentId" parameterType="java.lang.Long" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap"> 
     select
 		*
 		from t_expenditure where department_id = #{departmentId} limit #{star},#{limit}
@@ -83,7 +89,7 @@
      
      
    <!--   根据支出项目模糊查询 -->
-     <select id="selectExpenditureByExpenditure" resultType="com.autotrade.entity.Expenditure">
+     <select id="selectExpenditureByExpenditure" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap">
         select
 		*
 		from t_expenditure where expenditure like "%"#{expenditure}"%" limit #{star},#{limit}	 
