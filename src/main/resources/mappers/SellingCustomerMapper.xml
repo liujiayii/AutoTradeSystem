@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.autotrade.dao.SellingCustomerDao" >
-
+  <!-- 卖车客户总量 -->
+  <select id="selectAllCount" resultType="java.lang.Integer">
+   select 
+    COUNT(*)
+    from t_selling_customers
+  </select>
   <!-- 分页查询所有卖车客户 -->
   <select id="selectAll" resultType="com.autotrade.entity.SellingCustomer">
     select * from t_selling_customers limit #{star},#{limit}

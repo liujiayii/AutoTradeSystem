@@ -13,6 +13,13 @@
     <result column="create_time"  property="createTime" />
     <result column="update_time"  property="updateTime" />
   </resultMap>  
+  
+  <!-- 买车客户总量 -->
+  <select id="selectAllCount" resultType="java.lang.Integer">
+   select 
+    COUNT(*)
+    from t_buying_customers 
+  </select>
   <!-- 分页查询所有买车客户 -->
   <select id="selectAll" resultType="com.autotrade.entity.BuyingCustomer" resultMap="BCResultMap">
     select 
