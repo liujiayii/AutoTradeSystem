@@ -13,11 +13,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/pages.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+            <state relative-caret-position="288">
+              <caret line="32" column="22" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/layout/head.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1847">
+              <caret line="117" column="51" selection-start-line="117" selection-start-column="46" selection-end-line="117" selection-end-column="51" />
+              <folding>
+                <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/carsales/carsales.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="128" column="15" lean-forward="true" selection-start-line="128" selection-start-column="15" selection-end-line="128" selection-end-column="15" />
+              <folding>
+                <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+                <element signature="e#9081#9174#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/customerInfo/buyingCarConsult/buyingCarConsult.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="129" column="14" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="14" />
+              <folding>
+                <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+                <element signature="e#8510#8603#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/login/login.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="86" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/customerInfo/carResources/carResources.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="133" column="29" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
+              <folding>
+                <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+                <element signature="e#8510#8603#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/customerInfo/replaceCar/replaceCar.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="133" column="31" selection-start-line="133" selection-start-column="31" selection-end-line="133" selection-end-column="31" />
+              <folding>
+                <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+                <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+                <element signature="e#8510#8603#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/layout/foot.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -27,9 +117,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -38,6 +128,9 @@
       <find>visible</find>
       <find>block</find>
       <find>handleSizeChange</find>
+      <find>tableData</find>
+      <find>count</find>
+      <find>currentPage3</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -55,14 +148,21 @@
         <option value="$PROJECT_DIR$/index.jsp" />
         <option value="$PROJECT_DIR$/login/login.jsp" />
         <option value="$PROJECT_DIR$/test.html" />
-        <option value="$PROJECT_DIR$/static/css/pages.css" />
         <option value="$PROJECT_DIR$/pages/index.jsp" />
+        <option value="$PROJECT_DIR$/pages/layout/foot.jsp" />
+        <option value="$PROJECT_DIR$/static/js/utils.js" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/replaceCar/replaceCar.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/carResources/carResources.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/buyingCarConsult/buyingCarConsult.jsp" />
+        <option value="$PROJECT_DIR$/static/css/pages.css" />
+        <option value="$PROJECT_DIR$/pages/carsales/carsales.jsp" />
+        <option value="$PROJECT_DIR$/pages/layout/head.jsp" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="479" />
-    <option name="y" value="147" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="604" />
+    <option name="y" value="136" />
     <option name="width" value="1289" />
     <option name="height" value="864" />
   </component>
@@ -79,6 +179,54 @@
             <path>
               <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="login" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="customerInfo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="customerInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="buyingCarConsult" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="customerInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="carResources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="customerInfo" type="462c0819:PsiDirectoryNode" />
+              <item name="replaceCar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -130,18 +278,18 @@
       <workItem from="1548140440060" duration="2603000" />
       <workItem from="1548150563159" duration="1710000" />
       <workItem from="1548211623779" duration="22084000" />
-      <workItem from="1548293898298" duration="9924000" />
+      <workItem from="1548293898298" duration="8328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36321000" />
+    <option name="totallyTimeSpent" value="43836000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="604" y="136" width="1289" height="864" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14014752" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21342926" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -154,7 +302,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" visible="true" weight="0.13232104" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" visible="true" weight="0.16849315" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -176,26 +324,7 @@
     <entry file="file://$PROJECT_DIR$/temp.html" />
     <entry file="file://$PROJECT_DIR$/favicon.ico" />
     <entry file="file://$PROJECT_DIR$/login/login.js" />
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-396">
-          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="89" />
-          <folding>
-            <element signature="n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-dialog#0;n#el-container#0;n#el-main#0;n#el-container#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-table#0;n#el-main#0;n#el-container#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-pagination#0;n#div#0;n#el-main#0;n#el-container#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/login/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html" />
     <entry file="file://$PROJECT_DIR$/login/login.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -203,72 +332,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.html">
+    <entry file="file://$PROJECT_DIR$/test.html" />
+    <entry file="file://$PROJECT_DIR$/pages/index.jsp" />
+    <entry file="file://$PROJECT_DIR$/static/js/utils.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/layout/foot.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        <state relative-caret-position="396">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="86" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/replaceCar/replaceCar.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="133" column="31" selection-start-line="133" selection-start-column="31" selection-end-line="133" selection-end-column="31" />
           <folding>
-            <element signature="n#el-submenu#0;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-submenu#1;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-submenu#2;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-submenu#3;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-submenu#4;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-submenu#5;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-submenu#6;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-container#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="e#13426#13567#0" />
-            <element signature="e#13569#13710#0" />
-            <element signature="e#13712#13853#0" />
-            <element signature="e#13855#13996#0" />
-            <element signature="e#14118#14391#0" />
-            <element signature="e#14416#15483#0" />
-            <element signature="e#14444#14630#0" />
-            <element signature="e#14660#14763#0" />
-            <element signature="e#14792#14907#0" />
-            <element signature="e#15648#15706#0" />
-            <element signature="e#15746#15804#0" />
-            <element signature="e#15841#15897#0" />
-            <element signature="e#15936#15992#0" />
-            <element signature="e#16028#16087#0" />
-            <element signature="e#16126#16186#0" />
-            <element signature="e#16221#16534#0" />
-            <element signature="e#16568#16635#0" />
+            <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+            <element signature="e#8510#8603#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/index.jsp">
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/carResources/carResources.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="451">
-          <caret line="315" column="44" selection-start-line="315" selection-start-column="44" selection-end-line="315" selection-end-column="44" />
+        <state relative-caret-position="144">
+          <caret line="133" column="29" selection-start-line="133" selection-start-column="29" selection-end-line="133" selection-end-column="29" />
           <folding>
-            <element signature="n#style#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#el-container#0;n#el-main#0;n#el-container#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#el-table#0;n#el-main#0;n#el-container#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="e#14143#16459#0" />
-            <element signature="e#14295#14436#0" />
-            <element signature="e#14438#14579#0" />
-            <element signature="e#14581#14722#0" />
-            <element signature="e#14724#14865#0" />
-            <element signature="e#14987#15260#0" />
-            <element signature="e#15285#16352#0" />
-            <element signature="e#15313#15499#0" />
-            <element signature="e#15529#15632#0" />
-            <element signature="e#15661#15776#0" />
-            <element signature="e#16517#16575#0" />
-            <element signature="e#16710#16766#0" />
-            <element signature="e#16805#16861#0" />
-            <element signature="e#16995#17055#0" />
-            <element signature="e#17090#17403#0" />
+            <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+            <element signature="e#8510#8603#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/buyingCarConsult/buyingCarConsult.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="129" column="14" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="14" />
+          <folding>
+            <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+            <element signature="e#8510#8603#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/pages.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+        <state relative-caret-position="288">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/carsales/carsales.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="128" column="15" lean-forward="true" selection-start-line="128" selection-start-column="15" selection-end-line="128" selection-end-column="15" />
+          <folding>
+            <element signature="n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#el-form#0;n#el-dialog#0;n#el-container#0;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#!!top" expanded="true" />
+            <element signature="e#9081#9174#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/layout/head.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1847">
+          <caret line="117" column="51" selection-start-line="117" selection-start-column="46" selection-end-line="117" selection-end-column="51" />
+          <folding>
+            <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
