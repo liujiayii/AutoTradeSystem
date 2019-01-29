@@ -12,6 +12,7 @@
     <result column="budget"  property="budget" />
     <result column="create_time"  property="createTime" />
     <result column="update_time"  property="updateTime" />
+     <result column="type"  property="type" />
   </resultMap>  
   
   <!-- 买车客户总量 -->
@@ -46,9 +47,9 @@
   <!-- 插入全部字段 -->
   <insert id="insertAll" parameterType="com.autotrade.entity.BuyingCustomer">
     insert into t_buying_customers (id, name, phone, 
-      address, brand, intention, budget,create_time, update_time)
+      address, brand, intention, budget,create_time, update_time,type)
     values (#{id}, #{name}, #{phone}, 
-      #{address}, #{brand}, #{intention}, #{budget}, #{createTime}, #{updateTime})
+      #{address}, #{brand}, #{intention}, #{budget}, #{createTime}, #{updateTime},#{type})
   </insert>  
   <!-- 插入指定字段 -->
   <insert id="insertSelective" parameterType="com.autotrade.entity.BuyingCustomer">
