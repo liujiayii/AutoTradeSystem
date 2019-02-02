@@ -1,0 +1,28 @@
+package com.autotrade.service;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.autotrade.entity.BuyingCustomer;
+import com.autotrade.entity.SellCar;
+import com.autotrade.entityVo.SellCarVo;
+import com.autotrade.entityVo.ShowCarVo;
+
+public interface SellCarService {
+
+	List<SellCarVo> findByLimit(Integer page, Integer limit);
+
+	Integer findAllCount();
+
+	ShowCarVo findById(Integer id);
+
+	Integer updateSellCar(Integer type,BigDecimal first_payment,BigDecimal monthly_supply,Integer monthly_number,Integer insurance,Integer c_id);
+
+	List<SellCarVo> findByKeyWord(String keyWord,Integer page,Integer limit);
+
+	BuyingCustomer findClientByPhone(String phone);
+	
+	Integer addSellCar(ShowCarVo showCarVo);
+}

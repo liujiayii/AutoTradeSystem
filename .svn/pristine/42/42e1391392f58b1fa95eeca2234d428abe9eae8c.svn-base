@@ -1,0 +1,59 @@
+package com.autotrade.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.autotrade.service.ByStagesService;
+
+/**
+ * 分期表控制层
+ *
+ * @ClassName: ByStagesController
+
+ * @description 
+ *
+ * @author lujinpeng
+ * @createDate 2019年1月29日-上午11:18:35
+ */
+@RestController
+@RequestMapping("/byStages")
+public class ByStagesController {
+
+	@Autowired
+	private ByStagesService byStagesService;
+	
+	/**
+	 * 显示分期管理页数据
+	 *
+	 * @Title: showByStages
+	
+	 * @description 
+	 *
+	 * @param page 当前页
+	 * @param size 每页显示条数
+	 * @return String
+	 *
+	 * @author lujinpeng
+	 * @createDate 2019年1月29日-上午11:33:15
+	 */
+	@RequestMapping(value="/showByStages", produces="application/json;charset=utf-8")
+	public String showByStages (Integer page, Integer limit) {
+		if(page <= 0 || page == null){
+			page = 1;
+		}
+		page = (page - 1) * limit;
+		
+		Map<String, Object> map = new HashMap<> ();
+		map.put("page", page);
+		map.put("size", limit);
+		
+		return byStagesService.selectByLimit(map);
+	}
+	
+	
+	
+}

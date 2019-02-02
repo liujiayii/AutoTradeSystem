@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.autotrade.dao.InsuranceDao">
+<mapper namespace="com.dao.InsuranceMapper">
   <!-- 公共结果映射 -->
-  <resultMap id="BaseResultMap" type="com.autotrade.entity.Insurance">
+  <resultMap id="BaseResultMap" type="com.entity.Insurance">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="buying_id" jdbcType="BIGINT" property="buyingId" />
     <result column="strong_danger" jdbcType="DECIMAL" property="strongDanger" />
@@ -26,14 +26,14 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <!-- 插入全部字段 -->
-  <insert id="insertAll" parameterType="com.autotrade.entity.Insurance">
+  <insert id="insertAll" parameterType="com.entity.Insurance">
     insert into t_insurance (id, buying_id, strong_danger, 
       commercial_insurance, create_time)
     values (#{id,jdbcType=BIGINT}, #{buyingId,jdbcType=BIGINT}, #{strongDanger,jdbcType=DECIMAL}, 
       #{commercialInsurance,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <!-- 插入指定字段数据 -->
-  <insert id="insertSelective" parameterType="com.autotrade.entity.Insurance">
+  <insert id="insertSelective" parameterType="com.entity.Insurance">
     insert into t_insurance
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -71,7 +71,7 @@
     </trim>
   </insert>
   <!-- 修改指定字段 -->
-  <update id="updateByIdSelective" parameterType="com.autotrade.entity.Insurance">
+  <update id="updateByIdSelective" parameterType="com.entity.Insurance">
     update t_insurance
     <set>
       <if test="buyingId != null">
@@ -90,7 +90,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <!-- 修改全部 -->
-  <update id="updateAllById" parameterType="com.autotrade.entity.Insurance">
+  <update id="updateAllById" parameterType="com.entity.Insurance">
     update t_insurance
     set buying_id = #{buyingId,jdbcType=BIGINT},
       strong_danger = #{strongDanger,jdbcType=DECIMAL},

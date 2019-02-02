@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.ExpenditureDao">
+ <resultMap id="BaseResultMap" type="com.autotrade.entity.Expenditure" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="expenditure" property="expenditure" jdbcType="VARCHAR" />
+    <result column="detailed_expenditure" property="detailedExpenditure" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="expenditure_money" property="expenditureMoney" jdbcType="DECIMAL" />
+  </resultMap>
+	<!-- 插入支出表 -->
+	<insert id="insert" parameterType="com.autotrade.entity.Expenditure">
+		insert into t_expenditure (id, expenditure, detailed_expenditure,
+		department_id, expenditure_money)
+		values (#{id}, #{expenditure}, #{detailedExpenditure},
+		#{departmentId}, #{expenditureMoney})
+	</insert>
+
+	<!-- 根据主键删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_expenditure
+		where id = #{id}
+	</delete>
+
+	<!-- 根据主键更改传过来的参数若为空则置为空 -->
+	<update id="updateByPrimaryKey" parameterType="com.autotrade.entity.Expenditure">
+		update t_expenditure
+		set expenditure = #{expenditure},
+		detailed_expenditure = #{detailedExpenditure},
+		department_id = #{departmentId},
+		expenditure_money = #{expenditureMoney}
+		where id = #{id}
+	</update>
+	<!-- 根据主键更改传过来的参数若为空则不变 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.autotrade.entity.Expenditure">
+		update t_expenditure
+		<set>
+			<if test="expenditure != null">
+				expenditure = #{expenditure},
+			</if>
+			<if test="detailedExpenditure != null">
+				detailed_expenditure = #{detailedExpenditure},
+			</if>
+			<if test="departmentId != null">
+				department_id = #{departmentId},
+			</if>
+			<if test="expenditureMoney != null">
+				expenditure_money = #{expenditureMoney},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <!-- 分页查询 所有-->
+    <select id="selectAllExpenditure" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap"> 
+    select
+		*
+		from t_expenditure limit #{star},#{limit}
+    </select>
+    <!-- 分页所有数据数量-->
+    <select id="selectAllExpenditureCount" resultType="java.lang.Integer" > 
+    select
+		COUNT(*)
+		from t_expenditure
+    </select>
+
+
+    <!-- 根据id查询 -->
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap">
+		select *	
+		from 
+		t_expenditure
+		where id = #{id}
+	</select>
+	
+	
+	<!-- 根据部门id分页所有数据-->
+    <select id="selectExpenditureByDepartmentId" parameterType="java.lang.String" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap"> 
+    select
+		*
+		from t_expenditure where department_id = #{departmentId} limit #{star},#{limit}
+    </select>
+    <!-- 根据部门id分页所有数据数量-->
+    <select id="selectExpenditureCountByDepartmentId" parameterType="java.lang.Integer" > 
+    select
+		COUNT(*)
+		from t_expenditure where department_id = #{departmentId} 
+    </select>
+     
+     
+   <!--   根据支出项目模糊查询 -->
+     <select id="selectExpenditureByExpenditure" resultType="com.autotrade.entity.Expenditure" resultMap="BaseResultMap">
+        select
+		*
+		from t_expenditure where expenditure like "%"#{expenditure}"%" limit #{star},#{limit}	 
+     </select>
+     <!-- 支出项目模糊查询总数 -->
+     <select id="selectExpenditureByExpenditureCount" resultType="java.lang.Integer">
+        select
+		COUNT(*)
+		from t_expenditure where expenditure like "%"#{expenditure}"%"	 
+     </select>
+    
+	
+	 <!-- 混合查询 -->
+  <select id="hybridSelect" resultType="com.autotrade.entity.Assessment" resultMap="BaseResultMap">
+    select 
+    *
+    from t_expenditure
+    where expenditure LIKE CONCAT('%',#{s},'%') 
+    or detailed_expenditure  LIKE CONCAT('%',#{s},'%')
+    or department_id  LIKE CONCAT('%',#{s},'%')
+    limit #{star},#{limit}
+  </select>
+  <!-- 信息数量 -->
+  <select id="hybridSelectCount" resultType="java.lang.Integer">
+    select 
+    COUNT(*)
+    from t_expenditure
+    where intention LIKE CONCAT('%',#{s},'%') 
+    or detailed_expenditure  LIKE CONCAT('%',#{s},'%') 
+    or department_id  LIKE CONCAT('%',#{s},'%')
+  </select>
+	
+
+</mapper>

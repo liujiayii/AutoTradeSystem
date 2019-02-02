@@ -54,7 +54,7 @@
 
 
 	<!-- 通过id修改用户信息  -->
-	<!-- Integer updateUserById(Long id,User user) -->
+	<!-- Integer updateUserById(Long id) -->
 	<update id="updateUserById" >
 		update 
 			t_user

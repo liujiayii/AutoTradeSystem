@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autotrade.dao.DepartmentDao">
+  
+ 
+ 
+ <!-- 新增 -->
+ <insert id="insertDepartment">
+ insert 
+ into t_department
+ (id, department, create_time)
+  values (#{id}, #{department}, #{create_time})
+ </insert>
+ <!-- 通过部门名称查询id -->
+  <select id="selectId"  resultType="java.lang.Integer">
+    select 
+    id
+    from t_department
+    where department = #{department}
+  </select>
+ 
+  <!-- 通过id查询 -->
+  <select id="selectById" parameterType="java.lang.Long" resultType="com.autotrade.entity.Department">
+    select 
+    *
+    from t_department
+    where id = #{id}
+  </select>
+  <!-- 通过id删除 -->
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from t_department
+    where id = #{id}
+  </delete>
+
+  
+  <!-- 查询所有部门 -->
+  <select id="selectAllDepartment" resultType="com.autotrade.entity.Department">
+  	select 
+  	*
+  	from t_department  limit #{star},#{limit}
+  </select>
+  
+  <!-- 查询总条数 -->
+  <select id="getCount" resultType="int">
+  	select count(*) from t_department
+  </select>
+</mapper>

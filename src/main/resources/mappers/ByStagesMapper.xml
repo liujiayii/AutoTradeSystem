@@ -1,18 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.autotrade.dao.ByStagesDao">
-  <!-- 公共结果映射 -->
+  <!-- 分期表公共结果映射 -->
   <resultMap id="BaseResultMap" type="com.autotrade.entity.ByStages">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="buying_id" jdbcType="BIGINT" property="buyingId" />
     <result column="total_period" jdbcType="INTEGER" property="totalPeriod" />
     <result column="monthly_supply" jdbcType="DECIMAL" property="monthlySupply" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="loan_amount" jdbcType="DECIMAL" property="loanAmount" />
   </resultMap>
-  <!-- 公共sql字段 -->
+  
+  <!-- 分期表公共sql字段 -->
   <sql id="Base_Column_List">
     id, buying_id, total_period, monthly_supply, create_time
   </sql>
+  <!-- 查询全部信息（和买车客户信息表关联）分页查询 -->
+  <resultMap type="com.autotrade.entity.ByStages" id="selectAll" extends="BaseResultMap">
+  	<association property="buyingCustomer" javaType="com.autotrade.entity.BuyingCustomer">
+  		<id column="bc_id"  property="id" />
+	    <result column="name"  property="name" />
+	    <result column="phone"  property="phone" />
+	    <result column="address" property="address" />
+	    <result column="brand"  property="brand" />
+	    <result column="intention"  property="intention" />
+	    <result column="budget"  property="budget" />
+	    <result column="bc_create_time"  property="createTime" />
+	    <result column="update_time"  property="updateTime" />
+  	</association>
+  </resultMap>
+  
+  <select id="selectByLimit" parameterType="java.util.Map" resultMap="selectAll">
+  	select 
+  		bs.id, bs.buying_id, bs.total_period, bs.monthly_supply, bs.create_time, bs.loan_amount,
+  		bc.id as bc_id, bc.name, bc.phone, bc.address, bc.brand, bc.intention, bc.budget, 
+  		bc.create_time as bc_create_time, bc.update_time, bc.type
+  	from t_by_stages bs,t_buying_customers bc 
+  	<where>
+  		bs.buying_id=bc.id
+  		<if test="name != null">
+  			and bc.name like concat('%',#{name},'%')
+  		</if>
+  		<if test="phone != null">
+  			and bc.phone like concat('%',#{phone},'%')
+  		</if>
+  	</where>
+  	order by bs.create_time desc limit #{page},#{size}
+  </select>
+  
+  <!-- 查询总条数 -->
+  <select id="getCount" parameterType="java.util.Map" resultType="int">
+  	select count(*) 
+  	from t_by_stages bs,t_buying_customers bc
+  	where
+  		bs.buying_id=bc.id
+  		<if test="name != null">
+  			and bc.name like concat('%',#{name},'%')
+  		</if>
+  		<if test="phone != null">
+  			and bc.phone like concat('%',#{phone},'%')
+  		</if>
+  </select>
   <!-- 通过主键查询 -->
   <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -28,9 +76,9 @@
   <!-- 插入全部字段 -->
   <insert id="insertAll" parameterType="com.autotrade.entity.ByStages">
     insert into t_by_stages (id, buying_id, total_period, 
-      monthly_supply, create_time)
+      monthly_supply, create_time, loan_amount)
     values (#{id,jdbcType=BIGINT}, #{buyingId,jdbcType=BIGINT}, #{totalPeriod,jdbcType=INTEGER}, 
-      #{monthlySupply,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
+      #{monthlySupply,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{loanAmount,jdbcType=DECIMAL})
   </insert>
   <!-- 插入指定字段数据 -->
   <insert id="insertSelective" parameterType="com.autotrade.entity.ByStages">
@@ -51,6 +99,9 @@
       <if test="createTime != null">
         create_time,
       </if>
+      <if test="loanAmount != null">
+        loan_amount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -67,6 +118,9 @@
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanAmount != null">
+        #{loanAmount,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -86,6 +140,9 @@
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="loanAmount != null">
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -95,7 +152,17 @@
     set buying_id = #{buyingId,jdbcType=BIGINT},
       total_period = #{totalPeriod,jdbcType=INTEGER},
       monthly_supply = #{monthlySupply,jdbcType=DECIMAL},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      loan_amount = #{loanAmount,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 查询当前分期数据对应客户信息 -->
+  <select id="selectBuyingCustomer" resultType="com.autotrade.entity.BuyingCustomer">
+  	select * 
+  	from t_buying_customers bc
+  	where bc.id=(select buying_id from t_by_stages where id=#{id})
+  </select>
+  
+  
 </mapper>

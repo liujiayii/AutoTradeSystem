@@ -10,8 +10,8 @@
     <result column="brand"  property="brand" />
     <result column="intention"  property="intention" />
     <result column="budget"  property="budget" />
-    <result column="create_time"  property="createTime" />
-    <result column="update_time"  property="updateTime" />
+    <result column="create_time"  jdbcType="DATE" property="createTime"  />
+    <result column="update_time" jdbcType="DATE" property="updateTime"  />
      <result column="type"  property="type" />
   </resultMap>  
   
@@ -48,7 +48,7 @@
   <insert id="insertAll" parameterType="com.autotrade.entity.BuyingCustomer">
     insert into t_buying_customers (id, name, phone, 
       address, brand, intention, budget,create_time, update_time,type)
-    values (#{id}, #{name}, #{phone}, 
+    values (null, #{name}, #{phone}, 
       #{address}, #{brand}, #{intention}, #{budget}, #{createTime}, #{updateTime},#{type})
   </insert>  
   <!-- 插入指定字段 -->
@@ -121,9 +121,8 @@
       address = #{address},
       brand = #{brand},
       intention = #{intention},
-      budget = #{budget},
-      create_time = #{createTime},
-      update_time = #{updateTime}
+      budget = #{budget}
+    
     where id = #{id}
   </update>
   <!-- 修改指定字段 -->
@@ -157,5 +156,32 @@
     </set>
     where id = #{id}
   </update>
+  
+  <!-- 模糊查询 -->
+	<select id="selectByCustomer"  resultMap="BCResultMap">
+
+		select * from t_buying_customers
+		WHERE name LIKE concat("%",#{s},"%")
+		OR phone like concat("%",#{s},"%")
+		OR address LIKE concat("%",#{s},"%")
+		OR budget LIKE concat("%",#{s},"%")
+		OR intention LIKE concat("%",#{s},"%")
+		OR budget LIKE concat("%",#{s},"%")
+		limit #{star},#{limit}
+
+	</select>
+	<!-- 模糊查询  总条数-->
+	<select id="selectCountByCustomer" resultType="java.lang.Integer">
+		select
+		COUNT(*)
+		from t_buying_customers
+		WHERE name LIKE concat("%",#{s},"%")
+		OR phone like concat("%",#{s},"%")
+		OR address LIKE concat("%",#{s},"%")
+		OR budget LIKE concat("%",#{s},"%")
+		OR intention LIKE concat("%",#{s},"%")
+		OR budget LIKE concat("%",#{s},"%")
+		
+	</select>
 
 </mapper>

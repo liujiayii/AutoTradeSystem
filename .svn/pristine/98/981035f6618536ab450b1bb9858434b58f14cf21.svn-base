@@ -1,0 +1,168 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ include file="../layout/head.jsp" %>
+<!-- Form -->
+<el-container class="secondNav">
+    <div class="title" @click="isCollapse = !isCollapse">售车管理</div>
+</el-container>
+<el-container class="main" style="width: 736px">
+    <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
+        <el-input v-model="ruleForm.id"></el-input>
+        <el-input v-model="ruleForm.c_id"></el-input>
+        <el-form-item label="客户信息"></el-form-item>
+        <el-row>
+            <el-col :span="12">
+                <el-form-item label="姓名" prop="name">
+                    <el-input v-model="ruleForm.name" :readonly="Boolean(ruleForm.id)"></el-input>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="电话" prop="phone">
+                    <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.id)"></el-input>
+                </el-form-item>
+            </el-col>
+        </el-row>
+        <el-form-item label="联系地址" prop="address">
+            <el-input v-model="ruleForm.address" :readonly="Boolean(ruleForm.id)"></el-input>
+        </el-form-item>
+        <el-form-item label="购买信息"></el-form-item>
+        <el-row>
+            <el-col :span="12">
+                <el-form-item label="保险地址">
+                    <el-select v-model="ruleForm.type" placeholder="请选择保险地址">
+                        <el-option label="本店" :value="1"></el-option>
+                        <el-option label="外部" :value="2"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="首付款" prop="first_payment">
+                    <el-input v-model="ruleForm.first_payment"></el-input>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="分期月数" prop="monthly_number">
+                    <el-input v-model="ruleForm.monthly_number"></el-input>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="月供" prop="monthly_supply">
+                    <el-input v-model="ruleForm.monthly_supply"></el-input>
+                </el-form-item>
+            </el-col>
+            <el-col :span="12">
+                <el-form-item label="保险地址">
+                    <el-select v-model="ruleForm.insurance" placeholder="请选择保险地址">
+                        <el-option label="本店" :value="1"></el-option>
+                        <el-option label="外部" :value="2"></el-option>
+                    </el-select>
+                </el-form-item>
+            </el-col>
+        </el-row>
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        </el-form-item>
+    </el-form>
+</el-container>
+</el-main>
+<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+</el-container>
+</el-container>
+</el-container>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                navActive: '3-1',
+                isCollapse: false,
+                ruleForm: {},
+                rules: {}
+            }
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        console.log(this.ruleForm)
+                        $.ajax({
+                            type: 'post',
+                            url: this.ruleForm.c_id ? '/sellCar/updateSellCar.action' : '/insertAllSellingCustomer.action',
+                            data: this.ruleForm,
+                            dataType: 'json',
+                            success: (res) => {
+                                console.log(res)
+                                if (res.code == 1) {
+                                    this.$notify({
+                                        title: '提示',
+                                        message: res.msg,
+                                        position: 'bottom-right',
+                                        offset: 300,
+                                        type: 'success',
+                                        onClose() {
+                                            window.location.href = "carResources.jsp"
+                                        }
+                                    })
+                                } else {
+                                    this.$notify.error({
+                                        title: '提示',
+                                        message: res.msg,
+                                        position: 'bottom-right',
+                                        offset: 300
+                                    })
+                                }
+                            },
+                            error: (res) => {
+                                console.log(res)
+                                this.$notify.error({
+                                    title: '提示',
+                                    message: res.msg,
+                                    position: 'bottom-right',
+                                    offset: 300
+                                })
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                })
+            },
+            // 获取地址栏参数，name:参数名称
+            getHrefParam(key) {
+                var s = window.location.href;
+                var reg = new RegExp(key + "=\\w+");
+                var rs = reg.exec(s);
+                if (rs === null || rs === undefined) {
+                    return "";
+                } else {
+                    return rs[0].split("=")[1];
+                }
+            }
+        },
+        created() {
+            if (this.getHrefParam('id')) {
+                $.ajax({
+                    type: 'post',
+                    url: '/sellCar/findById.action',
+                    data: {
+                        c_id: this.getHrefParam('id')
+                    },
+                    dataType: 'json',
+                    success: (res) => {
+                        console.log(res)
+                        if (res.code == 1) {
+                            this.ruleForm = res.data
+                        }
+                    },
+                    error: (res) => {
+                        console.log(res)
+                    }
+                })
+            }
+        }
+    })
+</script>
+</html>

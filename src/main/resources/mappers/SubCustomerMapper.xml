@@ -23,10 +23,10 @@
   <!-- 插入全部字段 -->
   <insert id="insertAll" parameterType="com.autotrade.entity.SubCustomer">
     insert into t_substitution 
-    	(id,name,phone,address,vehicle_type,brand,service_life,kilometres,
+    	(id,name,phone,address,vehicleType,brand,service_life,kilometres,
     	 maintenance_record,major_accidents,offer,brands,intention,budget)
     values 
-   		(#{id},#{name},#{phone},#{address},#{vehicle_type},#{brand},#{service_life},#{kilometres},
+   		(null,#{name},#{phone},#{address},#{vehicleType},#{brand},#{service_life},#{kilometres},
     	#{maintenance_record},#{major_accidents},#{offer},#{brands},#{intention},#{budget})
   </insert>  
   <!-- 插入指定字段 -->
@@ -45,8 +45,8 @@
       <if test="address != null">
         address,
       </if>
-      <if test="vehicle_type != null">
-        vehicle_type,
+      <if test="vehicleType != null">
+        vehicleType,
       </if>
       <if test="brand != null">
         brand,
@@ -128,7 +128,7 @@
     name = #{name},
     phone = #{phone},
     address = #{address},
-    vehicle_type = #{vehicle_type},
+    vehicleType = #{vehicleType},
     brand = #{brand},
     service_life = #{service_life},
     kilometres = #{kilometres},
@@ -186,5 +186,29 @@
     </set>
     where id = #{id}
   </update>
+  
+  <!-- 模糊查询 -->
+	<select id="selectByCustomer" resultType="com.autotrade.entity.SubCustomer">
+
+		select * from t_substitution
+		WHERE name LIKE concat("%",#{s},"%")
+		OR phone like concat("%",#{s},"%")
+		OR address LIKE concat("%",#{s},"%")
+		OR vehicleType LIKE concat("%",#{s},"%")
+		OR brands LIKE concat("%",#{s},"%")
+		limit #{star},#{limit}
+
+	</select>
+	<!-- 模糊查询  总条数-->
+	<select id="selectCountByCustomer" resultType="java.lang.Integer">
+		select
+		COUNT(*)
+		from t_substitution
+		WHERE name LIKE concat("%",#{s},"%")
+		OR phone like concat("%",#{s},"%")
+		OR address LIKE concat("%",#{s},"%")
+		OR brands LIKE concat("%",#{s},"%")
+		OR vehicleType LIKE concat("%",#{s},"%")
+	</select>
 
 </mapper>

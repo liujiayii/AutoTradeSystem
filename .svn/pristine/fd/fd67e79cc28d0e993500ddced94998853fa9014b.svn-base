@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3fcd1532-cb73-4d26-9b34-b38064e945f7" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/financialManage/income.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+              <folding>
+                <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+                <element signature="n#el-card#0;n#!!top" />
+                <element signature="n#el-container#2;n#!!top" />
+                <element signature="e#2977#3277#0" />
+                <element signature="e#3299#3369#0" />
+                <element signature="e#3400#3509#0" />
+                <element signature="e#3542#3603#0" />
+                <element signature="e#3626#4978#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/financialManage/branch.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3512">
+              <caret line="165" column="8" selection-start-line="165" selection-start-column="8" selection-end-line="208" selection-end-column="10" />
+              <folding>
+                <element signature="n#el-container#1;n#!!top" />
+                <element signature="e#2142#2442#0" />
+                <element signature="e#2837#4130#0" />
+                <element signature="e#4153#4183#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/carSales/carSales.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="23" column="54" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="54" />
+              <folding>
+                <element signature="n#el-container#1;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/carSales/carSalesEdit.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="160" column="52" selection-start-line="160" selection-start-column="39" selection-end-line="160" selection-end-column="52" />
+              <folding>
+                <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+                <element signature="e#7529#8805#0" />
+                <element signature="e#8858#9113#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/financialManage/expend.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="413">
+              <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
+              <folding>
+                <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+                <element signature="n#el-container#2;n#!!top" />
+                <element signature="e#3574#4926#0" />
+                <element signature="e#4504#5291#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>visible</find>
+      <find>block</find>
+      <find>handleSizeChange</find>
+      <find>tableData</find>
+      <find>count</find>
+      <find>currentPage3</find>
+      <find>handleEdit</find>
+      <find>handleDelete</find>
+      <find>handleCurrentChange</find>
+      <find>management</find>
+      <find>search</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/pages/index.jsp" />
+        <option value="$PROJECT_DIR$/pages/layout/foot.jsp" />
+        <option value="$PROJECT_DIR$/static/js/utils.js" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/replaceCar/replaceCar.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/carResources/carResources.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/buyingCarConsult/buyingCarConsult.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/carAdd.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManagement/accessEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/carManagement/carManagement.jsp" />
+        <option value="$PROJECT_DIR$/pages/financialManagement/financialManagement.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManagement/staffManagement.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManagement/accessManagement.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManagement/evaluation.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManagement/evaluaEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManagement/insurance.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManagement/insuranceEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManagement/stateManagement.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManagement/stateEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/evaluaEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/carsales/carsales.jsp" />
+        <option value="$PROJECT_DIR$/pages/carsales/carSalesEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/layout/head.jsp" />
+        <option value="$PROJECT_DIR$/pages/financialManage/financialManage.jsp" />
+        <option value="$PROJECT_DIR$/static/css/pages.css" />
+        <option value="$PROJECT_DIR$/pages/carManage/carManage.jsp" />
+        <option value="$PROJECT_DIR$/pages/carManage/carManageEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/buyingCarConsult.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/buyingCarConsultEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/carResources.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/carResourcesEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/replaceCar.jsp" />
+        <option value="$PROJECT_DIR$/pages/customerInfo/replaceCarEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/inventoryManage/inventoryManage.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManage/accessEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManage/accessManage.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManage/accessUpdate.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManage/staffEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/personManage/staffManage.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/evaluation.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/evaluationEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/insurance.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/insuranceEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/stateEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/stateManage.jsp" />
+        <option value="$PROJECT_DIR$/pages/tradeManage/stateUpdate.jsp" />
+        <option value="$PROJECT_DIR$/login/login.jsp" />
+        <option value="$PROJECT_DIR$/pages/carSales/carSales.jsp" />
+        <option value="$PROJECT_DIR$/pages/carSales/carSalesEdit.jsp" />
+        <option value="$PROJECT_DIR$/pages/financialManage/branch.jsp" />
+        <option value="$PROJECT_DIR$/pages/financialManage/expend.jsp" />
+        <option value="$PROJECT_DIR$/pages/financialManage/income.jsp" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="292" />
+    <option name="y" value="90" />
+    <option name="width" value="1595" />
+    <option name="height" value="924" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="carManage" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp\static\js" />
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp\pages" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp" />
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp\pages\personManage" />
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp\pages\carManage" />
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp\pages\tradeManagement" />
+      <recent name="D:\workspace\AutoTradeSystem\src\main\webapp\pages\carsales" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3fcd1532-cb73-4d26-9b34-b38064e945f7" name="Default Changelist" comment="" />
+      <created>1548140437454</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1548140437454</updated>
+      <workItem from="1548140440060" duration="2603000" />
+      <workItem from="1548150563159" duration="1710000" />
+      <workItem from="1548211623779" duration="22084000" />
+      <workItem from="1548293898298" duration="8328000" />
+      <workItem from="1548722180677" duration="238000" />
+      <workItem from="1548722781798" duration="25040000" />
+      <workItem from="1548808712711" duration="27136000" />
+      <workItem from="1548896515478" duration="12436000" />
+      <workItem from="1548915484210" duration="77000" />
+      <workItem from="1548919206816" duration="95000" />
+      <workItem from="1548920874465" duration="1929000" />
+      <workItem from="1548924470299" duration="1873000" />
+      <workItem from="1548927849638" duration="57000" />
+      <workItem from="1548928280082" duration="512000" />
+      <workItem from="1548982333801" duration="667000" />
+      <workItem from="1548986809990" duration="633000" />
+      <workItem from="1548999581334" duration="3037000" />
+      <workItem from="1549003469507" duration="358000" />
+      <workItem from="1549009782556" duration="3676000" />
+      <workItem from="1549069408652" duration="10623000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="132223000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="292" y="90" width="1595" height="924" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14450867" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32911393" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32876712" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.25813448" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15015806" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32876712" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.25813448" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/element/index.css" />
+    <entry file="file://$PROJECT_DIR$/temp.html" />
+    <entry file="file://$PROJECT_DIR$/favicon.ico" />
+    <entry file="file://$PROJECT_DIR$/login/login.js" />
+    <entry file="file://$PROJECT_DIR$/index.html" />
+    <entry file="file://$PROJECT_DIR$/login/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.html" />
+    <entry file="file://$PROJECT_DIR$/pages/index.jsp" />
+    <entry file="file://$PROJECT_DIR$/static/js/utils.js" />
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/carAdd.jsp" />
+    <entry file="file://$PROJECT_DIR$/pages/layout/head.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#el-submenu#0;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#el-submenu#1;n#el-menu#0;n#el-aside#0;n#el-container#0;n#el-container#0;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/financialManage/financialManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+          <folding>
+            <element signature="n#el-container#0;n#!!top" />
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#2;n#!!top" />
+            <element signature="n#script#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/pages.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="83" column="23" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/carManage/carManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#2;n#!!top" />
+            <element signature="n#script#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/buyingCarConsult.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/buyingCarConsultEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/carResources.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/carResourcesEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="73" column="10" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/replaceCar.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/customerInfo/replaceCarEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="88" column="10" selection-start-line="88" selection-start-column="10" selection-end-line="88" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/inventoryManage/inventoryManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/layout/foot.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/personManage/accessEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/personManage/accessManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/personManage/accessUpdate.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/personManage/staffEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/personManage/staffManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/evaluation.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="34" column="10" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/evaluationEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="39" column="10" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/insurance.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="431">
+          <caret line="37" column="10" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/insuranceEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="70" column="10" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/stateEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/stateManage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="36" column="10" selection-start-line="36" selection-start-column="10" selection-end-line="36" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/tradeManage/stateUpdate.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="657">
+          <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-container#2;n#!!top" expanded="true" />
+            <element signature="n#el-container#2;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-container#2;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="81" column="52" selection-start-line="81" selection-start-column="52" selection-end-line="81" selection-end-column="52" />
+          <folding>
+            <element signature="e#1470#1569#0" />
+            <element signature="e#1594#2049#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/carSales/carSales.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="23" column="54" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="54" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/carSales/carSalesEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="160" column="52" selection-start-line="160" selection-start-column="39" selection-end-line="160" selection-end-column="52" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="e#7529#8805#0" />
+            <element signature="e#8858#9113#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/financialManage/branch.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3512">
+          <caret line="165" column="8" selection-start-line="165" selection-start-column="8" selection-end-line="208" selection-end-column="10" />
+          <folding>
+            <element signature="n#el-container#1;n#!!top" />
+            <element signature="e#2142#2442#0" />
+            <element signature="e#2837#4130#0" />
+            <element signature="e#4153#4183#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/financialManage/expend.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="69" column="19" selection-start-line="69" selection-start-column="19" selection-end-line="69" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-container#2;n#!!top" />
+            <element signature="e#3574#4926#0" />
+            <element signature="e#4504#5291#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/carManage/carManageEdit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="57" column="22" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/financialManage/income.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="n#style#0;n#el-container#1;n#!!top" expanded="true" />
+            <element signature="n#el-card#0;n#!!top" />
+            <element signature="n#el-container#2;n#!!top" />
+            <element signature="e#2977#3277#0" />
+            <element signature="e#3299#3369#0" />
+            <element signature="e#3400#3509#0" />
+            <element signature="e#3542#3603#0" />
+            <element signature="e#3626#4978#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.autotrade.dao.VehichleDao">
-	<resultMap id="BaseResultMap" type="com.autotrade.entity.Vehichle">
-		<id column="id" property="id" />
-		<result column="vehicle_type" property="vehicleType" />
-		<result column="brand" property="brand" />
-		<result column="type" property="type" />
-		<result column="create_time" property="createTime" />
-	</resultMap>
+	
 
 	<insert id="insert" parameterType="com.autotrade.entity.Vehichle">
-		insert into t_vehichle (id, vehicle_type, brand,
-		type, create_time)
-		values (#{id}, #{vehicleType}, #{brand},
-		#{type}, #{createTime})
+		insert into t_vehichle (id,
+		vehicle_type, brand,
+		type, create_time, color, chassis_number,
+		engine_number, qualified_number,
+		imported_number, inspection_number,
+		carry_number, self_number, key_number,
+		mileage, business,
+		single_person, selling_price, remark, seling_id, supplier_id,
+		vehile_number, place, vehicle_code)
+		values (#{id}, #{vehicle_type},
+		#{brand},
+		#{type}, #{create_time}, #{color},
+		#{chassis_number},
+		#{engine_number}, #{qualified_number},
+		#{imported_number},
+		#{inspection_number}, #{carry_number}, #{self_number}, #{key_number},
+		#{mileage}, #{business}, #{single_person}, #{selling_price},
+		#{remark}, #{seling_id}, #{supplier_id},
+		#{vehile_number}, #{place},
+		#{vehicle_code})
 	</insert>
 	<!-- 根据id删除 -->
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_vehichle
+		delete from
+		t_vehichle
 		where id = #{id}
 	</delete>
 	<!-- 根据车牌删除 -->
@@ -26,25 +37,6 @@
 		where brand = #{brand}
 	</delete>
 
-	<!-- 更改 -->
-	<update id="updateByPrimaryKeySelective" parameterType="com.autotrade.entity.Vehichle">
-		update t_vehichle
-		<set>
-			<if test="vehicleType != null">
-				vehicle_type = #{vehicleType},
-			</if>
-			<if test="brand != null">
-				brand = #{brand},
-			</if>
-			<if test="type != null">
-				type = #{type},
-			</if>
-			<if test="createTime != null">
-				create_time = #{createTime},
-			</if>
-		</set>
-		where id = #{id,}
-	</update>
 
 	<!-- 修改 -->
 	<update id="updateByPrimaryKey" parameterType="com.autotrade.entity.Vehichle">
@@ -53,29 +45,50 @@
 		brand = #{brand},
 		type = #{type},
 		create_time = #{createTime}
+		color = #{color}
+		chassis_number = #{chassis_number}
+		engine_number = #{engine_number}
+		qualified_number = #{qualified_number}
+		imported_number = #{imported_number}
+		inspection_number = #{inspection_number}
+		carry_number = #{carry_number}
+		self_number = #{self_number}
+		key_number = #{key_number}
+		mileage = #{mileage}
+		business = #{business}
+		single_person = #{single_person}
+		selling_price = #{selling_price}
+		remark = #{remark}
+		seling_id = #{seling_id}
+		supplier_id = #{supplier_id}
+		vehile_number = #{vehile_number}
+		place = #{place}
+		vehicle_code = #{vehicle_code}
 		where id = #{id}
 	</update>
 
-     <!-- 根据主键查询 -->
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+	<!-- 根据主键查询 -->
+	<select id="selectByPrimaryKey" resultType="com.autotrade.entity.Vehichle"
 		parameterType="java.lang.Long">
 		select
 		*
 		from t_vehichle
 		where id = #{id}
 	</select>
-    
-    <!-- 分页查询所有 -->
-    <select id="selectAll" resultMap="BaseResultMap">
+
+	<!-- 分页查询所有 -->
+	<select id="selectAll" resultType="com.autotrade.entity.Vehichle">
 		select
 		*
-		from t_vehichle limit #{star},#{limit}
+		from t_vehichle limit
+		#{star},#{limit}
 	</select>
-     <!-- 所有数据的数量 -->
-    <select id="selectAllCount" resultType="java.lang.Integer">
+	<!-- 所有数据的数量 -->
+	<select id="selectAllCount" resultType="java.lang.Integer">
 		select
 		COUNT(*)
-		from t_vehichle
+		from
+		t_vehichle
 	</select>
 
 
