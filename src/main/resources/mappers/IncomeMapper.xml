@@ -20,7 +20,7 @@
 		income_money, income_detailed, data, create_time, name)
 		values
 		(#{id}, #{departmentId}, #{income},
-		#{incomeMoney}, #{incomeDetailed}, #{data}, #{createTime}, #{name}})
+		#{incomeMoney}, #{incomeDetailed}, #{data}, #{createTime}, #{name})
 	</insert>
 
 
@@ -92,10 +92,9 @@
     select 
     *
     from t_income
-    where income LIKE CONCAT('%',#{s},'%') 
-    or name  LIKE CONCAT('%',#{s},'%')
-    or income_detailed  LIKE CONCAT('%',#{s},'%')
-    AND department_id = #{department_id}
+    where income LIKE CONCAT('%',#{s},'%')  AND department_id = #{department_id}
+    or name  LIKE CONCAT('%',#{s},'%')  AND department_id = #{department_id}
+    or income_detailed  LIKE CONCAT('%',#{s},'%')  AND department_id = #{department_id}  
     limit #{star},#{limit}
   </select>
   <!-- 信息数量 -->
@@ -103,10 +102,9 @@
     select 
     COUNT(*)
     from t_income
-    where income LIKE CONCAT('%',#{s},'%') 
-    or name  LIKE CONCAT('%',#{s},'%')
-    or income_detailed  LIKE CONCAT('%',#{s},'%')
-    AND department_id = #{department_id}
+    where income LIKE CONCAT('%',#{s},'%')  AND department_id = #{department_id}
+    or name  LIKE CONCAT('%',#{s},'%')  AND department_id = #{department_id}
+    or income_detailed  LIKE CONCAT('%',#{s},'%')  AND department_id = #{department_id}
   </select>
   <!-- 根据部门id分页所有数据-->
     <select id="selectIncomeByDepartmentId"  resultMap="BaseResultMap"> 
@@ -115,7 +113,7 @@
 		from t_income where department_id = #{departmentId} limit #{star},#{limit}
     </select>
     <!-- 根据部门id分页所有数据数量-->
-    <select id="selectIncomeCountByDepartmentId" parameterType="java.lang.Integer" > 
+    <select id="selectIncomeCountByDepartmentId" resultType="java.lang.Integer" > 
     select
 		COUNT(*)
 		from t_income where department_id = #{departmentId} 

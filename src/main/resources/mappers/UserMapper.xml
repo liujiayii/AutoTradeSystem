@@ -5,6 +5,10 @@
 <mapper namespace="com.autotrade.dao.UserDao">
 	
 	
+	<sql id="Base_Column_List">
+		id,p_id,name,post,phone,username,password,create_time,update_time,status,key_word,address_id
+	</sql>
+	
 	<!-- 根据用户名查询用户 -->
 	<!-- User findUserByUserName(String username) -->
 	<select id="findUserByUserName" resultType="com.autotrade.entity.User">
@@ -92,8 +96,25 @@
 		</set>
 		where id=#{id}
 	</update>
-		
-
-
+	
+	
+	<!-- 分页查询所有用户信息 -->	
+	<!-- List<User> findByLimit(@Param("page")Integer page ,@Param("limit")Integer limit) -->	
+	<select id="findByLimit" resultType="com.autotrade.entity.User">
+		select 
+			<include refid="Base_Column_List"/>
+		from
+			t_user
+		limit #{page},#{limit}
+	</select>
+	
+	<!-- 查询所有用户数量 -->
+	<!-- Integer findAllCount() -->
+	<select id="findAllCount" resultType="java.lang.Integer">
+		select 
+			count(id)
+		from 
+			t_user	
+	</select>
 
 </mapper>

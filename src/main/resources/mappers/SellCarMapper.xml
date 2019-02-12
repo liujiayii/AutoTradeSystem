@@ -73,8 +73,6 @@
 		join t_vehichle v on ci.vehile_number = v.vehile_number
 		where ci.id =
 		#{c_id}
-
-
 	</select>
 
 

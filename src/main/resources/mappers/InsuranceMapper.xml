@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.autotrade.dao.InsuranceDao">
-  <!-- 公共结果映射 -->
+  <!-- 保险表公共结果映射 -->
   <resultMap id="BaseResultMap" type="com.autotrade.entity.Insurance">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="buying_id" jdbcType="BIGINT" property="buyingId" />
@@ -98,4 +98,58 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 查询保险表全部信息 -->
+  <resultMap type="com.autotrade.entity.Insurance" id="selectAll" extends="BaseResultMap">
+  	<association property="buyingCustomer" javaType="com.autotrade.entity.BuyingCustomer">
+  		<id column="bc_id"  property="id" />
+	    <result column="name"  property="name" />
+	    <result column="phone"  property="phone" />
+	    <result column="address" property="address" />
+	    <result column="brand"  property="brand" />
+	    <result column="intention"  property="intention" />
+	    <result column="budget"  property="budget" />
+	    <result column="bc_create_time"  property="createTime" />
+	    <result column="update_time"  property="updateTime" />
+  	</association>
+  </resultMap>
+  <select id="selectInsuranceByLimit" resultMap="selectAll">
+  	select 
+  		ti.id, ti.buying_id, ti.strong_danger, ti.commercial_insurance, ti.create_time,
+  		bc.id as bc_id, bc.name, bc.phone, bc.address, bc.brand, bc.intention, bc.budget, 
+  		bc.create_time as bc_create_time, bc.update_time, bc.type
+  	from t_insurance ti,t_buying_customers bc 
+  	<where>
+  		ti.buying_id=bc.id
+  		<if test="name != null">
+  			and bc.name like concat('%',#{name},'%')
+  		</if>
+  		<if test="phone != null">
+  			and bc.phone like concat('%',#{phone},'%')
+  		</if>
+  	</where>
+  	order by ti.create_time desc limit #{page},#{size}
+  </select>
+  
+  <!-- 查询保险表数据总条数 -->
+  <select id="getCount" parameterType="java.util.Map" resultType="int">
+  	select count(*) 
+  	from t_insurance ti,t_buying_customers bc
+  	where
+  		ti.buying_id=bc.id
+  		<if test="name != null">
+  			and bc.name like concat('%',#{name},'%')
+  		</if>
+  		<if test="phone != null">
+  			and bc.phone like concat('%',#{phone},'%')
+  		</if>
+  </select>
+  
+  <!-- 查询当前分期数据对应客户信息 -->
+  <select id="selectBuyingCustomer" resultType="com.autotrade.entity.BuyingCustomer">
+  	select * 
+  	from t_buying_customers bc
+  	where bc.id=(select buying_id from t_insurance where id=#{id})
+  </select>
+  
 </mapper>

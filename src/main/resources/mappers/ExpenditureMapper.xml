@@ -87,7 +87,7 @@
 		from t_expenditure where department_id = #{departmentId} limit #{star},#{limit}
     </select>
     <!-- 根据部门id分页所有数据数量-->
-    <select id="selectExpenditureCountByDepartmentId" parameterType="java.lang.Integer" > 
+    <select id="selectExpenditureCountByDepartmentId" resultType="java.lang.Integer" > 
     select
 		COUNT(*)
 		from t_expenditure where department_id = #{departmentId} 
@@ -113,10 +113,9 @@
     select 
     *
     from t_expenditure
-    where expenditure LIKE CONCAT('%',#{s},'%') 
-    or detailed_expenditure  LIKE CONCAT('%',#{s},'%')
-    or name LIKE CONCAT('%',#{s},'%')
-    AND  department_id  = #{department_id}
+    where expenditure LIKE CONCAT('%',#{s},'%') AND  department_id  = #{department_id}
+    or detailed_expenditure  LIKE CONCAT('%',#{s},'%') AND  department_id  = #{department_id}
+    or name LIKE CONCAT('%',#{s},'%') AND  department_id  = #{department_id}  
     limit #{star},#{limit}
   </select>
   <!-- 信息数量 -->
@@ -124,10 +123,9 @@
     select 
     COUNT(*)
     from t_expenditure
-    where expenditure LIKE CONCAT('%',#{s},'%') 
-    or detailed_expenditure  LIKE CONCAT('%',#{s},'%') 
-    or name LIKE CONCAT('%',#{s},'%')
-    AND  department_id  = #{department_id} 
+    where expenditure LIKE CONCAT('%',#{s},'%') AND  department_id  = #{department_id}
+    or detailed_expenditure  LIKE CONCAT('%',#{s},'%') AND  department_id  = #{department_id}
+    or name LIKE CONCAT('%',#{s},'%') AND  department_id  = #{department_id}
   </select>
 	
 
