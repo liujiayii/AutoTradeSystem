@@ -1,5 +1,6 @@
 package com.autotrade.service;
 
+
 import com.autotrade.entity.VehichileDetailed;
 
 public interface VehichileDetailedService {
@@ -12,4 +13,9 @@ public interface VehichileDetailedService {
 
 	String update(VehichileDetailed vehic);
 
+	String selectById(Long id);
+
+	String hybridSelect(String s, Integer page, Integer limit);
+   
+	
 }

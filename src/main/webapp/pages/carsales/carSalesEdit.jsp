@@ -190,7 +190,7 @@
     el: '#app',
     data: function () {
       return {
-        navActive: '3-1',
+        navActive: '3-2',
         isCollapse: false,
         ruleForm: {
           name: '',

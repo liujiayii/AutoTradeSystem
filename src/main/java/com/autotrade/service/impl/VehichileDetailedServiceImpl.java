@@ -74,7 +74,7 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 
 	@Override
 	public String selectAll(Integer page, Integer limit) {
-		try {
+		
 
 			Integer star = (page - 1) * limit;
 			List<VehichileDetailed> list = vehichileDetailedDao.selectAll(star, limit);
@@ -85,9 +85,7 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 				return JsonUtil.getResponseJson(1, "暂无信息", count, list);
 			}
 
-		} catch (Exception e) {
-			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
-		}
+		
 	}
 
 	@Override
@@ -105,6 +103,38 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 				return JsonUtil.getResponseJson(1, "修改失败", null, null);
 			}
 
+		} catch (Exception e) {
+			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
+	}
+
+	@Override
+	public String selectById(Long id) {
+		try {
+
+			VehichileDetailed reualt = vehichileDetailedDao.selectByPrimaryKey(id);
+
+			if (null != reualt || !"".equals(reualt)) {
+
+				return JsonUtil.getResponseJson(1, "查询成功", 1, reualt);
+
+			} else {
+
+				return JsonUtil.getResponseJson(1, "查询失败", null, null);
+			}
+
+		} catch (Exception e) {
+			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
+	}
+
+	@Override
+	public String hybridSelect(String s, Integer page, Integer limit) {
+		try {
+			Integer star = (page - 1) * limit;
+			List<VehichileDetailed> list = vehichileDetailedDao.hybridSelect(s, star, limit);
+			Integer count = vehichileDetailedDao.hybridSelectCount(s);
+			return JsonUtil.getResponseJson(1, "查询成功", count, list);
 		} catch (Exception e) {
 			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}

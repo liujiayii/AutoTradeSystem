@@ -44,95 +44,126 @@
             <el-input v-model="ruleForm.create_time" readonly></el-input>
           </el-form-item>
         </el-col>
-          <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="底盘号" prop="chassis_number">
-            <el-input v-model="ruleForm.chassis_number" ></el-input>
+            <el-input v-model="ruleForm.chassis_number"></el-input>
           </el-form-item>
         </el-col>
-         <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="发动机号" prop="engine_number">
-            <el-input v-model="ruleForm.engine_number" ></el-input>
+            <el-input v-model="ruleForm.engine_number"></el-input>
           </el-form-item>
         </el-col>
-      <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="合格证号" prop="qualified_number">
-            <el-input v-model="ruleForm.qualified_number" ></el-input>
+            <el-input v-model="ruleForm.qualified_number"></el-input>
           </el-form-item>
         </el-col>
-          <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="进口证号" prop="imported_number">
-            <el-input v-model="ruleForm.imported_number" ></el-input>
+            <el-input v-model="ruleForm.imported_number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="商检号" prop="inspection_number">
-            <el-input v-model="ruleForm.inspection_number" ></el-input>
+            <el-input v-model="ruleForm.inspection_number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="提单号" prop="carry_number">
-            <el-input v-model="ruleForm.carry_number" ></el-input>
+            <el-input v-model="ruleForm.carry_number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="自编号" prop="self_number">
-            <el-input v-model="ruleForm.self_number" ></el-input>
+            <el-input v-model="ruleForm.self_number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="钥匙号" prop="key_number">
-            <el-input v-model="ruleForm.key_number" ></el-input>
+            <el-input v-model="ruleForm.key_number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="行驶里程" prop="mileage">
-            <el-input v-model="ruleForm.mileage" ></el-input>
+            <el-input v-model="ruleForm.mileage"></el-input>
           </el-form-item>
         </el-col>
-         <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="业务员" prop="business">
-            <el-input v-model="ruleForm.business" ></el-input>
+            <el-input v-model="ruleForm.business"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="制单人" prop="single_person">
-            <el-input v-model="ruleForm.single_person" ></el-input>
+            <el-input v-model="ruleForm.single_person"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="购车价格(元)" prop="selling_price">
-            <el-input v-model="ruleForm.selling_price" ></el-input>
+            <el-input v-model="ruleForm.selling_price"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="备注" prop="remark">
-            <el-input v-model="ruleForm.remark" ></el-input>
+            <el-input v-model="ruleForm.remark"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="买车客户id" prop="seling_id">
-            <el-input v-model="ruleForm.seling_id" ></el-input>
+            <el-input v-model="ruleForm.seling_id"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="供应商id" prop="supplier_id">
-            <el-input v-model="ruleForm.supplier_id" ></el-input>
+            <el-input v-model="ruleForm.supplier_id"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="入库编号" prop="vehile_number">
-            <el-input v-model="ruleForm.vehile_number" ></el-input>
+            <el-input v-model="ruleForm.vehile_number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="产地" prop="place">
-            <el-input v-model="ruleForm.place" ></el-input>
+            <el-input v-model="ruleForm.place"></el-input>
           </el-form-item>
         </el-col>
-         <el-col :span="12">
+        <el-col :span="12">
           <el-form-item label="车型代码" prop="vehicle_code">
-            <el-input v-model="ruleForm.vehicle_code" ></el-input>
+            <el-input v-model="ruleForm.vehicle_code" @focus="dialogTableVisible = true"></el-input>
           </el-form-item>
+          <el-dialog title="车型代码" :visible.sync="dialogTableVisible">
+            <el-table v-loading="loading2"
+                      element-loading-text="拼命加载中"
+                      stripe
+                      size="small"
+                      element-loading-spinner="el-icon-loading"
+                      :data="tableData.data"
+                      style="width: 100%">
+              <el-table-column label="车型代码" prop="vehicleCode" show-overflow-tooltip></el-table-column>
+              <el-table-column label="车型" prop="type" show-overflow-tooltip></el-table-column>
+              <el-table-column label="厂牌型号" prop="typeNumber" show-overflow-tooltip></el-table-column>
+              <el-table-column label="地址" prop="address"></el-table-column>
+              <el-table-column align="right">
+                <template slot="header" slot-scope="scope">
+                  <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
+                </template>
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <el-container class="page-box">
+              <div class="block">
+                <el-pagination
+                        @current-change="handleCurrentChange"
+                        layout="total,prev, pager, next, jumper"
+                        :total="tableData.count">
+                </el-pagination>
+              </div>
+            </el-container>
+          </el-dialog>
         </el-col>
         <el-col :span="12">
           <el-form-item label="该车状态">
@@ -163,6 +194,7 @@
       return {
         navActive: '4-1',
         isCollapse: false,
+        dialogTableVisible: false,
         ruleForm: {
           vehicle_type: '',
           brand: '',
@@ -189,7 +221,7 @@
           vehicle_types: ''
         },
         rules: {
-        vehicle_type: [
+          vehicle_type: [
             {required: true, message: '请输入车型', trigger: 'blur'}
           ],
           brand: [
@@ -198,9 +230,6 @@
           type: [
             {required: true, message: '请输入车类', trigger: 'blur'}
           ],
-          /* create_time: [
-            {required: true, message: '请输入创建时间', trigger: 'blur'}
-          ], */
           color: [
             {required: true, message: '请输入车辆颜色', trigger: 'blur'}
           ],
@@ -213,7 +242,13 @@
           qualified_number: [
             {required: true, message: '请填写合格证号', trigger: 'blur'}
           ]
-        }
+        },
+        tableData: {
+          data: [],
+          count: 0
+        },
+        searchVal: '',
+        loading2: true
       }
     },
     methods: {
@@ -268,9 +303,70 @@
         } else {
           return rs[0].split("=")[1];
         }
-      }
+      },
+      handleCurrentChange(val) {
+        this.getTable(val)
+        console.log(val)
+      },
+      search(value) {
+        console.log(this.searchVal)
+        this.getTable(1)
+      },
+      getTable(page) {
+        this.loading2 = true
+        $.ajax({
+          type: 'post',
+          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/selectByCustomer.action',
+          data: {
+            limit: 10,
+            page: page,
+            s: this.searchVal
+          },
+          dataType: 'json',
+          success: (res) => {
+            console.log(res)
+            if (res.code == 1) {
+              if (res.data != 'null') {
+                this.tableData.data = res.data
+              } else {
+                this.tableData.data = []
+                this.$notify.error({
+                  title: '警告',
+                  message: res.msg,
+                  position: 'bottom-right',
+                  offset: 300
+                })
+              }
+              this.tableData.count = res.count
+              this.loading2 = false
+            } else {
+              console.log('aa')
+              this.$notify.error({
+                title: '警告',
+                message: res.msg,
+                position: 'bottom-right',
+                offset: 300
+              })
+            }
+          },
+          error: (res) => {
+            this.$notify.error({
+              title: '警告',
+              message: res.msg,
+              position: 'bottom-right',
+              offset: 300
+            })
+          }
+        })
+      },
+      handlebooking(index, row) {
+        console.log(row);
+        Object.assign(this.ruleForm, row);
+        this.dialogTableVisible = !this.dialogTableVisible
+      },
     },
     created() {
+      this.getTable(1)
       if (this.getHrefParam('id')) {
         $.ajax({
           type: 'post',

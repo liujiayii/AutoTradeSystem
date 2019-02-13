@@ -10,24 +10,25 @@ import java.util.Date;
 *
  */
 public class TBooking {
+	/*订车主键id */
     private Long id;
-
+    /*买车客户id	*/
     private Long buyingId;
-
+    /*车型代码 */	
     private String vehicleCode;
-
+    /*预定数量 */
     private Integer number;
-
+    /*订金 */
     private Long deposit;
-
+    /*订车日期 */
     private Date time;
-
+    /* 业务员*/
     private String business;
-
+    /* 制单让人*/
     private String singlePerson;
-
+    /*备注*/
     private String remark;
-
+    /*创建时间 */
     private Date createTime;
 
     public Long getId() {

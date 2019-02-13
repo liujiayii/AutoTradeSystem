@@ -38,29 +38,29 @@
         <el-col :span="12">
           <el-form-item label="车型代码" prop="vehicleCode">
             <el-input v-model="ruleForm.vehicleCode">
-              <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+              <el-button slot="append" icon="el-icon-search" @click="searchbook"></el-button>
             </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="车型类型" prop="type" :rules="[ { required: true, message: '请输入车型类型', trigger: 'blur' } ]">
-            <el-input v-model="ruleForm.money"></el-input>
+          <el-form-item label="车型类型" prop="type" >
+            <el-input v-model="ruleForm.type" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="产地" prop="addressOne" :rules="[ { required: true, message: '请输入产地', trigger: 'blur' } ]">
-            <el-input v-model="ruleForm.money"></el-input>
+          <el-form-item label="产地" prop="addressOne">
+            <el-input v-model="ruleForm.addressOne" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="厂牌型号" prop="typeNumber"
-                        :rules="[ { required: true, message: '请输入厂牌型号', trigger: 'blur' } ]">
-            <el-input v-model="ruleForm.money"></el-input>
+          <el-form-item label="厂牌型号" prop="typeNumber">
+                       
+            <el-input v-model="ruleForm.typeNumber" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="车辆单价" prop="money" :rules="[ { required: true, message: '请输入车辆单价', trigger: 'blur' } ]">
-            <el-input v-model="ruleForm.money"></el-input>
+          <el-form-item label="车辆单价" prop="money">
+            <el-input v-model="ruleForm.money" readonly></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -236,7 +236,7 @@
 
 
       },
-      search2() {
+      searchbook() {
         $.ajax({
           type: 'post',
           url: '/sellCar/findCarByNumber.action',

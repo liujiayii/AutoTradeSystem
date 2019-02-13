@@ -32,7 +32,6 @@
 		detailed_expenditure = #{detailedExpenditure},
 		department_id = #{departmentId},
 		expenditure_money = #{expenditureMoney},
-		data = #{data},
 		create_time = #{createTime},
 		name = #{name}
 		where id = #{id}

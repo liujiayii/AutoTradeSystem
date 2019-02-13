@@ -54,5 +54,9 @@ public interface VehichileDetailedDao {
 	 * 查询数量
 	 * */
 	Integer selectAllCount();
+	
+	List<VehichileDetailed> hybridSelect(@Param("s") String s, @Param("star") Integer star, @Param("limit") Integer limit);
+
+	Integer hybridSelectCount(String s);
 
 }

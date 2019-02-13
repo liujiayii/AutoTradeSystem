@@ -57,8 +57,9 @@
 		department_id = #{departmentId},
 		income = #{income},
 		income_money =#{incomeMoney},
-		income_detailed = #{incomeDetailed}
-		data = #{data},
+		income_detailed = #{incomeDetailed},
+		 
+		 
 		create_time = #{createTime},
 		name = #{name}
 		where id = #{id}

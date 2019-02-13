@@ -17,77 +17,80 @@ public class VehichileDetailed {
 
     private String vehicleCode;
 
-    private String type;
+    private String vehicle_type;
 
-    private String typeNumber;
+    private String brand;
 
-    private String address;
+    private String place;
 
-    private BigDecimal money;
+    private BigDecimal selling_price;
 
     private Date createTime;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getVehicleCode() {
-        return vehicleCode;
-    }
-
-    public void setVehicleCode(String vehicleCode) {
-        this.vehicleCode = vehicleCode == null ? null : vehicleCode.trim();
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
-
-    public String getTypeNumber() {
-        return typeNumber;
-    }
-
-    public void setTypeNumber(String typeNumber) {
-        this.typeNumber = typeNumber == null ? null : typeNumber.trim();
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }   
-
-    public BigDecimal getMoney() {
-		return money;
+	public Long getId() {
+		return id;
 	}
 
-	public void setMoney(BigDecimal money) {
-		this.money = money;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getVehicleCode() {
+		return vehicleCode;
+	}
+
+	public void setVehicleCode(String vehicleCode) {
+		this.vehicleCode = vehicleCode;
+	}
+
+	public String getVehicle_type() {
+		return vehicle_type;
+	}
+
+	public void setVehicle_type(String vehicle_type) {
+		this.vehicle_type = vehicle_type;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public BigDecimal getSelling_price() {
+		return selling_price;
+	}
+
+	public void setSelling_price(BigDecimal selling_price) {
+		this.selling_price = selling_price;
 	}
 
 	public Date getCreateTime() {
-        return createTime;
-    }
+		return createTime;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 	@Override
 	public String toString() {
-		return "VehichileDetailed [id=" + id + ", vehicleCode=" + vehicleCode + ", type=" + type + ", typeNumber="
-				+ typeNumber + ", address=" + address + ", money=" + money + ", createTime=" + createTime + "]";
+		return "VehichileDetailed [id=" + id + ", vehicleCode=" + vehicleCode + ", vehicle_type=" + vehicle_type
+				+ ", brand=" + brand + ", place=" + place + ", selling_price=" + selling_price + ", createTime="
+				+ createTime + "]";
 	}
+
+   
     
     
 }

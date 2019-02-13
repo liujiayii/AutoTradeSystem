@@ -32,10 +32,44 @@
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
         </template>
+        <template slot-scope="scope">
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </el-container>
 </el-card>
+<el-dialog title="编辑" :visible.sync="dialogFormVisible">
+  <el-form :model="ruleForm" label-width="100px">
+    <el-form-item prop="departmentId" label="部门" :rules="[ { required: true, message: '请选择部门', trigger: 'blur' } ]">
+      <el-select v-model="ruleForm.departmentId" placeholder="请选择部门">
+        <el-option v-for="item in branchData" :label="item.department" :value="item.department"
+                   :key="item.id"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item prop="name" label="姓名" :rules="[ { required: true, message: '请输入姓名', trigger: 'blur' } ]">
+      <el-input v-model="ruleForm.name"></el-input>
+    </el-form-item>
+    <el-form-item label="项目名称" :rules="[ { required: true, message: '请输入项目', trigger: 'blur' } ]">
+      <el-input v-model="ruleForm.income"></el-input>
+    </el-form-item>
+    <el-form-item label="金额"
+                  :rules="[ { required: true, message: '请输入金额', trigger: 'blur' } ]">
+      <el-input v-model="ruleForm.incomeMoney"></el-input>
+    </el-form-item>
+    <el-form-item label="摘要" :rules="[ { required: true, message: '请输入摘要', trigger: 'blur' } ]">
+      <el-input type="textarea" v-model="ruleForm.incomeDetailed"></el-input>
+    </el-form-item>
+    <el-form-item label="日期">
+      <el-date-picker v-model="ruleForm.data" type="date" value-format="timestamp" placeholder="选择日期">
+      </el-date-picker>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @click="submit">确 定</el-button>
+  </div>
+</el-dialog>
 <el-container class="page-box">
   <div class="block">
     <el-pagination
@@ -45,7 +79,6 @@
     </el-pagination>
   </div>
 </el-container>
-
 </el-main>
 <el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
 </el-container>
@@ -64,10 +97,12 @@
           data: [],
           count: 0
         },
+        ruleForm: {},
+        dialogFormVisible: false,
         searchVal: '',
         loading2: true,
-        branch:'财务部',
-        branchData:[]
+        branch: '财务部',
+        branchData: []
       }
     },
     methods: {
@@ -137,7 +172,7 @@
           }
         })
       },
-      getBranch(){
+      getBranch() {
         $.ajax({
           type: 'post',
           url: '/department/selectAll.action',
@@ -148,9 +183,9 @@
           dataType: 'json',
           success: (res) => {
             console.log(res)
-            if(res.code == 1){
+            if (res.code == 1) {
               this.branchData = res.data
-            }else {
+            } else {
               this.$notify.error({
                 title: '警告',
                 message: res.msg,
@@ -169,13 +204,49 @@
           }
         })
       },
-      change(val){
+      change(val) {
         this.getTable(1)
         this.$notify({
           title: '成功',
           message: val,
           type: 'success'
         });
+      },
+      handleEdit(index, row) {
+        console.log(index, row);
+        this.ruleForm = row
+        this.dialogFormVisible = !this.dialogFormVisible
+      },
+      submit(){
+        $.ajax({
+          type: 'post',
+          url: '/Incom/updateById.action',
+          data: JSON.stringify(this.ruleForm),
+          contentType: 'application/json; charset=UTF-8',
+          dataType: 'json',
+          success: (res) => {
+            console.log(res)
+            if (res.code == 1) {
+              this.dialogFormVisible = false
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+                type: 'success'
+              })
+            } else {
+              this.$alert(res.msg, '提示', {
+                type: 'error',
+                confirmButtonText: '确定'
+              });
+            }
+          },
+          error: (res) => {
+            console.log(res)
+            this.$alert(res.msg, '提示', {
+              type: 'error',
+              confirmButtonText: '确定'
+            });
+          }
+        })
       }
     },
     mounted() {

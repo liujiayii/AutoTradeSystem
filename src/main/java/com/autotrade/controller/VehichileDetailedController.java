@@ -77,9 +77,56 @@ public class VehichileDetailedController {
 	@RequestMapping("selectAll")
 	@ResponseBody
 	public String selectAll(Integer page,Integer limit){
-		
 		return vehichileDetailedService.selectAll(page,limit);
 	}
+	/**
+	 * 
+	*
+	 * @Title: selectAll
+	
+	 * @description 
+	*
+	 * @param @param page
+	 * @param @param limit
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月13日
+	 */
+	@RequestMapping("selectById")
+	@ResponseBody
+	public String selectById(Long id){
+		
+		return vehichileDetailedService.selectById(id);
+	}
+	/**
+	 * 
+	*
+	 * @Title: hybridSelect
+	
+	 * @description 
+	*
+	 * @param @param s
+	 * @param @param page
+	 * @param @param limit
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月13日
+	 */
+	@RequestMapping("hybridSelect")
+	@ResponseBody
+	public String hybridSelect(String s, Integer page, Integer limit){
+		
+		return vehichileDetailedService.hybridSelect(s,page,limit);
+	}
+	
 	/**
 	 * 
 	*

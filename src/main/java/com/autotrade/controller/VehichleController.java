@@ -142,10 +142,12 @@ public class VehichleController {
 	}
 	
 	@RequestMapping("selectAll")
+	@ResponseBody
 	public String selectAll (Integer page,Integer limit) {		
 		Integer star =(page - 1) * limit;
 		return vehichleService.selectAll(star,limit);
 
-	}	
+	}
+	
 	
 }

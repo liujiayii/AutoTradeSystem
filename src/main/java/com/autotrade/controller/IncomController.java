@@ -1,6 +1,7 @@
 package com.autotrade.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,7 +86,7 @@ public class IncomController {
 	 */
 	@RequestMapping("updateById")
 	@ResponseBody
-	public String updateById(Income income) {
+	public String updateById(@RequestBody Income income) {
 		String reulst = incomeService.updateById(income);
 		return reulst;
 
@@ -185,6 +186,7 @@ public class IncomController {
 	@RequestMapping("hybridSelect")
 	@ResponseBody
 	public String hybridSelect(String department_id, String s, Integer page, Integer limit) {
+		
 		return incomeService.hybridSelect(department_id,s,page,limit);
 
 	}

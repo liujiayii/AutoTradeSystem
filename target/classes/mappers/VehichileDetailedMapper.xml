@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="com.autotrade.entity.VehichileDetailed" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="vehicle_code" property="vehicleCode" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="VARCHAR" />
-    <result column="type_number" property="typeNumber" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="type" property="vehicle_type" jdbcType="VARCHAR" />
+    <result column="type_number" property="brand" jdbcType="VARCHAR" />
+    <result column="address" property="place" jdbcType="VARCHAR" />
+    <result column="money" property="selling_price" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -29,8 +29,8 @@
     insert into t_vehichile_detailed (id, vehicle_code, type, 
       type_number, address, money, 
       create_time)
-    values (#{id}, #{vehicleCode}, #{type}, 
-      #{typeNumber}, #{address}, #{money}, 
+    values (#{id}, #{vehicleCode}, #{vehicle_type}, 
+      #{brand}, #{place}, #{selling_price}, 
       #{createTime})
   </insert>
 
@@ -62,10 +62,10 @@
   <update id="updateByPrimaryKey" parameterType="com.autotrade.entity.VehichileDetailed" >
     update t_vehichile_detailed
     set vehicle_code = #{vehicleCode},
-      type = #{type},
-      type_number = #{typeNumber},
-      address = #{address},
-      money = #{money},
+      type = #{vehicle_type},
+      type_number = #{brand},
+      address = #{place},
+      money = #{selling_price},
       create_time = #{createTime}
     where id = #{id}
   </update>
@@ -84,7 +84,29 @@
   </select>
    <select id="selectAllCount" resultType="java.lang.Integer">
   SELECT 
-  COUNT (*)
+    COUNT(*)
   FROM t_vehichile_detailed
+  </select>
+  
+   <!-- 混合查询 -->
+  <select id="hybridSelect" resultMap="BaseResultMap">
+    select 
+    *
+    from t_vehichile_detailed
+    where vehicle_code LIKE CONCAT('%',#{s},'%')
+    or type  LIKE CONCAT('%',#{s},'%')
+    or type_number  LIKE CONCAT('%',#{s},'%')  
+    or address  LIKE CONCAT('%',#{s},'%')  
+    limit #{star},#{limit}
+  </select>
+  <!-- 信息数量 -->
+  <select id="hybridSelectCount" resultType="java.lang.Integer">
+    select 
+    COUNT(*)
+    from t_vehichile_detailed
+    where vehicle_code LIKE CONCAT('%',#{s},'%')
+    or type  LIKE CONCAT('%',#{s},'%')
+    or type_number  LIKE CONCAT('%',#{s},'%')  
+    or address  LIKE CONCAT('%',#{s},'%')  
   </select>
 </mapper>
