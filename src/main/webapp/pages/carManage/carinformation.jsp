@@ -21,6 +21,7 @@
       <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
       <el-table-column label="厂牌型号" prop="brand" show-overflow-tooltip></el-table-column>
       <el-table-column label="地址" prop="place"></el-table-column>
+        <el-table-column label="单价" prop="selling_price" ></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -94,7 +95,7 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/selectByCustomer.action',
+          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/VehichileDetailed/hybridSelect.action',
           data: {
             limit: 10,
             page: page,

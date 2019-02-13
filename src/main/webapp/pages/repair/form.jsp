@@ -329,7 +329,7 @@
       },
       handleEdit(index, row) {
         console.log(index, row);
-        this.activeName = 'third'
+        window.location.href='formEdit.jsp'
       },
       handleCurrentChange(val) {
         this.getTable(val)

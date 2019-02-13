@@ -37,13 +37,42 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="车型代码" prop="vehicleCode">
-            <el-input v-model="ruleForm.vehicleCode">
-              <el-button slot="append" icon="el-icon-search" @click="searchbook"></el-button>
-            </el-input>
+            <el-input v-model="ruleForm.vehicleCode" placeholder="点我" @focus="dialogTableVisible = true"></el-input>
           </el-form-item>
+          <el-dialog title="车型代码" :visible.sync="dialogTableVisible">
+            <el-table v-loading="loading2"
+                      element-loading-text="拼命加载中"
+                      stripe
+                      size="small"
+                      element-loading-spinner="el-icon-loading"
+                      :data="tableData.data"
+                      style="width: 100%">
+              <el-table-column label="车型代码" prop="vehicleCode" show-overflow-tooltip></el-table-column>
+              <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
+              <el-table-column label="厂牌型号" prop="brand" show-overflow-tooltip></el-table-column>
+              <el-table-column label="地址" prop="place"></el-table-column>
+              <el-table-column align="right">
+                <template slot="header" slot-scope="scope">
+                  <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
+                </template>
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <el-container class="page-box">
+              <div class="block">
+                <el-pagination
+                        @current-change="handleCurrentChange"
+                        layout="total,prev, pager, next, jumper"
+                        :total="tableData.count">
+                </el-pagination>
+              </div>
+            </el-container>
+          </el-dialog>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="车型类型" prop="type" >
+          <el-form-item label="车型类型" prop="type">
             <el-input v-model="ruleForm.type" readonly></el-input>
           </el-form-item>
         </el-col>
@@ -54,7 +83,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="厂牌型号" prop="typeNumber">
-                       
+
             <el-input v-model="ruleForm.typeNumber" readonly></el-input>
           </el-form-item>
         </el-col>
@@ -119,6 +148,7 @@
       return {
         navActive: '3-1',
         isCollapse: false,
+        dialogTableVisible: false,
         ruleForm: {
           name: '',
           address: '',
@@ -149,10 +179,20 @@
           mileage: '',
           selling_price: ''
         },
-        rules: {}
+        rules: {},
+        loading2: true,
+        tableData: {
+          data: [],
+          count: 0
+        },
+        searchVal: ''
       }
     },
     methods: {
+      handleCurrentChange(val) {
+        this.getTable(val)
+        console.log(val)
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -271,9 +311,62 @@
         })
 
 
-      }
+      },
+      getTable(page) {
+        this.loading2 = true
+        $.ajax({
+          type: 'post',
+          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/VehichileDetailed/hybridSelect.action',
+          data: {
+            limit: 10,
+            page: page,
+            s: this.searchVal
+          },
+          dataType: 'json',
+          success: (res) => {
+            console.log(res)
+            if (res.code == 1) {
+              if (res.data != 'null') {
+                Object.assign(this.tableData.data, res.data)
+              } else {
+                this.tableData.data = []
+                this.$notify.error({
+                  title: '警告',
+                  message: res.msg,
+                  position: 'bottom-right',
+                  offset: 300
+                })
+              }
+              this.tableData.count = res.count
+              this.loading2 = false
+            } else {
+              console.log('aa')
+              this.$notify.error({
+                title: '警告',
+                message: res.msg,
+                position: 'bottom-right',
+                offset: 300
+              })
+            }
+          },
+          error: (res) => {
+            this.$notify.error({
+              title: '警告',
+              message: res.msg,
+              position: 'bottom-right',
+              offset: 300
+            })
+          }
+        })
+      },
+      handlebooking(index, row) {
+        console.log(row);
+        Object.assign(this.ruleForm, row);
+        this.dialogTableVisible = !this.dialogTableVisible
+      },
     },
     created() {
+      this.getTable(1)
       if (this.getHrefParam('id')) {
         $.ajax({
           type: 'post',

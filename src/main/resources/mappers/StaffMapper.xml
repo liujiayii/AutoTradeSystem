@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.StaffDao">
+	<resultMap id="BaseResultMap" type="com.autotrade.entity.Staff">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="post_id" property="postId" jdbcType="INTEGER" />
+		<result column="department_id" property="departmentId"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="BaseResultMap2" type="com.autotrade.entityVo.StaffVo">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="post" property="postId" jdbcType="VARCHAR" />
+		<result column="department" property="departmentId"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, name, phone, address, post_id, department_id
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_staff
+		where id = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    SELECT s.id,s.name,s.phone,s.address,d.department ,p.post
+	FROM t_staff AS s 
+	INNER JOIN t_department AS d 
+	INNER JOIN t_post AS p
+	WHERE s.department_id = d.id = p.id And s.id =#{id}
+	</delete>
+
+	<insert id="insert" parameterType="com.autotrade.entity.Staff">
+		insert into t_staff (id, name, phone,
+		address, post_id, department_id
+		)
+		values (#{id}, #{name}, #{phone},
+		#{address}, #{postId}, #{departmentId}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.autotrade.entity.Staff">
+		update t_staff
+		set name = #{name},
+		phone = #{phone},
+		address = #{address},
+		post_id = #{postId},
+		department_id = #{departmentId}
+		where id = #{id}
+	</update>
+
+	<select id="selectAll" resultMap="BaseResultMap2">
+	SELECT s.id,s.name,s.phone,s.address,d.department ,p.post
+	FROM t_staff AS s 
+	INNER JOIN t_department AS d 
+	INNER JOIN t_post AS p
+	WHERE s.department_id = d.id = p.id LIMIT #{star},#{limit}
+	</select>
+
+	<select id="selectAllCount" resultType="java.lang.Integer">
+	SELECT COUNT(*) 
+	FROM t_staff AS s 
+	INNER JOIN t_department AS d 
+	INNER JOIN t_post AS p
+	WHERE s.department_id = d.id = p.id
+	</select>
+	
+	 <!-- 混合查询 -->
+  <select id="hybridSelect" resultMap="BaseResultMap2">
+    SELECT s.id,s.name,s.phone,s.address,d.department ,p.post
+	FROM t_staff AS s 
+	INNER JOIN t_department AS d 
+	INNER JOIN t_post AS p
+	WHERE s.department_id = d.id = p.id And s.name LIKE CONCAT('%',#{s},'%')
+	OR s.department_id = d.id = p.id And s.phone  LIKE CONCAT('%',#{s},'%') 
+  </select>
+  <!-- 信息数量 -->
+  <select id="hybridSelectCount" resultType="java.lang.Integer">
+    select 
+    COUNT(*)
+    from t_staff
+    where name LIKE CONCAT('%',#{s},'%')
+    or phone  LIKE CONCAT('%',#{s},'%')  
+  </select>
+
+</mapper>

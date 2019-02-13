@@ -6,36 +6,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.autotrade.entity.VehichileDetailed;
-import com.autotrade.service.VehichileDetailedService;
+import com.autotrade.entity.Staff;
+import com.autotrade.service.StaffService;
 
+/**
+ * 
+ *
+ * @ClassName: StaffController
+
+ * @description 员工控制器
+ *
+ * @author lishaozhang
+ * @createDate 2019年2月13日
+ */
 @Controller
-@RequestMapping("VehichileDetailed")
-public class VehichileDetailedController {
-	
+@RequestMapping("staff")
+public class StaffController {
 	@Autowired
-	private VehichileDetailedService vehichileDetailedService;
+	private StaffService staffService;
 	/**
 	 * 
 	*
 	 * @Title: insert
 	
-	 * @description 添加车型码信息
+	 * @description 添加用户
 	*
-	 * @param @param vehic
+	 * @param @param staff
 	 * @param @return 
 	   
 	 * @return String    
 	
 	 *
 	 * @author lishaozhang
-	 * @createDate 2019年2月12日
+	 * @createDate 2019年2月13日
 	 */
 	@RequestMapping("insert")
 	@ResponseBody
-	public String insert(@RequestBody VehichileDetailed vehic){
+	public String insert(@RequestBody Staff staff){
 		
-		return vehichileDetailedService.insert(vehic);
+		return staffService.insert(staff);
 	}
 	/**
 	 * 
@@ -51,13 +60,13 @@ public class VehichileDetailedController {
 	
 	 *
 	 * @author lishaozhang
-	 * @createDate 2019年2月12日
+	 * @createDate 2019年2月13日
 	 */
 	@RequestMapping("delete")
 	@ResponseBody
 	public String deleteByPrimaryKey(Long id ){
 		
-		return vehichileDetailedService.deleteByPrimaryKey(id);
+		return staffService.deleteByPrimaryKey(id);
 	}
 	/**
 	 * 
@@ -73,12 +82,12 @@ public class VehichileDetailedController {
 	
 	 *
 	 * @author lishaozhang
-	 * @createDate 2019年2月12日
+	 * @createDate 2019年2月13日
 	 */
 	@RequestMapping("selectAll")
 	@ResponseBody
 	public String selectAll(Integer page,Integer limit){
-		return vehichileDetailedService.selectAll(page,limit);
+		return staffService.selectAll(page,limit);
 	}
 	/**
 	 * 
@@ -101,7 +110,7 @@ public class VehichileDetailedController {
 	@ResponseBody
 	public String selectById(Long id){
 		
-		return vehichileDetailedService.selectById(id);
+		return staffService.selectById(id);
 	}
 	/**
 	 * 
@@ -125,7 +134,7 @@ public class VehichileDetailedController {
 	@ResponseBody
 	public String hybridSelect(String s, Integer page, Integer limit){
 		
-		return vehichileDetailedService.hybridSelect(s,page,limit);
+		return staffService.hybridSelect(s,page,limit);
 	}
 	
 	/**
@@ -135,19 +144,19 @@ public class VehichileDetailedController {
 	
 	 * @description 修改
 	*
-	 * @param @param vehic
+	 * @param @param staff
 	 * @param @return 
 	   
 	 * @return String    
 	
 	 *
 	 * @author lishaozhang
-	 * @createDate 2019年2月12日
+	 * @createDate 2019年2月13日
 	 */
 	@RequestMapping("update")
 	@ResponseBody
-	public String update(@RequestBody VehichileDetailed vehic){
+	public String update(@RequestBody Staff staff){
 		
-		return vehichileDetailedService.update(vehic);
+		return staffService.update(staff);
 	}
 }

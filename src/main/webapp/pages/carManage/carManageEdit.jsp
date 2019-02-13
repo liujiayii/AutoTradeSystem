@@ -12,8 +12,50 @@
       <el-form-item label="车辆信息"></el-form-item>
       <el-row>
         <el-col :span="12">
+          <el-form-item label="车型代码" prop="vehicleCode">
+            <el-input v-model="ruleForm.vehicleCode" placeholder="点我" @focus="dialogTableVisible = true"></el-input>
+          </el-form-item>
+          <el-dialog title="车型代码" :visible.sync="dialogTableVisible">
+            <el-table v-loading="loading2"
+                      element-loading-text="拼命加载中"
+                      stripe
+                      size="small"
+                      element-loading-spinner="el-icon-loading"
+                      :data="tableData.data"
+                      style="width: 100%">
+              <el-table-column label="车型代码" prop="vehicleCode" show-overflow-tooltip></el-table-column>
+              <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
+              <el-table-column label="厂牌型号" prop="brand" show-overflow-tooltip></el-table-column>
+              <el-table-column label="地址" prop="place"></el-table-column>
+              <el-table-column align="right">
+                <template slot="header" slot-scope="scope">
+                  <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
+                </template>
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <el-container class="page-box">
+              <div class="block">
+                <el-pagination
+                        @current-change="handleCurrentChange"
+                        layout="total,prev, pager, next, jumper"
+                        :total="tableData.count">
+                </el-pagination>
+              </div>
+            </el-container>
+          </el-dialog>
+        </el-col>
+        <el-col :span="12">
           <el-form-item label="车型" prop="vehicle_type">
             <el-input v-model="ruleForm.vehicle_type"></el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="购车价格(元)" prop="selling_price">
+            <el-input v-model="ruleForm.selling_price"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -37,11 +79,6 @@
         <el-col :span="12">
           <el-form-item label="车牌颜色" prop="color">
             <el-input v-model="ruleForm.color"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="进店时间" prop="create_time">
-            <el-input v-model="ruleForm.create_time" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -100,23 +137,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="购车价格(元)" prop="selling_price">
-            <el-input v-model="ruleForm.selling_price"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
           <el-form-item label="备注" prop="remark">
             <el-input v-model="ruleForm.remark"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="买车客户id" prop="seling_id">
-            <el-input v-model="ruleForm.seling_id"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="供应商id" prop="supplier_id">
-            <el-input v-model="ruleForm.supplier_id"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -127,50 +149,6 @@
         <el-col :span="12">
           <el-form-item label="产地" prop="place">
             <el-input v-model="ruleForm.place"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="车型代码" prop="vehicle_code">
-            <el-input v-model="ruleForm.vehicle_code" @focus="dialogTableVisible = true"></el-input>
-          </el-form-item>
-          <el-dialog title="车型代码" :visible.sync="dialogTableVisible">
-            <el-table v-loading="loading2"
-                      element-loading-text="拼命加载中"
-                      stripe
-                      size="small"
-                      element-loading-spinner="el-icon-loading"
-                      :data="tableData.data"
-                      style="width: 100%">
-              <el-table-column label="车型代码" prop="vehicleCode" show-overflow-tooltip></el-table-column>
-              <el-table-column label="车型" prop="type" show-overflow-tooltip></el-table-column>
-              <el-table-column label="厂牌型号" prop="typeNumber" show-overflow-tooltip></el-table-column>
-              <el-table-column label="地址" prop="address"></el-table-column>
-              <el-table-column align="right">
-                <template slot="header" slot-scope="scope">
-                  <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
-                </template>
-                <template slot-scope="scope">
-                  <el-button size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
-            <el-container class="page-box">
-              <div class="block">
-                <el-pagination
-                        @current-change="handleCurrentChange"
-                        layout="total,prev, pager, next, jumper"
-                        :total="tableData.count">
-                </el-pagination>
-              </div>
-            </el-container>
-          </el-dialog>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="该车状态">
-            <el-select v-model="ruleForm.vehicle_types" placeholder="请选择车辆状态 ">
-              <el-option label="未出售" :value="0"></el-option>
-              <el-option label="已出售" :value="1"></el-option>
-            </el-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -316,7 +294,7 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/selectByCustomer.action',
+          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/VehichileDetailed/hybridSelect.action',
           data: {
             limit: 10,
             page: page,

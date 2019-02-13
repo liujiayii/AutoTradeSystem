@@ -68,7 +68,7 @@
     methods: {
       //时间格式化
       dateFormat: function (row, column) {
-        let date = new Date(row.create_time);
+        let date = new Date(row.time);
         let y = date.getFullYear();
         let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
         let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
@@ -80,7 +80,7 @@
       },
       handleEdit(index, row) {
         console.log(index, row);
-        window.location.href = 'carSalesEdit.jsp?id=' + row.c_id
+        window.location.href = 'bookingEdit.jsp?id=' + row.c_id
       },
       handleCurrentChange(val) {
         this.getTable(val)

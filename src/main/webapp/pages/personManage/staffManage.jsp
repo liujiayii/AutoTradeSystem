@@ -20,8 +20,8 @@
       <el-table-column label="姓名" prop="name" show-overflow-tooltip></el-table-column>
       <el-table-column label="电话" prop="phone" show-overflow-tooltip></el-table-column>
       <el-table-column label="地址" prop="address" show-overflow-tooltip></el-table-column>
-      <el-table-column label="部门" prop="vehicle_type" show-overflow-tooltip></el-table-column>
-      <el-table-column label="职位" prop="brand" show-overflow-tooltip></el-table-column>
+      <el-table-column label="部门" prop="postId" show-overflow-tooltip></el-table-column>
+      <el-table-column label="职位" prop="departmentId" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -90,7 +90,7 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/selectAllSellingCustomer.action' : '/selectByCustomer.action',
+          url: this.searchVal.length == 0 ? '/staff/selectAll.action' : '/staff/hybridSelect.action',
           data: {
             limit: 10,
             page: page,

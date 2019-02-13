@@ -6,39 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.autotrade.dao.VehichileDetailedDao;
-import com.autotrade.entity.VehichileDetailed;
-import com.autotrade.service.VehichileDetailedService;
+import com.autotrade.dao.StaffDao;
+import com.autotrade.entity.Staff;
+import com.autotrade.entityVo.StaffVo;
+import com.autotrade.service.StaffService;
 import com.autotrade.utils.JsonUtil;
-
 /**
  * 
  *
- * @ClassName: VehichileDetailedServiceImpl
- * 
- * @description shixian
+ * @ClassName: StaffServiceImpl
+
+ * @description 员工实现层
  *
  * @author lishaozhang
- * @createDate 2019年2月12日
+ * @createDate 2019年2月13日
  */
 @Service
-public class VehichileDetailedServiceImpl implements VehichileDetailedService {
-
+public class StaffServiceImpl implements StaffService{
+	
 	@Autowired
-	private VehichileDetailedDao vehichileDetailedDao;
+	private StaffDao staffDao;
 
 	@Override
-	public String insert(VehichileDetailed vehic) {
-		System.out.println("vehic"+vehic);
-		
+	public String insert(Staff staff) {
 		try {
-
-			Integer in = vehichileDetailedDao.selectByVehicle_codeCount(vehic.getVehicleCode());
-			if (in >= 1) {
-				return JsonUtil.getResponseJson(1, "该类型代码已经存在", null, null);
-			}
-
-			int insert = vehichileDetailedDao.insert(vehic);
+			int insert = staffDao.insert(staff);
 			if (insert >= 1) {
 				return JsonUtil.getResponseJson(1, "添加成功", null, null);
 			} else {
@@ -57,7 +49,7 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 	public String deleteByPrimaryKey(Long id) {
 		try {
 
-			int deleteByPrimaryKey = vehichileDetailedDao.deleteByPrimaryKey(id);
+			int deleteByPrimaryKey = staffDao.deleteByPrimaryKey(id);
 
 			if (deleteByPrimaryKey >= 1) {
 
@@ -79,10 +71,10 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 		
 
 			Integer star = (page - 1) * limit;
-			List<VehichileDetailed> list = vehichileDetailedDao.selectAll(star, limit);
-			Integer count = vehichileDetailedDao.selectAllCount();
+			List<StaffVo> list = staffDao.selectAll(star, limit);
+			Integer count = staffDao.selectAllCount();
 			if (list.size() <= 0) {
-				return JsonUtil.getResponseJson(1, "暂无信息", null, null);
+				return JsonUtil.getResponseJson(1, "查询成功", count, list);
 			} else {
 				return JsonUtil.getResponseJson(1, "暂无信息", count, list);
 			}
@@ -91,12 +83,12 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 	}
 
 	@Override
-	public String update(VehichileDetailed record) {
+	public String update(Staff staff) {
 		try {
 
-			int deleteByPrimaryKey = vehichileDetailedDao.updateByPrimaryKey(record);
+			int result = staffDao.updateByPrimaryKey(staff);
 
-			if (deleteByPrimaryKey >= 1) {
+			if (result >= 1) {
 
 				return JsonUtil.getResponseJson(1, "修改成功", null, null);
 
@@ -114,7 +106,7 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 	public String selectById(Long id) {
 		try {
 
-			VehichileDetailed reualt = vehichileDetailedDao.selectByPrimaryKey(id);
+			StaffVo reualt = staffDao.selectByPrimaryKey(id);
 
 			if (null != reualt || !"".equals(reualt)) {
 
@@ -134,12 +126,11 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 	public String hybridSelect(String s, Integer page, Integer limit) {
 		try {
 			Integer star = (page - 1) * limit;
-			List<VehichileDetailed> list = vehichileDetailedDao.hybridSelect(s, star, limit);
-			Integer count = vehichileDetailedDao.hybridSelectCount(s);
+			List<StaffVo> list = staffDao.hybridSelect(s, star, limit);
+			Integer count = staffDao.hybridSelectCount(s);
 			return JsonUtil.getResponseJson(1, "查询成功", count, list);
 		} catch (Exception e) {
 			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
 	}
-
 }

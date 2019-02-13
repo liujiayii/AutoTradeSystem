@@ -9,32 +9,37 @@
   <el-container class="main" style="width: 736px">
     <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
       <el-input v-model="ruleForm.id"></el-input>
+
       <el-row>
         <el-col :span="12">
-          <el-form-item label="车型代码" prop="vehicle_type">
-            <el-input v-model="ruleForm.vehicle_type"></el-input>
+          <el-form-item label="车型代码" prop="vehicleCode">
+            <el-input v-model="ruleForm.vehicleCode"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="类型" prop="brand">
+          <el-form-item label="类型" prop="vehicle_type">
+            <el-input v-model="ruleForm.vehicle_type"></el-input>
+          </el-form-item>
+        </el-col>
+
+
+        <el-col :span="12">
+          <el-form-item label="厂牌型号" prop="brand">
             <el-input v-model="ruleForm.brand"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="厂牌型号" prop="color">
-            <el-input v-model="ruleForm.color"></el-input>
+          <el-form-item label="产地" prop="place">
+            <el-input v-model="ruleForm.place" ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="产地" prop="create_time">
-            <el-input v-model="ruleForm.create_time" readonly></el-input>
+          <el-col :span="12">
+          <el-form-item label="价格" prop="selling_price">
+            <el-input v-model="ruleForm.selling_price" ></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="价格" prop="chassis_number">
-            <el-input v-model="ruleForm.chassis_number"></el-input>
-          </el-form-item>
-        </el-col>
+
+
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
@@ -57,55 +62,33 @@
         navActive: '4-2',
         isCollapse: false,
         ruleForm: {
-          vehicle_type: '',
-          brand: '',
-          type: '',
-          create_time: '',
-          color: '',
-          chassis_number: '',
-          engine_number: '',
-          qualified_number: '',
-          imported_number: '',
-          inspection_number: '',
-          carry_number: '',
-          self_number: '',
-          key_number: '',
-          mileage: '',
-          business: '',
-          single_person: '',
-          selling_price: '',
-          remark: '',
-          seling_id: '',
-          vehile_number: '',
-          place: '',
-          vehicle_code: '',
-          vehicle_types: ''
+        vehicleCode: '',
+        vehicle_type: '',
+        brand: '',
+        place: '',
+        selling_price: ''
+
         },
         rules: {
+        	vehicleCode: [
+            {required: true, message: '请输入车型代码', trigger: 'blur'}
+          ],
           vehicle_type: [
             {required: true, message: '请输入车型', trigger: 'blur'}
           ],
           brand: [
-            {required: true, message: '请输入车牌', trigger: 'blur'}
-          ],
-          type: [
-            {required: true, message: '请输入车类', trigger: 'blur'}
+            {required: true, message: '请输入厂牌型号', trigger: 'blur'}
           ],
           /* create_time: [
             {required: true, message: '请输入创建时间', trigger: 'blur'}
           ], */
-          color: [
-            {required: true, message: '请输入车辆颜色', trigger: 'blur'}
+          place: [
+            {required: true, message: '请输入产地', trigger: 'blur'}
           ],
-          chassis_number: [
-            {required: true, message: '请输入底盘号', trigger: 'blur'}
-          ],
-          engine_number: [
-            {required: true, message: '请输入发动机号', trigger: 'blur'}
-          ],
-          qualified_number: [
-            {required: true, message: '请填写合格证号', trigger: 'blur'}
+          selling_price: [
+            {required: true, message: '请输入价格', trigger: 'blur'}
           ]
+
         }
       }
     },
@@ -113,10 +96,9 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(this.ruleForm)
             $.ajax({
               type: 'post',
-              url: this.ruleForm.id ? '/updateSellingCustomerById.action' : '/Vehichle/insert.action',
+              url: this.ruleForm.id ? '/VehichileDetailed/update.action' : '/VehichileDetailed/insert.action',
               data: JSON.stringify(this.ruleForm),
               contentType: 'application/json; charset=UTF-8',
               dataType: 'json',
@@ -127,7 +109,7 @@
                     confirmButtonText: '确定',
                     type: 'success',
                     callback: action => {
-                      window.location.href = "carManage.jsp"
+                      window.location.href = "carinformation.jsp"
                     }
                   });
                 } else {
@@ -167,7 +149,7 @@
       if (this.getHrefParam('id')) {
         $.ajax({
           type: 'post',
-          url: '/selectSellingCustomerById.action',
+          url: '/VehichileDetailed/selectById.action',
           data: {id: this.getHrefParam('id')},
 
           dataType: 'json',
