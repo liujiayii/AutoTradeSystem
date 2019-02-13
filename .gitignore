@@ -1,4 +1,5 @@
-/.svn/*
-/.settings/*
-/target/*
+.svn/*
+.settings/*
+target/*
 .idea/
+logs/
