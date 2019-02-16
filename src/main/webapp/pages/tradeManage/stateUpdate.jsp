@@ -48,11 +48,12 @@
           <el-button v-if="scope.row.beOverdue!=1" size="mini" @click="updateStateRow(scope.$index, scope.row)">编辑
           </el-button>
           <el-dialog title="" :visible.sync="dialogFormVisible" width="400px">
-            <el-form :model="ruleForm">
+            <el-form :model="row">
               <el-form-item label="分期状态" label-width="120px">
-                <el-select v-model="ruleForm.beOverdue" placeholder="请选择分期状态">
-                  <el-option label="已还款" value="1"></el-option>
-                  <el-option label="已逾期" value="2"></el-option>
+                <el-select v-model="row.beOverdue" placeholder="请选择分期状态">
+                  <el-option label="还款中" :value="0" disabled></el-option>
+                  <el-option label="已还款" :value="1"></el-option>
+                  <el-option label="已逾期" :value="2"></el-option>
                 </el-select>
               </el-form-item>
             </el-form>
@@ -103,14 +104,6 @@
       format(row, column) {
         return row.beOverdue === 0 ? '还款中' : row.beOverdue === 1 ? '已还款' : '逾期'
       },
-      //时间格式化
-      dateFormat(row, column) {
-        let date = new Date(row.repaymentDate);
-        let y = date.getFullYear();
-        let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return y + "-" + m + "-" + d;
-      },
       handleCurrentChange(val) {
         this.getTable(val)
         console.log(val)
@@ -122,6 +115,7 @@
         this.row = row
       },
       updateState() {
+        console.log(this.row)
         console.log(this.ruleForm.beOverdue)
         $.ajax({
           type: 'post',

@@ -19,7 +19,7 @@
     el: '#app',
     data() {
       return {
-        navActive: '1-2'
+        navActive: '1'
       }
     }
   })

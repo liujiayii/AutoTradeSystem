@@ -10,11 +10,9 @@ body {
 }
 
 .logo {
-    height: 60px;
     line-height: 60px;
     text-align: center;
     color: #fff;
-    font-size: 20px;
 }
 
 .ico {
@@ -97,5 +95,3 @@ table {
 .access .checkbox-group { /*权限*/
     padding-top: 4px;
 }
-
-

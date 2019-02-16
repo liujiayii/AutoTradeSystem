@@ -23,7 +23,7 @@
       <el-table-column label="地址" prop="address" show-overflow-tooltip></el-table-column>
       <el-table-column label="车型" prop="vehicleType" show-overflow-tooltip></el-table-column>
       <el-table-column label="意向车型" prop="brands" show-overflow-tooltip></el-table-column>
-      <el-table-column label="创建时间" prop="date" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
+      <el-table-column label="创建时间" prop="create_time" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -69,14 +69,6 @@
       }
     },
     methods: {
-      //时间格式化
-      dateFormat: function (row, column) {
-        let date = new Date(row.create_time);
-        let y = date.getFullYear();
-        let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return y + "-" + m + "-" + d;
-      },
       search(value) {
         console.log(this.searchVal)
         this.getTable(1)

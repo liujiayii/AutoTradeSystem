@@ -312,14 +312,6 @@
       handleClick(tab, event) {
         console.log(tab, event);
       },
-      //时间格式化
-      dateFormat(row, column) {
-        let date = new Date(row.create_time);
-        let y = date.getFullYear();
-        let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return y + "-" + m + "-" + d;
-      },
       search(value) {
         console.log(this.searchVal)
         this.getTable(1)

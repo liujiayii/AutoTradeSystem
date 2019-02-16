@@ -105,15 +105,6 @@
       }
     },
     methods: {
-      //时间格式化
-      dateFormat: function (row, column) {
-        console.log(column)
-        let date =  column.property == 'data' ? new Date(row.data) : new Date(row.createTime)
-        let y = date.getFullYear();
-        let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return y + "-" + m + "-" + d;
-      },
       search(value) {
         console.log(this.searchVal)
         this.getTable(1)

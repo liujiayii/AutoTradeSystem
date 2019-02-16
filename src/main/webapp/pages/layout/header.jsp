@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>喔驰后台管理系统</title>
-  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <link href="https://cdn.bootcss.com/element-ui/2.5.3/theme-chalk/index.css" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/page.css">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.6.4/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/element-ui/2.5.3/index.js"></script>
   <script src="/static/js/utils.js"></script>
 </head>
 <body>

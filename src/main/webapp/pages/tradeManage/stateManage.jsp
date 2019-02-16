@@ -22,7 +22,7 @@
       <el-table-column label="地址" prop="buyingCustomer.address" show-overflow-tooltip></el-table-column>
       <el-table-column label="总期数" prop="totalPeriod" show-overflow-tooltip></el-table-column>
       <el-table-column label="每期还款金额" prop="monthlySupply" show-overflow-tooltip></el-table-column>
-      <el-table-column label="状态" prop="monthlySupply" show-overflow-tooltip></el-table-column>
+      <el-table-column label="状态" prop="type" :formatter="typeFormat" show-overflow-tooltip></el-table-column>
       <el-table-column label="创建时间" prop="createTime" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
@@ -64,22 +64,18 @@
           data: [],
           count: 0
         },
+        dialogFormVisible: false,
         searchVal: '',
         loading2: true
       }
     },
     methods: {
-      //时间格式化
-      dateFormat: function (row, column) {
-        let date = new Date(row.createTime);
-        let y = date.getFullYear();
-        let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return y + "-" + m + "-" + d;
-      },
       search(value) {
         console.log(this.searchVal)
         this.getTable(1)
+      },
+      typeFormat(row, column, cellValue, index) {
+        return cellValue == 0 ? '还款中' : cellValue == 1 ? '已还款' : '已逾期'
       },
       handleEdit(index, row) {
         console.log(index, row);

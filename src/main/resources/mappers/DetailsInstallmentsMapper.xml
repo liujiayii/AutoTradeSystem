@@ -130,7 +130,7 @@
   	from t_details_installments di
   	inner join t_by_stages bs on di.buying_id=bs.buying_id
   	where bs.buying_id=(select buying_id from t_by_stages where id=#{id})
-  	order by di.create_time desc 
+  	order by di.now_stage desc 
   	<if test="page != null and size != null">
   		limit #{page},#{size}
   	</if>
