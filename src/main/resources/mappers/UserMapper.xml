@@ -6,14 +6,14 @@
 	
 	
 	<sql id="Base_Column_List">
-		id,p_id,name,post,phone,username,password,create_time,update_time,status,key_word,address_id
+		id,p_id as pId,name,post,phone,username as userName,password as passWord, create_time as createTime,update_time as updatTime,status,key_word  as keyWord,address
 	</sql>
 	
 	<!-- 根据用户名查询用户 -->
 	<!-- User findUserByUserName(String username) -->
 	<select id="findUserByUserName" resultType="com.autotrade.entity.User">
 		select 
-			*
+			<include refid="Base_Column_List"/>
 		from 
 		 	t_user 
 		where 
@@ -37,7 +37,7 @@
 				password,
 				status,
 				key_word,
-				address_id,
+				address,
 				create_time,
 				update_time
 			)values(
@@ -50,7 +50,7 @@
 				#{passWord},
 				#{status},
 				#{keyWord},
-				#{addressId},
+				#{address},
 				#{createTime},
 				#{updateTime}
 			)
@@ -59,7 +59,7 @@
 
 	<!-- 通过id修改用户信息  -->
 	<!-- Integer updateUserById(Long id,User user) -->
-	<update id="updateUserById" >
+	<update id="updateUserById"  parameterType="com.autotrade.entity.User">
 		update 
 			t_user
 		<set>
@@ -116,5 +116,31 @@
 		from 
 			t_user	
 	</select>
-
+	
+	
+	
+	
+	<!-- 根据用户id查询信息 -->
+	<!-- User findbyId(Long id) -->
+	<select id="findbyId" resultType="com.autotrade.entity.User">
+		
+		select
+			<include refid="Base_Column_List"/>
+		from
+			t_user
+		where
+			id=#{id}	
+	</select>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

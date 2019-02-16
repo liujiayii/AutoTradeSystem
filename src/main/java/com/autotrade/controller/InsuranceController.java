@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -247,6 +248,7 @@ public class InsuranceController {
 	 * @createDate 2019年2月11日-下午5:00:53
 	 */
 	@RequestMapping("/insertInsurance")
+	@Transactional
 	public String insertInsurance(@RequestBody Map<String, Object> map) {
 		int code = 1;
 		String msg = "添加成功";

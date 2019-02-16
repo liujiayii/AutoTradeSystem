@@ -1,5 +1,6 @@
 package com.autotrade.entity;
 
+import java.util.Date;
 
 /**
  * @ClassName: SubCustomer
@@ -36,6 +37,16 @@ public class SubCustomer {
 	private String intention;
 	/** 客户预算 */
 	private String budget;
+	/** 创建时间 */
+	private Date create_time;
+	
+	
+	public Date getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -127,8 +138,9 @@ public class SubCustomer {
 				+ ", vehicleType=" + vehicleType + ", brand=" + brand + ", service_life=" + service_life
 				+ ", kilometres=" + kilometres + ", maintenance_record=" + maintenance_record + ", major_accidents="
 				+ major_accidents + ", offer=" + offer + ", brands=" + brands + ", intention=" + intention + ", budget="
-				+ budget + "]";
+				+ budget + ", create_time=" + create_time + "]";
 	}
+	
 	
 	
 }

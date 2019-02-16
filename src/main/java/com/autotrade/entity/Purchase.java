@@ -23,7 +23,13 @@ public class Purchase {
     private BigDecimal purchaseMoney;
     /**时间*/
     private Date createTime;
-
+    /** 类型 */
+    private String type;
+    /** 制单人 */
+    private String singName;
+    /** 备注 */
+    private String remark;
+    
     public Long getId() {
         return id;
     }
@@ -64,10 +70,36 @@ public class Purchase {
         this.createTime = createTime;
     }
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSingName() {
+		return singName;
+	}
+
+	public void setSingName(String singName) {
+		this.singName = singName;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchase [id=" + id + ", name=" + name + ", purchase=" + purchase + ", purchaseMoney=" + purchaseMoney
-				+ ", createTime=" + createTime + "]";
+				+ ", createTime=" + createTime + ", type=" + type + ", singName=" + singName + ", remark=" + remark
+				+ "]";
 	}
+
     
 }

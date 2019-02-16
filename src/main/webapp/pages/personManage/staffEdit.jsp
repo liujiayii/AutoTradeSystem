@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">员工管理</div>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
-    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
       <el-input v-model="ruleForm.id"></el-input>
       <el-row>
         <el-col :span="12">
@@ -26,13 +26,19 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="职位" prop="postId">
-            <el-input v-model="ruleForm.postId"></el-input>
+          <el-form-item label="职位" prop="p_id">
+            <el-select v-model="ruleForm.p_id" placeholder="请选择职位">
+              <el-option label="总经理" :value="2000"></el-option>
+              <el-option label="销售主管" :value="2001"></el-option>
+              <el-option label="财务主管" :value="2002"></el-option>
+              <el-option label="维修主管" :value="2003"></el-option>
+              <el-option label="采购" :value="2004"></el-option>
+              <el-option label="金融主管" :value="2005"></el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item prop="departmentId" label="部门"
-                        :rules="[ { required: true, message: '请选择部门', trigger: 'blur' } ]">
+          <el-form-item prop="departmentId" label="部门">
             <el-select v-model="ruleForm.departmentId" placeholder="请选择部门">
               <el-option v-for="item in branchData" :label="item.department" :value="item.id"
                          :key="item.id"></el-option>
@@ -42,12 +48,13 @@
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -56,10 +63,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '7-1',
-        isCollapse: false,
         ruleForm: {
           name: '',
           phone: '',
@@ -71,17 +78,6 @@
       }
     },
     methods: {
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
-      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">车辆管理</div>
@@ -17,9 +17,11 @@
               element-loading-spinner="el-icon-loading"
               :data="tableData.data"
               style="width: 100%">
-      <el-table-column label="创建时间" prop="name" show-overflow-tooltip></el-table-column>
-      <el-table-column label="车型" prop="phone" show-overflow-tooltip></el-table-column>
-      <el-table-column label="车牌号" prop="address" show-overflow-tooltip></el-table-column>
+     <!--  <el-table-column label="创建时间" prop="name" show-overflow-tooltip></el-table-column> -->
+      <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
+      <el-table-column label="车牌" prop="brand" show-overflow-tooltip></el-table-column>
+      <el-table-column label="进价（元）" prop="selling_price" show-overflow-tooltip></el-table-column>
+      <el-table-column label="颜色" prop="color" show-overflow-tooltip></el-table-column>
       <el-table-column label="进店时间" prop="create_time" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
@@ -41,9 +43,8 @@
     </el-pagination>
   </div>
 </el-container>
-
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -52,10 +53,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '4-1',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0
@@ -89,7 +90,7 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/selectAllSellingCustomer.action' : '/selectByCustomer.action',
+          url: this.searchVal.length == 0 ? '/Vehichle/selectAll.action' : '/Vehichle/hybridSelect.action',
           data: {
             limit: 10,
             page: page,

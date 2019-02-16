@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">车辆置换</div>
@@ -83,12 +83,13 @@
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -97,10 +98,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '1-3',
-        isCollapse: false,
         ruleForm: {
           name: '',
           phone: '',
@@ -169,7 +170,7 @@
                     confirmButtonText: '确定',
                     type: 'success',
                     callback: action => {
-                      window.location.href = "carResources.jsp"
+                      window.location.href = "replaceCar.jsp"
                     }
                   });
                 } else {
@@ -192,17 +193,6 @@
             return false;
           }
         })
-      },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
       }
     },
     created() {

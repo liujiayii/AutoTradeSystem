@@ -13,18 +13,19 @@ import java.util.Date;
  * @createDate 2019年2月11日
  */
 public class VehichileDetailed {
+	/*主键id*/
     private Long id;
-
+   /*车型代码*/
     private String vehicleCode;
-
+   /*车辆类型*/
     private String vehicle_type;
-
+   /*厂牌型号*/
     private String brand;
-
+   /*产地*/
     private String place;
-
+   /*价格*/
     private BigDecimal selling_price;
-
+   /*创建时间*/
     private Date createTime;
 
 	public Long getId() {

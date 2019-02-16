@@ -28,6 +28,8 @@ public class ByStages {
     private BigDecimal loanAmount;
     /** 买车客户信息表 */
     private BuyingCustomer buyingCustomer;
+    /** 状态（0，还款中，1，已还，2，逾期， 默认0） */
+    private Integer type;
 
     public Long getId() {
         return id;
@@ -85,11 +87,20 @@ public class ByStages {
 		this.loanAmount = loanAmount;
 	}
 
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "ByStages [id=" + id + ", buyingId=" + buyingId + ", totalPeriod=" + totalPeriod + ", monthlySupply="
 				+ monthlySupply + ", createTime=" + createTime + ", loanAmount=" + loanAmount + ", buyingCustomer="
-				+ buyingCustomer + "]";
+				+ buyingCustomer + ", type=" + type + "]";
 	}
+
 
 }

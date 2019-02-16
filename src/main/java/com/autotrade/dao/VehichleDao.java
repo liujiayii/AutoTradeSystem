@@ -2,6 +2,7 @@ package com.autotrade.dao;
 
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.autotrade.entity.Vehichle;
@@ -50,5 +51,22 @@ public interface VehichleDao {
      * 查询所有数据数量
      * */
     Integer selectAllCount();
+    /**
+     * 多属性模糊查询
+     * **/
+    /*分页查询所有车辆信息*/
+    
+    List<Vehichle> hybridSelect(@Param("s") String s, @Param("star") Integer star, @Param("limit") Integer limit);
+
+
+    /*
+     * 多属性模糊查询数量
+     * **/
+
+	Integer hybridSelectCount(String s);
+	/**
+	 * 查询某个属性值的数量
+	 * **/
+	Integer selectByProperty(@Param("value")String value);
     
 }

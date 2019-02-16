@@ -179,7 +179,8 @@ public class SellingCustomerController {
 	 */
 	@RequestMapping("/insertAllSellingCustomer")
 	@ResponseBody
-	public String insertAll(SellingCustomer sc) {
+	public String insertAll(@RequestBody SellingCustomer sc) {
+		System.out.println("sc"+sc);
 		String str = null;
 		sc.setCreate_time(new Date());
 		sc.setUpdate_time(new Date());

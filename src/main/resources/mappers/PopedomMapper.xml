@@ -9,7 +9,7 @@
 	<!-- List<Popedom> findPopedomByUserId(Long id); -->
 	<select id="findPopedomByUserId" resultType="com.autotrade.entity.Popedom">
 		select
-			p.*
+			p.id as id,p.p_id as pId,p.popedom_name as popedomName,p.popedom_url as popedomUrl,p.create_time as createTime, p.update_time as updateTime
 		from t_user u 
 			 join t_user_popedom up on u.id = up.user_id
 			 join t_popedom p on up.p_id = p.p_id
@@ -56,17 +56,24 @@
 	</select>
 	
 	
-	<!-- 根据电话号码分页查询用户信息 -->
-	<!-- List<User> findUserByPhone(@Param("phones")String phones, @Param("page")Integer page, @Param("limit")Integer limit) -->
+	<!-- 根据关键字分页查询用户信息 -->
+	<!-- List<User> findUserByPhone(@Param("key")String key, @Param("page")Integer page, @Param("limit")Integer limit) -->
 	<select id="findUserByPhone" resultType="com.autotrade.entity.User">
-		select * from t_user where phone like #{phones} limit #{page},#{limit}
+		select 
+			* 
+		from 
+			t_user 
+			
+		where 
+			phone like #{key} or address like#{key} or  name like #{key} or post like #{key}
+		 limit #{page},#{limit}
 	</select>
 	
 	
-	<!-- 查询符合电话号码条件的用户条数 -->
+	<!-- 查询符合关键字条件的用户条数 -->
 	<!-- Integer findPhoneCount(String phones) -->
-	<select id="findPhoneCount">
-		select count(*) from t_user where phone like #{phones}
+	<select id="findPhoneCount" resultType="java.lang.Integer">
+		select count(*) from t_user where phone like #{key} or address like#{key} or  name like #{key} or post like #{key}
 	</select>
 </mapper>
 

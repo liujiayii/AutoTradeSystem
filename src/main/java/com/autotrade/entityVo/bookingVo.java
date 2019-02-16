@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class bookingVo {
+	/*主键id*/
+	private long id;
+	/*客户id*/
+	private long buyingId;
 	
 	/*姓名*/
 	private String name;
@@ -14,13 +18,13 @@ public class bookingVo {
 	/*车型代码*/
 	private String vehicleCode;
 	 /*类型*/
-	private String type ;
+	private String vehicle_type ;
 	  /*厂牌型号*/
-	private String typeNumber;
+	private String brand;
 	  /*产地*/
-	private String addressOne;
+	private String place;
 	  /*价格*/
-	private String money ;
+	private String selling_price ;
 	/*数量*/
 	private Integer number;
    /*订金*/
@@ -33,6 +37,28 @@ public class bookingVo {
     private String singlePerson;
    /*备注*/
     private String remark;
+  /*创建时间*/
+    private Date create_time;
+    
+
+	public long getBuyingId() {
+		return buyingId;
+	}
+	public void setBuyingId(long buyingId) {
+		this.buyingId = buyingId;
+	}
+	public Date getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(Date create_time) {
+		this.create_time = create_time;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -57,29 +83,29 @@ public class bookingVo {
 	public void setVehicleCode(String vehicleCode) {
 		this.vehicleCode = vehicleCode;
 	}
-	public String getType() {
-		return type;
+	public String getVehicle_type() {
+		return vehicle_type;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setVehicle_type(String vehicle_type) {
+		this.vehicle_type = vehicle_type;
 	}
-	public String getTypeNumber() {
-		return typeNumber;
+	public String getBrand() {
+		return brand;
 	}
-	public void setTypeNumber(String typeNumber) {
-		this.typeNumber = typeNumber;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
-	public String getAddressOne() {
-		return addressOne;
+	public String getPlace() {
+		return place;
 	}
-	public void setAddressOne(String addressOne) {
-		this.addressOne = addressOne;
+	public void setPlace(String place) {
+		this.place = place;
 	}
-	public String getMoney() {
-		return money;
+	public String getSelling_price() {
+		return selling_price;
 	}
-	public void setMoney(String money) {
-		this.money = money;
+	public void setSelling_price(String selling_price) {
+		this.selling_price = selling_price;
 	}
 	public Integer getNumber() {
 		return number;
@@ -87,7 +113,6 @@ public class bookingVo {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	
 	public BigDecimal getDeposit() {
 		return deposit;
 	}
@@ -120,11 +145,14 @@ public class bookingVo {
 	}
 	@Override
 	public String toString() {
-		return "bookingVo [name=" + name + ", phone=" + phone + ", address=" + address + ", vehicleCode=" + vehicleCode
-				+ ", type=" + type + ", typeNumber=" + typeNumber + ", addressOne=" + addressOne + ", money=" + money
-				+ ", number=" + number + ", deposit=" + deposit + ", time=" + time + ", business=" + business
-				+ ", singlePerson=" + singlePerson + ", remark=" + remark + "]";
+		return "bookingVo [id=" + id + ", buyingId=" + buyingId + ", name=" + name + ", phone=" + phone + ", address="
+				+ address + ", vehicleCode=" + vehicleCode + ", vehicle_type=" + vehicle_type + ", brand=" + brand
+				+ ", place=" + place + ", selling_price=" + selling_price + ", number=" + number + ", deposit="
+				+ deposit + ", time=" + time + ", business=" + business + ", singlePerson=" + singlePerson + ", remark="
+				+ remark + ", create_time=" + create_time + "]";
 	}
-
-
+	
+	
+	
+   
 }

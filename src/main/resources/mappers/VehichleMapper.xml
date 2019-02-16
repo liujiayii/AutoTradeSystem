@@ -41,28 +41,28 @@
 	<!-- 修改 -->
 	<update id="updateByPrimaryKey" parameterType="com.autotrade.entity.Vehichle">
 		update t_vehichle
-		set vehicle_type = #{vehicleType},
+		set vehicle_type = #{vehicle_type},
 		brand = #{brand},
 		type = #{type},
-		create_time = #{createTime}
-		color = #{color}
-		chassis_number = #{chassis_number}
-		engine_number = #{engine_number}
-		qualified_number = #{qualified_number}
-		imported_number = #{imported_number}
-		inspection_number = #{inspection_number}
-		carry_number = #{carry_number}
-		self_number = #{self_number}
-		key_number = #{key_number}
-		mileage = #{mileage}
-		business = #{business}
-		single_person = #{single_person}
-		selling_price = #{selling_price}
-		remark = #{remark}
-		seling_id = #{seling_id}
-		supplier_id = #{supplier_id}
-		vehile_number = #{vehile_number}
-		place = #{place}
+		create_time = #{create_time},
+		color = #{color},
+		chassis_number = #{chassis_number},
+		engine_number = #{engine_number},
+		qualified_number = #{qualified_number},
+		imported_number = #{imported_number},
+		inspection_number = #{inspection_number},
+		carry_number = #{carry_number},
+		self_number = #{self_number},
+		key_number = #{key_number},
+		mileage = #{mileage},
+		business = #{business},
+		single_person = #{single_person},
+		selling_price = #{selling_price},
+		remark = #{remark},
+		seling_id = #{seling_id},
+		supplier_id = #{supplier_id},
+		vehile_number = #{vehile_number},
+		place = #{place},
 		vehicle_code = #{vehicle_code}
 		where id = #{id}
 	</update>
@@ -80,8 +80,9 @@
 	<select id="selectAll" resultType="com.autotrade.entity.Vehichle">
 		select
 		*
-		from t_vehichle limit
-		#{star},#{limit}
+		from t_vehichle
+		where vehicle_types = 0
+		limit #{star},#{limit}	
 	</select>
 	<!-- 所有数据的数量 -->
 	<select id="selectAllCount" resultType="java.lang.Integer">
@@ -89,8 +90,63 @@
 		COUNT(*)
 		from
 		t_vehichle
+		where vehicle_types = 0
 	</select>
 
+ <!-- 混合查询 -->
+  <select id="hybridSelect" resultType="com.autotrade.entity.Vehichle">
+    select 
+    *
+    from t_vehichle
+    where vehicle_type LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or brand  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or color  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0 
+    or carry_number  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or business  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or single_person  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or place  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or vehicle_code  LIKE CONCAT('%',#{s},'%')  and vehicle_types = 0
+    or  selling_price  LIKE CONCAT('%',#{s},'%')  and vehicle_types = 0
+    
+    limit #{star},#{limit}
+  </select>
+  <!-- 信息数量 -->
+  <select id="hybridSelectCount" resultType="java.lang.Integer">
+    select 
+    COUNT(*)
+    from t_vehichle
+    where vehicle_type LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or brand  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or color  LIKE CONCAT('%',#{s},'%')  and vehicle_types = 0
+    or carry_number  LIKE CONCAT('%',#{s},'%')  and vehicle_types = 0
+    or business  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or single_person  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or place  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or vehicle_code  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+    or  selling_price  LIKE CONCAT('%',#{s},'%') and vehicle_types = 0
+  </select>
+  
+  <!-- 查询入库编号数量 -->
+  <select id="selectByProperty" resultType="java.lang.Integer">
+   select 
+    COUNT(*)
+    from t_vehichle
+    where vehile_number = #{value}  
+  </select>
 
 
+  <!-- 查询某个属性为某个具体指的数据的数量升级版 -->
+  <select id="selectByPropertyer" parameterType="com.autotrade.entity.Vehichle" resultType="java.lang.Integer">
+   select 
+    COUNT(*)
+    from t_vehichle
+   <where>
+    <if test="qualified_number != null">
+     qualified_number = #{qualified_number} OR
+    </if> 
+    <if test="qualified_number != null">
+     or where vehile_number = #{vehile_number}  
+    </if>
+  </where>
+  </select>
 </mapper>

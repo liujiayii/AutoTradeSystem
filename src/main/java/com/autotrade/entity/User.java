@@ -53,7 +53,7 @@ public class User implements Serializable{
 	/**
 	 * 所在公司地址id
 	 */
-	private Long addressId;
+	private String address;
 	/**
 	 * 创建时间
 	 */
@@ -80,7 +80,6 @@ public class User implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	public String getPost() {
 		return post;
 	}
@@ -117,11 +116,11 @@ public class User implements Serializable{
 	public void setKeyWord(String keyWord) {
 		this.keyWord = keyWord;
 	}
-	public Long getAddressId() {
-		return addressId;
+	public String getAddress() {
+		return address;
 	}
-	public void setAddressId(Long addressId) {
-		this.addressId = addressId;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public Date getCreateTime() {
 		return createTime;
@@ -139,7 +138,6 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [id=" + id + ", pId=" + pId + ", name=" + name + ", post=" + post + ", phone=" + phone
 				+ ", userName=" + userName + ", passWord=" + passWord + ", status=" + status + ", keyWord=" + keyWord
-				+ ", addressId=" + addressId + ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+				+ ", address=" + address + ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
 	}
-	
 }

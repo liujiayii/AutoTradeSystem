@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">分期管理</div>
@@ -45,7 +45,22 @@
       <el-table-column label="还款状态" prop="beOverdue" :formatter="format" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button v-if="scope.row.beOverdue!=1" size="mini" @click="updateStateRow(scope.$index, scope.row)">编辑
+          </el-button>
+          <el-dialog title="" :visible.sync="dialogFormVisible" width="400px">
+            <el-form :model="ruleForm">
+              <el-form-item label="分期状态" label-width="120px">
+                <el-select v-model="ruleForm.beOverdue" placeholder="请选择分期状态">
+                  <el-option label="已还款" value="1"></el-option>
+                  <el-option label="已逾期" value="2"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form>
+            <div class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+              <el-button type="primary" @click="updateState(scope.$index, scope.row)">确 定</el-button>
+            </div>
+          </el-dialog>
         </template>
       </el-table-column>
     </el-table>
@@ -61,7 +76,7 @@
   </div>
 </el-container>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -70,47 +85,80 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '2-3',
-        isCollapse: false,
         ruleForm: {},
         tableData: {
           data: [],
           count: 0
         },
-        loading2: true
+        loading2: true,
+        dialogFormVisible: false,
+        row: {}
       }
     },
     methods: {
-      format: function (row, column) {
+      format(row, column) {
         return row.beOverdue === 0 ? '还款中' : row.beOverdue === 1 ? '已还款' : '逾期'
       },
       //时间格式化
-      dateFormat: function (row, column) {
+      dateFormat(row, column) {
         let date = new Date(row.repaymentDate);
         let y = date.getFullYear();
         let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
         let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
         return y + "-" + m + "-" + d;
       },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
-      },
       handleCurrentChange(val) {
         this.getTable(val)
         console.log(val)
       },
-      handleEdit(index, row) {
-        console.log(index, row);
+      updateStateRow(index, row) {
+        this.dialogFormVisible = true
+        console.log(row)
+        console.log(index)
+        this.row = row
+      },
+      updateState() {
+        console.log(this.ruleForm.beOverdue)
+        $.ajax({
+          type: 'post',
+          url: '/byStages/updateDetailsInstallments.action',
+          contentType: "application/json",
+          data: JSON.stringify(this.row),
+          dataType: 'json',
+          success: (res) => {
+            this.dialogFormVisible = false
+            window.location.reload()
+            if (res.code == 1) {
+              this.$notify({
+                title: '成功',
+                message: res.msg,
+                type: 'success',
+                position: 'bottom-right',
+                offset: 300
+              });
+            } else {
+              console.log('aa')
+              this.$notify.error({
+                title: '警告',
+                message: res.msg,
+                position: 'bottom-right',
+                offset: 300
+              })
+            }
+          },
+          error: (res) => {
+            this.$notify.error({
+              title: '警告',
+              message: res.msg,
+              position: 'bottom-right',
+              offset: 300
+            })
+          }
+        })
       },
       getTable(page) {
         this.loading2 = true

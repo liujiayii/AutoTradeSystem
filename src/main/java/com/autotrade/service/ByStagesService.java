@@ -158,5 +158,22 @@ public interface ByStagesService {
      */
     String selectBySearchField(Map<String, Object> map);
     
+    /**
+     * 通过指定条件查询
+     *
+     * @Title: selectBySelective
+    
+     * @description 
+     *
+     * @return
+     * @throws Exception 
+       
+     * List<ByStages>
+     *
+     * @author lujinpeng
+     * @createDate 2019年2月15日-下午5:23:16
+     */
+    List<ByStages> selectBySelective(ByStages byStages) throws Exception;
+    
     
 }

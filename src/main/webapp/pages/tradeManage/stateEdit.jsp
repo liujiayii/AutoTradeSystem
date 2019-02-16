@@ -1,24 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">分期管理</div>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
-    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
       <el-input v-model="ruleForm.id"></el-input>
       <el-form-item label="客户信息"></el-form-item>
       <el-row>
         <el-col :span="12">
           <el-form-item label="姓名" prop="name">
             <el-input v-model="ruleForm.name"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="性别" prop="phone">
-            <el-input v-model="ruleForm.phone"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -31,49 +26,39 @@
             <el-input v-model="ruleForm.address"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="邮箱" prop="phone">
-            <el-input v-model="ruleForm.phone"></el-input>
-          </el-form-item>
-        </el-col>
       </el-row>
       <el-form-item label="车辆信息"></el-form-item>
       <el-row>
-        <!-- <el-col :span="12">
-            <el-form-item label="车牌号" prop="vehicle_type">
-                <el-input v-model="ruleForm.vehicle_type"></el-input>
-            </el-form-item>
-        </el-col> -->
         <el-col :span="12">
-          <el-form-item label="贷款金额" prop="brand">
+          <el-form-item label="贷款金额">
             <el-input v-model="carForm.byStages.loanAmount" @input="count"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="贷款期限" prop="totalPeriod">
-            <el-input v-model="carForm.byStages.totalPeriod" @input="count"></el-input>
+          <el-form-item label="贷款期限">
+            <el-input v-model="carForm.byStages.totalPeriod" @input="count" ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="还款日" prop="repaymentDate">
-            <!-- <el-input v-model="carForm.repaymentDate" ></el-input> -->
+          <el-form-item label="还款日">
             <el-date-picker type="date" v-model="carForm.repaymentDate" style="width: 100%;"></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="每期还款" prop="monthlySupply">
+          <el-form-item label="每期还款">
             <el-input v-model="carForm.byStages.monthlySupply"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -82,10 +67,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '2-3',
-        isCollapse: false,
         ruleForm: {
           name: '',
           phone: '',
@@ -98,33 +83,6 @@
             monthlySupply: ''
           },
           repaymentDate: ''
-
-        },
-        rules: {
-          name: [
-            {required: true, message: '请输入姓名', trigger: 'blur'}
-          ],
-          phone: [
-            {required: true, message: '请输入电话', trigger: 'blur'}
-          ],
-          address: [
-            {required: true, message: '请输入地址', trigger: 'blur'}
-          ],
-          vehicle_type: [
-            {required: true, message: '请输入车型', trigger: 'blur'}
-          ],
-          brand: [
-            {required: true, message: '请输入品牌', trigger: 'blur'}
-          ],
-          service_life: [
-            {required: true, message: '请输入使用年限', trigger: 'blur'}
-          ],
-          kilometres: [
-            {required: true, message: '请输入公里数', trigger: 'blur'}
-          ],
-          offer: [
-            {required: true, message: '请填写粗略报价', trigger: 'blur'}
-          ]
         }
       }
     },
@@ -177,17 +135,6 @@
             return false;
           }
         })
-      },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
       }
     },
     created() {

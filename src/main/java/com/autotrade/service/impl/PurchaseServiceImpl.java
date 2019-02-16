@@ -1,5 +1,8 @@
 package com.autotrade.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -28,8 +31,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public int deleteById(Long id) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return purchaseDao.deleteById(id);
 	}
 
 	/**
@@ -37,8 +40,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public int insertAll(Purchase purchase) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return purchaseDao.insertAll(purchase);
 	}
 
 	/**
@@ -46,8 +49,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public int insertSelective(Purchase purchase) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return purchaseDao.insertSelective(purchase);
 	}
 
 	/**
@@ -55,8 +58,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public Purchase selectById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return purchaseDao.selectById(id);
 	}
 
 	/**
@@ -64,8 +67,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public int updateByIdSelective(Purchase purchase) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return purchaseDao.updateByIdSelective(purchase);
 	}
 
 	/**
@@ -73,8 +76,53 @@ public class PurchaseServiceImpl implements PurchaseService {
 	 */
 	@Override
 	public int updateAllById(Purchase purchase) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return purchaseDao.updateAllById(purchase);
+	}
+
+	/**
+	 * 查询采购表信息
+	 */
+	@Override
+	public List<Purchase> selectAllPurchase(Map<String, Object> map) throws Exception {
+		
+		return purchaseDao.selectAllPurchase(map);
+	}
+
+	/**
+	 * 查询总条数
+	 */
+	@Override
+	public int getCount(Map<String, Object> map) throws Exception {
+		
+		return purchaseDao.getCount(map);
+	}
+
+	/**
+	 * 根据指定条件查询
+	 */
+	@Override
+	public List<Purchase> selectBySelective(Map<String, Object> map) throws Exception {
+
+		return purchaseDao.selectBySelective(map);
+	}
+
+	/**
+	 * 通过关键字模糊查询字段数据中包含关键字的数据
+	 */
+	@Override
+	public List<Purchase> searchByLike(Map<String, Object> map) throws Exception {
+		
+		return purchaseDao.searchByLike(map);
+	}
+
+	/**
+	 * 通过关键字模糊查询字段数据中包含关键字的数据总条数
+	 */
+	@Override
+	public int getCountByLike(Map<String, Object> map) throws Exception {
+
+		return purchaseDao.getCountByLike(map);
 	}
 	
 	

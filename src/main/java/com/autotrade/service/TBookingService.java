@@ -14,7 +14,7 @@ public interface TBookingService {
 
 	 String insert(TBooking record);
 
-	    int insertSelective(TBooking record);
+	    int insertSelective(bookingVo record);
 
 	   
 
@@ -24,9 +24,13 @@ public interface TBookingService {
 	    
 	   
 
-	    int updateByPrimaryKeySelective(TBooking record);
+	    String updateByPrimaryKeySelective(TBooking record);
 	    
 	   
-
-	    int updateByPrimaryKey(TBooking record);
+	    String selectAllbookbyId(long c_id);
+	    String updateByPrimaryKey(TBooking record);
+	    
+	    /*模糊查询*/
+	    String selectAllbyfield( String s,  Integer star, Integer limit);
+		
 }

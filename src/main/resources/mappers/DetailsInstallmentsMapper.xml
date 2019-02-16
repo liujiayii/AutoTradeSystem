@@ -119,13 +119,14 @@
 	    <result column="monthly_supply" jdbcType="DECIMAL" property="monthlySupply" />
 	    <result column="bs_create_time" jdbcType="TIMESTAMP" property="createTime" />
 	    <result column="loan_amount" jdbcType="DECIMAL" property="loanAmount" />
+	    <result column="type" jdbcType="INTEGER" property="type" />
   	</association>
   </resultMap>
   <select id="selectDetailsInstallments" resultMap="selectDetailsInstallments">
   	select 
   		di.id, di.buying_id, di.now_stage, di.repayment_date, di.be_overdue, di.create_time,
   		bs.id as bs_id, bs.buying_id, bs.total_period, bs.monthly_supply, bs.create_time as bs_create_time,
-  		bs.loan_amount
+  		bs.loan_amount, bs.type
   	from t_details_installments di
   	inner join t_by_stages bs on di.buying_id=bs.buying_id
   	where bs.buying_id=(select buying_id from t_by_stages where id=#{id})

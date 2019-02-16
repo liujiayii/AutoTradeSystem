@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">订车管理</div>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
-    <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px">
       <el-input v-model="ruleForm.id" type="hidden"></el-input>
       <el-input v-model="ruleForm.c_id" type="hidden"></el-input>
       <el-input v-model="ruleForm.v_id" type="hidden"></el-input>
@@ -20,10 +20,9 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)">
+            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入电话进行搜索">
               <el-button v-if="!Boolean(ruleForm.c_id)" slot="append" icon="el-icon-search" @click="search"></el-button>
             </el-input>
-            <!--<el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>-->
           </el-form-item>
         </el-col>
       </el-row>
@@ -33,7 +32,7 @@
       <el-form-item label="购买信息"></el-form-item>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="付款方式" :rules="[ { required: true, message: '请输入付款方式', trigger: 'blur' } ]">
+          <el-form-item label="付款方式">
             <el-select v-model="ruleForm.type" placeholder="请选择付款方式">
               <el-option label="全款" :value="1"></el-option>
               <el-option label="分期" :value="2"></el-option>
@@ -41,32 +40,29 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="成交价" prop="money" :rules="[ { required: true, message: '请输入成交价', trigger: 'blur' } ]">
+          <el-form-item label="成交价" prop="money">
             <el-input v-model="ruleForm.money"></el-input>
           </el-form-item>
         </el-col>
         <template v-if="this.ruleForm.type==2">
           <el-col :span="12">
-            <el-form-item label="首付款" prop="first_payment"
-                          :rules="[ { required: true, message: '请输入首付款', trigger: 'blur' } ]">
+            <el-form-item label="首付款" prop="first_payment">
               <el-input v-model="ruleForm.first_payment"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="分期月数" prop="monthly_number"
-                          :rules="[ { required: true, message: '请输入分期月数', trigger: 'blur' } ]">
+            <el-form-item label="分期月数" prop="monthly_number">
               <el-input v-model="ruleForm.monthly_number"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="月供" prop="monthly_supply"
-                          :rules="[ { required: true, message: '请输入月供', trigger: 'blur' } ]">
+            <el-form-item label="月供" prop="monthly_supply">
               <el-input v-model="ruleForm.monthly_supply"></el-input>
             </el-form-item>
           </el-col>
         </template>
         <el-col :span="12">
-          <el-form-item label="保险地址" :rules="[ { required: true, message: '请选择保险地址', trigger: 'blur' } ]">
+          <el-form-item label="保险地址">
             <el-select v-model="ruleForm.insurance" placeholder="请选择保险地址">
               <el-option label="本店" :value="1"></el-option>
               <el-option label="外部" :value="2"></el-option>
@@ -75,18 +71,17 @@
         </el-col>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="制单人" prop="single_person"
-                        :rules="[ { required: true, message: '请输入制单人', trigger: 'blur' } ]">
+          <el-form-item label="制单人" prop="single_person">
             <el-input v-model="ruleForm.single_person" :readonly="Boolean(ruleForm.c_id)"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="业务员" prop="person" :rules="[ { required: true, message: '请输入业务员', trigger: 'blur' } ]">
+          <el-form-item label="业务员" prop="person">
             <el-input v-model="ruleForm.person" :readonly="Boolean(ruleForm.c_id)"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="售价" prop="s_money" :rules="[ { required: true, message: '请输入售价', trigger: 'blur' } ]">
+          <el-form-item label="售价" prop="s_money">
             <el-input v-model="ruleForm.s_money"></el-input>
           </el-form-item>
         </el-col>
@@ -95,7 +90,7 @@
         <el-form-item label="车辆信息"></el-form-item>
         <el-col :span="12">
           <el-form-item label="入库编号" prop="vehile_number">
-            <el-input v-model="carForm.vehile_number" :readonly="Boolean(ruleForm.c_id)">
+            <el-input v-model="carForm.vehile_number" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入入库编号进行搜索">
               <el-button v-if="!Boolean(ruleForm.c_id)" slot="append" icon="el-icon-search"
                          @click="search2"></el-button>
             </el-input>
@@ -166,20 +161,16 @@
             <el-input v-model="carForm.mileage" readonly></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="出厂时间" prop="monthly_number">
-            <el-input v-model="carForm.monthly_number" readonly></el-input>
-          </el-form-item>
-        </el-col>
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -188,10 +179,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '3-2',
-        isCollapse: false,
         ruleForm: {
           name: '',
           address: '',
@@ -205,7 +196,7 @@
           insurance: '',
           s_money: '',
           business: '',
-          single_person:'${user.name}'
+          single_person: '${user.name}'
         },
         carForm: {
           vehile_number: '',
@@ -221,8 +212,7 @@
           key_number: '',
           mileage: '',
           selling_price: ''
-        },
-        rules: {}
+        }
       }
     },
     methods: {
@@ -234,7 +224,7 @@
             console.log(this.ruleForm)
             $.ajax({
               type: 'post',
-              url: this.ruleForm.c_id ? '/sellCar/updateSellCar.action' : '/insertbooking.action',
+              url: this.ruleForm.c_id ? '/sellCar/updateSellCar.action' : '/sellCar/addSellCar.action',
               data: this.ruleForm,
               dataType: 'json',
               success: (res) => {
@@ -268,17 +258,6 @@
           }
         })
       },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
-      },
       search() {
         $.ajax({
           type: 'post',
@@ -310,6 +289,7 @@
 
       },
       search2() {
+        alert("this.carForm.vehile_number" + this.carForm.vehile_number)
         $.ajax({
           type: 'post',
           url: '/sellCar/findCarByNumber.action',

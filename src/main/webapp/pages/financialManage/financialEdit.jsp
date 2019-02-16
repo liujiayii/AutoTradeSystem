@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">{{title}}</div>
@@ -8,27 +8,25 @@
 
 <el-card shadow="hover">
   <el-container class="main">
-    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-dynamic">
-      <el-form-item prop="departmentId" label="部门" :rules="[ { required: true, message: '请选择部门', trigger: 'blur' } ]">
+    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
+      <el-form-item prop="departmentId" label="部门">
         <el-select v-model="ruleForm.departmentId" placeholder="请选择部门">
           <el-option v-for="item in branchData" :label="item.department" :value="item.department"
                      :key="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="name" label="姓名" :rules="[ { required: true, message: '请输入姓名', trigger: 'blur' } ]">
+      <el-form-item prop="name" label="姓名">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="项目名称" :rules="[ { required: true, message: '请输入项目', trigger: 'blur' } ]">
-        <el-input v-model="type == 'income' ? ruleForm.income : ruleForm.expenditure"></el-input>
+      <el-form-item label="项目名称">
+        <el-input v-model="ruleForm[type == 'income' ? 'income' : 'expenditure']"></el-input>
       </el-form-item>
-      <el-form-item label="金额"
-                    :rules="[ { required: true, message: '请输入金额', trigger: 'blur' } ]">
-        <el-input v-model="type == 'income' ? ruleForm.incomeMoney : ruleForm.expenditureMoney"></el-input>
+      <el-form-item label="金额">
+        <el-input v-model="ruleForm[type == 'income' ? 'incomeMoney' : 'expenditureMoney']"></el-input>
       </el-form-item>
-      <el-form-item label="摘要"
-                    :rules="[ { required: true, message: '请输入摘要', trigger: 'blur' } ]">
+      <el-form-item label="摘要">
         <el-input type="textarea"
-                  v-model="type == 'income' ? ruleForm.incomeDetailed:ruleForm.detailedExpenditure"></el-input>
+                  v-model="ruleForm[type == 'income' ? 'incomeDetailed' : 'detailedExpenditure']"></el-input>
       </el-form-item>
       <el-form-item label="日期">
         <el-date-picker
@@ -40,12 +38,13 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -54,11 +53,11 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         type: this.getHrefParam('type'),
         navActive: this.getHrefParam('type') == 'income' ? '5-1' : '5-2',
-        isCollapse: false,
         ruleForm: {
           departmentId: '',
           income: '',
@@ -147,17 +146,6 @@
             })
           }
         })
-      },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
       }
     },
     mounted() {

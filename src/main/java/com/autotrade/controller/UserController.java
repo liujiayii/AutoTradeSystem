@@ -7,11 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.autotrade.entity.User;
 import com.autotrade.service.UserService;
 import com.autotrade.utils.JsonUtil;
 
-
+@RequestMapping("/user")
 @Controller
 public class UserController {
 	
@@ -29,9 +30,9 @@ public class UserController {
 	 */
 	@RequestMapping(value="/updateUser",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String updateUser(Long id ,User user){
+	public String updateUser(User user){
 		String msg;
-		Integer code = userService.updateUser(id,user);
+		Integer code = userService.updateUser(user);
 		if(code > 0){
 			msg="修改用户信息成功";
 			return JsonUtil.getResponseJson(code, msg, null, null);
@@ -56,6 +57,7 @@ public class UserController {
 	@RequestMapping(value="/insertUser",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String insertUser(User user){
+		System.out.println("user :"+user.toString());
 		Integer code = 1;
 		String msg;
 		if(userService.insertUser(user)>0){
@@ -66,9 +68,7 @@ public class UserController {
 			msg ="注册失败：用户名已存在";
 			return JsonUtil.getResponseJson(code, msg, null, null);
 		}
-		
 	}
-	
 	
 	/**
 	  * @Title: findByLimit
@@ -98,7 +98,16 @@ public class UserController {
 		}
 	}
 	
-	
+	@RequestMapping("/findById")
+	@ResponseBody
+	public String findById(Long id){
+		User user = userService.findById(id);
+		if(user!=null){
+			return JsonUtil.getResponseJson(1, "查询成功", null, user);
+		}else{
+			return JsonUtil.getResponseJson(-1, "查询失败，信息可能被删除", null, null);
+		}
+	}
 	
 	
 }

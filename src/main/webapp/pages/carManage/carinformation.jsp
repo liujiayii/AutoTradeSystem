@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">车辆信息</div>
@@ -21,7 +21,7 @@
       <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
       <el-table-column label="厂牌型号" prop="brand" show-overflow-tooltip></el-table-column>
       <el-table-column label="地址" prop="place"></el-table-column>
-        <el-table-column label="单价" prop="selling_price" ></el-table-column>
+      <el-table-column label="单价" prop="selling_price"></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -43,9 +43,8 @@
     </el-pagination>
   </div>
 </el-container>
-
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -54,10 +53,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '4-2',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0

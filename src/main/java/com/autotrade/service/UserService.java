@@ -8,11 +8,13 @@ public interface UserService {
 
 	public User findUserByUserName(String username);
 
-	public Integer updateUser(Long id, User user);
+	public Integer updateUser( User user);
 
 	public Integer insertUser(User user);
 	
 	public List<User> findByLimit(Integer page,Integer limit);
 	
 	public Integer  findAllCount();
+	
+	public User findById(Long id);
 }

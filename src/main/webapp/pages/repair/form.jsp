@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">维修工单</div>
-  <!--<el-button class="btn" type="primary" icon="el-icon-plus" round-->
-  <!--onclick="window.location.href='formEdit.jsp'">添加-->
-  <!--</el-button>-->
 </el-container>
 
 <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -288,7 +285,7 @@
 </el-tabs>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -297,10 +294,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '8-1',
-        isCollapse: false,
         activeName: 'second',
         tableData: {
           data: [],
@@ -316,7 +313,7 @@
         console.log(tab, event);
       },
       //时间格式化
-      dateFormat: function (row, column) {
+      dateFormat(row, column) {
         let date = new Date(row.create_time);
         let y = date.getFullYear();
         let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
@@ -329,7 +326,7 @@
       },
       handleEdit(index, row) {
         console.log(index, row);
-        window.location.href='formEdit.jsp'
+        window.location.href = 'formEdit.jsp'
       },
       handleCurrentChange(val) {
         this.getTable(val)

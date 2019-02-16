@@ -106,7 +106,7 @@ public class StaffServiceImpl implements StaffService{
 	public String selectById(Long id) {
 		try {
 
-			StaffVo reualt = staffDao.selectByPrimaryKey(id);
+			Staff reualt = staffDao.selectByPrimaryKey(id);
 
 			if (null != reualt || !"".equals(reualt)) {
 

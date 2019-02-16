@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">车辆管理</div>
@@ -52,7 +52,6 @@
             <el-input v-model="ruleForm.vehicle_type"></el-input>
           </el-form-item>
         </el-col>
-
         <el-col :span="12">
           <el-form-item label="购车价格(元)" prop="selling_price">
             <el-input v-model="ruleForm.selling_price"></el-input>
@@ -63,11 +62,6 @@
             <el-input v-model="ruleForm.brand"></el-input>
           </el-form-item>
         </el-col>
-        <!-- <el-col :span="12">
-          <el-form-item label="车类" prop="type">
-            <el-input v-model="ruleForm.type"></el-input>
-          </el-form-item>
-        </el-col> -->
         <el-col :span="12">
           <el-form-item label="车类">
             <el-select v-model="ruleForm.type" placeholder="请选择车辆类型 ">
@@ -154,12 +148,13 @@
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -168,10 +163,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '4-1',
-        isCollapse: false,
         dialogTableVisible: false,
         ruleForm: {
           vehicle_type: '',
@@ -189,7 +184,7 @@
           key_number: '',
           mileage: '',
           business: '',
-          single_person: '',
+          single_person: '${user.name}',
           selling_price: '',
           remark: '',
           seling_id: '',
@@ -197,29 +192,6 @@
           place: '',
           vehicle_code: '',
           vehicle_types: ''
-        },
-        rules: {
-          vehicle_type: [
-            {required: true, message: '请输入车型', trigger: 'blur'}
-          ],
-          brand: [
-            {required: true, message: '请输入车牌', trigger: 'blur'}
-          ],
-          type: [
-            {required: true, message: '请输入车类', trigger: 'blur'}
-          ],
-          color: [
-            {required: true, message: '请输入车辆颜色', trigger: 'blur'}
-          ],
-          chassis_number: [
-            {required: true, message: '请输入底盘号', trigger: 'blur'}
-          ],
-          engine_number: [
-            {required: true, message: '请输入发动机号', trigger: 'blur'}
-          ],
-          qualified_number: [
-            {required: true, message: '请填写合格证号', trigger: 'blur'}
-          ]
         },
         tableData: {
           data: [],
@@ -233,10 +205,10 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(this.ruleForm)
+            alert(this.ruleForm.type)
             $.ajax({
               type: 'post',
-              url: this.ruleForm.id ? '/updateSellingCustomerById.action' : '/Vehichle/insert.action',
+              url: this.ruleForm.id ? '/Vehichle/updateByPrimaryKey.action': '/Vehichle/insert.action',
               data: JSON.stringify(this.ruleForm),
               contentType: 'application/json; charset=UTF-8',
               dataType: 'json',
@@ -270,17 +242,6 @@
             return false;
           }
         })
-      },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
       },
       handleCurrentChange(val) {
         this.getTable(val)
@@ -339,6 +300,7 @@
       },
       handlebooking(index, row) {
         console.log(row);
+        delete row['id']
         Object.assign(this.ruleForm, row);
         this.dialogTableVisible = !this.dialogTableVisible
       },
@@ -348,9 +310,8 @@
       if (this.getHrefParam('id')) {
         $.ajax({
           type: 'post',
-          url: '/selectSellingCustomerById.action',
+          url: '/Vehichle/selectByPrimaryKey.action',
           data: {id: this.getHrefParam('id')},
-
           dataType: 'json',
           success: (res) => {
             console.log(res)

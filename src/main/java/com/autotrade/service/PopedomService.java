@@ -75,21 +75,21 @@ public interface PopedomService {
 
 	/**
 	  * @Title: findUserByPhone
-	  * @description 根据电话号码分页查询
-	  * @param @param phones 电话号码
+	  * @description 根据关键字分页查询
+	  * @param @param key 关键字
 	  * @param @param page 页数
 	  * @param @param limit 条数
 	  * @return List<User> 返回所有符合条件的用户信息
 	  * @author ZhaoSong
 	  * @createDate 2019年1月9日
 	 */
-	List<User> findUserByPhone(String phones, Integer page, Integer limit);
+	List<User> findUserByPhone(String key, Integer page, Integer limit);
 
 	
 	/**
 	  * @Title: findPhoneCount
-	  * @description 符合电话号码条件的用户条数
-	  * @param @param phones 电话号码
+	  * @description 符合关键字条件的用户条数
+	  * @param @param key 关键字
 	  * @return Integer 符合条件的条数    
 	  * @author ZhaoSong
 	  * @createDate 2019年1月9日

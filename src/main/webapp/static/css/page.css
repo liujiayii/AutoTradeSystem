@@ -7,7 +7,18 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 26px;
+}
+
+.logo {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+}
+
+.ico {
+    cursor: pointer;
 }
 
 *::-webkit-scrollbar {
@@ -40,47 +51,30 @@ body {
 }
 
 .el-header, .el-footer {
-    background-color: #5966c6;
+    background-color: #545c64;
     color: #fff;
     text-align: center;
     line-height: 60px;
 }
 
 .el-aside {
-    background-color: #eee;
-    color: #333;
-    line-height: 200px;
+    background-color: #545c64;
 }
 
-.el-aside a {
-    color: #333;
+.el-aside a, .el-menu--popup-right-start a, .el-dropdown-menu__item a {
     text-decoration: none;
 }
 
-.menu-ico {
-    padding-left: 5px;
-    margin-right: 10px;
+.el-menu {
+    border-right: none !important;
 }
 
-.menu-ico img {
-    width: 15px;
+.el-menu-item i {
+    line-height: 56px;
 }
 
-.el-aside .el-menu-item {
+.el-aside .el-menu-item-group {
     text-align: center;
-}
-
-body > .el-container {
-    margin-bottom: 40px;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-    line-height: 320px;
 }
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
@@ -100,12 +94,8 @@ table {
     display: none;
 }
 
-/*权限*/
-.access .el-form-item {
-    margin-bottom: 0 !important;
-}
-
-.access .checkbox-group {
+.access .checkbox-group { /*权限*/
     padding-top: 4px;
 }
+
 

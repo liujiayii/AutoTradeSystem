@@ -71,8 +71,7 @@
 		t_car_information ci join t_buying_customers bc on ci.buying_id =
 		bc.id
 		join t_vehichle v on ci.vehile_number = v.vehile_number
-		where ci.id =
-		#{c_id}
+		where ci.id =#{c_id}
 	</select>
 
 

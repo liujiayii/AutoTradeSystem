@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">分期管理</div>
@@ -22,6 +22,7 @@
       <el-table-column label="地址" prop="buyingCustomer.address" show-overflow-tooltip></el-table-column>
       <el-table-column label="总期数" prop="totalPeriod" show-overflow-tooltip></el-table-column>
       <el-table-column label="每期还款金额" prop="monthlySupply" show-overflow-tooltip></el-table-column>
+      <el-table-column label="状态" prop="monthlySupply" show-overflow-tooltip></el-table-column>
       <el-table-column label="创建时间" prop="createTime" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
@@ -46,7 +47,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -55,10 +56,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '2-3',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0

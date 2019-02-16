@@ -17,6 +17,8 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.autotrade.entity.Popedom;
 import com.autotrade.entity.User;
 import com.autotrade.service.PopedomService;
@@ -39,9 +41,7 @@ public class ShiroRealm extends AuthorizingRealm{
 		//调用业务层，查询权限
     	List<Popedom> popedoms = popedomService.findPopedomByUserId(user.getId());
     	for (Popedom popedom : popedoms) {
-    		System.out.println("查询权限↓");
 			authorizationInfo.addStringPermission(popedom.getPopedomUrl());
-			System.out.println(popedom.getPopedomUrl());
 		}
 		return authorizationInfo;
 	}
@@ -55,7 +55,7 @@ public class ShiroRealm extends AuthorizingRealm{
 		if(user==null){//账号不存
 			throw new UnknownAccountException("用户不存在");
 		}else{
-			if(user.getStatus()==0){//1为锁定，0为默认
+			if(user.getStatus()==2){//2为锁定，1为默认
 				throw new LockedAccountException("用户被锁定");
 			}
 		}
@@ -68,7 +68,7 @@ public class ShiroRealm extends AuthorizingRealm{
 		//4)credentialsSalt盐值,使用账号作为盐值
 		ByteSource credentialsSalt = ByteSource.Util.bytes(principal);
 		
-		SimpleAuthenticationInfo info =new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
+		SimpleAuthenticationInfo info =new SimpleAuthenticationInfo(user, credentials, credentialsSalt, realmName);
 		return info;
 	}
 	

@@ -215,7 +215,8 @@ public class SubCustomerController {
 		String str = null;
 		int rows = 0;
 		
-
+		bc.setCreate_time(new Date());
+		
 		try {
 			rows = subCustomerService.insertAll(bc);
 			if (rows >= 1) {

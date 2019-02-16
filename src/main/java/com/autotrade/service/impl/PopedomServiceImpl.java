@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.autotrade.dao.PopedomDao;
 import com.autotrade.entity.Popedom;
@@ -31,10 +32,16 @@ public class PopedomServiceImpl implements PopedomService{
 	public Integer addPopedomById(UserPopedom userPopedom) {
 		return popedomDao.addPopedomById(userPopedom);
 	}
-
+	
+	
+	@Transactional
 	public Integer updatePopedomById(Long id, Integer[] popedoms) {
-		Integer row = deletePopedomById(id);
-		if(row != 0&& popedoms != null){
+		if(popedoms==null){
+			deletePopedomById(id);
+			return 1;
+		}
+		if(popedoms.length >0){
+			deletePopedomById(id);
 			for(Integer popedom:popedoms){
 				UserPopedom userPopedom = new UserPopedom();
 				userPopedom.setpId(popedom);
@@ -65,8 +72,8 @@ public class PopedomServiceImpl implements PopedomService{
 		return users;
 	}
 
-	public List<User> findUserByPhone(String phones, Integer page, Integer limit) {
-		return popedomDao.findUserByPhone(phones,page,limit);
+	public List<User> findUserByPhone(String key, Integer page, Integer limit) {
+		return popedomDao.findUserByPhone(key,page,limit);
 	}
 
 	public Integer findPhoneCount(String phones) {

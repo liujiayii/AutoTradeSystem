@@ -233,12 +233,7 @@ public class BuyingCustomerController {
 		String str = null;
 		int rows = 0;
 		bc = new BuyingCustomer();
-		bc.setName("长春");
-		bc.setAddress("邯郸");
-		bc.setPhone("10086");
-
-		bc.setBudget("预算");
-		bc.setIntention("史蒂夫");
+		
 		bc.setCreateTime(new Date());
 		bc.setUpdateTime(new Date());
 		try {

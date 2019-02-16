@@ -2,6 +2,8 @@ package com.autotrade.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,12 +15,12 @@ import com.autotrade.entity.User;
 import com.autotrade.service.PopedomService;
 import com.autotrade.utils.JsonUtil;
 
-@Controller("/popedom")
+@Controller
+@RequestMapping("/popedom")
 public class PopedomController {
 
 	@Autowired
 	private PopedomService popedomService;
-
 	/**
 	 * @Title: updatePopedomById
 	 * @description 根据用户id修改权限
@@ -34,8 +36,11 @@ public class PopedomController {
 	@ResponseBody
 	public String updatePopedomById(Long id, Integer[] popedoms) {
 		Integer row = popedomService.updatePopedomById(id, popedoms);
+		if(popedoms!=null){
+			System.out.println("id :  "+id + " popedoms :  "+popedoms);
+		}
 		String msg;
-		if (row == 1) {
+		if (row >= 1) {
 			msg = "修改权限成功";
 			return JsonUtil.getResponseJson(row, msg, null, null);
 		} else {
@@ -55,7 +60,7 @@ public class PopedomController {
 	 */
 	@RequestMapping(value="/findPopedomByUserId",produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public String findPopedomByUserId(Long id) {
+	public String findPopedomByUserId(Long id,HttpServletResponse response) {
 		Integer code = 1;
 		String msg;
 		List<Popedom> popedoms = popedomService.findPopedomByUserId(id);
@@ -108,18 +113,16 @@ public class PopedomController {
 
 	/**
 	 * @Title: finaUserByPhone
-	 * @description 通过电话号码查询用户
-	 * @param phone
-	 *            用户电话号码
+	 * @description 通过关键字查询用户
+	 * @param keyWord 关键字
 	 * @return String JSON字符串
 	 * @author ZhaoSong
 	 * @createDate 2019年1月9日
 	 */
 	@RequestMapping(value = "/findUserByPhone", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String finaUserByPhone(@Param("phone") String phone, @Param("page") Integer page,
+	public String finaUserByPhone(@Param("keyWord") String keyWord, @Param("page") Integer page,
 			@Param("limit") Integer limit) {
-		System.out.println(page);
 		int code = 1;
 		String msg = null;
 		if (page <= 0) {
@@ -127,7 +130,7 @@ public class PopedomController {
 		}
 		page = (page - 1) * limit;
 
-		if (phone.equals("") || phone == null) {
+		if (keyWord.equals("") || keyWord == null) {
 			List<User> users = popedomService.findByLimit(page, limit);
 			if (users.size() <= 0) {
 				msg = "查询数据为空";
@@ -137,17 +140,15 @@ public class PopedomController {
 			}
 			return JsonUtil.getResponseJson(code, msg, popedomService.findAll().size(), users);
 		} else {
-			String phones = "%" + phone + "%";
-			List<User> users = popedomService.findUserByPhone(phones, page, limit);
-			System.out.println(users.size());
-
+			String key = "%" + keyWord + "%";
+			List<User> users = popedomService.findUserByPhone(key, page, limit);
 			if (users.size() <= 0) {
 				msg = "查询数据为空";
 			}
 			if (users != null) {
 				msg = "查询成功";
 			}
-			return JsonUtil.getResponseJson(code, msg, popedomService.findPhoneCount(phones), users);
+			return JsonUtil.getResponseJson(code, msg, popedomService.findPhoneCount(key), users);
 		}
 
 	}

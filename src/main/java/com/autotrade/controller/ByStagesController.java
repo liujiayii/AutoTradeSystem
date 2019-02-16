@@ -1,5 +1,6 @@
 package com.autotrade.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -174,6 +176,7 @@ public class ByStagesController {
 	 * @createDate 2019年1月31日-下午3:06:34
 	 */
 	@RequestMapping("/insertByStages")
+	@Transactional
 	public String insertByStages(@RequestBody Map<String, Object> map) {
 		List<BuyingCustomer> buyingCustomerList = null;
 		Long buyingId = 0L;
@@ -228,7 +231,7 @@ public class ByStagesController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;
-			msg = "插入失败";
+			msg = "系统异常";
 		}
 		
 		return JsonUtil.getResponseJson(code, msg, null, null);
@@ -248,6 +251,7 @@ public class ByStagesController {
 	 * @createDate 2019年2月1日-上午9:45:55
 	 */
 	@RequestMapping("/updateByStages")
+	@Transactional
 	public String updateByStages(@RequestBody Map<String, Object> map) {
 		int code = 1;
 		String msg = "修改成功";
@@ -266,13 +270,88 @@ public class ByStagesController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;
-			msg = "修改失败";
+			msg = "系统异常";
 		}
 		
 		return JsonUtil.getResponseJson(code, msg, null, null);
 	}
 	
+	/**
+	 * 修改分期详情表
+	 *
+	 * @Title: updateDetailsInstallments
 	
+	 * @description 
+	 *
+	 * @param detailsInstallments
+	 * @return 
+	   
+	 * String
+	 *
+	 * @author lujinpeng
+	 * @createDate 2019年2月15日-下午4:27:22
+	 */
+	@RequestMapping("/updateDetailsInstallments")
+	@Transactional
+	public String updateDetailsInstallments(@RequestBody DetailsInstallments detailsInstallments) {
+		int code = 1;
+		String msg = "修改成功";
+		DetailsInstallments newDetailsInstallments = new DetailsInstallments();
+		Calendar cal = Calendar.getInstance();
+		ByStages byStages = detailsInstallments.getByStages();
+		
+		try {
+			
+			// 判断状态是否改为1（0.还款中，1.已还，2.逾期， 默认0）
+			if (detailsInstallments.getBeOverdue() == 1) {
+				
+				// 获得总期数
+				int totalPeriod = byStages.getTotalPeriod();
+				// 获取当前分期表type状态
+				int type = byStages.getType();
+				
+				// 如果修改成功,并且当前期数小于总期数则在详情表中添加下一条还款记录
+				if (detailsInstallments.getNowStage() < totalPeriod) {
+					// 如果逾期,修改分期表状态为 0（还款中）
+					if (type == 2) {
+						byStages.setType(0);
+						byStagesService.updateByIdSelective(byStages);
+					}
+					// 设置新增分期详情数据创建时间
+					newDetailsInstallments.setCreateTime(new Date());
+					// 还款当前期数增加 1 
+					newDetailsInstallments.setNowStage(detailsInstallments.getNowStage() + 1);
+					// 设置买车客户id
+					newDetailsInstallments.setBuyingId(detailsInstallments.getBuyingId());
+					// 设置还款日
+					cal.setTime(detailsInstallments.getRepaymentDate());
+					cal.add(Calendar.MONTH, 1);
+					newDetailsInstallments.setRepaymentDate(cal.getTime());
+					// 在分期详情表中新增一条数据
+					detailsInstallmentsService.insertSelective(newDetailsInstallments);
+				} else {
+					// 如果全部还完,修改状态为 1（已还）
+					byStages.setType(1);
+					byStagesService.updateByIdSelective(byStages);
+				}
+				// 修改分期详情表数据
+				detailsInstallmentsService.updateByIdSelective(detailsInstallments);
+			} else {
+				// 修改分期表状态
+				byStages.setType(detailsInstallments.getBeOverdue());
+				byStagesService.updateByIdSelective(byStages);
+				// 修改分期详情表
+				detailsInstallmentsService.updateByIdSelective(detailsInstallments);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+			msg = "系统异常";
+		}
+		
+		return JsonUtil.getResponseJson(code, msg, null, null);
+	}
 	
 	
 }

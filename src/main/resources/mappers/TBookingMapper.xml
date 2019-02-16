@@ -90,20 +90,20 @@
   <insert id="insert" parameterType="com.autotrade.entity.TBooking" >
     insert into t_booking (id, buying_id, vehicle_code, 
       number, deposit, time, 
-      business, single_person, remark, 
-      create_time)
+      business, single_person, remark
+     )
     values (#{id,jdbcType=BIGINT}, #{buyingId,jdbcType=BIGINT}, #{vehicleCode,jdbcType=VARCHAR}, 
       #{number,jdbcType=INTEGER}, #{deposit,jdbcType=DECIMAL}, #{time,jdbcType=DATE}, 
-      #{business,jdbcType=VARCHAR}, #{singlePerson,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=DATE})
+      #{business,jdbcType=VARCHAR}, #{singlePerson,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR} 
+     )
   </insert>
-  <insert id="insertSelective" parameterType="com.autotrade.entity.TBooking" >
+  <insert id="insertSelective" parameterType="com.autotrade.entityVo.bookingVo" >
     insert into t_booking
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="buyingId != null" >
+      <if test="id != null" >
         buying_id,
       </if>
       <if test="vehicleCode != null" >
@@ -168,9 +168,7 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_booking
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
+     
       <if test="record.buyingId != null" >
         buying_id = #{record.buyingId,jdbcType=BIGINT},
       </if>
@@ -195,9 +193,7 @@
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
-      <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=DATE},
-      </if>
+     
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -219,7 +215,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.autotrade.entity.TBooking" >
+  <update id="updateByPrimaryKeySelective" parameterType="map" >
     update t_booking
     <set >
       <if test="buyingId != null" >
@@ -244,11 +240,9 @@
         single_person = #{singlePerson,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR}
       </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=DATE},
-      </if>
+     
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -267,10 +261,10 @@
   </update>
   
   <select id="selectAllbook" resultType="com.autotrade.entityVo.bookingVo">
-    select c.name name,c.phone phone,c.address address,
-     d.vehicle_code vehicleCode,d.type type,
-     d.type_number typeNumber,d.address addressOne,
-     d.money money,b.number number,
+    select b.id id,c.name name,c.phone phone,c.address address,
+     d.vehicle_code vehicleCode,d.type vehicle_type,
+     d.type_number brand,d.address place,
+     d.money selling_price,b.number number,
      b.deposit deposit, b.time time,
      b.business business,b.single_person singlePerson,
      b.remark remark
@@ -281,11 +275,25 @@
      on b.buying_id=c.id limit #{page},#{limit}
   </select>
   
+  <select id="selectAllbookbyId" resultType="com.autotrade.entityVo.bookingVo">
+    select b.id id,b.buying_id buyingId,c.name name,c.phone phone,c.address address,
+     d.vehicle_code vehicleCode,d.type vehicle_type,
+     d.type_number brand,d.address place,
+     d.money selling_price,b.number number,
+     b.deposit deposit, b.time time,
+     b.business business,b.single_person singlePerson,
+     b.remark remark
+      from t_booking b
+     join t_vehichile_detailed d
+     on b.vehicle_code=d.vehicle_code
+     join t_buying_customers c
+     on b.buying_id=c.id 
+     WHERE b.id=#{c_id}
+  </select>
+  
   <select id="countbook" resultType="java.lang.Integer">
    select 
     COUNT(*)
     from t_booking 
-  
-  
-  </select>
+   </select>
 </mapper>

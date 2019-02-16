@@ -46,9 +46,9 @@
 		<!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性,默认会自动寻找Web工程根目录下的"/login.jsp"页面 -->
 		<property name="loginUrl" value="/toLogin.action" />
 		<!-- 登录成功后要跳转的页面 -->
-		<property name="successUrl" value="/404.jsp" />
+		<property name="successUrl" value="" />
 		<!-- 用户访问未对其授权的资源时,所显示的连接 -->
-		<property name="unauthorizedUrl" value="/404.jsp" />
+		<property name="unauthorizedUrl" value="/pages/error/error.jsp" />
 		<!-- Shiro连接约束配置,即过滤链的定义 -->
 		<!-- 下面value值的第一个'/'代表的路径是相对于HttpServletRequest.getContextPath()的值来的 -->
 		<!-- anon：它对应的过滤器里面是空的,什么都没做,这里.do和.jsp后面的*表示参数,比方说login.jsp?main这种 -->
@@ -61,6 +61,56 @@
 				/login/** = anon
 				/static/** = anon
 				/pages/layout/**= anon
+				
+				<!-- 车辆资源  -->
+				/pages/customerInfo/carResources.jsp* =perms[car:resource]
+				<!-- 买车咨询 -->
+				/pages/customerInfo/buyingCarConsult.jsp* =perms[client:consult]
+				<!-- 置换车辆 -->
+				/pages/customerInfo/replaceCar.jsp* =perms[client:replacement]
+				<!-- 评估审核 -->
+				/pages/tradeManage/evaluation.jsp* =perms[deal:auditing]
+				<!-- 保险凭证 -->
+				/pages/tradeManage/insurance.jsp* =perms[deal:insurance]
+				<!-- 分期管理 -->
+				/pages/tradeManage/stateManage.jsp* =perms[deal:aging]
+				<!-- 订车管理 -->
+				/pages/carSales/booking.jsp* =perms[sell:orderCar]
+				<!-- 售车管理 -->
+				/pages/carSales/carSales.jsp* =perms[sell:worldAuto]
+				<!-- 退车管理 -->
+				/pages/carSales/carSales.jsp* = perms[sell:salesReturn]
+				<!-- 车辆管理 -->
+				/pages/carManage/carManage.jsp* =perms[car:management]
+				<!-- 车辆信息 -->
+				/pages/carManage/carinformation.jsp* =perms[car:message]
+				<!-- 收入管理 -->
+				/pages/financialManage/income.jsp* =perms[finance:revenue]
+				<!-- 支出管理 -->
+				/pages/financialManage/expend.jsp* = perms[finance:expend]
+				<!-- 汽车配件 -->
+				/pages/inventoryManage/inventoryManage.jsp* =perms[inventory:parts]
+				<!-- 其他 -->
+				/pages/inventoryManage/inventoryManage.jsp* =perms[inventory:other]
+				<!-- 部门管理 -->
+				/pages/financialManage/branch.jsp* =perms[finance:department]
+				<!-- 员工管理 -->
+				/pages/personManage/staffManage.jsp* =perms[management:staff]
+				<!-- 权限管理 -->
+				/pages/personManage/accessManage.jsp* =perms[management:permission]
+				<!-- 维修工单 -->
+				/pages/repair/form.jsp* =perms[maintain:workOrder]
+				<!-- 维修车型分类 -->
+				<!-- 维修工时计算 -->
+				<!-- 维修项目定义 -->
+				<!-- 维修项目用料 -->
+				<!-- 客户档案 -->
+				<!-- 车辆档案 -->
+				<!-- 员工档案 -->
+				<!-- 驾驶员信息档案 -->
+				<!-- 维修报表 -->
+				<!-- 售车报表 -->
+				<!-- 进车报表 -->
 				<!-- 剩余其他路径，必须认证通过才可以访问 -->
                  /** = authc 
 			</value>

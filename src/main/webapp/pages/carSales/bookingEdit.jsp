@@ -1,19 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
-<!-- Form -->
+<%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">订车管理</div>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
-    <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
-      id
+    <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
       <el-input v-model="ruleForm.id"></el-input>
-      cid
       <el-input v-model="ruleForm.c_id"></el-input>
-      vid
-      <el-input v-model="ruleForm.v_id"></el-input>
       <el-form-item label="客户信息"></el-form-item>
       <el-row>
         <el-col :span="12">
@@ -23,10 +18,9 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)">
+            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入电话进行搜索">
               <el-button v-if="!Boolean(ruleForm.c_id)" slot="append" icon="el-icon-search" @click="search"></el-button>
             </el-input>
-            <!--<el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>-->
           </el-form-item>
         </el-col>
       </el-row>
@@ -72,70 +66,69 @@
           </el-dialog>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="车型类型" prop="type">
-            <el-input v-model="ruleForm.type" readonly></el-input>
+          <el-form-item label="车型类型" prop="vehicle_type">
+            <el-input v-model="ruleForm.vehicle_type" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="产地" prop="addressOne">
-            <el-input v-model="ruleForm.addressOne" readonly></el-input>
+          <el-form-item label="产地" prop="place">
+            <el-input v-model="ruleForm.place" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="厂牌型号" prop="typeNumber">
-
-            <el-input v-model="ruleForm.typeNumber" readonly></el-input>
+          <el-form-item label="厂牌型号" prop="brand">
+            <el-input v-model="ruleForm.brand" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="车辆单价" prop="money">
-            <el-input v-model="ruleForm.money" readonly></el-input>
+          <el-form-item label="车辆单价" prop="selling_price">
+            <el-input v-model="ruleForm.selling_price" readonly></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="购买信息"></el-form-item>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="预定数量" prop="number" :rules="[ { required: true, message: '预定数量', trigger: 'blur' } ]">
-            <el-input v-model="ruleForm.number21·"></el-input>
+          <el-form-item label="预定数量" prop="number">
+            <el-input v-model="ruleForm.number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="订金" prop="deposit" :rules="[ { required: true, message: '请输入订金', trigger: 'blur' } ]">
+          <el-form-item label="订金" prop="deposit">
             <el-input v-model="ruleForm.deposit"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="交车时间" prop="time" :rules="[ { required: true, message: '交车时间', trigger: 'blur' } ]">
-            <el-date-picker v-model="ruleForm.time" type="date" placeholder="选择日期"></el-date-picker>
+          <el-form-item label="交车时间" prop="time">
+            <el-date-picker v-model="ruleForm.time" type="date" placeholder="选择日期"
+                            value-format="timestamp"></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="制单人" prop="singlePerson"
-                        :rules="[ { required: true, message: '请输入制单人', trigger: 'blur' } ]">
+          <el-form-item label="制单人" prop="singlePerson">
             <el-input v-model="ruleForm.singlePerson" :readonly="Boolean(ruleForm.c_id)"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="业务员" prop="business"
-                        :rules="[ { required: true, message: '请输入业务员', trigger: 'blur' } ]">
+          <el-form-item label="业务员" prop="business">
             <el-input v-model="ruleForm.business" :readonly="Boolean(ruleForm.c_id)"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="备注" prop="remark" :rules="[ { required: true, message: '请输入详细信息', trigger: 'blur' } ]">
+          <el-form-item label="备注" prop="remark">
             <el-input v-model="ruleForm.remark" type="textarea" :readonly="Boolean(ruleForm.c_id)"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -144,48 +137,49 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '3-1',
-        isCollapse: false,
         dialogTableVisible: false,
         ruleForm: {
+          buyingId: '',
           name: '',
           address: '',
-          id: '',
           phone: '',
-          type: '',
-          money: '',
-          first_payment: '',
-          monthly_number: '',
-          monthly_supply: '',
-          insurance: '',
-          s_money: '',
-          business: '',
-          single_person: '${user.name}'
-        },
-        carForm: {
-          vehile_number: '',
+          vehicleCode: '',
           vehicle_type: '',
           brand: '',
-          engine_number: '',
-          qualified_number: '',
-          chassis_number: '',
-          imported_number: '',
-          inspection_number: '',
-          carry_number: '',
-          self_number: '',
-          key_number: '',
-          mileage: '',
-          selling_price: ''
+          place: '',
+          selling_price: '',
+          number: '',
+          deposit: '',
+          time: '',
+          business: '',
+          remark: '',
+          singlePerson: '${user.name}'
         },
-        rules: {},
-        loading2: true,
+        /*  carForm: {
+           vehile_number: '',
+           vehicle_type: '',
+           brand: '',
+           engine_number: '',
+           qualified_number: '',
+           chassis_number: '',
+           imported_number: '',
+           inspection_number: '',
+           carry_number: '',
+           self_number: '',
+           key_number: '',
+           mileage: '',
+           selling_price: ''
+         }, */
         tableData: {
           data: [],
           count: 0
         },
-        searchVal: ''
+        searchVal: '',
+        loading2: true
       }
     },
     methods: {
@@ -196,12 +190,18 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.ruleForm.v_id = this.carForm.id
-            this.ruleForm.vehile_number = this.carForm.vehile_number
-            console.log(this.ruleForm)
+            delete this.ruleForm['name']
+            delete this.ruleForm['address']
+            delete this.ruleForm['phone']
+            delete this.ruleForm['createTime']
+            delete this.ruleForm['vehicle_type']
+            delete this.ruleForm['brand']
+            delete this.ruleForm['place']
+            delete this.ruleForm['selling_price']
+            this.ruleForm['time'] = new Date(this.ruleForm['time']);
             $.ajax({
               type: 'post',
-              url: this.ruleForm.c_id ? '/sellCar/updateSellCar.action' : '/sellCar/addSellCar.action',
+              url: this.ruleForm.id ? '/booking/updatebooking.action' : '/booking/insertbooking.action',
               data: this.ruleForm,
               dataType: 'json',
               success: (res) => {
@@ -211,7 +211,7 @@
                     confirmButtonText: '确定',
                     type: 'success',
                     callback: action => {
-                      window.location.href = "carSales.jsp"
+                      window.location.href = "booking.jsp"
                     }
                   });
                 } else {
@@ -235,17 +235,6 @@
           }
         })
       },
-      // 获取地址栏参数，name:参数名称
-      getHrefParam(key) {
-        var s = window.location.href;
-        var reg = new RegExp(key + "=\\w+");
-        var rs = reg.exec(s);
-        if (rs === null || rs === undefined) {
-          return "";
-        } else {
-          return rs[0].split("=")[1];
-        }
-      },
       search() {
         $.ajax({
           type: 'post',
@@ -257,9 +246,10 @@
             if (res.code == 1) {
               this.ruleForm.name = res.data.name
               this.ruleForm.address = res.data.address
-              this.ruleForm.id = res.data.id
+              this.ruleForm.buyingId = res.data.id
             } else {
               this.$confirm(res.msg, '提示', {
+                distinguishCancelAndClose: true,
                 confirmButtonText: '确定',
                 cancelButtonText: '前往添加客户信息',
                 type: 'warning'
@@ -267,14 +257,14 @@
                 for (let key in this.ruleForm) {
                   this.ruleForm[key] = ''
                 }
-              }).catch(() => {
-                window.location.href = '/pages/customerInfo/buyingCarConsult.jsp'
+              }).catch(action => {
+                if (action == 'cancel') {
+                  window.location.href = '/pages/customerInfo/buyingCarConsult.jsp'
+                }
               });
             }
           }
         })
-
-
       },
       searchbook() {
         $.ajax({
@@ -309,8 +299,6 @@
             })
           }
         })
-
-
       },
       getTable(page) {
         this.loading2 = true
@@ -361,6 +349,7 @@
       },
       handlebooking(index, row) {
         console.log(row);
+        delete row['id']
         Object.assign(this.ruleForm, row);
         this.dialogTableVisible = !this.dialogTableVisible
       },
@@ -368,11 +357,12 @@
     created() {
       this.getTable(1)
       if (this.getHrefParam('id')) {
+
         $.ajax({
           type: 'post',
-          url: '/sellCar/findById.action',
+          url: '/booking/findById.action',
           data: {
-            c_id: this.getHrefParam('id')
+            id: this.getHrefParam('id')
           },
           dataType: 'json',
           success: (res) => {

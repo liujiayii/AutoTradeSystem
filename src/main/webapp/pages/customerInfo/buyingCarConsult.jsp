@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">买车咨询</div>
@@ -22,7 +22,7 @@
       <el-table-column label="地址" prop="address" show-overflow-tooltip></el-table-column>
       <el-table-column label="车型" prop="intention" show-overflow-tooltip></el-table-column>
       <el-table-column label="预算" prop="budget" show-overflow-tooltip></el-table-column>
-      <el-table-column label="创建时间" prop="createTime" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
+      <el-table-column label="创建时间" prop="create_time" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -45,7 +45,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -54,10 +54,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '1-2',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0

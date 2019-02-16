@@ -161,5 +161,14 @@ public class ByStagesServiceImpl implements ByStagesService {
 		return JsonUtil.getResponseJson(code, msg, count, byStagesList);
 	}
 
+	/**
+	 * 通过指定条件查询
+	 */
+	@Override
+	public List<ByStages> selectBySelective(ByStages byStages) throws Exception {
+		
+		return byStagesDao.selectBySelective(byStages);
+	}
+
 	
 }

@@ -83,6 +83,7 @@
 	INNER JOIN t_post AS p
 	WHERE s.department_id = d.id = p.id And s.name LIKE CONCAT('%',#{s},'%')
 	OR s.department_id = d.id = p.id And s.phone  LIKE CONCAT('%',#{s},'%') 
+	LIMIT #{star},#{limit}
   </select>
   <!-- 信息数量 -->
   <select id="hybridSelectCount" resultType="java.lang.Integer">

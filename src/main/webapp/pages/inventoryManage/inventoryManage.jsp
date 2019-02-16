@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">库存管理</div>
   <el-button class="btn" type="primary" icon="el-icon-plus" round
-             onclick="window.location.href='carResourcesEdit.jsp'">添加
+             onclick="window.location.href='inventoryEdit.jsp'">添加
   </el-button>
 </el-container>
 <el-card shadow="hover">
@@ -17,15 +17,13 @@
               element-loading-spinner="el-icon-loading"
               :data="tableData.data"
               style="width: 100%">
-      <el-table-column label="供应商" prop="name" show-overflow-tooltip></el-table-column>
-      <el-table-column label="采购人" prop="phone" show-overflow-tooltip></el-table-column>
-      <el-table-column label="电话" prop="address" show-overflow-tooltip></el-table-column>
-      <el-table-column label="采购项目" prop="vehicle_type" show-overflow-tooltip></el-table-column>
-      <el-table-column label="车型" prop="brand" show-overflow-tooltip></el-table-column>
-      <el-table-column label="单笔金额" prop="vehicle_type" show-overflow-tooltip></el-table-column>
-      <el-table-column label="采购辆数" prop="brand" show-overflow-tooltip></el-table-column>
-      <el-table-column label="总金额" prop="create_time" show-overflow-tooltip></el-table-column>
-      <el-table-column label="采购时间" prop="create_time" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="采购人" prop="name" show-overflow-tooltip></el-table-column>
+      <el-table-column label="采购项目" prop="purchase" show-overflow-tooltip></el-table-column>
+      <el-table-column label="类型" prop="type" show-overflow-tooltip></el-table-column>
+      <el-table-column label="总金额" prop="purchaseMoney" show-overflow-tooltip></el-table-column>
+      <el-table-column label="采购时间" prop="createTime" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
+      <el-table-column label="制单人" prop="singName" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -48,7 +46,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -57,10 +55,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '6-1',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0
@@ -72,7 +70,7 @@
     methods: {
       //时间格式化
       dateFormat: function (row, column) {
-        let date = new Date(row.create_time);
+        let date = new Date(row.createTime);
         let y = date.getFullYear();
         let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
         let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
@@ -84,7 +82,7 @@
       },
       handleEdit(index, row) {
         console.log(index, row);
-        window.location.href = 'carResourcesEdit.jsp?id=' + row.id
+        window.location.href = 'inventoryEdit.jsp?id=' + row.id
       },
       handleCurrentChange(val) {
         this.getTable(val)
@@ -94,11 +92,11 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/selectAllSellingCustomer.action' : '/selectByCustomer.action',
+          url: this.searchVal.length == 0 ? '/purchase/showAllPurchase.action' : '/purchase/searchPurchase.action',
           data: {
             limit: 10,
             page: page,
-            s: this.searchVal
+            searchKeyWords: this.searchVal
           },
           dataType: 'json',
           success: (res) => {

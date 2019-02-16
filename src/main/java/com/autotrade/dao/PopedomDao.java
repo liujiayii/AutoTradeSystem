@@ -64,21 +64,21 @@ public interface PopedomDao {
 	
 	/**
 	  * @Title: findUserByPhone
-	  * @description 根据电话号码分页查询用户信息
-	  * @param @param phones 电话号码
+	  * @description 根据关键字分页查询用户信息
+	  * @param @param key 关键字
 	  * @param @param page 页数
 	  * @param @param limit 条数
 	  * @return List<User> 返回符合条件的用户信息   
 	  * @author ZhaoSong
 	  * @createDate 2019年1月9日
 	 */
-	List<User> findUserByPhone(@Param("phones")String phones, @Param("page")Integer page, @Param("limit")Integer limit);
+	List<User> findUserByPhone(@Param("key")String key, @Param("page")Integer page, @Param("limit")Integer limit);
 	
 	
 	/**
 	  * @Title: findPhoneCount
-	  * @description 查询符合电话号码条件的用户条数
-	  * @param @param phones 电话号码
+	  * @description 查询符合关键字条件的用户条数
+	  * @param @param key 关键字
 	  * @return Integer 符合条件的用户条数
 	  * @author ZhaoSong
 	  * @createDate 2019年1月9日

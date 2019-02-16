@@ -16,7 +16,7 @@
                     <el-input v-model="ruleForm.username"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input v-model="ruleForm.password"></el-input>
+                    <el-input v-model="ruleForm.password" type="password"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('ruleForm')" class="submit" round :loading="loading">登录</el-button>
@@ -25,11 +25,8 @@
         </div>
     </el-container>
 </div>
-
 </body>
-<!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- import JavaScript -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script>

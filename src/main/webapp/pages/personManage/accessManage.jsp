@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">权限管理</div>
@@ -19,7 +19,7 @@
               style="width: 100%">
       <el-table-column label="姓名" prop="name" show-overflow-tooltip></el-table-column>
       <el-table-column label="电话" prop="phone" show-overflow-tooltip></el-table-column>
-      <el-table-column label="地址" prop="address_id" show-overflow-tooltip></el-table-column>
+      <el-table-column label="地址" prop="address" show-overflow-tooltip></el-table-column>
       <el-table-column label="职务" prop="post" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
@@ -44,7 +44,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -53,10 +53,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '7-2',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0
@@ -94,11 +94,11 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/findUserByLimit.action' : '/selectByCustomer.action',
+          url: this.searchVal.length == 0 ? '/user/findUserByLimit.action' : '/popedom/findUserByPhone.action',
           data: {
             limit: 10,
             page: page,
-            s: this.searchVal
+            keyWord: this.searchVal
           },
           dataType: 'json',
           success: (res) => {

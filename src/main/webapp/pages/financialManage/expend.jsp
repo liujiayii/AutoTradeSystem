@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">支出管理</div>
@@ -40,24 +40,23 @@
   </el-container>
 </el-card>
 <el-dialog title="编辑" :visible.sync="dialogFormVisible">
-  <el-form :model="ruleForm" label-width="100px">
-    <el-form-item prop="departmentId" label="部门" :rules="[ { required: true, message: '请选择部门', trigger: 'blur' } ]">
+  <el-form :model="ruleForm" label-width="100px" ref="ruleForm" :rules="rules">
+    <el-form-item prop="departmentId" label="部门">
       <el-select v-model="ruleForm.departmentId" placeholder="请选择部门">
         <el-option v-for="item in branchData" :label="item.department" :value="item.department"
                    :key="item.id"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item prop="name" label="姓名" :rules="[ { required: true, message: '请输入姓名', trigger: 'blur' } ]">
+    <el-form-item prop="name" label="姓名">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
-    <el-form-item label="项目名称" :rules="[ { required: true, message: '请输入项目', trigger: 'blur' } ]">
+    <el-form-item label="项目名称">
       <el-input v-model="ruleForm.expenditure"></el-input>
     </el-form-item>
-    <el-form-item label="金额"
-                  :rules="[ { required: true, message: '请输入金额', trigger: 'blur' } ]">
+    <el-form-item label="金额">
       <el-input v-model="ruleForm.expenditureMoney"></el-input>
     </el-form-item>
-    <el-form-item label="摘要" :rules="[ { required: true, message: '请输入摘要', trigger: 'blur' } ]">
+    <el-form-item label="摘要">
       <el-input type="textarea" v-model="ruleForm.detailedExpenditure"></el-input>
     </el-form-item>
     <el-form-item label="日期">
@@ -81,7 +80,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -90,10 +89,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '5-2',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0
@@ -110,8 +109,7 @@
       //时间格式化
       dateFormat: function (row, column) {
         console.log(column)
-        let date = null
-        column.property == 'data' ? date = new Date(row.data) : date = new Date(row.createTime)
+        let date =  column.property == 'data' ? new Date(row.data) : new Date(row.createTime)
         let y = date.getFullYear();
         let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
         let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();

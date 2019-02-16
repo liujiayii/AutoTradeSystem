@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">部门管理</div>
   <el-button class="btn" type="primary" icon="el-icon-plus" round @click="dialogFormVisible = true">添加</el-button>
   <el-dialog title="添加部门" :visible.sync="dialogFormVisible">
     <el-form :model="form">
-      <el-form-item label="活动名称" :label-width="formLabelWidth">
+      <el-form-item label="部门名称" :label-width="formLabelWidth" :rules="[{required: true, message: '请输入部门名称', trigger: 'blur'}]">
         <el-input v-model="form.name" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
@@ -51,7 +51,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -60,10 +60,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '5-3',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0

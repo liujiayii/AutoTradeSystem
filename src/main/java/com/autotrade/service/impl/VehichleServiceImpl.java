@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autotrade.dao.VehichleDao;
+import com.autotrade.entity.VehichileDetailed;
 import com.autotrade.entity.Vehichle;
 import com.autotrade.service.VehichleService;
 import com.autotrade.utils.JsonUtil;
@@ -21,7 +22,11 @@ public class VehichleServiceImpl implements VehichleService{
 		vehichle.setCreate_time(new Date());
 		String string;
 		try {
+			Integer count1 = vehichleDao.selectByProperty(vehichle.getVehile_number());
 			
+			if(count1 >= 1){
+				return JsonUtil.getResponseJson(1,"该入库编号已存在", null, null);
+			}
 		
 		Integer result = vehichleDao.insert(vehichle);
 		if(result >=1 ){
@@ -30,6 +35,7 @@ public class VehichleServiceImpl implements VehichleService{
 			string = JsonUtil.getResponseJson(1, "添加失败", null, null);
 		}
 		} catch (Exception e) {
+			e.printStackTrace();
 			string = JsonUtil.getResponseJson(-1,"系统异常", null, null);
 		}
 		
@@ -84,6 +90,7 @@ public class VehichleServiceImpl implements VehichleService{
 			string = JsonUtil.getResponseJson(1, "修改失败", null, null);
 		}
 		} catch (Exception e) {
+			e.printStackTrace();
 			string = JsonUtil.getResponseJson(-1,"系统异常", null, null);
 		}
 		
@@ -123,6 +130,18 @@ public class VehichleServiceImpl implements VehichleService{
 		}
 		
 		return string;
+	}
+
+	@Override
+	public String hybridSelect(String s, Integer page, Integer limit) {
+		try {
+			Integer star = (page - 1) * limit;
+			List<Vehichle> list = vehichleDao.hybridSelect(s, star, limit);
+			Integer count = vehichleDao.hybridSelectCount(s);
+			return JsonUtil.getResponseJson(1, "查询成功", count, list);
+		} catch (Exception e) {
+			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
 	}
 
 }

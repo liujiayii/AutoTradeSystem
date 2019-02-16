@@ -16,4 +16,6 @@ public interface VehichleService {
 
 	String selectAll(Integer star, Integer limit);
 
+	String hybridSelect(String s, Integer page, Integer limit);
+
 }

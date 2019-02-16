@@ -40,7 +40,7 @@ public interface UserDao {
 	  * @author ZhaoSong
 	  * @createDate 2019年1月7日
 	 */
-	Integer updateUserById(@Param("id")Long id,@Param("user")User user);
+	Integer updateUserById(User user);
 	
 	
 	/**
@@ -63,6 +63,16 @@ public interface UserDao {
 	  * @createDate 2019年2月11日
 	 */
 	Integer findAllCount();
+
+	/**
+	  * @Title: findbyId
+	  * @description 根据用户id查询信息
+	  * @param @param id 用户id
+	  * @return User 返回用户对象   
+	  * @author ZhaoSong
+	  * @createDate 2019年2月14日
+	 */
+	User findbyId(Long id);
 	
 	
 }

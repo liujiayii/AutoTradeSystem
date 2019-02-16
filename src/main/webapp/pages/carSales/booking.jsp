@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="../layout/head.jsp" %>
+<%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">订车管理</div>
@@ -20,8 +20,9 @@
       <el-table-column label="姓名" prop="name" show-overflow-tooltip></el-table-column>
       <el-table-column label="电话" prop="phone" show-overflow-tooltip></el-table-column>
       <el-table-column label="地址" prop="address" show-overflow-tooltip></el-table-column>
-      <el-table-column label="类型" prop="type" show-overflow-tooltip></el-table-column>
-      <el-table-column label="厂牌型号" prop="typeNumber" show-overflow-tooltip></el-table-column>
+      <el-table-column label="类型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
+      <el-table-column label="厂牌型号" prop="brand" show-overflow-tooltip></el-table-column>
+
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -44,7 +45,7 @@
 </el-container>
 
 </el-main>
-<el-footer>©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司</el-footer>
+<el-footer>{{footer}}</el-footer>
 </el-container>
 </el-container>
 </el-container>
@@ -53,10 +54,10 @@
 <script>
   new Vue({
     el: '#app',
+    mixins: [mixin],
     data: function () {
       return {
         navActive: '3-1',
-        isCollapse: false,
         tableData: {
           data: [],
           count: 0
@@ -80,7 +81,12 @@
       },
       handleEdit(index, row) {
         console.log(index, row);
-        window.location.href = 'bookingEdit.jsp?id=' + row.c_id
+
+
+
+
+
+        window.location.href = 'bookingEdit.jsp?id=' + row.id
       },
       handleCurrentChange(val) {
         this.getTable(val)
@@ -90,7 +96,7 @@
         this.loading2 = true
         $.ajax({
           type: 'post',
-          url: this.searchVal.length == 0 ? '/selectAllBooking.action' : '/sellCar/findByKeyWord.action',
+          url: this.searchVal.length == 0 ? '/booking/selectAllBooking.action' : '/booking/findByKeyWord.action',
           data: {
             limit: 10,
             page: page,

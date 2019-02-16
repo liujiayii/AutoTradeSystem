@@ -47,7 +47,7 @@ public class VehichleController {
 	@RequestMapping("insert")
 	@ResponseBody
 	public String insert (@RequestBody Vehichle vehichle) {		
-		
+		vehichle.setId(null);
 		return vehichleService.insert(vehichle);
 
 	}
@@ -69,6 +69,7 @@ public class VehichleController {
 	 * @createDate 2019年1月10日
 	 */
 	@RequestMapping("deleteByPrimaryKey")
+	@ResponseBody
 	public String deleteByPrimaryKey (Long id) {		
 		
 		return vehichleService.deleteByPrimaryKey(id);
@@ -91,6 +92,7 @@ public class VehichleController {
 	 * @createDate 2019年1月10日
 	 */
 	@RequestMapping("deleteByBrand")
+	@ResponseBody
 	public String deleteByBrand (String brand) {		
 		
 		return vehichleService.deleteByBrand(brand);
@@ -113,7 +115,8 @@ public class VehichleController {
 	 * @createDate 2019年1月10日
 	 */
 	@RequestMapping("updateByPrimaryKey")
-	public String updateByPrimaryKey (Vehichle vehichle) {		
+	@ResponseBody
+	public String updateByPrimaryKey (@RequestBody Vehichle vehichle) {		
 		
 		return vehichleService.updateByPrimaryKey(vehichle);
 
@@ -135,12 +138,29 @@ public class VehichleController {
 	 * @createDate 2019年1月10日
 	 */
 	@RequestMapping("selectByPrimaryKey")
+	@ResponseBody
 	public String selectByPrimaryKey (Long id) {		
 		
 		return vehichleService.selectByPrimaryKey(id);
 
 	}
+	/**
+	 * 
+	*
+	 * @Title: selectAll
 	
+	 * @description 
+	*
+	 * @param @param page
+	 * @param @param limit
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月14日
+	 */
 	@RequestMapping("selectAll")
 	@ResponseBody
 	public String selectAll (Integer page,Integer limit) {		
@@ -148,6 +168,29 @@ public class VehichleController {
 		return vehichleService.selectAll(star,limit);
 
 	}
+	/**
+	 * 
+	*
+	 * @Title: hybridSelect
 	
+	 * @description 多条件模糊查询
+	*
+	 * @param @param s
+	 * @param @param page
+	 * @param @param limit
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月14日
+	 */
+	@RequestMapping("hybridSelect")
+	@ResponseBody
+	public String hybridSelect(String s, Integer page, Integer limit){
+		
+		return vehichleService.hybridSelect(s,page,limit);
+	}
 	
 }
