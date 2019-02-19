@@ -21,11 +21,10 @@ body{
 .title{
     padding-left: 68px;
     font-size: 30px;
-    color: #5966c6;
+    color: #545c64;
     margin-bottom: 94px;
 }
 .submit{
     margin-top: 100px;
     width: 100%;
-    background: #5966c6;
 }

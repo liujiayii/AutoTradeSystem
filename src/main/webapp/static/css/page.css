@@ -59,7 +59,7 @@ body {
     background-color: #545c64;
 }
 
-.el-aside a, .el-menu--popup-right-start a, .el-dropdown-menu__item a {
+.el-aside a, .el-menu--popup-right-start a, .el-dropdown-menu a {
     text-decoration: none;
 }
 

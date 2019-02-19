@@ -19,7 +19,7 @@ let Menu = [
     }]
   }, {
     name: '交易管理',
-     icon: 'fa fa-suitcase fa-fw',
+    icon: 'fa fa-suitcase fa-fw',
     child: [{
       name: '评估审核',
       path: '/pages/tradeManage/evaluation.jsp'
@@ -93,17 +93,17 @@ let Menu = [
       name: '维修工单',
       path: '/pages/repair/form.jsp'
     }, {
-      name: '维修车型分类',
-      path: javas
+      name: '车辆档案',
+      path: '/pages/repair/carArchives.jsp'
     }, {
-      name: '维修工时计算',
-      path: javas
+      name: '维修工时',
+      path: '/pages/repair/repairTime.jsp'
     }, {
-      name: '维修项目定义',
-      path: javas
+      name: '维修项目',
+      path: '/pages/repair/repairItem.jsp'
     }, {
-      name: '维修项目用料',
-      path: javas
+      name: '项目用料',
+      path: '/pages/repair/itemUsed.jsp'
     }]
   }, {
     name: '维修档案',
@@ -135,6 +135,7 @@ let Menu = [
       path: javas
     }]
   }]
+
 const mixin = {
   data() {
     return {
@@ -184,6 +185,8 @@ const mixin = {
           {required: 'number', message: '请输入正确的分期月数', trigger: 'blur'}],
         monthly_supply: [{required: true, message: '请输入月供', trigger: 'blur'},
           {required: 'number', message: '请输入正确的月供', trigger: 'blur'}],
+        monthlySupply: [{required: true, message: '请输入金额', trigger: 'blur'},
+          {required: 'number', message: '请输入正确的金额', trigger: 'blur'}],
         mileage: [{required: true, message: '请输入行驶里程', trigger: 'blur'}],
         name: [{required: true, message: '请输入姓名', trigger: 'blur'}],
         number: [{required: true, message: '请输入预定数量', trigger: 'blur'}],
@@ -200,6 +203,7 @@ const mixin = {
         pId: [{required: true, message: '请选择职位', trigger: 'blur'}],
         qualified_number: [{required: true, message: '请输入合格证号', trigger: 'blur'}],
         remark: [{required: true, message: '请输入详细信息', trigger: 'blur'}],
+        repaymentDate: [{required: true, message: '请选择日期', trigger: 'blur'}],
         service_life: [{required: true, message: '请输入使用年限', trigger: 'blur'},
           {required: 'number', message: '请输入正确的使用年限', trigger: 'blur'}],
         strongDanger: [{required: true, message: '请输入强险金额', trigger: 'blur'},
@@ -233,23 +237,7 @@ const mixin = {
   },
   methods: {
     handleCommand(command) {
-      if (command === 'logout') {
-
-      } else if (command === 'a') {
-        this.$notify({
-          title: '提示',
-          message: '基本资料',
-          type: 'warning',
-          position: 'bottom-right'
-        });
-      } else if (command === 'b') {
-        this.$notify({
-          title: '提示',
-          message: '修改密码',
-          type: 'warning',
-          position: 'bottom-right'
-        });
-      }
+      console.log(command)
     },
     getHrefParam(key) {
       var s = window.location.href;
@@ -271,6 +259,74 @@ const mixin = {
       let m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
       let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
       return y + "-" + m + "-" + d;
+    },
+    notifyError(msg) {
+      this.$alert(msg, '提示', {
+        type: 'error',
+        confirmButtonText: '确定'
+      });
+    },
+    notifySuc(msg, path) {
+      this.$alert(msg, '提示', {
+        confirmButtonText: '确定',
+        type: 'success',
+        callback: action => {
+          window.location.href = path
+        }
+      });
+    },
+    notifyNoPath(message) {
+      this.$notify({
+        title: '成功',
+        message,
+        type: 'success'
+      });
+    },
+    onLoad(url, data) {
+      $.ajax({
+        type: 'post',
+        url,
+        data,
+        dataType: 'json',
+        success: (res) => {
+          console.log(res)
+          if (res.code == 1) {
+            Object.assign(this.ruleForm, res.data)
+          }
+        },
+        error: (res) => {
+          console.log(res)
+        }
+      })
+    },
+    getTable(data, url_a, url_b,) {
+      this.loading2 = true
+      $.ajax({
+        type: 'post',
+        url: this.searchVal.length == 0 ? url_a : url_b,
+        data,
+        dataType: 'json',
+        success: (res) => {
+          console.log(res)
+          if (res.code == 1) {
+            if (res.data != 'null') {
+              this.tableData.data = res.data
+            } else {
+              this.tableData.data = []
+              this.notifyError(res.msg)
+            }
+            this.tableData.count = res.count
+            this.loading2 = false
+          } else {
+            console.log('aa')
+            this.notifyError(res.msg)
+          }
+        },
+        error: (res) => {
+          this.notifyError(res.msg)
+        }
+      })
     }
+
   }
 }

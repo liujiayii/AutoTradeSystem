@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>喔驰后台管理系统</title>
-  <link href="https://cdn.bootcss.com/element-ui/2.5.3/theme-chalk/index.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/element-ui/2.5.4/theme-chalk/index.css" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/page.css">
   <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdn.bootcss.com/vue/2.6.4/vue.min.js"></script>
-  <script src="https://cdn.bootcss.com/element-ui/2.5.3/index.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.6.4/vue.js"></script>
+  <script src="https://cdn.bootcss.com/element-ui/2.5.4/index.js"></script>
   <script src="/static/js/utils.js"></script>
 </head>
 <body>
@@ -54,11 +54,7 @@
           ${user.name}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">基本资料</el-dropdown-item>
-            <el-dropdown-item command="b">修改密码</el-dropdown-item>
-            <el-dropdown-item command="logout" divided>
-              <a href="/logout.action">退出</a>
-            </el-dropdown-item>
+            <a href="/logout.action"><el-dropdown-item command="logout">退出</el-dropdown-item></a>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>

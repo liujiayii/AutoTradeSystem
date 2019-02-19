@@ -76,13 +76,7 @@
     </el-pagination>
   </div>
 </el-container>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -97,16 +91,13 @@
         },
         loading2: true,
         dialogFormVisible: false,
-        row: {}
+        row: {},
+        searchVal: ''
       }
     },
     methods: {
       format(row, column) {
         return row.beOverdue === 0 ? '还款中' : row.beOverdue === 1 ? '已还款' : '逾期'
-      },
-      handleCurrentChange(val) {
-        this.getTable(val)
-        console.log(val)
       },
       updateStateRow(index, row) {
         this.dialogFormVisible = true
@@ -125,92 +116,32 @@
           dataType: 'json',
           success: (res) => {
             this.dialogFormVisible = false
-            window.location.reload()
             if (res.code == 1) {
-              this.$notify({
-                title: '成功',
-                message: res.msg,
-                type: 'success',
-                position: 'bottom-right',
-                offset: 300
-              });
+              this.handleCurrentChange(1)
+              this.notifyNoPath(res.msg)
             } else {
               console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
+            this.notifyError(res.msg)
           }
         })
       },
-      getTable(page) {
-        this.loading2 = true
-        $.ajax({
-          type: 'post',
-          url: '/byStages/showDetailsByStages.action',
-          data: {
-            limit: 10,
-            page: page,
-            //id: this.ruleForm.id
-            id: this.getHrefParam('id')
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log("分期详情：" + JSON.stringify(res))
-            if (res.code == 1) {
-              this.tableData.data = res.data
-              this.tableData.count = res.count
-              this.loading2 = false
-            } else {
-              console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
-            }
-          },
-          error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
-          }
-        })
+      handleCurrentChange(page) {
+        console.log(page)
+        this.getTable({
+          limit: 10,
+          page,
+          id: this.getHrefParam('id')
+        }, '/byStages/showDetailsByStages.action', '')
       }
     },
     created() {
       if (this.getHrefParam('id')) {
-        $.ajax({
-          type: 'post',
-          url: '/byStages/showBuyingCustomer.action',
-          data: {id: this.getHrefParam('id')},
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.ruleForm = res.data
-              this.getTable(1)
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        })
+        this.handleCurrentChange(1)
+        this.onLoad('/byStages/showBuyingCustomer.action', {id: this.getHrefParam('id')})
       }
     }
   })

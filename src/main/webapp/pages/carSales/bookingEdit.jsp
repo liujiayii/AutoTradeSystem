@@ -127,13 +127,7 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -159,21 +153,6 @@
           remark: '',
           singlePerson: '${user.name}'
         },
-        /*  carForm: {
-           vehile_number: '',
-           vehicle_type: '',
-           brand: '',
-           engine_number: '',
-           qualified_number: '',
-           chassis_number: '',
-           imported_number: '',
-           inspection_number: '',
-           carry_number: '',
-           self_number: '',
-           key_number: '',
-           mileage: '',
-           selling_price: ''
-         }, */
         tableData: {
           data: [],
           count: 0
@@ -183,9 +162,13 @@
       }
     },
     methods: {
-      handleCurrentChange(val) {
-        this.getTable(val)
-        console.log(val)
+      handleCurrentChange(page) {
+        console.log(page)
+        this.getTable({
+          limit: 10,
+          page,
+          s: this.searchVal
+        }, '/VehichileDetailed/selectAll.action', '/VehichileDetailed/hybridSelect.action')
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -207,26 +190,14 @@
               success: (res) => {
                 console.log(res)
                 if (res.code == 1) {
-                  this.$alert(res.msg, '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success',
-                    callback: action => {
-                      window.location.href = "booking.jsp"
-                    }
-                  });
+                  this.notifySuc(res.msg, 'booking.jsp')
                 } else {
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg)
                 }
               },
               error: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg)
               }
             })
           } else {
@@ -282,68 +253,11 @@
               for (let key in this.carForm) {
                 this.carForm[key] = ''
               }
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
-          }
-        })
-      },
-      getTable(page) {
-        this.loading2 = true
-        $.ajax({
-          type: 'post',
-          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/VehichileDetailed/hybridSelect.action',
-          data: {
-            limit: 10,
-            page: page,
-            s: this.searchVal
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              if (res.data != 'null') {
-                Object.assign(this.tableData.data, res.data)
-              } else {
-                this.tableData.data = []
-                this.$notify.error({
-                  title: '警告',
-                  message: res.msg,
-                  position: 'bottom-right',
-                  offset: 300
-                })
-              }
-              this.tableData.count = res.count
-              this.loading2 = false
-            } else {
-              console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
-            }
-          },
-          error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
+            this.notifyError(res.msg)
           }
         })
       },
@@ -355,27 +269,9 @@
       },
     },
     created() {
-      this.getTable(1)
+      this.handleCurrentChange(1)
       if (this.getHrefParam('id')) {
-
-        $.ajax({
-          type: 'post',
-          url: '/booking/findById.action',
-          data: {
-            id: this.getHrefParam('id')
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.ruleForm = res.data
-              this.carForm = res.data
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        })
+        this.onLoad('/booking/findById.action', {id: this.getHrefParam('id')})
       }
     }
   })

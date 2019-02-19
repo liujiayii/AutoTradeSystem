@@ -81,17 +81,12 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -119,20 +114,15 @@
               dataType: 'json',
               success: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'success',
-                  confirmButtonText: '确定',
-                  callback: action => {
-                    window.location.href = "accessManage.jsp"
-                  }
-                });
+                if(res.code == 1){
+                  this.notifySuc(res.msg,'accessManage.jsp')
+                }else {
+                  this.notifyError(res.msg)
+                }
               },
               error: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg)
               }
             })
           } else {
@@ -155,14 +145,13 @@
               for (let i = 0; i < res.data.length; i++) {
                 this.ruleForm.popedoms.push(res.data[i].pId)
               }
+            }else {
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
             console.log(res)
-            this.$alert(res.msg, '提示', {
-              type: 'error',
-              confirmButtonText: '确定'
-            });
+            this.notifyError(res.msg)
           }
         })
       }

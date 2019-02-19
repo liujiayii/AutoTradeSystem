@@ -104,7 +104,21 @@ public class ByStagesController {
 		map.put("page", page);
 		map.put("size", limit);
 		
-		return detailsInstallmentsService.selectDetailsInstallments(map);
+		int code = 1;
+		String msg = "查询成功";
+		int count = 0;
+		List<DetailsInstallments> detailsInstallmentsList = null;
+		
+		try {
+			detailsInstallmentsList = detailsInstallmentsService.selectDetailsInstallments(map);
+			count = detailsInstallmentsService.getCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+			msg = "查询失败";
+		}
+		
+		return JsonUtil.getResponseJson(code, msg, count, detailsInstallmentsList);
 	}	
 	
 	/**
@@ -253,10 +267,21 @@ public class ByStagesController {
 	@RequestMapping("/updateByStages")
 	@Transactional
 	public String updateByStages(@RequestBody Map<String, Object> map) {
+		System.out.println("分期表修改："+map);
 		int code = 1;
 		String msg = "修改成功";
+		Map<String, Object> newMap = new HashMap<> ();
 		
 		try {
+			// 获取分期详情表对象
+			DetailsInstallments detailsInstallments = JSON.parseObject(JSONObject.toJSONString(map), DetailsInstallments.class);
+			newMap.put("id", detailsInstallments.getId());
+			// 如果已还款超过1期，禁止修改操作
+			if (detailsInstallmentsService.selectDetailsInstallments(newMap).size() > 1) {
+				
+				return JsonUtil.getResponseJson(code, "已在还款中，禁止修改", null, null);
+			}
+			
 			if (map.get("byStages") != null) {
 				//获取分期表数据
 				ByStages byStages = JSON.parseObject(JSONObject.toJSONString(map.get("byStages")), ByStages.class);
@@ -264,7 +289,6 @@ public class ByStagesController {
 				byStagesService.updateByIdSelective(byStages);
 			}
 			
-			DetailsInstallments detailsInstallments = JSON.parseObject(JSONObject.toJSONString(map), DetailsInstallments.class);
 			// 更新分期详情表
 			detailsInstallmentsService.updateByIdSelective(detailsInstallments);
 		} catch (Exception e) {

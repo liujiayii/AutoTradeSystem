@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/header.jsp" %>
-<!-- Form -->
+
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">权限管理</div>
 </el-container>
@@ -45,7 +45,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="密码" prop="passWord">
-            <el-input v-model="ruleForm.passWord"></el-input>
+            <el-input v-model="ruleForm.passWord" placeholder="如无需更改请不要填"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -56,13 +56,9 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+
+<%@ include file="../layout/footer.jsp" %>
+
 <script>
   new Vue({
     el: '#app',
@@ -70,7 +66,7 @@
     data: function () {
       let validUser = (rule, value, callback) => {
         const valid = /^[a-zA-Z0-9_-]{3,12}$/
-        if (valid.test(value)) {
+        if (!valid.test(value)) {
           callback(new Error('请输入正确的用户名'));
         } else {
           callback();
@@ -78,15 +74,18 @@
       }
       let validPass = (rule, value, callback) => {
         const valid = /^[a-zA-Z0-9_-]{6,12}$/
-        if (value.length != 0) {
-          if (valid.test(value)) {
+        if (value && value.length != 0) {
+          if (!valid.test(value)) {
             callback(new Error('请输入正确的密码'));
           } else if (value.length < 6 || value.length > 12) {
             callback(new Error('长度在 6 到 12 个字符'));
           } else {
             callback();
           }
+        } else {
+          callback();
         }
+
       }
       return {
         navActive: '7-2',
@@ -114,26 +113,14 @@
                 success: (res) => {
                   console.log(res)
                   if (res.code == 1) {
-                    this.$alert(res.msg, '提示', {
-                      confirmButtonText: '确定',
-                      type: 'success',
-                      callback: action => {
-                        window.location.href = "accessManage.jsp"
-                      }
-                    })
+                    this.notifySuc(res.msg, 'accessManage.jsp')
                   } else {
-                    this.$alert(res.msg, '提示', {
-                      type: 'error',
-                      confirmButtonText: '确定'
-                    });
+                    this.notifyError(res.msg)
                   }
                 },
                 error: (res) => {
                   console.log(res)
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg)
                 }
               }
             )
@@ -146,25 +133,11 @@
     },
     created() {
       if (this.getHrefParam('id')) {
-        $.ajax({
-          type: 'post',
-          url: '/user/findById.action',
-          data: {id: this.getHrefParam('id')},
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              delete res.data['post']
-              delete res.data['KeyWord']
-              delete res.data['createTime']
-              delete res.data['passWord']
-              this.ruleForm = res.data
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        })
+        this.onLoad('/user/findById.action',{id: this.getHrefParam('id')})
+        delete this.ruleForm['post']
+        delete this.ruleForm['KeyWord']
+        delete this.ruleForm['createTime']
+        delete this.ruleForm['passWord']
       }
     }
   })

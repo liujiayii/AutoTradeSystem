@@ -153,13 +153,7 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -205,36 +199,22 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert(this.ruleForm.type)
             $.ajax({
               type: 'post',
-              url: this.ruleForm.id ? '/Vehichle/updateByPrimaryKey.action': '/Vehichle/insert.action',
+              url: this.ruleForm.id ? '/Vehichle/updateByPrimaryKey.action' : '/Vehichle/insert.action',
               data: JSON.stringify(this.ruleForm),
               contentType: 'application/json; charset=UTF-8',
               dataType: 'json',
               success: (res) => {
                 console.log(res)
                 if (res.code == 1) {
-                  this.$alert(res.msg, '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success',
-                    callback: action => {
-                      window.location.href = "carManage.jsp"
-                    }
-                  });
+                  this.notifySuc(res.msg,'carManage.jsp')
                 } else {
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg)
                 }
               },
               error: (res) => {
-                console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg)
               }
             })
           } else {
@@ -243,60 +223,17 @@
           }
         })
       },
-      handleCurrentChange(val) {
-        this.getTable(val)
-        console.log(val)
-      },
       search(value) {
         console.log(this.searchVal)
-        this.getTable(1)
+        this.handleCurrentChange(1)
       },
-      getTable(page) {
-        this.loading2 = true
-        $.ajax({
-          type: 'post',
-          url: this.searchVal.length == 0 ? '/VehichileDetailed/selectAll.action' : '/VehichileDetailed/hybridSelect.action',
-          data: {
-            limit: 10,
-            page: page,
-            s: this.searchVal
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              if (res.data != 'null') {
-                this.tableData.data = res.data
-              } else {
-                this.tableData.data = []
-                this.$notify.error({
-                  title: '警告',
-                  message: res.msg,
-                  position: 'bottom-right',
-                  offset: 300
-                })
-              }
-              this.tableData.count = res.count
-              this.loading2 = false
-            } else {
-              console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
-            }
-          },
-          error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
-          }
-        })
+      handleCurrentChange(page) {
+        console.log(page)
+        this.getTable({
+          limit: 10,
+          page,
+          s: this.searchVal
+        }, '/VehichileDetailed/selectAll.action', '/VehichileDetailed/hybridSelect.action')
       },
       handlebooking(index, row) {
         console.log(row);
@@ -306,23 +243,9 @@
       },
     },
     created() {
-      this.getTable(1)
+      this.handleCurrentChange(1)
       if (this.getHrefParam('id')) {
-        $.ajax({
-          type: 'post',
-          url: '/Vehichle/selectByPrimaryKey.action',
-          data: {id: this.getHrefParam('id')},
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.ruleForm = res.data
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        })
+        this.onLoad('/Vehichle/selectByPrimaryKey.action', {id: this.getHrefParam('id')})
       }
     }
   })

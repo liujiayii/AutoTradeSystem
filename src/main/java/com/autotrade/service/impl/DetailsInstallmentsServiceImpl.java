@@ -97,23 +97,18 @@ public class DetailsInstallmentsServiceImpl implements DetailsInstallmentsServic
 	 * 查询分期详情
 	 */
 	@Override
-	public String selectDetailsInstallments(Map<String, Object> map) {
+	public List<DetailsInstallments> selectDetailsInstallments(Map<String, Object> map) throws Exception{
 		
-		int code = 1;
-		String msg = "查询成功";
-		int count = 0;
-		List<DetailsInstallments> detailsInstallmentsList = null;
+		return detailsInstallmentsDao.selectDetailsInstallments(map);
+	}
+
+	/**
+	 * 获取总条数
+	 */
+	@Override
+	public int getCount(Map<String, Object> map) {
 		
-		try {
-			detailsInstallmentsList = detailsInstallmentsDao.selectDetailsInstallments(map);
-			count = detailsInstallmentsDao.getCount(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			code = -1;
-			msg = "查询失败";
-		}
-		
-		return JsonUtil.getResponseJson(code, msg, count, detailsInstallmentsList);
+		return detailsInstallmentsDao.getCount(map);
 	}
 
 	

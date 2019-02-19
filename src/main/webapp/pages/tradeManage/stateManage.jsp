@@ -45,14 +45,7 @@
     </el-pagination>
   </div>
 </el-container>
-
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -72,7 +65,7 @@
     methods: {
       search(value) {
         console.log(this.searchVal)
-        this.getTable(1)
+        this.handleCurrentChange(1)
       },
       typeFormat(row, column, cellValue, index) {
         return cellValue == 0 ? '还款中' : cellValue == 1 ? '已还款' : '已逾期'
@@ -85,50 +78,17 @@
         console.log(index, row);
         window.location.href = 'stateUpdate.jsp?id=' + row.id
       },
-      handleCurrentChange(val) {
-        this.getTable(val)
-        console.log(val)
-      },
-      getTable(page) {
-        this.loading2 = true
-        $.ajax({
-          type: 'post',
-          url: this.searchVal.length == 0 ? '/byStages/showByStages.action' : '/byStages/searchByStages.action',
-          data: {
-            limit: 10,
-            page: page,
-            searchField: this.searchVal
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.tableData.data = res.data
-              this.tableData.count = res.count
-              this.loading2 = false
-            } else {
-              console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
-            }
-          },
-          error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
-          }
-        })
+      handleCurrentChange(page) {
+        console.log(page)
+        this.getTable({
+          limit: 10,
+          page,
+          searchField: this.searchVal
+        }, '/byStages/showByStages.action', '/byStages/searchByStages.action')
       }
     },
-    mounted() {
-      this.getTable(1)
+    created() {
+      this.handleCurrentChange(1)
     }
   })
 </script>

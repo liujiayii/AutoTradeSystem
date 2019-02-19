@@ -78,13 +78,7 @@
     </el-pagination>
   </div>
 </el-container>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -107,59 +101,16 @@
     methods: {
       search(value) {
         console.log(this.searchVal)
-        this.getTable(1)
+        this.handleCurrentChange(1)
       },
-      handleCurrentChange(val) {
-        this.getTable(val)
-        console.log(val)
-      },
-      getTable(page) {
-        this.loading2 = true
-        $.ajax({
-          type: 'post',
-          url: this.searchVal.length == 0 ? '/Incom/selectIncomByDepartmentId.action' : '/Incom/hybridSelect.action',
-          data: {
-            limit: 10,
-            page: page,
-            s: this.searchVal,
-            department_id: this.branch
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              if (res.data != 'null') {
-                this.tableData.data = res.data
-              } else {
-                this.tableData.data = []
-                this.$notify.error({
-                  title: '警告',
-                  message: res.msg,
-                  position: 'bottom-right',
-                  offset: 300
-                })
-              }
-              this.tableData.count = res.count
-              this.loading2 = false
-            } else {
-              console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
-            }
-          },
-          error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
-          }
-        })
+      handleCurrentChange(page) {
+        console.log(page)
+        this.getTable({
+          limit: 10,
+          page,
+          s: this.searchVal,
+          department_id: this.branch
+        }, '/Incom/selectIncomByDepartmentId.action', '/Incom/hybridSelect.action')
       },
       getBranch() {
         $.ajax({
@@ -175,38 +126,24 @@
             if (res.code == 1) {
               this.branchData = res.data
             } else {
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
+            this.notifyError(res.msg)
           }
         })
       },
       change(val) {
-        this.getTable(1)
-        this.$notify({
-          title: '成功',
-          message: val,
-          type: 'success'
-        });
+        this.notifyNoPath(val)
+        this.handleCurrentChange(1)
       },
       handleEdit(index, row) {
         console.log(index, row);
         this.ruleForm = row
         this.dialogFormVisible = !this.dialogFormVisible
       },
-      submit(){
+      submit() {
         $.ajax({
           type: 'post',
           url: '/Incom/updateById.action',
@@ -217,30 +154,21 @@
             console.log(res)
             if (res.code == 1) {
               this.dialogFormVisible = false
-              this.$alert(res.msg, '提示', {
-                confirmButtonText: '确定',
-                type: 'success'
-              })
+              this.notifyNoPath(res.msg)
             } else {
-              this.$alert(res.msg, '提示', {
-                type: 'error',
-                confirmButtonText: '确定'
-              });
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
             console.log(res)
-            this.$alert(res.msg, '提示', {
-              type: 'error',
-              confirmButtonText: '确定'
-            });
+            this.notifyError(res.msg)
           }
         })
       }
     },
-    mounted() {
+    created() {
       this.getBranch()
-      this.getTable(1)
+      this.handleCurrentChange(1)
     }
   })
 </script>

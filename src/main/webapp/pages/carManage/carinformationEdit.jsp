@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/header.jsp" %>
-<!-- Form -->
 <el-container class="secondNav">
   <div class="title" @click="isCollapse = !isCollapse">车辆信息</div>
 </el-container>
@@ -43,13 +42,7 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -79,26 +72,14 @@
               success: (res) => {
                 console.log(res)
                 if (res.code == 1) {
-                  this.$alert(res.msg, '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success',
-                    callback: action => {
-                      window.location.href = "carinformation.jsp"
-                    }
-                  });
+                  this.notifySuc(res.msg,'carinformation.jsp')
                 } else {
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg)
                 }
               },
               error: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg)
               }
             })
           } else {
@@ -110,22 +91,7 @@
     },
     created() {
       if (this.getHrefParam('id')) {
-        $.ajax({
-          type: 'post',
-          url: '/VehichileDetailed/selectById.action',
-          data: {id: this.getHrefParam('id')},
-
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.ruleForm = res.data
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        })
+        this.onLoad('/VehichileDetailed/selectById.action', {id: this.getHrefParam('id')})
       }
     }
   })

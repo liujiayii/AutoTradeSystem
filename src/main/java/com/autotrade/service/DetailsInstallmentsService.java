@@ -1,5 +1,6 @@
 package com.autotrade.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.autotrade.entity.DetailsInstallments;
@@ -113,13 +114,27 @@ public interface DetailsInstallmentsService {
      *
      * @param id
      * @return 
-     * String
+     * List<DetailsInstallments>
      *
      * @author lujinpeng
      * @createDate 2019年1月30日-下午3:25:24
      */
-    String selectDetailsInstallments(Map<String, Object> map);
+    List<DetailsInstallments> selectDetailsInstallments(Map<String, Object> map) throws Exception;
     
+    /**
+     * 查询详情总条数
+     *
+     * @Title: getCount
     
+     * @description 
+     *
+     * @return 
+       
+     * int
+     *
+     * @author lujinpeng
+     * @createDate 2019年1月30日-下午4:21:32
+     */
+    int getCount(Map<String, Object> map);
     
 }

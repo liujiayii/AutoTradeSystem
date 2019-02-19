@@ -90,7 +90,7 @@
         <el-form-item label="车辆信息"></el-form-item>
         <el-col :span="12">
           <el-form-item label="入库编号" prop="vehile_number">
-            <el-input v-model="carForm.vehile_number" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入入库编号进行搜索">
+            <el-input v-model="ruleForm.vehile_number" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入入库编号进行搜索">
               <el-button v-if="!Boolean(ruleForm.c_id)" slot="append" icon="el-icon-search"
                          @click="search2"></el-button>
             </el-input>
@@ -98,67 +98,67 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="车辆类型" prop="vehicle_type">
-            <el-input v-model="carForm.vehicle_type" readonly></el-input>
+            <el-input v-model="ruleForm.vehicle_type" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="车牌" prop="brand">
-            <el-input v-model="carForm.brand" readonly></el-input>
+            <el-input v-model="ruleForm.brand" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="车型代码" prop="vehicle_code">
-            <el-input v-model="carForm.vehicle_code" readonly></el-input>
+            <el-input v-model="ruleForm.vehicle_code" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="产地" prop="place">
-            <el-input v-model="carForm.place" readonly></el-input>
+            <el-input v-model="ruleForm.place" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="发动机号" prop="engine_number">
-            <el-input v-model="carForm.engine_number" readonly></el-input>
+            <el-input v-model="ruleForm.engine_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="合格证号" prop="qualified_number">
-            <el-input v-model="carForm.qualified_number" readonly></el-input>
+            <el-input v-model="ruleForm.qualified_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="底盘号" prop="chassis_number">
-            <el-input v-model="carForm.chassis_number" readonly></el-input>
+            <el-input v-model="ruleForm.chassis_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="进口证号" prop="imported_number">
-            <el-input v-model="carForm.imported_number" readonly></el-input>
+            <el-input v-model="ruleForm.imported_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="商检号" prop="inspection_number">
-            <el-input v-model="carForm.inspection_number" readonly></el-input>
+            <el-input v-model="ruleForm.inspection_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="提单号" prop="carry_number">
-            <el-input v-model="carForm.carry_number" readonly></el-input>
+            <el-input v-model="ruleForm.carry_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="自编号" prop="self_number">
-            <el-input v-model="carForm.self_number" readonly></el-input>
+            <el-input v-model="ruleForm.self_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="钥匙号" prop="key_number">
-            <el-input v-model="carForm.key_number" readonly></el-input>
+            <el-input v-model="ruleForm.key_number" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="行驶里程" prop="mileage">
-            <el-input v-model="carForm.mileage" readonly></el-input>
+            <el-input v-model="ruleForm.mileage" readonly></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -169,13 +169,7 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -196,9 +190,7 @@
           insurance: '',
           s_money: '',
           business: '',
-          single_person: '${user.name}'
-        },
-        carForm: {
+          single_person: '${user.name}',
           vehile_number: '',
           vehicle_type: '',
           brand: '',
@@ -219,8 +211,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.ruleForm.v_id = this.carForm.id
-            this.ruleForm.vehile_number = this.carForm.vehile_number
+            this.ruleForm.v_id = this.ruleForm.id
             console.log(this.ruleForm)
             $.ajax({
               type: 'post',
@@ -238,18 +229,12 @@
                     }
                   });
                 } else {
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg)
                 }
               },
               error: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg)
               }
             })
           } else {
@@ -285,67 +270,33 @@
             }
           }
         })
-
-
       },
       search2() {
-        alert("this.carForm.vehile_number" + this.carForm.vehile_number)
         $.ajax({
           type: 'post',
           url: '/sellCar/findCarByNumber.action',
           data: {
-            vehile_number: this.carForm.vehile_number
+            vehile_number: this.ruleForm.vehile_number
           },
           dataType: 'json',
           success: (res) => {
             console.log(res)
             if (res.code == 1) {
-              this.carForm = res.data
+              delete res.data['id']
+              Object.assign(this.ruleForm, res.data)
             } else {
-              for (let key in this.carForm) {
-                this.carForm[key] = ''
-              }
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
+            this.notifyError(res.msg)
           }
         })
-
-
       }
     },
     created() {
       if (this.getHrefParam('id')) {
-        $.ajax({
-          type: 'post',
-          url: '/sellCar/findById.action',
-          data: {
-            c_id: this.getHrefParam('id')
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.ruleForm = res.data
-              this.carForm = res.data
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        })
+        ths.onLoad('/sellCar/findById.action',{c_id: this.getHrefParam('id')})
       }
     }
   })

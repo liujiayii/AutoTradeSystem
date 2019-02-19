@@ -7,7 +7,8 @@
   <el-button class="btn" type="primary" icon="el-icon-plus" round @click="dialogFormVisible = true">添加</el-button>
   <el-dialog title="添加部门" :visible.sync="dialogFormVisible">
     <el-form :model="form">
-      <el-form-item label="部门名称" :label-width="formLabelWidth" :rules="[{required: true, message: '请输入部门名称', trigger: 'blur'}]">
+      <el-form-item label="部门名称" :label-width="formLabelWidth"
+                    :rules="[{required: true, message: '请输入部门名称', trigger: 'blur'}]">
         <el-input v-model="form.name" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
@@ -50,13 +51,7 @@
   </div>
 </el-container>
 
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -80,7 +75,7 @@
     methods: {
       search(value) {
         console.log(this.searchVal)
-        this.getTable(1)
+        this.handleCurrentChange(1)
       },
       insert() {
         this.dialogFormVisible = false
@@ -93,20 +88,15 @@
           dataType: 'json',
           success: (res) => {
             console.log(res)
-            this.getTable(1)
-            this.$notify({
-              title: '成功',
-              message: res.msg,
-              type: 'success'
-            });
+            if (res.code == 1) {
+              this.handleCurrentChange(1)
+              this.notifyNoPath(res.msg)
+            } else {
+              this.notifyError(res.msg)
+            }
           },
           error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
+            this.notifyError(res.msg)
           }
         })
       },
@@ -126,83 +116,35 @@
             dataType: 'json',
             success: (res) => {
               console.log(res)
-              this.getTable(1)
-              this.$notify({
-                title: '成功',
-                message: res.msg,
-                type: 'success'
-              });
+              if (res.code == 1) {
+                this.handleCurrentChange(1)
+                this.notifyNoPath(res.msg)
+              } else {
+                this.notifyError(res.msg)
+              }
             },
             error: (res) => {
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
+              this.notifyError(res.msg)
             }
           })
         }).catch(() => {
           this.$notify.info({
-            title: '消息',
+            title: '提示',
             message: '已取消'
           });
         });
       },
-      handleCurrentChange(val) {
-        this.getTable(val)
-        console.log(val)
-      },
-      getTable(page) {
-        this.loading2 = true
-        $.ajax({
-          type: 'post',
-          url: this.searchVal.length == 0 ? '/department/selectAll.action' : '',
-          data: {
-            limit: 10,
-            page: page,
-            s: this.searchVal
-          },
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              if (res.data != 'null') {
-                this.tableData.data = res.data
-              } else {
-                this.tableData.data = []
-                this.$notify.error({
-                  title: '警告',
-                  message: res.msg,
-                  position: 'bottom-right',
-                  offset: 300
-                })
-              }
-              this.tableData.count = res.count
-              this.loading2 = false
-            } else {
-              console.log('aa')
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
-            }
-          },
-          error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
-          }
-        })
+      handleCurrentChange(page) {
+        console.log(page)
+        this.getTable({
+          limit: 10,
+          page,
+          s: this.searchVal
+        }, '/department/selectAll.action', '')
       }
     },
-    mounted() {
-      this.getTable(1)
+    created() {
+      this.handleCurrentChange(1)
     }
   })
 </script>

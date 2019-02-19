@@ -43,13 +43,7 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -86,26 +80,15 @@
               success: (res) => {
                 console.log(res)
                 if (res.code == 1) {
-                  this.$alert(res.msg, '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success',
-                    callback: action => {
-                      window.location.href = this.getHrefParam('type') == 'income' ? "income.jsp" : 'expend.jsp'
-                    }
-                  })
+                  this.notifySuc(res.msg, this.getHrefParam('type') == 'income' ? "income.jsp" : 'expend.jsp')
+
                 } else {
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg)
                 }
               },
               error: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg)
               }
             })
             console.log(this.ruleForm)
@@ -129,26 +112,16 @@
             if (res.code == 1) {
               this.branchData = res.data
             } else {
-              this.$notify.error({
-                title: '警告',
-                message: res.msg,
-                position: 'bottom-right',
-                offset: 300
-              })
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
-            this.$notify.error({
-              title: '警告',
-              message: res.msg,
-              position: 'bottom-right',
-              offset: 300
-            })
+            this.notifyError(res.msg)
           }
         })
       }
     },
-    mounted() {
+    created() {
       this.getBranch()
     }
   })

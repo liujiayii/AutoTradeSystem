@@ -13,40 +13,40 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="姓名" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
+            <el-input v-model="ruleForm.name" :readonly="Boolean(ruleForm.id)"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone"></el-input>
+            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.id)"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="地址" prop="address">
-            <el-input v-model="ruleForm.address"></el-input>
+            <el-input v-model="ruleForm.address" :readonly="Boolean(ruleForm.id)"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="车辆信息"></el-form-item>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="贷款金额">
-            <el-input v-model="carForm.byStages.loanAmount" @input="count"></el-input>
+          <el-form-item label="贷款金额" prop="loanAmount">
+            <el-input v-model="ruleForm.loanAmount" @input="count"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="贷款期限">
-            <el-input v-model="carForm.byStages.totalPeriod" @input="count" ></el-input>
+          <el-form-item label="贷款期限" prop="totalPeriod">
+            <el-input v-model="ruleForm.totalPeriod" @input="count"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="还款日">
-            <el-date-picker type="date" v-model="carForm.repaymentDate" style="width: 100%;"></el-date-picker>
+          <el-form-item label="还款日" prop="repaymentDate">
+            <el-date-picker type="date" v-model="ruleForm.repaymentDate" style="width: 100%;"></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="每期还款">
-            <el-input v-model="carForm.byStages.monthlySupply"></el-input>
+          <el-form-item label="每期还款" prop="monthlySupply">
+            <el-input v-model="ruleForm.monthlySupply"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -57,13 +57,7 @@
     </el-form>
   </el-container>
 </el-card>
-</el-main>
-<el-footer>{{footer}}</el-footer>
-</el-container>
-</el-container>
-</el-container>
-</div>
-</body>
+<%@ include file="../layout/footer.jsp" %>
 <script>
   new Vue({
     el: '#app',
@@ -74,23 +68,19 @@
         ruleForm: {
           name: '',
           phone: '',
-          address: ''
-        },
-        carForm: {
-          byStages: {
-            totalPeriod: '',
-            loanAmount: '',
-            monthlySupply: ''
-          },
+          address: '',
+          totalPeriod: '',
+          loanAmount: '',
+          monthlySupply: '',
           repaymentDate: ''
         }
       }
     },
     methods: {
       count() {
-        let t = this.carForm.byStages.totalPeriod == '' ? 1 : parseInt(this.carForm.byStages.totalPeriod)
-        let l = this.carForm.byStages.loanAmount == '' ? 0 : parseInt(this.carForm.byStages.loanAmount)
-        this.carForm.byStages.monthlySupply = l / t
+        let t = this.ruleForm.totalPeriod == '' ? 1 : parseInt(this.ruleForm.totalPeriod)
+        let l = this.ruleForm.loanAmount == '' ? 0 : parseInt(this.ruleForm.loanAmount)
+        this.ruleForm.monthlySupply = l / t
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -99,35 +89,43 @@
             $.ajax({
               type: 'post',
               url: this.ruleForm.id ? '/byStages/updateByStages.action' : '/byStages/insertByStages.action',
-              data: this.ruleForm.id ? JSON.stringify(this.carForm) : JSON.stringify({
-                "buyingCustomer": this.ruleForm,
-                "carForm": this.carForm
+              data: this.ruleForm.id ? JSON.stringify({
+                id: this.ruleForm.id,
+                repaymentDate: this.ruleForm.repaymentDate,
+                byStages: {
+                  totalPeriod: this.ruleForm.totalPeriod,
+                  loanAmount: this.ruleForm.loanAmount,
+                  monthlySupply: this.ruleForm.monthly_supply
+                }
+              }) : JSON.stringify({
+                "buyingCustomer": {
+                  name: this.ruleForm.name,
+                  phone: this.ruleForm.phone,
+                  address: this.ruleForm.address
+                },
+                "carForm": {
+                  id: this.ruleForm.id,
+                  byStages: {
+                    totalPeriod: this.ruleForm.totalPeriod,
+                    loanAmount: this.ruleForm.loanAmount,
+                    monthlySupply: this.ruleForm.monthly_supply
+                  },
+                  repaymentDate: this.ruleForm.repaymentDate
+                }
               }),
               contentType: 'application/json; charset=UTF-8',
               dataType: 'json',
               success: (res) => {
                 console.log(res)
                 if (res.code == 1) {
-                  this.$alert(res.msg, '提示', {
-                    confirmButtonText: '确定',
-                    type: 'success',
-                    callback: action => {
-                      window.location.href = "stateManage.jsp"
-                    }
-                  })
+                  this.notifySuc(res.msg, 'stateManage.jsp')
                 } else {
-                  this.$alert(res.msg, '提示', {
-                    type: 'error',
-                    confirmButtonText: '确定'
-                  });
+                  this.notifyError(res.msg,)
                 }
               },
               error: (res) => {
                 console.log(res)
-                this.$alert(res.msg, '提示', {
-                  type: 'error',
-                  confirmButtonText: '确定'
-                });
+                this.notifyError(res.msg,)
               }
             })
           } else {
@@ -140,42 +138,30 @@
     created() {
       if (this.getHrefParam('id')) {
         //获取客户信息
-        $.ajax({
-          type: 'post',
-          url: '/byStages/showBuyingCustomer.action',
-          data: {id: this.getHrefParam('id')},
-
-          dataType: 'json',
-          success: (res) => {
-            console.log(res)
-            if (res.code == 1) {
-              this.ruleForm = res.data
-            }
-          },
-          error: (res) => {
-            console.log(res)
-          }
-        });
+        this.onLoad('/byStages/showBuyingCustomer.action', {id: this.getHrefParam('id')})
         //获取分期详情
         $.ajax({
           type: 'post',
           url: '/byStages/showDetailsByStages.action',
           data: {id: this.getHrefParam('id'), page: 1, limit: 1},
-
           dataType: 'json',
           success: (res) => {
             console.log("分期：" + JSON.stringify(res))
             if (res.code == 1) {
-              this.carForm = res.data[0]
+              console.log(res)
+              Object.assign(this.ruleForm, res.data[0])
+              Object.assign(this.ruleForm, res.data[0].byStages)
+            } else {
+              this.notifyError(res.msg)
             }
           },
           error: (res) => {
             console.log(res)
+            this.notifyError(res.msg)
           }
         })
       }
     }
   })
-
 </script>
 </html>
