@@ -82,20 +82,12 @@ public class VehichileDetailedController {
 	}
 	/**
 	 * 
+	*@author lichangchun
+	* @param id
+	* @return
+	*@return String
+	*@date 2019年2月15日    
 	*
-	 * @Title: selectAll
-	
-	 * @description 
-	*
-	 * @param @param page
-	 * @param @param limit
-	 * @param @return 
-	   
-	 * @return String    
-	
-	 *
-	 * @author lishaozhang
-	 * @createDate 2019年2月13日
 	 */
 	@RequestMapping("selectById")
 	@ResponseBody
@@ -130,19 +122,12 @@ public class VehichileDetailedController {
 	
 	/**
 	 * 
+	*@author lichangchun
+	* @param vehic
+	* @return
+	*@return String
+	*@date 2019年2月15日    
 	*
-	 * @Title: update
-	
-	 * @description 修改
-	*
-	 * @param @param vehic
-	 * @param @return 
-	   
-	 * @return String    
-	
-	 *
-	 * @author lishaozhang
-	 * @createDate 2019年2月12日
 	 */
 	@RequestMapping("update")
 	@ResponseBody

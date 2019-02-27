@@ -82,10 +82,10 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
-        navActive: '5-1',
+        navActive: '5-2',
         tableData: {
           data: [],
           count: 0

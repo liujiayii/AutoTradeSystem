@@ -1,5 +1,7 @@
 package com.autotrade.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.autotrade.entity.Staff;
 import com.autotrade.service.StaffService;
+import com.autotrade.utils.JsonUtil;
 
 /**
  * 
@@ -158,5 +161,38 @@ public class StaffController {
 	public String update(@RequestBody Staff staff){
 		
 		return staffService.update(staff);
+	}
+	
+	/**
+	 * 通过职位查询员工信息
+	 *
+	 * @Title: selectAllStaff
+	
+	 * @description 
+	 *
+	 * @param post
+	 * @return 
+	   
+	 * String
+	 *
+	 * @author lujinpeng
+	 * @createDate 2019年2月20日-下午4:54:10
+	 */
+	@RequestMapping("/selectAllStaff")
+	@ResponseBody
+	public String selectAllStaff(String post) {
+		int code = 1;
+		String msg = "查询成功";
+		List<Staff> staffList = null;
+		
+		try {
+			staffList = staffService.selectAllStaff(post);
+		} catch (Exception e) {
+			code = -1;
+			msg = "系统异常";
+			e.printStackTrace();
+		}
+		
+		return JsonUtil.getResponseJson(code, msg, null, staffList);
 	}
 }

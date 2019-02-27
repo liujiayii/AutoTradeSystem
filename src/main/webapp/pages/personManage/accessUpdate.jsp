@@ -33,50 +33,48 @@
       <el-form-item label="车辆管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
           <el-checkbox :label="1010">车辆管理</el-checkbox>
-          <el-checkbox :label="1010">车辆信息</el-checkbox>
+          <el-checkbox :label="1011">车辆信息</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="财务管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1011">收入管理</el-checkbox>
-          <el-checkbox :label="1012">支出管理</el-checkbox>
-          <el-checkbox :label="1013">部门管理</el-checkbox>
+          <el-checkbox :label="1013">收入管理</el-checkbox>
+          <el-checkbox :label="1014">支出管理</el-checkbox>
+          <el-checkbox :label="1012">部门管理</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="库存管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1014">汽车配件</el-checkbox>
-          <el-checkbox :label="1015">其他</el-checkbox>
+          <el-checkbox :label="1015">库存详情</el-checkbox>
+          <el-checkbox :label="1016">采购记录</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="公司管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1016">员工管理</el-checkbox>
-          <el-checkbox :label="1017">权限管理</el-checkbox>
+          <el-checkbox :label="1017">员工管理</el-checkbox>
+          <el-checkbox :label="1018">权限管理</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="维修管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1018">维修工单</el-checkbox>
-          <el-checkbox :label="1019">维修车型分类</el-checkbox>
-          <el-checkbox :label="1020">维修工时计算</el-checkbox>
-          <el-checkbox :label="1021">维修项目定义</el-checkbox>
-          <el-checkbox :label="1022">维修项目用料</el-checkbox>
+          <el-checkbox :label="1019">维修工单</el-checkbox>
+          <el-checkbox :label="1020">维修项目</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="维修档案：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1023">客户档案</el-checkbox>
-          <el-checkbox :label="1024">车辆档案</el-checkbox>
-          <el-checkbox :label="1025">员工档案</el-checkbox>
-          <el-checkbox :label="1026">驾驶员信息档案</el-checkbox>
+          <el-checkbox :label="1022">客户档案</el-checkbox>
+          <el-checkbox :label="1021">车辆档案</el-checkbox>
+          <el-checkbox :label="1025">客户类型</el-checkbox>
+          <el-checkbox :label="1023">驾驶员信息档案</el-checkbox>
+          <el-checkbox :label="1024">车型设置</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="报表管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1027">维修报表</el-checkbox>
-          <el-checkbox :label="1028">售车报表</el-checkbox>
-          <el-checkbox :label="1029">进车报表</el-checkbox>
+          <el-checkbox :label="1026">维修报表</el-checkbox>
+          <el-checkbox :label="1027">售车报表</el-checkbox>
+          <el-checkbox :label="1028">进车报表</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item>
@@ -90,7 +88,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         navActive: '7-2',
@@ -114,9 +112,9 @@
               dataType: 'json',
               success: (res) => {
                 console.log(res)
-                if(res.code == 1){
-                  this.notifySuc(res.msg,'accessManage.jsp')
-                }else {
+                if (res.code == 1) {
+                  this.notifySuc(res.msg, 'accessManage.jsp')
+                } else {
                   this.notifyError(res.msg)
                 }
               },
@@ -145,7 +143,7 @@
               for (let i = 0; i < res.data.length; i++) {
                 this.ruleForm.popedoms.push(res.data[i].pId)
               }
-            }else {
+            } else {
               this.notifyError(res.msg)
             }
           },

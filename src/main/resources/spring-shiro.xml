@@ -16,6 +16,7 @@
 			</bean>
 		</property>
 	</bean>
+	
 
 	<!-- 定义缓存管理器 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
@@ -57,62 +58,68 @@
 			<value>
 				<!-- 对静态资源设置允许匿名访问 -->
 				/toLogin.action =anon
+				/loginTwo.action =anon
+				/showAuthCode.action=anon
 				/login_handle.action =anon
 				/login/** = anon
 				/static/** = anon
 				/pages/layout/**= anon
 				
 				<!-- 车辆资源  -->
-				/pages/customerInfo/carResources.jsp* =perms[car:resource]
+				/pages/customerInfo/carResources.jsp* =perms[client:carResources]
 				<!-- 买车咨询 -->
-				/pages/customerInfo/buyingCarConsult.jsp* =perms[client:consult]
+				/pages/customerInfo/buyingCarConsult.jsp* =perms[client:carConsult ]
 				<!-- 置换车辆 -->
-				/pages/customerInfo/replaceCar.jsp* =perms[client:replacement]
+				/pages/customerInfo/replaceCar.jsp* =perms[client:carPermute]
 				<!-- 评估审核 -->
-				/pages/tradeManage/evaluation.jsp* =perms[deal:auditing]
+				/pages/tradeManage/evaluation.jsp* =perms[deal:assess]
 				<!-- 保险凭证 -->
 				/pages/tradeManage/insurance.jsp* =perms[deal:insurance]
 				<!-- 分期管理 -->
-				/pages/tradeManage/stateManage.jsp* =perms[deal:aging]
+				/pages/tradeManage/stateManage.jsp* =perms[deal:stages]
 				<!-- 订车管理 -->
 				/pages/carSales/booking.jsp* =perms[sell:orderCar]
 				<!-- 售车管理 -->
-				/pages/carSales/carSales.jsp* =perms[sell:worldAuto]
+				/pages/carSales/carSales.jsp* =perms[sell:sellCar]
 				<!-- 退车管理 -->
-				/pages/carSales/carSales.jsp* = perms[sell:salesReturn]
+				
 				<!-- 车辆管理 -->
 				/pages/carManage/carManage.jsp* =perms[car:management]
 				<!-- 车辆信息 -->
 				/pages/carManage/carinformation.jsp* =perms[car:message]
 				<!-- 收入管理 -->
-				/pages/financialManage/income.jsp* =perms[finance:revenue]
+				/pages/financialManage/income.jsp* =perms[finance:income]
 				<!-- 支出管理 -->
-				/pages/financialManage/expend.jsp* = perms[finance:expend]
-				<!-- 汽车配件 -->
-				/pages/inventoryManage/inventoryManage.jsp* =perms[inventory:parts]
-				<!-- 其他 -->
-				/pages/inventoryManage/inventoryManage.jsp* =perms[inventory:other]
+				/pages/financialManage/expend.jsp* =perms[finance:expend]
 				<!-- 部门管理 -->
 				/pages/financialManage/branch.jsp* =perms[finance:department]
+				<!-- 库存详情 -->
+				/pages/inventoryManage/stock.jsp* =perms[inventory:particulars]
+				<!-- 采购记录 -->
+				/pages/inventoryManage/inventoryManage.jsp* =perms[inventory:record]
 				<!-- 员工管理 -->
-				/pages/personManage/staffManage.jsp* =perms[management:staff]
+				/pages/personManage/staffManage.jsp* =perms[company:management]
 				<!-- 权限管理 -->
-				/pages/personManage/accessManage.jsp* =perms[management:permission]
+				/pages/personManage/accessManage.jsp* =perms[company:popedom]
 				<!-- 维修工单 -->
-				/pages/repair/form.jsp* =perms[maintain:workOrder]
-				<!-- 维修车型分类 -->
-				<!-- 维修工时计算 -->
-				<!-- 维修项目定义 -->
-				<!-- 维修项目用料 -->
+				/pages/repair/form.jsp* =perms[maintain:wordOrder]
+				<!-- 维修项目 -->
+				/pages/repair/repairItem.jsp* =perms[maintain:project]
 				<!-- 客户档案 -->
+				/pages/archives/custArchives.jsp* =perms[record:client]
 				<!-- 车辆档案 -->
-				<!-- 员工档案 -->
+				/pages/archives/carArchives.jsp* =perms[record:car]
 				<!-- 驾驶员信息档案 -->
+				/pages/archives/driverArchives.jsp* =perms[record:driver]
+				<!-- 车型设置 -->
+				/pages/archives/carType.jsp* =perms[record:carType]
+				<!-- 客户类型 -->
+				/pages/archives/custClass.jsp* =perms[record:clientType]
 				<!-- 维修报表 -->
 				<!-- 售车报表 -->
 				<!-- 进车报表 -->
 				<!-- 剩余其他路径，必须认证通过才可以访问 -->
-                 /** = authc 
+                 /** = authc  
 			</value>
 		</property>
 	</bean>

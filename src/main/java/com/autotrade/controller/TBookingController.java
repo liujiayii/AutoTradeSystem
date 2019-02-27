@@ -33,7 +33,7 @@ public class TBookingController {
 	@ResponseBody
 	public String insertAssessment(TBooking record) {
 		
-	
+		record.setCreateTime(new Date());
 		System.out.println("增加"+record);
 		String string = tBookingService.insert(record);
 		return string;
@@ -59,4 +59,10 @@ public class TBookingController {
 		return tBookingService.selectAllbookbyId(id);
 	}
 
+	@RequestMapping("findByKeyWord")
+	@ResponseBody
+	public String findByKeyWord(String keyWord, Integer page, Integer limit){
+		
+		return tBookingService.selectAllbyfield(keyWord, page, limit);
+	}
 }

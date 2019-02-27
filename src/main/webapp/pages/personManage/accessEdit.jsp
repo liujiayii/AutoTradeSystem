@@ -62,41 +62,17 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
-      let validUser = (rule, value, callback) => {
-        const valid = /^[a-zA-Z0-9_-]{3,12}$/
-        if (!valid.test(value)) {
-          callback(new Error('请输入正确的用户名'));
-        } else {
-          callback();
-        }
-      }
-      let validPass = (rule, value, callback) => {
-        const valid = /^[a-zA-Z0-9_-]{6,12}$/
-        if (value && value.length != 0) {
-          if (!valid.test(value)) {
-            callback(new Error('请输入正确的密码'));
-          } else if (value.length < 6 || value.length > 12) {
-            callback(new Error('长度在 6 到 12 个字符'));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-
-      }
       return {
         navActive: '7-2',
         ruleForm: {
-          name: ''
-        },
-        rules: {
-          userName: [{required: true, message: '请输入用户名', trigger: 'blur'},
-            {validator: validUser, trigger: 'blur'},
-            {min: 3, max: 12, message: '长度在 3 到 12 个字符', trigger: 'blur'}],
-          passWord: [{validator: validPass, trigger: 'blur'}],
+          name: '',
+          phone: '',
+          address: '',
+          pId: '',
+          userName: '',
+          passWord: ''
         }
       }
     },
@@ -106,24 +82,23 @@
           if (valid) {
             console.log(this.ruleForm)
             $.ajax({
-                type: 'post',
-                url: this.ruleForm.id ? '/user/updateUser.action' : '/user/insertUser.action',
-                data: this.ruleForm,
-                dataType: 'json',
-                success: (res) => {
-                  console.log(res)
-                  if (res.code == 1) {
-                    this.notifySuc(res.msg, 'accessManage.jsp')
-                  } else {
-                    this.notifyError(res.msg)
-                  }
-                },
-                error: (res) => {
-                  console.log(res)
+              type: 'post',
+              url: this.ruleForm.id ? '/user/updateUser.action' : '/user/insertUser.action',
+              data: this.ruleForm,
+              dataType: 'json',
+              success: (res) => {
+                console.log(res)
+                if (res.code == 1) {
+                  this.notifySuc(res.msg, 'accessManage.jsp')
+                } else {
                   this.notifyError(res.msg)
                 }
+              },
+              error: (res) => {
+                console.log(res)
+                this.notifyError(res.msg)
               }
-            )
+            })
           } else {
             console.log('error submit!!');
             return false;
@@ -133,11 +108,7 @@
     },
     created() {
       if (this.getHrefParam('id')) {
-        this.onLoad('/user/findById.action',{id: this.getHrefParam('id')})
-        delete this.ruleForm['post']
-        delete this.ruleForm['KeyWord']
-        delete this.ruleForm['createTime']
-        delete this.ruleForm['passWord']
+        this.onLoad('/user/findById.action', {id: this.getHrefParam('id')})
       }
     }
   })

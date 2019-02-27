@@ -1,17 +1,18 @@
 package com.autotrade.controller;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -20,10 +21,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,9 +38,9 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value="/toLogin",produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/toLogin", produces = "application/json; charset=utf-8")
 	public ModelAndView Login() {
-		ModelAndView model =new ModelAndView();
+		ModelAndView model = new ModelAndView();
 		/** 生成随机数 */
 		int number_1 = (int) (Math.random() * 65535) + 1;
 		int number_2 = (int) (Math.random() * 65535) + 1;
@@ -66,41 +65,34 @@ public class LoginController {
 	 * @author ZhaoSong
 	 * @createDate 2019年1月3日
 	 */
-	@RequestMapping(value="/login_handle",method=RequestMethod.POST,produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/login_handle", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String LoginHandle(String username, String password, HttpSession session) {
-		Integer code=1;
+		Integer code = 1;
 		String msg;
-		User user=null;
+		User user = null;
 		System.out.println("------>获得主体，登录");
 		Subject subject = SecurityUtils.getSubject();
-		System.out.println("用户名 "+username);
-		System.out.println("密码 "+password);
 		AuthenticationToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 		try {
 			subject.login(usernamePasswordToken);
 			user = userService.findUserByUserName(username);
 			session.setAttribute("user", user);
-			msg="登陆成功:" + user.getUserName();
-			System.out.println("登录成功");
+			msg = "登陆成功:" + user.getUserName();
 		} catch (UnknownAccountException e) {
-			code=-1;
-			msg="登录失败:" + e.getMessage();
-			System.out.println(e.getMessage());
+			code = -1;
+			msg = "登录失败:" + e.getMessage();
 		} catch (LockedAccountException e) {
-			code=-1;
-			msg="登录失败:" + e.getMessage();
-			System.out.println(e.getMessage());
+			code = -1;
+			msg = "登录失败:" + e.getMessage();
 		} catch (IncorrectCredentialsException e) {
-			code=-1;
-			msg="登录失败:密码错误";
-			System.out.println("登录失败:密码错误");
+			code = -1;
+			msg = "登录失败:密码错误";
 		} catch (Exception e) {
-			code=-1;
-			msg="登陆失败:系统异常";
-			System.out.println(e.getMessage());
+			code = -1;
+			msg = "登陆失败:系统异常";
 		}
-		return JsonUtil.getResponseJson(code, msg,null,user);
+		return JsonUtil.getResponseJson(code, msg, null, user);
 	}
 
 	/**
@@ -112,7 +104,7 @@ public class LoginController {
 	 * @author ZhaoSong
 	 * @createDate 2019年1月3日
 	 */
-	@RequestMapping(value="/logout")
+	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		// Shiro登出
 		Subject subject = SecurityUtils.getSubject();
@@ -122,12 +114,7 @@ public class LoginController {
 		}
 		return "redirect:./toLogin.action";
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * 后台画验证码 ，前端页面显示，并计算结果
 	 * 
@@ -241,10 +228,28 @@ public class LoginController {
 		}
 
 	}
-	
-	
-	
-	
-	
-	
+
+	@RequestMapping("/loginTwo")
+	@ResponseBody
+	public String loginTwo(HttpSession session, User user, HttpServletRequest request) throws Exception {
+
+		String str;
+		// 前端输入的值
+		String auth_code = request.getParameter("auth_code").toString();
+		System.out.println("auth_code" + auth_code);
+		// 验证码获取的结果值
+		String resultNum = (String) session.getAttribute("results").toString();
+
+		if (user != null) {
+			if (resultNum.equals(auth_code)) {
+				str = JsonUtil.getResponseJson(1, "成功", null, null);
+			} else {
+				str = JsonUtil.getResponseJson(-1, "验证失败", null, null);
+			}
+		} else {
+			str = JsonUtil.getResponseJson(-1, "验证失败", null, null);
+		}
+		return str;
+	}
+
 }

@@ -46,7 +46,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         navActive: '4-2',
@@ -72,7 +72,7 @@
               success: (res) => {
                 console.log(res)
                 if (res.code == 1) {
-                  this.notifySuc(res.msg,'carinformation.jsp')
+                  this.notifySuc(res.msg, 'carinformation.jsp')
                 } else {
                   this.notifyError(res.msg)
                 }

@@ -51,4 +51,23 @@ public interface StaffDao {
      * 根据姓名电话模糊查询数量
      * */
     Integer hybridSelectCount(@Param("s") String s);
+    
+    /**
+     * 通过职位查询所有员工
+     *
+     * @Title: selectAllStaff
+    
+     * @description 
+     *
+     * @param post 职位
+     * @return 
+       
+     * List<Staff>
+     *
+     * @author lujinpeng
+     * @createDate 2019年2月20日-下午4:48:08
+     */
+    List<Staff> selectAllStaff(String post);
+    
+    
 }

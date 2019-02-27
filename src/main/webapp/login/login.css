@@ -19,12 +19,20 @@ body{
     align-items: center;
 }
 .title{
-    padding-left: 68px;
+    text-align: center;
     font-size: 30px;
     color: #545c64;
     margin-bottom: 94px;
 }
 .submit{
-    margin-top: 100px;
+    margin-top: 40px;
     width: 100%;
+}
+#code{
+    width: 100px;
+    height: 38px;
+    cursor: pointer;
+}
+.el-input-group__append{
+    padding: 0;
 }

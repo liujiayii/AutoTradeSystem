@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.RepairProjectDao">
+
+<!-- 维修修理单表公共结果映射 -->
+  <resultMap id="BaseResultMap" type="com.autotrade.entity.RepairProject">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="repair_id" jdbcType="BIGINT" property="repair_id" />
+    <result column="working_hours" jdbcType="INTEGER" property="working_hours" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="repairman" jdbcType="VARCHAR" property="repairman" />
+  </resultMap>
+  
+  <!-- 维修修理单表公共sql字段 -->
+  <sql id="Base_Column_List">
+    id, name, repair_id, working_hours, create_time, price, money, repairman
+  </sql>
+  
+  <!-- 修改指定数据  -->
+  <update id="updateBySelective" parameterType="com.autotrade.entity.RepairProject">
+  	update t_repair_project 
+  	<set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="repair_id != null">
+        repair_id = #{repair_id,jdbcType=BIGINT},
+      </if>
+      <if test="working_hours != null">
+        working_hours = #{working_hours,jdbcType=INTEGER},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="repairman != null">
+        repairman = #{repairman,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 查询一辆车维修修理单表和维修工单表数据 -->
+  <select id="selectDetailsRepairProject" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select 
+  	  rp.id, rp.name, rp.repair_id, rp.working_hours, rp.create_time, rp.price, rp.money, rp.repairman
+  	from t_repair_project rp
+	left join t_repair tr on rp.repair_id = tr.id
+  	where rp.repair_id = #{repair_id}
+  	order by rp.create_time desc
+  	limit #{page},#{limit}
+  </select>
+  
+  <!-- 查询总条数 -->
+  <select id="getCount" parameterType="java.util.Map" resultType="int">
+  	select 
+  	    count(*)
+  	from t_repair_project rp
+	left join t_repair tr on rp.repair_id = tr.id
+  	where rp.repair_id = #{repair_id}
+  	order by rp.create_time desc
+  	limit #{page},#{limit}
+  </select>
+  
+  <!-- 插入指定字段数据 -->
+  <insert id="insertSelective" parameterType="com.autotrade.entity.RepairProject">
+    insert into t_repair_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="repair_id != null">
+        repair_id,
+      </if>
+      <if test="working_hours != null">
+        working_hours,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="repairman != null">
+        repairman,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="repair_id != null">
+        #{repair_id,jdbcType=BIGINT},
+      </if>
+      <if test="working_hours != null">
+        #{working_hours,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="repairman != null">
+        #{repairman,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 通过指定条件查询 -->
+  <select id="selectBySelective" parameterType="com.autotrade.entity.RepairProject" resultMap="BaseResultMap">
+  	select 
+  	  <include refid="Base_Column_List" />
+  	from t_repair_project
+  	<where>
+  	  <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="repair_id != null">
+        and repair_id = #{repair_id,jdbcType=BIGINT}
+      </if>
+  	</where>
+  </select>
+  
+</mapper>

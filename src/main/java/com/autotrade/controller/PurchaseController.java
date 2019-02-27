@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autotrade.entity.Purchase;
+import com.autotrade.entity.Stock;
 import com.autotrade.service.PurchaseService;
+import com.autotrade.service.StockService;
 import com.autotrade.utils.JsonUtil;
 
 /**
@@ -31,6 +33,9 @@ public class PurchaseController {
 
 	@Autowired
 	private PurchaseService purchaseService;
+	@Autowired
+	private StockService stockService;
+	
 	
 	/**
 	 * 分页查询采购表信息
@@ -141,9 +146,23 @@ public class PurchaseController {
 	public String insertPurchase(@RequestBody Purchase purchase) {
 		int code = 1;
 		String msg = "新增成功";
-		
+		Stock stock=new Stock();
+		stock.setCommodity_number(purchase.getCommodityNumber());
+		stock.setNumber(purchase.getQuantity());
 		try {
 			purchaseService.insertSelective(purchase);
+			if(purchase.getLibrary()==0){
+				
+				Stock s=stockService.selectById(purchase.getCommodityNumber());
+				
+				if(s!=null){
+					System.out.println("s"+s);
+					int a=stockService.updateByPrimaryKeySelective(stock);
+				}else{
+					int a=stockService.insertSelective(stock);
+				}
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;

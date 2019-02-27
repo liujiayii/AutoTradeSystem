@@ -227,6 +227,13 @@ public class ByStagesController {
 			} else {
 				buyingId = buyingCustomerList.get(0).getId();
 				byStages.setBuyingId(buyingId);
+				// 判断分期表中是否存在当前买车客户的分期信息，有则阻止添加操作
+				ByStages newByStages = new ByStages();
+				newByStages.setBuyingId(buyingId);
+				if (byStagesService.selectBySelective(newByStages).size() > 0) {
+					return JsonUtil.getResponseJson(code, "您添加的客户已存在", null, null);
+				}
+				
 				detailsInstallments.setBuyingId(buyingId);
 			}
 			
@@ -267,7 +274,6 @@ public class ByStagesController {
 	@RequestMapping("/updateByStages")
 	@Transactional
 	public String updateByStages(@RequestBody Map<String, Object> map) {
-		System.out.println("分期表修改："+map);
 		int code = 1;
 		String msg = "修改成功";
 		Map<String, Object> newMap = new HashMap<> ();
@@ -318,6 +324,7 @@ public class ByStagesController {
 	@RequestMapping("/updateDetailsInstallments")
 	@Transactional
 	public String updateDetailsInstallments(@RequestBody DetailsInstallments detailsInstallments) {
+		System.out.println("detailsInstallments"+detailsInstallments);
 		int code = 1;
 		String msg = "修改成功";
 		DetailsInstallments newDetailsInstallments = new DetailsInstallments();

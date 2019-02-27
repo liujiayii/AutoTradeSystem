@@ -10,21 +10,23 @@
     <result column="money" property="selling_price" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="DATE" />
   </resultMap>
+ <!--  sql片段 -->
   <sql id="Base_Column_List" >
     id, vehicle_code, type, type_number, address, money, create_time
   </sql>
-  
+  <!-- 通过主键查询 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from t_vehichile_detailed
     where id = #{id}
   </select>
+<!--   通过主键删除 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_vehichile_detailed
     where id = #{id}
   </delete>
-  
+ <!--  增加 -->
   <insert id="insert" parameterType="com.autotrade.entity.VehichileDetailed" >
     insert into t_vehichile_detailed (id, vehicle_code, type, 
       type_number, address, money, 
@@ -34,7 +36,7 @@
       #{createTime})
   </insert>
 
-  
+  <!-- 修改 指定属性-->
   <update id="updateByPrimaryKeySelective" parameterType="com.autotrade.entity.VehichileDetailed" >
     update t_vehichile_detailed
     <set >
@@ -59,6 +61,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 普通修改 -->
   <update id="updateByPrimaryKey" parameterType="com.autotrade.entity.VehichileDetailed" >
     update t_vehichile_detailed
     set vehicle_code = #{vehicleCode},
@@ -69,19 +73,21 @@
       create_time = #{createTime}
     where id = #{id}
   </update>
-  
+  <!-- 通过车型代码查询数量 -->
   <select id="selectByVehicle_codeCount" resultType="java.lang.Integer">
   select 
   COUNT(*)
   FROM t_vehichile_detailed
   WHERE vehicle_code = #{vehicleCode}
   </select>
+  <!-- 查询所有 -->
   <select id="selectAll" resultMap="BaseResultMap">
   SELECT 
   *
   FROM t_vehichile_detailed
   LIMIT #{star},#{limit}
   </select>
+  <!-- 查询所有数量 -->
    <select id="selectAllCount" resultType="java.lang.Integer">
   SELECT 
     COUNT(*)

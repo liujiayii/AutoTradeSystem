@@ -173,7 +173,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         navActive: '3-2',
@@ -296,7 +296,7 @@
     },
     created() {
       if (this.getHrefParam('id')) {
-        ths.onLoad('/sellCar/findById.action',{c_id: this.getHrefParam('id')})
+        ths.onLoad('/sellCar/findById.action', {c_id: this.getHrefParam('id')})
       }
     }
   })

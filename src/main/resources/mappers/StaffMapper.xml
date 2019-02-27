@@ -22,7 +22,7 @@
 
 
 	<sql id="Base_Column_List">
-		id, name, phone, address, post_id, department_id
+		id, name, phone, address, post_id as postId, department_id as departmentId
 	</sql>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -94,4 +94,16 @@
     or phone  LIKE CONCAT('%',#{s},'%')  
   </select>
 
+  <!-- 查询所有维修人员 -->
+  <select id="selectAllStaff" resultType="com.autotrade.entity.Staff">
+  	select 
+  	  <include refid="Base_Column_List" />
+  	from t_staff
+  	where post_id = (select id from t_post where post=#{post})
+  </select>
+  
+  
+  
+  
+  
 </mapper>

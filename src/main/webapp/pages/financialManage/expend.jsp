@@ -83,10 +83,10 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
-        navActive: '5-2',
+        navActive: '5-3',
         tableData: {
           data: [],
           count: 0
@@ -144,7 +144,7 @@
         this.ruleForm = row
         this.dialogFormVisible = !this.dialogFormVisible
       },
-      submit(){
+      submit() {
         $.ajax({
           type: 'post',
           url: '/Expenditure/updateByPrimaryKey.action',

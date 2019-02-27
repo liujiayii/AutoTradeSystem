@@ -54,7 +54,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin,rules],
     data: function () {
       return {
         navActive: '1-2',

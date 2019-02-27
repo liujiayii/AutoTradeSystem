@@ -3,7 +3,7 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">库存管理</div>
+  <div class="title" @click="isCollapse = !isCollapse">采购记录</div>
   <el-button class="btn" type="primary" icon="el-icon-plus" round
              onclick="window.location.href='inventoryEdit.jsp'">添加
   </el-button>
@@ -23,7 +23,7 @@
       <el-table-column label="类型" prop="type" show-overflow-tooltip></el-table-column>
       <el-table-column label="总金额" prop="purchaseMoney" show-overflow-tooltip></el-table-column>
       <el-table-column label="采购时间" prop="createTime" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
-      <el-table-column label="制单人" prop="singName" show-overflow-tooltip></el-table-column>
+   
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -51,7 +51,7 @@
     mixins: [mixin],
     data: function () {
       return {
-        navActive: '6-1',
+        navActive: '6-2',
         tableData: {
           data: [],
           count: 0

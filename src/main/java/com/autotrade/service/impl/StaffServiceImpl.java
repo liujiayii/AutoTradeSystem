@@ -133,4 +133,13 @@ public class StaffServiceImpl implements StaffService{
 			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
 	}
+
+	/**
+	 * 通过职位查询所有员工
+	 */
+	@Override
+	public List<Staff> selectAllStaff(String post) {
+		
+		return staffDao.selectAllStaff(post);
+	}
 }

@@ -1,5 +1,7 @@
 package com.autotrade.service;
 
+import java.util.List;
+
 import com.autotrade.entity.Staff;
 /***
  * 
@@ -105,4 +107,21 @@ public interface StaffService {
      */
 	String update(Staff staff);
 
+	/**
+     * 通过职位查询所有员工
+     *
+     * @Title: selectAllStaff
+    
+     * @description 
+     *
+     * @param post 职位
+     * @return 
+       
+     * List<Staff>
+     *
+     * @author lujinpeng
+     * @createDate 2019年2月20日-下午4:48:08
+     */
+    List<Staff> selectAllStaff(String post);
+	
 }

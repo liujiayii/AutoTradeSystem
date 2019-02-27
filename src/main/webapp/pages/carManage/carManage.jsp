@@ -17,7 +17,6 @@
               element-loading-spinner="el-icon-loading"
               :data="tableData.data"
               style="width: 100%">
-      <!--  <el-table-column label="创建时间" prop="name" show-overflow-tooltip></el-table-column> -->
       <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
       <el-table-column label="车牌" prop="brand" show-overflow-tooltip></el-table-column>
       <el-table-column label="进价（元）" prop="selling_price" show-overflow-tooltip></el-table-column>

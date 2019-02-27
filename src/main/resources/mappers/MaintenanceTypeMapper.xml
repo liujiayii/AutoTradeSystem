@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.autotrade.dao.MaintenanceTypeDao">
+  <!-- 维修类型表公共结果映射 -->
+  <resultMap id="BaseResultMap" type="com.autotrade.entity.MaintenanceType">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+  
+  <!-- 维修类型表公共sql字段 -->
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+
+  <!-- 通过id查询 -->
+  <select id="selectById" resultType="com.autotrade.entity.MaintenanceType">
+  	select 
+  	  <include refid="Base_Column_List" />
+  	from t_maintenance_type
+  	where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- 通过id查询 -->
+  <select id="selectByName" resultType="com.autotrade.entity.MaintenanceType">
+  	select 
+  	  <include refid="Base_Column_List" />
+  	from t_maintenance_type
+  	where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过指定条件查询 -->
+  <select id="selectBySelective" parameterType="java.util.Map" resultType="com.autotrade.entity.MaintenanceType">
+    select 
+  	  <include refid="Base_Column_List" />
+  	from t_maintenance_type
+  	<where>
+  	  <if test="id != null">
+        id = #{id,jdbcType=BIGINT}
+      </if>
+  	  <if test="name != null">
+        and name like concat("%", #{name,jdbcType=VARCHAR}, "%")
+      </if>
+  	</where>
+  	order by id desc
+  	<if test="page != null and limit != null">
+  	  limit #{page},#{limit}
+  	</if>
+  </select>
+ 
+  <!-- 插入全部字段 -->
+  <insert id="insertAll" parameterType="com.autotrade.entity.MaintenanceType">
+    insert into t_maintenance_type (id, name)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR})
+  </insert>
+
+  <!-- 插入指定数据 -->
+  <insert id="insertSelective" parameterType="com.autotrade.entity.MaintenanceType">
+    insert into t_maintenance_type
+     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="selectAll" resultType="com.autotrade.entity.MaintenanceType">
+    select id,name from t_maintenance_type;
+  
+  </select>
+   <select id="selectAllByString" resultType="com.autotrade.entity.MaintenanceType" >
+     select name from t_maintenance_type 
+   </select>
+  
+
+</mapper>

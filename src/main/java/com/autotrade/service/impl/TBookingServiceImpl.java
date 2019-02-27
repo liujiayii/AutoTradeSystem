@@ -71,7 +71,7 @@ public class TBookingServiceImpl implements TBookingService{
 	public String selectAll( Integer page, Integer limit) {
 		String string;
 		Integer star = (page - 1) * limit;
-		/*try {*/
+		try {
              System.out.println("------"+star+"++++"+limit);
 			List<bookingVo> AssessmentList = tBookingDao.selectAllbook(star, limit);
 			System.out.println("heheh");
@@ -86,10 +86,10 @@ public class TBookingServiceImpl implements TBookingService{
 				string = JsonUtil.getResponseJson(1, "查询成功", tBookingDao.countbook(), AssessmentList);
 			}
 
-		/*}*/ /*catch (Exception e) {
-			// 异常
+		}catch (Exception e) {
+			
 			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
-		}*/
+		}
 
 		return string;
 	}

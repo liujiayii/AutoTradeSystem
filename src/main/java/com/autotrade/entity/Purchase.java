@@ -17,20 +17,49 @@ public class Purchase {
     private Long id;
     /**姓名*/
     private String name;
-    /**采购详情*/
-    private String purchase;
+   
     /**采购金额*/
     private BigDecimal purchaseMoney;
     /**时间*/
     private Date createTime;
-    /** 类型 */
+    /** 型号 */
     private String type;
+    /*品牌*/
+    private String brand;
+    /**名称*/
+    private String purchase;
+    /*配件编号*/
+    private String commodityNumber;
     /** 制单人 */
     private String singName;
     /** 备注 */
     private String remark;
+  
+    /** 采购数量 */
+    private Integer quantity;
+    /*单价*/
+    private Integer priace;
+    /*是否入库*/
+    private Integer library;
     
-    public Long getId() {
+    
+    public Integer getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Integer library) {
+		this.library = library;
+	}
+
+	public Integer getPriace() {
+		return priace;
+	}
+
+	public void setPriace(Integer priace) {
+		this.priace = priace;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -94,12 +123,35 @@ public class Purchase {
 		this.remark = remark;
 	}
 
+	public String getCommodityNumber() {
+		return commodityNumber;
+	}
+
+	public void setCommodityNumber(String commodityNumber) {
+		this.commodityNumber = commodityNumber;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchase [id=" + id + ", name=" + name + ", purchase=" + purchase + ", purchaseMoney=" + purchaseMoney
-				+ ", createTime=" + createTime + ", type=" + type + ", singName=" + singName + ", remark=" + remark
-				+ "]";
+				+ ", createTime=" + createTime + ", type=" + type + ", brand=" + brand + ", singName=" + singName
+				+ ", remark=" + remark + ", commodityNumber=" + commodityNumber + ", quantity=" + quantity + ", priace="
+				+ priace + ", library=" + library + "]";
 	}
-
-    
 }

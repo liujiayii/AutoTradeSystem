@@ -47,11 +47,11 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         type: this.getHrefParam('type'),
-        navActive: this.getHrefParam('type') == 'income' ? '5-1' : '5-2',
+        navActive: this.getHrefParam('type') == 'income' ? '5-2' : '5-3',
         ruleForm: {
           departmentId: '',
           income: '',

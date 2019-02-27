@@ -8,7 +8,9 @@
 	<sql id="Base_Column_List">
 		id,p_id as pId,name,post,phone,username as userName,password as passWord, create_time as createTime,update_time as updatTime,status,key_word  as keyWord,address
 	</sql>
-	
+	<sql id="All">
+		id,p_id as pId,name,phone,username as userName,update_time as updatTime,status,key_word  as keyWord,address
+	</sql>
 	<!-- 根据用户名查询用户 -->
 	<!-- User findUserByUserName(String username) -->
 	<select id="findUserByUserName" resultType="com.autotrade.entity.User">
@@ -125,7 +127,7 @@
 	<select id="findbyId" resultType="com.autotrade.entity.User">
 		
 		select
-			<include refid="Base_Column_List"/>
+			<include refid="All"/>
 		from
 			t_user
 		where

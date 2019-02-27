@@ -70,10 +70,10 @@ let Menu = [
     name: '库存管理',
     icon: 'fa fa-truck fa-fw',
     child: [{
-      name: '汽车配件',
-      path: '/pages/inventoryManage/inventoryManage.jsp'
+      name: '库存详情',
+      path: '/pages/inventoryManage/stock.jsp'
     }, {
-      name: '其他',
+      name: '采购记录',
       path: '/pages/inventoryManage/inventoryManage.jsp'
     }]
   }, {
@@ -93,33 +93,27 @@ let Menu = [
       name: '维修工单',
       path: '/pages/repair/form.jsp'
     }, {
-      name: '车辆档案',
-      path: '/pages/repair/carArchives.jsp'
-    }, {
-      name: '维修工时',
-      path: '/pages/repair/repairTime.jsp'
-    }, {
       name: '维修项目',
       path: '/pages/repair/repairItem.jsp'
-    }, {
-      name: '项目用料',
-      path: '/pages/repair/itemUsed.jsp'
     }]
   }, {
     name: '维修档案',
     icon: 'fa fa-archive fa-fw',
     child: [{
-      name: '客户档案',
-      path: javas
-    }, {
       name: '车辆档案',
-      path: javas
+      path: '/pages/archives/carArchives.jsp'
     }, {
-      name: '员工档案',
-      path: javas
+      name: '客户档案',
+      path: '/pages/archives/custArchives.jsp'
     }, {
-      name: '驾驶员信息档案',
-      path: javas
+      name: '驾驶员档案',
+      path: '/pages/archives/driverArchives.jsp'
+    }, {
+      name: '车型设置',
+      path: '/pages/archives/carType.jsp'
+    }, {
+      name: '客户类型',
+      path: '/pages/archives/custClass.jsp'
     }]
   }, {
     name: '报表管理',
@@ -136,11 +130,32 @@ let Menu = [
     }]
   }]
 
-const mixin = {
+const rules = {
   data() {
+    let validUser = (rule, value, callback) => {
+      const valid = /^[a-zA-Z0-9_-]{3,12}$/
+      if (!valid.test(value)) {
+        callback(new Error('请输入正确的用户名'));
+      } else {
+        callback();
+      }
+    }
+    let validPass = (rule, value, callback) => {
+      const valid = /^[a-zA-Z0-9_-]{6,12}$/
+      if (value && value.length != 0) {
+        if (!valid.test(value)) {
+          callback(new Error('请输入正确的密码'));
+        } else if (value.length < 6 || value.length > 12) {
+          callback(new Error('长度在 6 到 12 个字符'));
+        } else {
+          callback();
+        }
+      } else {
+        callback();
+      }
+
+    }
     return {
-      isCollapse: false,
-      menu: Menu,
       rules: {
         address: [{required: true, message: '请输入地址', trigger: 'blur'}],
         assessmentMoney: [{required: true, message: '请输入评估金额', trigger: 'blur'}],
@@ -195,6 +210,7 @@ const mixin = {
         phone: [{required: true, message: '请输入电话', trigger: 'blur'},
           {required: 'number', min: 5, max: 11, message: '请输入正确的电话', trigger: 'blur'}],
         place: [{required: true, message: '请输入产地', trigger: 'blur'}],
+        passWord: [{validator: validPass, trigger: 'blur'}],
         person: [{required: true, message: '请输入业务员', trigger: 'blur'}],
         purchase: [{required: true, message: '请输入采购项目', trigger: 'blur'}],
         purchaseMoney: [{required: true, message: '请输入采购金额', trigger: 'blur'},
@@ -220,13 +236,25 @@ const mixin = {
           {required: 'number', message: '请输入正确的贷款期限', trigger: 'blur'}],
         time: [{required: true, message: '请选择时间', trigger: 'blur'}],
         type: [{required: true, message: '请选择', trigger: 'blur'}],
+        userName: [{required: true, message: '请输入用户名', trigger: 'blur'},
+          {validator: validUser, trigger: 'blur'},
+          {min: 3, max: 12, message: '长度在 3 到 12 个字符', trigger: 'blur'}],
         vehicle_type: [{required: true, message: '请输入车型', trigger: 'blur'}],
         vehile_number: [{required: true, message: '请输入入库编号', trigger: 'blur'},
           {required: 'number', message: '请输入正确的入库编号', trigger: 'blur'}],
         vehicleType: [{required: true, message: '请输入车型', trigger: 'blur'}],
         vehicleCode: {required: true, message: '请选择车型', trigger: 'blur'},
         vehicle_code: {required: true, message: '请选择车型', trigger: 'blur'},
-      },
+      }
+    }
+  }
+}
+
+const mixin = {
+  data() {
+    return {
+      isCollapse: false,
+      menu: Menu,
       footer: '©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司'
     }
   },
@@ -291,15 +319,31 @@ const mixin = {
         success: (res) => {
           console.log(res)
           if (res.code == 1) {
+            this.$notify({
+              title: '成功',
+              message: res.msg,
+              type: 'success'
+            });
             Object.assign(this.ruleForm, res.data)
+          } else {
+            this.$notify({
+              title: '警告',
+              message: res.msg,
+              type: 'warning'
+            });
           }
         },
         error: (res) => {
+          this.$notify({
+            title: '警告',
+            message: res.msg,
+            type: 'warning'
+          });
           console.log(res)
         }
       })
     },
-    getTable(data, url_a, url_b,) {
+    getTable(data, url_a, url_b, arr) {
       this.loading2 = true
       $.ajax({
         type: 'post',
@@ -307,16 +351,16 @@ const mixin = {
         data,
         dataType: 'json',
         success: (res) => {
+          this.loading2 = false
           console.log(res)
           if (res.code == 1) {
             if (res.data != 'null') {
-              this.tableData.data = res.data
+              arr ? arr.data = res.data : this.tableData.data = res.data
             } else {
               this.tableData.data = []
               this.notifyError(res.msg)
             }
-            this.tableData.count = res.count
-            this.loading2 = false
+            arr ? arr.count = res.count : this.tableData.count = res.count
           } else {
             console.log('aa')
             this.notifyError(res.msg)

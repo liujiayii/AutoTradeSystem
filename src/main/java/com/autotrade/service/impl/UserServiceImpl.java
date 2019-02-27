@@ -86,37 +86,42 @@ public class UserServiceImpl implements UserService {
 			popedom.add(1026);
 			popedom.add(1027);
 			popedom.add(1028);
-			popedom.add(1029);
-			popedom.add(1030);
 		}
 		if (user.getpId() == 2001) {// 销售主管
-			popedom.add(1001);// 车辆资源
-			popedom.add(1002);// 买车咨询
-			popedom.add(1003);// 车辆置换
-			popedom.add(1007);// 订车管理
-			popedom.add(1008);// 售车管理
-			popedom.add(1009);// 推车管理
+			popedom.add(1001);//车辆资源
+			popedom.add(1002);//买车咨询
+			popedom.add(1003);//置换车辆
+			popedom.add(1007);//订车管理
+			popedom.add(1008);//售车管理
+			popedom.add(1009);//退车管理
 		}
 		if (user.getpId() == 2002) {// 财务主管
-			popedom.add(1011);// 收入管理
-			popedom.add(1012);// 支出管理
-			popedom.add(1013);// 部门管理
+			popedom.add(1013);// 收入管理
+			popedom.add(1014);// 支出管理
+			popedom.add(1012);// 部门管理
+			popedom.add(1026);// 维修报表
+			popedom.add(1027);// 售车报表
+			popedom.add(1028);// 进车报表
 		}
 		if (user.getpId() == 2003) {// 维修主管
-			popedom.add(1018);// 维修工单
-			popedom.add(1019);// 维修车型分类
-			popedom.add(1020);// 维修工时计算
-			popedom.add(1021);// 维修项目定义
-			popedom.add(1022);// 维修项目用料
+			popedom.add(1019);//维修工单
+			popedom.add(1020);//维修项目
+			popedom.add(1021);//车辆档案
+			popedom.add(1022);//客户档案
+			popedom.add(1023);//驾驶员档案
+			popedom.add(1024);//车型设置
+			popedom.add(1025);//客户类型
 		}
 		if (user.getpId() == 2004) {// 采购
-			popedom.add(1014);// 汽车配件
-			popedom.add(1015);// 其他
+			popedom.add(1015);//库存详情
+			popedom.add(1016);//采购记录
+			popedom.add(1010);//车辆管理
+			popedom.add(1011);//车辆信息
 		}
 		if (user.getpId() == 2005) {// 金融主管
-			popedom.add(1004);// 评估审核
-			popedom.add(1005);// 保险凭证
-			popedom.add(1006);// 分期管理
+			popedom.add(1004);//评估审核
+			popedom.add(1005);//保险凭证
+			popedom.add(1006);//分期管理
 		}
 		for (Integer p : popedom) {
 			// 创建用户权限对象，设置默认权限用
@@ -176,11 +181,9 @@ public class UserServiceImpl implements UserService {
 				user.setPost("金融主管");
 				user.setKeyWord("financialDirector");
 			}
-			System.out.println("桩:   " + user);
 			row = userDao.insert(user);
 			if (row > 0) {
 				User u = userDao.findUserByUserName(user.getUserName());
-				System.out.println("user2 : " + u.toString());
 				if (u != null) {
 					if (u.getpId() == 2000) {// 总经理。拥有所有权限
 						popedom.add(1001);
@@ -211,37 +214,42 @@ public class UserServiceImpl implements UserService {
 						popedom.add(1026);
 						popedom.add(1027);
 						popedom.add(1028);
-						popedom.add(1029);
-						popedom.add(1030);
 					}
 					if (u.getpId() == 2001) {// 销售主管
-						popedom.add(1001);// 车辆资源
-						popedom.add(1002);// 买车咨询
-						popedom.add(1003);// 车辆置换
-						popedom.add(1007);// 订车管理
-						popedom.add(1008);// 售车管理
-						popedom.add(1009);// 推车管理
+						popedom.add(1001);//车辆资源
+						popedom.add(1002);//买车咨询
+						popedom.add(1003);//置换车辆
+						popedom.add(1007);//订车管理
+						popedom.add(1008);//售车管理
+						popedom.add(1009);//退车管理
 					}
 					if (u.getpId() == 2002) {// 财务主管
-						popedom.add(1011);// 收入管理
-						popedom.add(1012);// 支出管理
-						popedom.add(1013);// 部门管理
+						popedom.add(1013);// 收入管理
+						popedom.add(1014);// 支出管理
+						popedom.add(1012);// 部门管理
+						popedom.add(1026);// 维修报表
+						popedom.add(1027);// 售车报表
+						popedom.add(1028);// 进车报表
 					}
 					if (u.getpId() == 2003) {// 维修主管
-						popedom.add(1018);// 维修工单
-						popedom.add(1019);// 维修车型分类
-						popedom.add(1020);// 维修工时计算
-						popedom.add(1021);// 维修项目定义
-						popedom.add(1022);// 维修项目用料
+						popedom.add(1019);//维修工单
+						popedom.add(1020);//维修项目
+						popedom.add(1021);//车辆档案
+						popedom.add(1022);//客户档案
+						popedom.add(1023);//驾驶员档案
+						popedom.add(1024);//车型设置
+						popedom.add(1025);//客户类型
 					}
 					if (u.getpId() == 2004) {// 采购
-						popedom.add(1014);// 汽车配件
-						popedom.add(1015);// 其他
+						popedom.add(1015);//库存详情
+						popedom.add(1016);//采购记录
+						popedom.add(1010);//车辆管理
+						popedom.add(1011);//车辆信息
 					}
 					if (u.getpId() == 2005) {// 金融主管
-						popedom.add(1004);// 评估审核
-						popedom.add(1005);// 保险凭证
-						popedom.add(1006);// 分期管理
+						popedom.add(1004);//评估审核
+						popedom.add(1005);//保险凭证
+						popedom.add(1006);//分期管理
 					}
 				}
 
