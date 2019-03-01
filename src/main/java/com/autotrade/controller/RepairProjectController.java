@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.autotrade.dao.PartsDao;
 import com.autotrade.dao.RelationDao;
 import com.autotrade.dao.RepairDao;
 import com.autotrade.entity.MaintenanceParts;
+import com.autotrade.entity.Parts;
 import com.autotrade.entity.Relation;
 import com.autotrade.entity.Repair;
 import com.autotrade.entity.RepairProject;
@@ -44,6 +46,8 @@ public class RepairProjectController {
 	/** 工单dao对象 */
 	@Autowired
 	private RepairDao repairDao;
+	@Autowired
+	private PartsDao partsDao;
 	
 	/**
 	 * 显示所有工单维修信息
@@ -185,6 +189,20 @@ public class RepairProjectController {
 			repairProject.setCreate_time(new Date());
 			// 将数据插入维修修理单表
 			repairProjectService.insertSelective(repairProject);
+			
+			//获取工单id维修项目名称
+			String name = repairProject.getName();
+			Long repair_id = repairProject.getRepair_id();
+			//获取所有材料的名称
+			List<String> selectMNameByProjectName = partsDao.selectMNameByProjectName(name);
+			//保存至用料表
+			for (String pname : selectMNameByProjectName) {
+				Parts parts = new Parts();
+				parts.setRepair_id(repair_id);
+				parts.setName(pname);
+				parts.setCreate_time(new Date());
+				partsDao.insert(parts);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;

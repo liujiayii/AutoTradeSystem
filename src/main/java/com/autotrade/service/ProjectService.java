@@ -134,7 +134,7 @@ public interface ProjectService {
 	 *@date 2019年2月23日    
 	 *
 	  */
-	 String AddRelation(@RequestBody JSONObject obj);
+	 String AddRelation(@RequestBody JSONObject json);
 	 
 	 /**
 		 * 根据项目查询设置的工时

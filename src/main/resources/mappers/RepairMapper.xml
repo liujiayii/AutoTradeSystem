@@ -372,6 +372,21 @@
 		=
 		M.model_definition_id AND V.driver_id = D.id AND T.vehicle_id =V.id
 	</select>
+	
+	<select id="selectRepairDetailsByVehicleNumber" resultType="com.autotrade.entityVo.RepairDetails">
+		SELECT
+		*,V.id AS vehicle_id
+		FROM t_vehicle_archives AS
+		V INNER JOIN t_model_definition AS M
+		INNER JOIN t_customer_archives AS
+		C
+		INNER JOIN t_driver_information AS D
+		WHERE
+		V.vehicle_number =#{vehicle_number}
+		AND V.customer_archives_id =C.id AND V.model_definition_id
+		=
+		M.model_definition_id AND V.driver_id = D.id 
+	</select>
 	<!-- 根据id查询车辆档案信息数量 -->
 	<!-- <select id="SelectRepairShowCount" resultType="java.lang.Integer"> 
 		SELECT COUNT(*) FROM t_vehicle_archives AS V INNER JOIN t_model_definition 
@@ -414,6 +429,15 @@
 			</if>
 			<if test="vehicleType != null">
 				AND vehicle_type = #{vehicleType}
+			</if>
+			<if test="customerName != null">
+				AND customer_name = #{customerName}
+			</if>
+			<if test="phoneNumber != null">
+				AND phone_number = #{phoneNumber}
+			</if>
+			<if test="color != null">
+				AND color = #{color}
 			</if>
 			<if test="engineNumber != null">
 				AND engine_number = #{engineNumber}
@@ -459,6 +483,15 @@
 			</if>
 			<if test="vehicleType != null">
 				AND vehicle_type = #{vehicleType}
+			</if>
+			<if test="customerName != null">
+				AND customer_name = #{customerName}
+			</if>
+			<if test="phoneNumber != null">
+				AND phone_number = #{phoneNumber}
+			</if>
+			<if test="color != null">
+				AND color = #{color}
 			</if>
 			<if test="engineNumber != null">
 				AND engine_number = #{engineNumber}

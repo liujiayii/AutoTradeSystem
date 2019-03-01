@@ -3,16 +3,59 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">维修明细</div>
-  <div>
-    <el-button v-show="activeName != 'first'" class="btn" type="primary" icon="el-icon-plus" round
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <template v-if=" this.ruleForm.state < 2">
+    <el-button v-show="activeName != 'first'" class="btn" type="info" icon="el-icon-plus" round
                @click="activeName == 'second' ? dialogTableVisible=true : dialogTableVisibles=true">添加{{activeName ==
       'second' ? '项目' : '材料'}}
     </el-button>
-    <template v-if="this.ruleForm.state <5">
-      <el-button @click="next" class="btn" type="info">下一步</el-button>
+  </template>
+  <template v-if="activeName == 'first'">
+    <el-button v-if="this.ruleForm.state ==0 || this.ruleForm.state ==1" @click="next"
+               class="btn" type="info">{{this.ruleForm.state == 0 ? '转在修' : '完工'}}
+    </el-button>
+    <template v-if="this.ruleForm.state ==2||this.ruleForm.state ==3">
+      <el-button @click="balance" class="btn" type="info">结算/结账</el-button>
+      <el-dialog title="结算/结账" :visible.sync="dialogTableVisible6">
+        <el-form :model="BalanceRuleForm" ref="BalanceRuleForm" inline label-width="100px">
+          <el-form-item label="结账日期" prop="closingDate">
+            <el-date-picker style="width: 202px"
+                            v-model="BalanceRuleForm.closingDate"
+                            type="date"
+                            placeholder="选择日期"
+                            value-format="timestamp">
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="支付方式" prop="type">
+            <el-select style="width: 202px" v-model="BalanceRuleForm.type" placeholder="请选择支付方式">
+              <el-option label="支付宝" value="支付宝"></el-option>
+              <el-option label="微信" value="微信"></el-option>
+              <el-option label="现金" value="现金"></el-option>
+              <el-option label="信用卡" value="信用卡"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="应收金额" prop="t_money">
+            <el-input v-model="BalanceRuleForm.t_money" readonly></el-input>
+          </el-form-item>
+          <el-form-item label="实收金额" prop="money">
+            <el-input v-model="BalanceRuleForm.money"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer">
+          <el-button type="info" @click="sub('3')">结算</el-button>
+          <el-button type="info" @click="sub('4')">结账</el-button>
+        </div>
+      </el-dialog>
     </template>
-  </div>
+  </template>
+  <template v-if="activeName == 'third' && (this.ruleForm.state ==2 || this.ruleForm.state ==3)">
+    <el-button @click="printData" class="btn" type="info">打印材料单</el-button>
+  </template>
+
   <el-dialog title="添加项目" :visible.sync="dialogTableVisible">
     <el-table v-loading="loading2"
               element-loading-text="拼命加载中"
@@ -29,7 +72,7 @@
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">选择</el-button>
+          <el-button type="info" size="mini" @click="handleEdit(scope.$index, scope.row)">选择</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -44,15 +87,15 @@
     </el-container>
   </el-dialog>
   <el-dialog title="添加材料" :visible.sync="dialogTableVisibles" @close="closeDialog">
-    <el-form :model="ruleForms" ref="ruleForms" inline label-width="100px">
+    <el-form :model="ruleForms" ref="ruleForms" inline label-width="100px" :rules="rules">
       <el-form-item label="品牌" prop="brand">
         <el-input v-model="ruleForms.brand"></el-input>
       </el-form-item>
       <el-form-item label="数量" prop="number">
-        <el-input v-model="ruleForms.number" @input="money"></el-input>
+        <el-input v-model="ruleForms.number" @input="money" type="number"></el-input>
       </el-form-item>
       <el-form-item label="单价" prop="price">
-        <el-input v-model="ruleForms.price" @input="money"></el-input>
+        <el-input v-model="ruleForms.price" @input="money" type="number"></el-input>
       </el-form-item>
       <el-form-item label="总价钱" prop="money">
         <el-input v-model="ruleForms.money" readonly></el-input>
@@ -69,7 +112,7 @@
       <el-row>
         <el-col :span="24">
           <el-form-item>
-            <el-button type="primary" @click="submitFormss('ruleForms')">确定</el-button>
+            <el-button type="info" @click="submitFormss('ruleForms')">确定</el-button>
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,8 +122,7 @@
 <el-tabs v-model="activeName" :before-leave="tabsClick">
   <el-tab-pane label="工单明细" name="first">
     <el-card shadow="hover">
-
-      <el-steps :active="parseInt(ruleForm.state)" finish-status="success">
+      <el-steps :active="parseInt(ruleForm.state)+1" finish-status="success">
         <el-step title="预约"></el-step>
         <el-step title="在修"></el-step>
         <el-step title="完工"></el-step>
@@ -88,16 +130,16 @@
         <el-step title="结账"></el-step>
       </el-steps>
       <el-container class="main">
-        <el-form :model="ruleForm" inline ref="ruleForm" label-width="100px">
+        <el-form :model="ruleForm" inline ref="ruleForm" label-width="100px" :rules="rules">
           <el-row>
             <el-col :span="24">
               <el-form-item label="客户基本信息"></el-form-item>
             </el-col>
           </el-row>
-          <el-form-item label="内部工号" prop="internal_number">
+          <el-form-item label="内部工号">
             <el-input v-model="ruleForm.internal_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="车型分类" prop="vehicle_type">
+          <el-form-item label="车型分类">
             <el-input v-model="ruleForm.vehicle_type" readonly></el-input>
           </el-form-item>
           <el-form-item label="车辆号码" prop="vehicle_number">
@@ -106,37 +148,37 @@
                          @click="searchCar"></el-button>
             </el-input>
           </el-form-item>
-          <el-form-item label="使用性质" prop="nature">
+          <el-form-item label="使用性质">
             <el-input v-model="ruleForm.nature" readonly></el-input>
           </el-form-item>
-          <el-form-item label="VIN号" prop="vin">
+          <el-form-item label="VIN号">
             <el-input v-model="ruleForm.vin" readonly></el-input>
           </el-form-item>
-          <el-form-item label="内部编号" prop="internal_number">
+          <el-form-item label="内部编号">
             <el-input v-model="ruleForm.internal_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="车型" prop="vehicle_type">
+          <el-form-item label="车型">
             <el-input v-model="ruleForm.vehicle_type" readonly></el-input>
           </el-form-item>
-          <el-form-item label="车名" prop="range_rover">
+          <el-form-item label="车名">
             <el-input v-model="ruleForm.range_rover" readonly></el-input>
           </el-form-item>
-          <el-form-item label="机型" prop="aircraft_type">
+          <el-form-item label="机型">
             <el-input v-model="ruleForm.aircraft_type" readonly></el-input>
           </el-form-item>
-          <el-form-item label="厂牌" prop="brand">
+          <el-form-item label="厂牌">
             <el-input v-model="ruleForm.brand" readonly></el-input>
           </el-form-item>
-          <el-form-item label="发动机号" prop="engine_number">
+          <el-form-item label="发动机号">
             <el-input v-model="ruleForm.engine_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="底盘号" prop="chassis_number">
+          <el-form-item label="底盘号">
             <el-input v-model="ruleForm.chassis_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="变速箱号" prop="gearbox_number">
+          <el-form-item label="变速箱号">
             <el-input v-model="ruleForm.gearbox_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="车身颜色" prop="color">
+          <el-form-item label="车身颜色">
             <el-input v-model="ruleForm.color" readonly></el-input>
           </el-form-item>
           <el-row>
@@ -144,15 +186,15 @@
               <el-form-item label="产品属性："></el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="运营单位" prop="company">
+              <el-form-item label="运营单位">
                 <el-input v-model="ruleForm.company" readonly></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item label="联系人" prop="customer_name">
+          <el-form-item label="联系人">
             <el-input v-model="ruleForm.customer_name" readonly></el-input>
           </el-form-item>
-          <el-form-item label="联系电话" prop="phone_number">
+          <el-form-item label="联系电话">
             <el-input v-model="ruleForm.phone_number" readonly></el-input>
           </el-form-item>
           <el-row>
@@ -160,19 +202,19 @@
               <el-form-item label="送检人员："></el-form-item>
             </el-col>
           </el-row>
-          <el-form-item label="送检人" prop="driver_name">
+          <el-form-item label="送检人">
             <el-input v-model="ruleForm.driver_name" readonly></el-input>
           </el-form-item>
-          <el-form-item label="电话" prop="office_telephone">
+          <el-form-item label="电话">
             <el-input v-model="ruleForm.office_telephone" readonly></el-input>
           </el-form-item>
-          <el-form-item label="手机" prop="move_number">
+          <el-form-item label="手机">
             <el-input v-model="ruleForm.move_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="驾驶证号" prop="driver_license_number">
+          <el-form-item label="驾驶证号">
             <el-input v-model="ruleForm.driver_license_number" readonly></el-input>
           </el-form-item>
-          <el-form-item label="身份证号" prop="id_number">
+          <el-form-item label="身份证号">
             <el-input v-model="ruleForm.id_number" readonly></el-input>
           </el-form-item>
           </el-row>
@@ -180,7 +222,7 @@
             <el-col :span="24">
               <el-form-item label="车辆信息："></el-form-item>
             </el-col>
-            <el-form-item label="车辆备注" prop="remark">
+            <el-form-item label="车辆备注">
               <el-input type="textarea" :rows="2" placeholder="请输入车辆备注" v-model="ruleForm.remark"></el-input>
             </el-form-item>
           </el-row>
@@ -192,10 +234,6 @@
           <el-form-item label="业务员" prop="entry_person">
             <el-input v-model="ruleForm.entry_person" readonly></el-input>
           </el-form-item>
-          <el-form-item label="进厂时间" prop="enter_time">
-            <el-date-picker style="width: 202px" v-model="ruleForm.enter_time" type="date" placeholder="选择日期"
-                            value-format="timestamp"></el-date-picker>
-          </el-form-item>
           <el-form-item label="预约进厂日期" prop="appointment_time">
             <el-date-picker style="width: 202px" v-model="ruleForm.appointment_time" type="date" placeholder="选择日期"
                             value-format="timestamp"></el-date-picker>
@@ -204,19 +242,20 @@
             <el-date-picker style="width: 202px" v-model="ruleForm.settlement" type="date" placeholder="选择日期"
                             value-format="timestamp"></el-date-picker>
           </el-form-item>
-          <el-form-item label="维修类别" prop="category">
-            <el-input v-model="ruleForm.category"></el-input>
+          <el-form-item label="结帐日期" prop="closing_date">
+            <el-date-picker style="width: 202px" v-model="ruleForm.closing_date" type="date" placeholder="选择日期"
+                            value-format="timestamp"></el-date-picker>
           </el-form-item>
-          <el-form-item label="结账金额" prop="money">
+          <el-form-item label="结账金额">
             <el-input v-model="ruleForm.money"></el-input>
           </el-form-item>
-          <el-form-item label="结账方式" prop="type">
+          <el-form-item label="结账方式">
             <el-input v-model="ruleForm.type"></el-input>
           </el-form-item>
           <el-row v-if="!Boolean(this.getHrefParam('id'))">
             <el-col :span="24">
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+                <el-button type="info" @click="submitForm('ruleForm')">保存</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -239,29 +278,34 @@
           <el-table-column label="工时单价" prop="price" show-overflow-tooltip></el-table-column>
           <el-table-column label="工时费" prop="money" show-overflow-tooltip></el-table-column>
           <el-table-column label="维修人员" prop="repairman" show-overflow-tooltip></el-table-column>
-          <el-table-column label="派工">
-            <template slot-scope="scope">
-              <i class="fa fa-user-md fa-lg" @click="handleWork(scope.$index, scope.row)"></i>
-            </template>
-          </el-table-column>
-          <el-table-column>
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit5(scope.$index, scope.row)">编辑</el-button>
-            </template>
-          </el-table-column>
+          <template v-if=" this.ruleForm.state <2">
+            <el-table-column label="派工">
+              <template slot-scope="scope">
+                <i class="fa fa-user-md fa-lg" @click="handleWork(scope.$index, scope.row)"></i>
+              </template>
+            </el-table-column>
+            <el-table-column>
+              <template slot-scope="scope">
+                <el-button type="info" size="mini" @click="handleEdit5(scope.$index, scope.row)">编辑</el-button>
+              </template>
+            </el-table-column>
+          </template>
         </el-table>
         <el-dialog title="工单编辑" :visible.sync="dialogTableVisible5" @close="closeDialog">
-          <el-form :model="ruleForm5" ref="ruleForm5" inline label-width="100px">
+          <el-form :model="ruleForm5" ref="ruleForm5" inline label-width="100px" :rules="rules">
             <el-form-item label="工时" prop="working_hours">
-              <el-input v-model="ruleForm5.working_hours"></el-input>
+              <el-input v-model="ruleForm5.working_hours" @input="count" type="number"></el-input>
             </el-form-item>
             <el-form-item label="工时单价" prop="price">
-              <el-input v-model="ruleForm5.price" @input="money"></el-input>
+              <el-input v-model="ruleForm5.price" @input="count" type="number"></el-input>
+            </el-form-item>
+            <el-form-item label="工时费" prop="money">
+              <el-input v-model="ruleForm5.money" readonly></el-input>
             </el-form-item>
             <el-row>
               <el-col :span="24">
                 <el-form-item>
-                  <el-button type="primary" @click="submitForm5('ruleForm5')">确定</el-button>
+                  <el-button type="info" @click="submitForm5('ruleForm5')">确定</el-button>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -276,7 +320,7 @@
               </el-select>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForms('form')">确定</el-button>
+              <el-button type="info" @click="submitForms('form')">确定</el-button>
             </el-form-item>
           </el-form>
         </el-dialog>
@@ -308,12 +352,14 @@
           <el-table-column label="数量" prop="number" show-overflow-tooltip></el-table-column>
           <el-table-column label="单价" prop="price" show-overflow-tooltip></el-table-column>
           <el-table-column label="总额" prop="money" show-overflow-tooltip></el-table-column>
-          <el-table-column align="right">
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit3(scope.$index, scope.row)">编辑</el-button>
-              <el-button size="mini" @click="handleEdit4(scope.$index, scope.row)">删除</el-button>
-            </template>
-          </el-table-column>
+          <template v-if=" this.ruleForm.state <2">
+            <el-table-column align="right">
+              <template slot-scope="scope">
+                <el-button type="info" size="mini" @click="handleEdit3(scope.$index, scope.row)">编辑</el-button>
+                <el-button type="danger" size="mini" @click="handleEdit4(scope.$index, scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
+          </template>
         </el-table>
       </el-container>
     </el-card>
@@ -347,6 +393,7 @@
         },
         dialogTableVisible: false,
         dialogTableVisibles: false,
+        dialogTableVisible6: false,
         searchVal: '',
         loading2: true,
         ruleForm: {
@@ -395,7 +442,7 @@
           remark: '',
           settlement: '',
           source: '',
-          state: 0,
+          state: -1,
           three_guarantees: '',
           type: '',
           vehicle_id: '',
@@ -410,11 +457,76 @@
           data: []
         },
         repair_id: this.getHrefParam('repair_id') ? this.getHrefParam('repair_id') : '',
-        ruleForms: {repair_id: this.getHrefParam('repair_id') ? this.getHrefParam('repair_id') : ''},
-        ruleForm5: {working_hours: '', price: ''}
+        ruleForms: {
+          repair_id: this.getHrefParam('repair_id') ? this.getHrefParam('repair_id') : '',
+          brand:'',
+          model:'',
+          money:'',
+          name:'',
+          number:'',
+          price:'',
+        },
+        ruleForm5: {working_hours: '', price: ''},
+        balanceData: [],
+        BalanceRuleForm: {
+          id: '',
+          t_money: '',
+          state: ''
+        }
       }
     },
     methods: {
+      printData() {
+      },
+      sub(e) {
+        this.BalanceRuleForm.state = e
+        $.ajax({
+          type: 'post',
+          url: '/carRecord/windUpAnAccount.action',
+          contentType: "application/json",
+          data: JSON.stringify(this.BalanceRuleForm),
+          dataType: 'json',
+          success: (res) => {
+            console.log(res)
+            if (res.code == 1) {
+              this.notifyNoPath(res.msg)
+              this.notifySuc(res.msg, 'form.jsp')
+            } else {
+              this.notifyError(res.msg)
+            }
+          },
+          error: (res) => {
+            this.notifyError(res.msg)
+          }
+        })
+      },
+      balance() {
+        this.dialogTableVisible6 = true
+        $.ajax({
+          type: 'post',
+          url: '/carRecord/closeAnAccount.action',
+          data: {id: this.repair_id},
+          dataType: 'json',
+          success: (res) => {
+            console.log(res)
+            if (res.code == 1) {
+              this.BalanceRuleForm.t_money = res.data
+              this.BalanceRuleForm.id = this.repair_id
+              this.notifyNoPath(res.msg)
+            } else {
+              this.notifyError(res.msg)
+            }
+          },
+          error: (res) => {
+            this.notifyError(res.msg)
+          }
+        })
+      },
+      count() {
+        let t = this.ruleForm5.working_hours == '' ? 1 : parseInt(this.ruleForm5.working_hours)
+        let l = this.ruleForm5.price == '' ? 1 : parseInt(this.ruleForm5.price)
+        this.ruleForm5.money = l * t
+      },
       next() {
         this.$confirm(' 是否继续更改订单状态?', '提示', {
           confirmButtonText: '确定',
@@ -442,7 +554,7 @@
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除'
+            message: '已取消'
           });
         });
       },
@@ -450,7 +562,12 @@
         this.form.name = ''
       },
       closeDialog() {
-        this.ruleForms = {}
+        this.ruleForms = {repair_id: this.repair_id,brand:'',
+          model:'',
+          money:'',
+          name:'',
+          number:'',
+          price:'',}
         this.ruleForm5 = {}
       },
       handleEdit3(index, row) {
@@ -546,6 +663,8 @@
             console.log(res)
             if (res.code == 1) {
               this.notifyNoPath(res.msg)
+              this.dialogTableVisible = false
+              this.handleCurrentChange(1, 'second')
             } else {
               this.notifyError(res.msg)
             }
@@ -557,7 +676,33 @@
       },
       searchCar() {
         if (this.ruleForm.vehicle_number) {
-          this.onLoad('/Repair/detailsSelectByVehicleNumber.action', {VehicleNumber: this.ruleForm.vehicle_number})
+          $.ajax({
+            type: 'post',
+            url: '/Repair/detailsSelectByVehicleNumber.action',
+            data: {VehicleNumber: this.ruleForm.vehicle_number},
+            dataType: 'json',
+            success: (res) => {
+              if (res.code == 1) {
+                Object.assign(this.ruleForm, res.data)
+                this.notifyNoPath(res.msg)
+              } else if (res.code == 2) {
+                this.$confirm('没有车辆信息, 是否添加档案?', '提示', {
+                  confirmButtonText: '添加档案',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  window.location.href = '/pages/archives/carEdit.jsp'
+                }).catch(() => {
+
+                });
+              } else {
+                this.notifyError(res.msg)
+              }
+            },
+            error: (res) => {
+              this.notifyError(res.msg)
+            }
+          })
         }
       },
       handleWork(index, row) {
@@ -648,7 +793,23 @@
             $.ajax({
               type: 'post',
               url: '/Repair/insert.action',
-              data: JSON.stringify(this.ruleForm),
+              data: JSON.stringify( /* this.ruleForm  */
+                //{
+                {
+                  "vehicleId": this.ruleForm.vehicle_id,
+                  "remark": this.ruleForm.remark,
+                  "enterTime": this.ruleForm.enter_time,
+                  "appointmentTime": this.ruleForm.appointment_time,
+                  "makespanTime": this.ruleForm.makespan_time,
+                  "settlement": this.ruleForm.settlement,
+                  "closingDate": this.ruleForm.closing_date,
+                  "money": this.ruleForm.money,
+                  "entryPerson": this.ruleForm.entry_person,
+                  "vehicle_number": this.ruleForm.vehicle_number
+                }
+                // },
+                // }
+              ),
               contentType: "application/json",
               dataType: 'json',
               success: (res) => {
@@ -656,6 +817,7 @@
                 if (res.code == 1) {
                   this.repair_id = res.data.repair_id
                   this.ruleForms.repair_id = res.data.repair_id
+                  this.ruleForm.state = 0
                   this.notifyNoPath(res.msg)
                 } else {
                   this.notifyError(res.msg)

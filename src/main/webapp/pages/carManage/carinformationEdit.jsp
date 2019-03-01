@@ -2,12 +2,15 @@
 
 <%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">车辆信息</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
-    <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
-      <el-input v-model="ruleForm.id"></el-input>
+    <el-form :model="ruleForm" ref="ruleForm" :rules="rules" label-width="100px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="车型代码" prop="vehicleCode">
@@ -31,12 +34,12 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="价格" prop="selling_price">
-            <el-input v-model="ruleForm.selling_price"></el-input>
+            <el-input v-model="ruleForm.selling_price" type="number"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

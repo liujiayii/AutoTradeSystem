@@ -27,20 +27,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-}
-
-.secondNav .title {
-    height: 60px;
-    font-size: 24px;
-    color: #333333;
-    line-height: 60px;
-    padding-left: 10px;
-    border-left: 3px solid #6599ff;
-    cursor: pointer;
-}
-
-.secondNav .btn {
-    height: 40px;
+    align-items: center;
 }
 
 .page-box {
@@ -97,4 +84,13 @@ table {
 }
 .el-table__empty-block{
     height: 15%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield
 }

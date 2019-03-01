@@ -25,5 +25,7 @@ public interface PartsService {
 
 	String selectPartsShow(Long repair_id, Integer page, Integer limit);
 
+	String selectPartsShow(Long repair_id);
+
 
 }

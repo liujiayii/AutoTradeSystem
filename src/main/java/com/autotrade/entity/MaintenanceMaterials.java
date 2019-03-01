@@ -3,10 +3,11 @@ package com.autotrade.entity;
 import java.io.Serializable;
 
 public class MaintenanceMaterials implements Serializable {
+	/*主键id*/
     private Long id;
-
+    /*项目id*/
     private Long project_id;
-
+   /*材料名称*/
     private String name;
 
     private static final long serialVersionUID = 1L;

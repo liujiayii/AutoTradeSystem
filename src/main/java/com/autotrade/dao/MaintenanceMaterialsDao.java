@@ -16,6 +16,8 @@ public interface MaintenanceMaterialsDao {
 	*
 	 */
 	 int deleteByPrimaryKey(Long id);
+	 
+	 int deleteByPid(Long id);
 	/**
 	 * 材料设置
 	*@author lichangchun
@@ -36,7 +38,7 @@ public interface MaintenanceMaterialsDao {
     *@date 2019年2月23日    
     *
      */
-    MaintenanceMaterials selectByPrimaryKey(Long id);
+    List<MaintenanceMaterials> selectByPrimaryKey(Long id);
   
    /**
     * 修改材料设置

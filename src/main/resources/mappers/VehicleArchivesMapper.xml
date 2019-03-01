@@ -243,7 +243,7 @@
 			join t_model_definition md 
 				on va.model_definition_id = md.model_definition_id
 			where
-				ca.customer_name like #{keyWord} or ca.phone_number like #{keyWord} or di.driver_name like #{keyWord} or md.vehicle_type like #{keyWord} or md.range_rover like #{keyWord}
+				ca.customer_name like #{keyWord} or ca.phone_number like #{keyWord} or di.driver_name like #{keyWord} or md.vehicle_type like #{keyWord} or md.range_rover like #{keyWord} or va.vehicle_number like #{keyWord}
 		limit #{page},#{limit}
 	</select>
 	
@@ -264,7 +264,7 @@
 			join t_model_definition md 
 				on va.model_definition_id = md.model_definition_id
 			where
-				ca.customer_name like #{keyWord} or ca.phone_number like #{keyWord} or di.driver_name like #{keyWord} or md.vehicle_type like #{keyWord} or md.range_rover like #{keyWord}
+				ca.customer_name like #{keyWord} or ca.phone_number like #{keyWord} or di.driver_name like #{keyWord} or md.vehicle_type like #{keyWord} or md.range_rover like #{keyWord} or va.vehicle_number like #{keyWord}
 	</select>
 	
 	
@@ -282,6 +282,61 @@
 	
 	
 	
+	<!-- 根据工单Id查询所用维修材料 -->	
+	<!-- List<Parts> closeAnAccountParts(Long id) -->	
+	<select id="closeAnAccountParts" resultType="com.autotrade.entity.Parts">
+		select
+			money,id
+		from	
+			t_parts
+		where
+			repair_id=#{id}	
+	</select>
+	
+	
+	<!-- 根据工单id查询所有维修修理单 -->
+	<!-- List<RepairProject> closeAnAccountRepairProject(Long id) -->
+	<select id="closeAnAccountRepairProject" resultType="com.autotrade.entity.RepairProject">
+		select
+			money,id
+		from
+			t_repair_project
+		where
+			repair_id=#{id}
+	</select>
+	
+	<!-- 修改工单 -->
+	<!-- Integer windUpAnAccount(Repair repair) -->
+	<update id="windUpAnAccount" parameterType="com.autotrade.entity.Repair">
+		update
+			t_repair
+		<set>
+			<if test="money !=null and money!=''">
+				money=#{money},
+			</if>
+			<if test="state!=null and state!=''">
+				state=#{state},
+			</if>
+			<if test="type!=null and type!=''">
+				type=#{type},
+			</if>
+			<if test="settlement!=null and settlement!=''">
+				settlement=#{settlement},
+			</if>
+			<if test="closingDate!=null and closingDate!=''">
+				closing_date=#{closingDate},
+			</if>
+		</set>	
+		where
+			id=#{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.autotrade.entity.VehicleArchives"
+	useGeneratedKeys="true" keyProperty="id">
+	insert into
+	t_vehicle_archives(vehicle_number)
+	values(#{vehicle_number})
+	</insert>
 	
 	
 </mapper>

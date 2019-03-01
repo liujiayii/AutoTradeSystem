@@ -2,6 +2,9 @@ package com.autotrade.service;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.alibaba.fastjson.JSONObject;
 import com.autotrade.entity.MaintenanceMaterials;
 
 public interface MaintenanceMaterialsService {
@@ -17,6 +20,8 @@ public interface MaintenanceMaterialsService {
 	 */
 	 String deleteByPrimaryKey(Long id);
 
+	 
+	
 	
 	 /**
 		 * 设置项目对应的财力的材料
@@ -27,7 +32,7 @@ public interface MaintenanceMaterialsService {
 		*@date 2019年2月23日    
 		*
 		 */
-		 String insertSelective(MaintenanceMaterials record);
+		 String insertSelective(@RequestBody JSONObject obj);
 		 /**
 		  * 查询项目对应的材料
 		 *@author lichangchun

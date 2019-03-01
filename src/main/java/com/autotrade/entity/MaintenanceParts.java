@@ -2,12 +2,20 @@ package com.autotrade.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 客户类型表
+* @ClassName: MaintenanceParts
+* @Description: TODO
+* @author lichangchun
+* @date 2019年2月28日
+*
+ */
 public class MaintenanceParts implements Serializable {
+	/*主键id*/
     private Long id;
-
+    /*客户类型*/
     private String type;
-
+    /*创建时间*/
     private Date create_time;
 
     private static final long serialVersionUID = 1L;

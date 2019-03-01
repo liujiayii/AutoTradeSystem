@@ -3,12 +3,15 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">权限管理</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main access">
     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-input v-model="ruleForm.id"></el-input>
       <el-form-item label="客户信息：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
           <el-checkbox :label="1001">车辆资源</el-checkbox>
@@ -27,7 +30,7 @@
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
           <el-checkbox :label="1007">订车管理</el-checkbox>
           <el-checkbox :label="1008">售车管理</el-checkbox>
-          <el-checkbox :label="1009">退车管理</el-checkbox>
+          <!--<el-checkbox :label="1009">退车管理</el-checkbox>-->
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="车辆管理：">
@@ -38,9 +41,9 @@
       </el-form-item>
       <el-form-item label="财务管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
+          <el-checkbox :label="1012">部门管理</el-checkbox>
           <el-checkbox :label="1013">收入管理</el-checkbox>
           <el-checkbox :label="1014">支出管理</el-checkbox>
-          <el-checkbox :label="1012">部门管理</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="库存管理：">
@@ -70,15 +73,15 @@
           <el-checkbox :label="1024">车型设置</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="报表管理：">
+      <!--<el-form-item label="报表管理：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
           <el-checkbox :label="1026">维修报表</el-checkbox>
           <el-checkbox :label="1027">售车报表</el-checkbox>
           <el-checkbox :label="1028">进车报表</el-checkbox>
         </el-checkbox-group>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.autotrade.dao.PartsDao;
 import com.autotrade.dao.RepairDao;
@@ -33,16 +34,23 @@ public class PartsServiceImpl implements PartsService {
 	private RepairDao repair;
 
 	@Override
+	@Transactional
 	public String insert(Parts parts) {
 		try {
+			//设置创建时间
 			parts.setCreate_time(new Date());
-			partsDao.insert(parts);
+			System.out.println(parts);
+			//获取工单信息
 			Repair rep = repair.selectByPrimaryKey(parts.getRepair_id());
+			System.out.println(rep);
+			//获取工单状态
 			System.out.println(parts.getRepair_id());
+			//状态如果已经大于2则不可添加
 			if (rep.getState() >= 2) {
 				return JsonUtil.getResponseJson(1, "已完成维修不可再添加材料", null, null);
 			}
-
+			//状态小于2可以添加
+			partsDao.insert(parts);
 			return JsonUtil.getResponseJson(1, "保存成功", null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,6 +130,26 @@ public class PartsServiceImpl implements PartsService {
 				return JsonUtil.getResponseJson(1, "查询失败", count, result);
 			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
+	}
+
+	@Override
+	public String selectPartsShow(Long repair_id) {
+		try {
+			
+			List<String> selectMName = partsDao.selectMName(repair_id);
+			for (String name : selectMName) {
+				Parts parts = new Parts();
+				parts.setCreate_time(new Date());
+				parts.setRepair_id(repair_id);
+				parts.setName(name);
+				partsDao.insert(parts);
+			}
+			
+			return JsonUtil.getResponseJson(1, "保存成功", null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JsonUtil.getResponseJson(-1, "系统异常", null, null);

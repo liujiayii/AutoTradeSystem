@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.autotrade.entity.Parts;
+import com.autotrade.entity.Repair;
+import com.autotrade.entity.RepairProject;
 import com.autotrade.entity.VehicleArchives;
 import com.autotrade.entity.VehicleArchivesVo;
 
@@ -99,6 +102,68 @@ public interface VehicleArchivesDao {
 	  * @createDate 2019年2月26日
 	 */
 	VehicleArchives findVehicleArchivesByVehicleNumber(String vehicle_number);
+	
+	
+	
+	
+	/**
+	  * @Title: closeAnAccountParts
+	  * @description 根据工单Id查询所用维修材料
+	  * @param @param id 工单id
+	  * @return List<Parts> 维修材料信息集合   
+	  * @author ZhaoSong
+	  * @createDate 2019年2月28日
+	 */
+	List<Parts> closeAnAccountParts(Long id);
+	
+	
+	/**
+	  * @Title: closeAnAccountRepairProject
+	  * @description 根据工单id查询所有维修修理单
+	  * @param @param id 工单id
+	  * @return List<RepairProject> 维修修理单集合    
+	  * @author ZhaoSong
+	  * @createDate 2019年2月28日
+	 */
+	List<RepairProject> closeAnAccountRepairProject(Long id);
+		
+	/**
+	  * @Title: windUpAnAccount
+	  * @description 修改工单
+	  * @param @param epair 工单信息
+	  * @return Integer  生效行数  
+	  * @author ZhaoSong
+	  * @createDate 2019年2月28日
+	 */
+	Integer windUpAnAccount(Repair epair);
+
+	/**
+	 * 
+	*
+	 * @Title: insertCarArchives
+	
+	 * @description 
+	*
+	 * @param @param vehicleArchives
+	 * @param @return 
+	   
+	 * @return Integer    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月28日
+	 */
+	Integer insert(VehicleArchives vehicleArchives);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

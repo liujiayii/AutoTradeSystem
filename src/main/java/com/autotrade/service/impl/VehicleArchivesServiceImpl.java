@@ -1,11 +1,15 @@
 package com.autotrade.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autotrade.dao.VehicleArchivesDao;
+import com.autotrade.entity.Parts;
+import com.autotrade.entity.Repair;
+import com.autotrade.entity.RepairProject;
 import com.autotrade.entity.VehicleArchives;
 import com.autotrade.entity.VehicleArchivesVo;
 import com.autotrade.service.VehicleArchivesService;
@@ -92,6 +96,51 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 	public VehicleArchives findVehicleArchivesByVehicleNumber(String vehicle_number) {
 		VehicleArchives vehicleArchives  = vehicleArchivesDao.findVehicleArchivesByVehicleNumber(vehicle_number);
 		return vehicleArchives;
+	}
+
+	@Override
+	public String closeAnAccount(Long id) {
+		String str;
+		BigDecimal money=BigDecimal.ZERO;
+		try {
+			List<Parts> partsList = vehicleArchivesDao.closeAnAccountParts(id);
+			List<RepairProject> repairProjectList = vehicleArchivesDao.closeAnAccountRepairProject(id);
+			if(partsList!=null && partsList.size()>0 && repairProjectList!=null && repairProjectList.size()>0){
+				for(Parts p:partsList){
+					if(p.getMoney()!=null){
+						money=money.add(p.getMoney());
+					}
+				}
+				for(RepairProject r:repairProjectList){
+					if(r.getMoney()!=null){
+						money =money.add(r.getMoney());
+					}
+				}
+				    str = JsonUtil.getResponseJson(1, "结算完成",null, money);
+			}else{
+					str = JsonUtil.getResponseJson(-1,"暂无数据", null, money);
+
+			}
+		} catch (Exception e) {
+					str = JsonUtil.getResponseJson(-1, "系统异常",null, null);
+	}
+		return str;
+	}
+
+	@Override
+	public String windUpAnAccount(Repair epair) {
+		String str;
+		try {
+			Integer row = vehicleArchivesDao.windUpAnAccount(epair);
+			if(row>0){
+				str =  JsonUtil.getResponseJson(1, "处理完成", null, null);
+			}else{
+				str= JsonUtil.getResponseJson(-1,"处理失败",null, null);
+			}
+		} catch (Exception e) {
+			str = JsonUtil.getResponseJson(-1, "系统异常", null,null);
+		}
+		return str;
 	}
 
 	

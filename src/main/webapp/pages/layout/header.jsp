@@ -37,10 +37,12 @@
               </a>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item v-else :index="index+''" :key="index">
-            <i :class="menu_a.icon"></i>
-            <span slot="title">{{ menu_a.name }}</span>
-          </el-menu-item>
+          <a v-else :key="index" :href="menu_a.path">
+            <el-menu-item :index="index+''">
+              <i :class="menu_a.icon"></i>
+              <span slot="title">{{ menu_a.name }}</span>
+            </el-menu-item>
+          </a>
         </template>
       </el-menu>
     </el-aside>
@@ -54,7 +56,9 @@
           ${user.name}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
           <el-dropdown-menu slot="dropdown">
-            <a href="/logout.action"><el-dropdown-item command="logout">退出</el-dropdown-item></a>
+            <a href="/logout.action">
+              <el-dropdown-item command="logout">退出</el-dropdown-item>
+            </a>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>

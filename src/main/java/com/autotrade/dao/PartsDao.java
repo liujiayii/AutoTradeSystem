@@ -155,4 +155,38 @@ public interface PartsDao {
 	 * @createDate 2019年2月24日
 	 */
 	Integer selectPartsShowCount(Long repair_id);
+	/**
+	 * 
+	*
+	 * @Title: selectMName
+	
+	 * @description 查询一个工单所用的所有材料名字
+	*
+	 * @param @param repair_id
+	 * @param @return 
+	   
+	 * @return List<String>    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月27日
+	 */
+	List<String> selectMName(Long repair_id);
+	/**
+	 * 
+	*
+	 * @Title: selectMNameByProjectName
+	
+	 * @description 根据项目名称查询使用那种材料
+	*
+	 * @param @param name
+	 * @param @return 
+	   
+	 * @return List<String>    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月27日
+	 */
+	List<String> selectMNameByProjectName(String name);
 }

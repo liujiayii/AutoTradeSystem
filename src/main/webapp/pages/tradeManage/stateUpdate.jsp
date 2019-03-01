@@ -3,7 +3,11 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">分期管理</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
@@ -45,7 +49,7 @@
       <el-table-column label="还款状态" prop="beOverdue" :formatter="format" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.beOverdue!=1" size="mini" @click="updateStateRow(scope.$index, scope.row)">编辑
+          <el-button type="info" v-if="scope.row.beOverdue!=1" size="mini" @click="updateStateRow(scope.$index, scope.row)">编辑
           </el-button>
           <el-dialog title="" :visible.sync="dialogFormVisible" width="400px">
             <el-form :model="row">
@@ -59,7 +63,7 @@
             </el-form>
             <div class="dialog-footer">
               <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="updateState(scope.$index, scope.row)">确 定</el-button>
+              <el-button type="info" @click="updateState(scope.$index, scope.row)">确 定</el-button>
             </div>
           </el-dialog>
         </template>

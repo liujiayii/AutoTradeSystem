@@ -43,9 +43,9 @@ public class RepairController {
      * @createDate 2019年2月20日
      */
 	@RequestMapping("insert")
-	public String insert(@RequestBody Repair repair, String vehicle_number) {
+	public String insert(@RequestBody Repair repair) {
 
-		return repairService.insert(repair,vehicle_number);
+		return repairService.insert(repair);
 
 	}
 	
@@ -88,7 +88,7 @@ public class RepairController {
 	 * @createDate 2019年2月20日
 	 */
 	@RequestMapping("updateByPrimaryKey")
-	public String updateByPrimaryKey(Repair repair) {
+	public String updateByPrimaryKey(@RequestBody Repair repair) {
 
 		return repairService.updateByPrimaryKeySelective(repair);
 
@@ -134,7 +134,7 @@ public class RepairController {
 	 */
 	@RequestMapping("detailsSelect")
 	public String detailsSelect(Long vehicleId,Long repair_id) {
-		System.out.println("vehicleId"+vehicleId+"repair_id"+repair_id);
+
 		return repairService.detailsSelect(vehicleId,repair_id);
 
 	}
@@ -158,9 +158,9 @@ public class RepairController {
 	@RequestMapping("detailsSelectByVehicleNumber")
 	@ResponseBody
 	public String detailsSelectByVehicleNumber(String VehicleNumber) {
-		System.out.println("接口走没走小手抖一抖");
+		
 		String detailsSelectByVehicleNumber = repairService.detailsSelectByVehicleNumber(VehicleNumber);
-		System.out.println(detailsSelectByVehicleNumber);
+	
 		return detailsSelectByVehicleNumber;
 	}
 	

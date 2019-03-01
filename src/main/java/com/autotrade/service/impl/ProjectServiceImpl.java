@@ -2,6 +2,7 @@ package com.autotrade.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -21,7 +22,11 @@ import com.autotrade.entity.Project;
 import com.autotrade.entity.Relation;
 import com.autotrade.entity.VehicleClassification;
 import com.autotrade.entityVo.ProjectVo;
+import com.autotrade.entityVo.bookingVo;
+import com.autotrade.service.MaintenancePartsService;
 import com.autotrade.service.ProjectService;
+import com.autotrade.service.VehichleClassificationService;
+import com.autotrade.utils.FastJsonUtil;
 import com.autotrade.utils.JsonUtil;
 
 /**
@@ -134,58 +139,41 @@ public class ProjectServiceImpl implements ProjectService {
 
 		String string = null;
 		Integer number = 0;
+		System.out.println("list" + obj);
+		String data = obj.toJSONString();
+		// 解析json数据
+		JSONObject json = JSON.parseObject(data);
 
+		String xmid = json.getString("id");
+
+		long xid = Long.parseLong(xmid);
+		
+       int a=projectDao.deleteRelation(xid);
+		String str = json.getString("data");
+		Relation r = new Relation();
+		List<Relation> rS = FastJsonUtil.jsonString2BeanList(str, Relation.class);
 		try {
-			String data = obj.toJSONString();
-			// 解析json数据
-			JSONObject json = JSON.parseObject(data);
-			List<VehicleClassification> Vehiclelist = vehichleClassificationDao.findCarType();
-			List<MaintenanceParts> Partslist = maintenancePartsDao.selectAll();
-			String xmid = json.getString("id");
-
-			long xid = Long.parseLong(xmid);
-
-			for (int b = 0; b < Partslist.size(); b++) {
-				String PartsId = json.toJSONString(Partslist.get(b).getId());// 客户类型id
-
-				long kid = Long.parseLong(PartsId);
-				String pid = json.getString(PartsId);
-				JSONObject jsonObject = (JSONObject) JSON.parse(pid);
-
-				for (int a = 0; a < Vehiclelist.size(); a++) {
-					String VehicleId = json.toJSONString(Vehiclelist.get(a).getId());// 车型id
-					long cid = Long.parseLong(VehicleId);
-					String mid = jsonObject.getString(VehicleId);
-					JSONObject jsonObjectone = (JSONObject) JSON.parse(mid);
-					Integer time = Integer.valueOf(jsonObjectone.getString("houser"));
-					String price = jsonObjectone.getString("price");
-					BigDecimal bd = new BigDecimal(price);
-					Relation r = new Relation();
-					r.setHouser(time);
-					r.setPrice(bd);
-					r.setMaintenance_parts_id(kid);
-					r.setVehicle_classification_id(cid);
-					r.setProject_id(xid);
-					r.setCreate_time(new Date());
-					System.out.println("佛主" + r);
-					Integer result = projectDao.AddRelation(r);
-					number = number + result;
-				}
+		if (rS != null) {
+			for(int a1= 0; a1 < rS.size(); a1++) {
+				rS.get(a1).setProject_id(xid);
+				Integer result = projectDao.AddRelation(rS.get(a1));
+				number = number + result;
 			}
-
-			if (number >= Vehiclelist.size() * Partslist.size()) {
+			if (number >= rS.size()) {
 
 				string = JsonUtil.getResponseJson(1, "添加成功", null, null);
 			} else {
 				string = JsonUtil.getResponseJson(1, "添加失败", null, null);
 			}
-
-		} catch (Exception e) {
-			// 程序异常
-			e.printStackTrace();
-			string = JsonUtil.getResponseJson(-1, "程序异常", null, null);
+		} else {
+			string = JsonUtil.getResponseJson(1, "没有数据添加", null, null);
 		}
-		return string;
+	}catch(Exception e)
+	{
+		string = JsonUtil.getResponseJson(-1, "系统异常", null, null);
+	}
+
+	return string;
 	}
 
 	/*

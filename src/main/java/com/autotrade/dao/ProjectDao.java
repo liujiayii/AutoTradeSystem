@@ -142,6 +142,9 @@ public interface ProjectDao {
 	  */
 	 int AddRelation(Relation Relation);
 	 
+	 int deleteRelation(Long id);
+	
+	 
 	 
 	
 }

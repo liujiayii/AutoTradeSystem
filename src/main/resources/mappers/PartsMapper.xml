@@ -48,7 +48,8 @@
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from
 		t_parts
-		where id =
+		where id
+		=
 		#{id}
 	</delete>
 	<!-- 分页查询所有 -->
@@ -66,7 +67,8 @@
 		t_parts
 	</select>
 	<!-- 根据id查询领料信息 -->
-	<select id="selectById" parameterType="java.lang.Long" resultType="com.autotrade.entity.Parts">
+	<select id="selectById" parameterType="java.lang.Long"
+		resultType="com.autotrade.entity.Parts">
 		Select
 		*
 		from t_parts
@@ -76,15 +78,18 @@
 
 	<!-- 根据id修改领料详情 -->
 	<update id="updateByid" parameterType="com.autotrade.entity.Parts">
-		update  t_parts
-		set name = #{name},
+		update t_parts
+		set name =
+		#{name},
 		brand = #{brand},
 		model = #{model},
 		number =#{number},
-		price = #{price},
+		price =
+		#{price},
 		money = #{money},
 		repair_id = #{repair_id},
-		create_time = #{create_time}
+		create_time =
+		#{create_time}
 		where id =#{id}
 	</update>
 
@@ -100,11 +105,29 @@
 	<select id="selectPartsShowCount" resultType="java.lang.Integer">
 		SELECT
 		Count(*)
-		FROM t_parts
+		FROM
+		t_parts
 		WHERE repair_id = #{repair_id}
 	</select>
 
+	<!-- 查询工单都用了那种材料 -->
+	<select id="selectMName" resultType="java.lang.String">
+		SELECT DISTINCT m.name
+		FROM
+		t_repair_project AS r
+		INNER JOIN t_project AS p
+		INNER JOIN
+		t_maintenance_materials AS m
+		WHERE r.repair_id =#{repair_id} AND
+		r.`name` = p.`name` AND p.id = m.project_id
+	</select>
+   <!-- 根据项目名称查询使用那种材料 -->
+	<select id="selectMNameByProjectName" resultType="java.lang.String">
+		SELECT m.name
+		FROM t_project AS p
+		INNER JOIN t_maintenance_materials AS m
+		WHERE p.`name` = #{name} AND p.id = m.project_id
 
-
+	</select>
 
 </mapper>

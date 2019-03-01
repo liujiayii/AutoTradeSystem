@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 
  *
- * @ClassName: TRepair
+ * @ClassName: Repair
 
  * @description 维修工单实体
  *
@@ -37,8 +37,18 @@ public class Repair {
     private String entryPerson;
     /**状态*/
     private int state;
+    /***/
+    private String vehicle_number;
     
-    public int getState() {
+    public String getVehicle_number() {
+		return vehicle_number;
+	}
+
+	public void setVehicle_number(String vehicle_number) {
+		this.vehicle_number = vehicle_number;
+	}
+
+	public int getState() {
 		return state;
 	}
 

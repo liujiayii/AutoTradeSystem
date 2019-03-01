@@ -2,8 +2,12 @@
 
 <%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">车辆档案</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round onclick="window.location.href = 'carEdit.jsp'">添加</el-button>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round onclick="window.location.href = 'carEdit.jsp'">添加</el-button>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main">
@@ -16,6 +20,7 @@
               style="width: 100%">
       <el-table-column label="姓名" prop=customer_name show-overflow-tooltip></el-table-column>
       <el-table-column label="手机号码" prop="phone_code" show-overflow-tooltip></el-table-column>
+      <el-table-column label="车牌号" prop=vehicle_number show-overflow-tooltip></el-table-column>
       <el-table-column label="送检人（驾驶员）" prop="driver_name" show-overflow-tooltip></el-table-column>
       <el-table-column label="车型" prop="vehicle_type" show-overflow-tooltip></el-table-column>
       <el-table-column label="车名" prop="range_rover" show-overflow-tooltip></el-table-column>
@@ -24,7 +29,7 @@
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>

@@ -5,11 +5,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.autotrade.dao.MaintenanceMaterialsDao;
 import com.autotrade.entity.Assessment;
 import com.autotrade.entity.MaintenanceMaterials;
+import com.autotrade.entity.Relation;
 import com.autotrade.service.MaintenanceMaterialsService;
+import com.autotrade.utils.FastJsonUtil;
 import com.autotrade.utils.JsonUtil;
 @Service
 public class MaintenanceMaterialsServiceImpl implements MaintenanceMaterialsService {
@@ -40,28 +45,47 @@ public class MaintenanceMaterialsServiceImpl implements MaintenanceMaterialsServ
 	}
 
 	@Override
-	public String insertSelective(MaintenanceMaterials record) {
-		String string;
-		try {
-		
+	public String insertSelective(@RequestBody JSONObject obj) {
 
-			Integer result = maintenanceMaterialsDao.insertSelective(record);
-			// 返回值 >= 1 代表添加成功
-			if (result >= 1) {
+		String string = null;
+		Integer number = 0;
+		System.out.println("list" + obj);
+		String data = obj.toJSONString();
+		// 解析json数据
+		JSONObject json = JSON.parseObject(data);
+
+		String xmid = json.getString("id");
+
+		long xid = Long.parseLong(xmid);
+		
+       int a=maintenanceMaterialsDao.deleteByPid(xid);
+		String str = json.getString("data");
+		Relation r = new Relation();
+		List<MaintenanceMaterials> rS = FastJsonUtil.jsonString2BeanList(str, MaintenanceMaterials.class);
+		try {
+		if (rS != null) {
+			for(int a1= 0; a1 < rS.size(); a1++) {
+				rS.get(a1).setProject_id(xid);
+				Integer result = maintenanceMaterialsDao.insertSelective(rS.get(a1));
+				number = number + result;
+			}
+			if (number >= rS.size()) {
 
 				string = JsonUtil.getResponseJson(1, "添加成功", null, null);
 			} else {
 				string = JsonUtil.getResponseJson(1, "添加失败", null, null);
 			}
-
-			return string;
-
-		} catch (Exception e) {
-			// 程序异常
-			e.printStackTrace();
-			return string = JsonUtil.getResponseJson(-1, "程序异常", null, null);
+		} else {
+			string = JsonUtil.getResponseJson(1, "没有数据添加", null, null);
 		}
+	}catch(Exception e)
+	{
+		string = JsonUtil.getResponseJson(-1, "系统异常", null, null);
 	}
+
+	return string;
+	}
+
 
 	@Override
 	public String selectByPrimaryKey(Long id) {
@@ -69,8 +93,8 @@ public class MaintenanceMaterialsServiceImpl implements MaintenanceMaterialsServ
 
 		try {
 
-			MaintenanceMaterials selectAssessmentById = maintenanceMaterialsDao.selectByPrimaryKey(id);
-
+			List<MaintenanceMaterials> selectAssessmentById = maintenanceMaterialsDao.selectByPrimaryKey(id);
+            System.out.println("selectAssessmentById"+selectAssessmentById);
 			string = JsonUtil.getResponseJson(1, "查询成功", 1, selectAssessmentById);
 
 			return string;
@@ -109,6 +133,8 @@ public class MaintenanceMaterialsServiceImpl implements MaintenanceMaterialsServ
 
 		return maintenanceMaterialsDao.selectBySelective(maintenanceMaterials);
 	}
+
+	
 
 	
 }

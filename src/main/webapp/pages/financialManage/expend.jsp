@@ -3,8 +3,12 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">支出管理</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round
              onclick="window.location.href='financialEdit.jsp?type=expend'">添加
   </el-button>
 </el-container>
@@ -33,16 +37,16 @@
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="info" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-container>
 </el-card>
-<el-dialog title="编辑" :visible.sync="dialogFormVisible">
-  <el-form :model="ruleForm" label-width="100px" ref="ruleForm" :rules="rules">
+<el-dialog title="编辑" :visible.sync="dialogFormVisible" width="500px">
+  <el-form :model="ruleForm" label-width="100px" ref="ruleForm" :rules="rules" inline>
     <el-form-item prop="departmentId" label="部门">
-      <el-select v-model="ruleForm.departmentId" placeholder="请选择部门">
+      <el-select style="width: 202px" v-model="ruleForm.departmentId" placeholder="请选择部门">
         <el-option v-for="item in branchData" :label="item.department" :value="item.department"
                    :key="item.id"></el-option>
       </el-select>
@@ -54,19 +58,19 @@
       <el-input v-model="ruleForm.expenditure"></el-input>
     </el-form-item>
     <el-form-item label="金额">
-      <el-input v-model="ruleForm.expenditureMoney"></el-input>
+      <el-input v-model="ruleForm.expenditureMoney" type="number"></el-input>
     </el-form-item>
     <el-form-item label="摘要">
-      <el-input type="textarea" v-model="ruleForm.detailedExpenditure"></el-input>
+      <el-input style="width: 202px" type="textarea" v-model="ruleForm.detailedExpenditure"></el-input>
     </el-form-item>
     <el-form-item label="日期">
-      <el-date-picker v-model="ruleForm.data" type="date" value-format="timestamp" placeholder="选择日期">
+      <el-date-picker style="width: 202px" v-model="ruleForm.data" type="date" value-format="timestamp" placeholder="选择日期">
       </el-date-picker>
     </el-form-item>
   </el-form>
   <div slot="footer" class="dialog-footer">
     <el-button @click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @click="submit">确 定</el-button>
+    <el-button type="info" @click="submit">确 定</el-button>
   </div>
 </el-dialog>
 <el-container class="page-box">

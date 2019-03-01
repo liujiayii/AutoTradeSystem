@@ -12,6 +12,8 @@ public interface StockDao {
 
     
 	int updateByPrimaryKeySelective(Stock record);
+	
+	int updateByPrimaryKeySelectives(Stock record);
     int insertSelective(Stock record);
 
     List<StockVo> selectByPrimaryKey(@Param("star")Integer star,@Param("limit")Integer limit);

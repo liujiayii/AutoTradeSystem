@@ -6,10 +6,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.autotrade.entity.Insurance;
+import com.autotrade.entity.Stock;
 import com.autotrade.entityVo.StockVo;
 import com.autotrade.service.StockService;
 import com.autotrade.utils.JsonUtil;
@@ -66,4 +70,40 @@ public class StockController {
 	}
 	
 
+	@RequestMapping("/updateByPrimaryKey")
+	@ResponseBody
+	public String updateByPrimaryKey(@RequestBody JSONObject obj) {
+		
+		String str;
+		try {
+			String data = obj.toJSONString();
+			// 解析json数据
+			JSONObject json = JSON.parseObject(data);
+
+			String commodity_number = json.getString("commodity_number");
+			String type = json.getString("type");
+			String numbers = json.getString("number");
+			int number = Integer.parseInt(numbers);
+			
+			Stock s=new Stock();
+			s.setCommodity_number(commodity_number);
+			s.setNumber(number);
+			
+			if(type.equals("yes")){
+				str=stockService.updateByPrimaryKeySelectives(s);
+			}else{
+				str=stockService.updateByPrimaryKeySelective(s);
+			}
+			
+		} catch (Exception e) {
+			str= JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
+		
+		
+		 
+		
+		return str;
+		
+	}
+	
 }

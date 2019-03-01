@@ -1,6 +1,7 @@
 package com.autotrade.service.impl;
 
 import java.lang.reflect.Field;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import com.autotrade.dao.RepairDao;
 import com.autotrade.dao.RepairProjectDao;
 import com.autotrade.dao.VehicleArchivesDao;
 import com.autotrade.entity.Repair;
+import com.autotrade.entity.RepairProject;
 import com.autotrade.entity.VehicleArchives;
 import com.autotrade.entityVo.PartsShow;
 import com.autotrade.entityVo.RepairDetails;
@@ -30,28 +32,41 @@ public class RepairServiceImpl implements RepairService {
 
 	@Autowired
 	private RepairProjectDao repairProjectDao;
-
+	
 	@Autowired
 	private VehicleArchivesDao vehicleArchivesDao;
 
 	@Override
 	@Transactional
-	public String insert(Repair repair, String vehicle_number) {
+	public String insert(Repair repair) {
+	
 		try {
 			repair.setState(0);
-			int result = repairDao.insert(repair);
+			
 
-			Long id = repair.getId();
-
-			// 如果车辆档案id为空则新建一个车辆档案并将车牌号码添加进去
-			if (repair.getVehicleId() == null) {
+		
+			
+			/*//如果车辆档案id为空则新建一个车辆档案并将车牌号码添加进去
+			if(repair.getVehicleId() == null){
 				VehicleArchives vehicleArchives = new VehicleArchives();
-				vehicleArchives.setVehicle_number(vehicle_number);
-				vehicleArchivesDao.insertCarArchives(vehicleArchives);
+				vehicleArchives.setVehicle_number(repair.getVehicle_number());
+				//添加车辆档案
+				vehicleArchivesDao.insert(vehicleArchives);
+				//获取车辆档案id
 				Long id2 = vehicleArchives.getId();
+				//添加车辆档案id
 				repair.setVehicleId(id2);
+			}*/
+			//没有车辆档案不允许添加工单
+			if(repair.getVehicleId() == null){
+				return JsonUtil.getResponseJson(-1, "请先行添加车辆档案", null,null );
 			}
-
+			
+			
+			
+			//保存工单
+			int result = repairDao.insert(repair);
+			Long id = repair.getId();
 			// 同时往维修单添加一条
 			/*
 			 * RepairProject record = new RepairProject();
@@ -62,12 +77,13 @@ public class RepairServiceImpl implements RepairService {
 			if (result >= 1) {
 				RepairId repairId = new RepairId();
 				repairId.setRepair_id(id);
-				return JsonUtil.getResponseJson(1, "添加成功", null, repairId);
+				return JsonUtil.getResponseJson(1, "添加成功", null,repairId );
 			} else {
 				return JsonUtil.getResponseJson(1, "添加失败", null, null);
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
 
@@ -171,8 +187,13 @@ public class RepairServiceImpl implements RepairService {
 	public String detailsSelectByVehicleNumber(String vehicleNumber) {
 		try {
 			Long id = repairDao.selectIdByVehicleNumber(vehicleNumber);
-			List<RepairDetails> result = repairDao.SelectRepairShow(id, null);
+			
+			List<RepairDetails> result =repairDao.selectRepairDetailsByVehicleNumber(vehicleNumber);
+			/*List<RepairDetails> result = repairDao.SelectRepairShow(id, null);*/
+
+			
 			if (result.size() >= 1) {
+				//将不需要的属性置为null
 				RepairDetails repairDetails = result.get(0);
 				repairDetails.setRemark(null);
 				repairDetails.setEnter_time(null);
@@ -187,7 +208,7 @@ public class RepairServiceImpl implements RepairService {
 
 				return JsonUtil.getResponseJson(1, "查询成功", null, repairDetails);
 			} else {
-				return JsonUtil.getResponseJson(1, "查询失败", null, null);
+				return JsonUtil.getResponseJson(2, "查询失败", null, null);
 			}
 
 		} catch (Exception e) {
@@ -196,6 +217,8 @@ public class RepairServiceImpl implements RepairService {
 		}
 
 	}
+
+	
 
 	@Override
 	public String selectPartsShow(Long repair_id, Integer page, Integer limit) {
@@ -220,15 +243,47 @@ public class RepairServiceImpl implements RepairService {
 		try {
 			Repair record = new Repair();
 			record.setId(id);
-			System.out.println("id" + id);
-			System.out.println("state" + state);
 			record.setState(state);
 			int result = repairDao.updateByPrimaryKeySelective(record);
-
+			
 			if (result >= 1) {
 				return JsonUtil.getResponseJson(1, "修改成功", null, null);
 			} else {
 				return JsonUtil.getResponseJson(1, "修改失败", null, null);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
+	}
+
+	@Override
+	public String insert(Repair repair, String vehicle_number) {
+		System.out.println(repair);
+		try {
+			repair.setState(0);
+			int result = repairDao.insert(repair);
+
+			Long id = repair.getId();
+			
+			//如果车辆档案id为空则新建一个车辆档案并将车牌号码添加进去
+			if(repair.getVehicleId() == null){
+				VehicleArchives vehicleArchives = new VehicleArchives();
+				vehicleArchives.setVehicle_number(vehicle_number);
+				vehicleArchivesDao.insertCarArchives(vehicleArchives);
+				Long id2 = vehicleArchives.getId();
+				repair.setVehicleId(id2);
+			}
+
+			
+
+			if (result >= 1) {
+				RepairId repairId = new RepairId();
+				repairId.setRepair_id(id);
+				return JsonUtil.getResponseJson(1, "添加成功", null,repairId );
+			} else {
+				return JsonUtil.getResponseJson(1, "添加失败", null, null);
 			}
 
 		} catch (Exception e) {

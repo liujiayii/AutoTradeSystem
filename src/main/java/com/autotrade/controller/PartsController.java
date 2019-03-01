@@ -137,6 +137,28 @@ public class PartsController {
 		return partsService.selectPartsShow(repair_id,page,limit);
 		
 	}
+	/**
+	 * 
+	*
+	 * @Title: insetPartName
+	
+	 * @description 根据维修项目添加所用配件
+	*
+	 * @param @param repair_id
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月27日
+	 */
+	@RequestMapping("insetPartName")
+    public String insetPartName (Long repair_id){
+		
+		return partsService.selectPartsShow(repair_id);
+		
+	}
 	
 	
 }

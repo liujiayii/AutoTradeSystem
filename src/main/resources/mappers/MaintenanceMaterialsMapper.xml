@@ -13,11 +13,16 @@
     select 
     <include refid="Base_Column_List" />
     from `t_maintenance_materials`
-    where `id` = #{id,jdbcType=BIGINT}
+    where `project_id` = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from `t_maintenance_materials`
     where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  
+   <delete id="deleteByPid" parameterType="java.lang.Long" >
+    delete from `t_maintenance_materials`
+    where `project_id` = #{id,jdbcType=BIGINT}
   </delete>
   
   <insert id="insertSelective" parameterType="com.autotrade.entity.MaintenanceMaterials" >

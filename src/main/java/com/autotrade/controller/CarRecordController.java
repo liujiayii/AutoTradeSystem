@@ -1,26 +1,27 @@
 package com.autotrade.controller;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.autotrade.entity.CustomerArchives;
 import com.autotrade.entity.DriverInformation;
-import com.autotrade.entity.MaintenanceParts;
 import com.autotrade.entity.ModelDefinition;
+import com.autotrade.entity.Repair;
 import com.autotrade.entity.VehicleArchives;
-import com.autotrade.entity.VehicleArchivesVo;
 import com.autotrade.entity.VehicleClassification;
 import com.autotrade.service.CustomerArchivesService;
 import com.autotrade.service.DriverInformationService;
 import com.autotrade.service.MaintenancePartsService;
 import com.autotrade.service.ModelDefinitionService;
 import com.autotrade.service.VehichleClassificationService;
-import com.autotrade.service.VehichleService;
 import com.autotrade.service.VehicleArchivesService;
 import com.autotrade.utils.JsonUtil;
 
@@ -425,6 +426,25 @@ public class CarRecordController {
 		return str;
 	}
 	
+	/**
+	  * @Title: findVehicleArchivesByVehicleNumber
+	  * @description 根据车牌号查询车辆档案
+	  * @param @param vehicle_number 车牌号
+	  * @return String  查询结果  
+	  * @author ZhaoSong
+	  * @createDate 2019年3月1日
+	 */
+	@RequestMapping("findVehicleArchivesByVehicleNumber")
+	@ResponseBody
+	public String findVehicleArchivesByVehicleNumber(String vehicle_number){
+		String str;
+		if(vehicleArchliesService.findVehicleArchivesByVehicleNumber(vehicle_number)!=null){
+			 str = JsonUtil.getResponseJson(-1,"您所填写的车牌号已存在", null,null);
+		}else{
+			str =JsonUtil.getResponseJson(1, "可添加", null, null);
+		}
+		 return str;
+	}
 	
 	
 	/**
@@ -457,8 +477,56 @@ public class CarRecordController {
 	}
 	
 	
+	/**
+	  * @Title: closeAnAccount
+	  * @description 根据工单id结算金额。
+	  * @param @param id 工单id
+	  * @return String  结算金额  
+	  * @author ZhaoSong
+	  * @createDate 2019年2月28日
+	 */
+	@RequestMapping("closeAnAccount")
+	@ResponseBody
+	public String closeAnAccount(Long id){
+		String str;
+		str = vehicleArchliesService.closeAnAccount(id);
+		return str;
+	}
 	
 	
-	
-	
+	/**
+	  * @Title: windUpAnAccount
+	  * @description 工单结算/结账
+	  * @param @param r 结算/结账信息
+	  * @return String  处理结果
+	  * @author ZhaoSong
+	  * @createDate 2019年2月28日
+	 */
+	@RequestMapping("windUpAnAccount")
+	@ResponseBody
+	public String windUpAnAccount(@RequestBody Repair r){
+		String str;
+		System.out.println(r.toString());
+		Repair repair = new Repair();
+		if(r.getMoney()!=null){
+			if(r.getState()==3){
+				repair.setState(r.getState());
+				repair.setType(r.getType());
+				repair.setId(r.getId());
+				repair.setSettlement(r.getClosingDate());
+			}
+			if(r.getState()==4){
+				repair.setState(r.getState());
+				repair.setType(r.getType());
+				repair.setId(r.getId());
+				repair.setMoney(r.getMoney());
+				repair.setClosingDate(r.getClosingDate());
+			}
+			str = vehicleArchliesService.windUpAnAccount(repair);
+		}else{
+			str = JsonUtil.getResponseJson(-1,"请输入有效数据", null, null);
+		}
+		
+		return str;
+	}
 }

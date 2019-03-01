@@ -17,6 +17,7 @@ public interface RepairService {
     /**
      * 添加
      * @param vehicle_number 
+     * 未使用
      * */
 	String insert(Repair repair, String vehicle_number);
 	 /**
@@ -37,6 +38,11 @@ public interface RepairService {
 	String selectPartsShow(Long repair_id, Integer page, Integer limit);
 	/**改变工单状态**/
 	String upadteState(Long id, Integer state);
+	/**
+     * 添加
+     * @param vehicle_number 
+     * */
+	String insert(Repair repair);
 	
 
 	

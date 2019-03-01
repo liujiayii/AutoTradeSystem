@@ -122,6 +122,12 @@
 		(#{project_id},#{vehicle_classification_id},#{maintenance_parts_id},#{houser},#{price},NOW())
 
 	</insert>
+	
+	<delete id="deleteRelation" parameterType="java.lang.Long">
+	
+	 delete from t_relation where project_id=#{id}
+	
+	</delete>
 
 </mapper>
 

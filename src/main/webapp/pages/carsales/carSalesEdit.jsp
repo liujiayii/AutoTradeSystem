@@ -3,7 +3,11 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">订车管理</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
@@ -20,7 +24,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入电话进行搜索">
+            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入电话进行搜索" type="number">
               <el-button v-if="!Boolean(ruleForm.c_id)" slot="append" icon="el-icon-search" @click="search"></el-button>
             </el-input>
           </el-form-item>
@@ -41,23 +45,23 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="成交价" prop="money">
-            <el-input v-model="ruleForm.money"></el-input>
+            <el-input v-model="ruleForm.money" type="number"></el-input>
           </el-form-item>
         </el-col>
         <template v-if="this.ruleForm.type==2">
           <el-col :span="12">
             <el-form-item label="首付款" prop="first_payment">
-              <el-input v-model="ruleForm.first_payment"></el-input>
+              <el-input v-model="ruleForm.first_payment" type="number"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="分期月数" prop="monthly_number">
-              <el-input v-model="ruleForm.monthly_number"></el-input>
+              <el-input v-model="ruleForm.monthly_number" type="number"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="月供" prop="monthly_supply">
-              <el-input v-model="ruleForm.monthly_supply"></el-input>
+              <el-input v-model="ruleForm.monthly_supply" type="number"></el-input>
             </el-form-item>
           </el-col>
         </template>
@@ -82,7 +86,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="售价" prop="s_money">
-            <el-input v-model="ruleForm.s_money"></el-input>
+            <el-input v-model="ruleForm.s_money" type="number"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -163,7 +167,7 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

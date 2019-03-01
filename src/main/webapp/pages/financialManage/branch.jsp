@@ -3,9 +3,13 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">部门管理</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round @click="dialogFormVisible = true">添加</el-button>
-  <el-dialog title="添加部门" :visible.sync="dialogFormVisible">
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round @click="dialogFormVisible = true">添加</el-button>
+  <el-dialog title="添加部门" :visible.sync="dialogFormVisible" width="500px">
     <el-form :model="form">
       <el-form-item label="部门名称" :label-width="formLabelWidth"
                     :rules="[{required: true, message: '请输入部门名称', trigger: 'blur'}]">
@@ -14,7 +18,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="insert">确 定</el-button>
+      <el-button type="info" @click="insert">确 定</el-button>
     </div>
   </el-dialog>
 </el-container>

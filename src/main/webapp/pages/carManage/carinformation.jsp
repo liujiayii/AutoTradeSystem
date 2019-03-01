@@ -3,8 +3,12 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">车辆信息</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round
              onclick="window.location.href='carinformationEdit.jsp'">添加
   </el-button>
 </el-container>
@@ -27,8 +31,8 @@
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
+          <el-button type="info" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="info" size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
         </template>
       </el-table-column>
     </el-table>

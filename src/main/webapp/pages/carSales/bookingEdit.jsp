@@ -2,13 +2,15 @@
 
 <%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">订车管理</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
-      <el-input v-model="ruleForm.id"></el-input>
-      <el-input v-model="ruleForm.c_id"></el-input>
       <el-form-item label="客户信息"></el-form-item>
       <el-row>
         <el-col :span="12">
@@ -18,7 +20,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入电话进行搜索">
+            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.c_id)" placeholder="请输入电话进行搜索" type="number">
               <el-button v-if="!Boolean(ruleForm.c_id)" slot="append" icon="el-icon-search" @click="search"></el-button>
             </el-input>
           </el-form-item>
@@ -50,7 +52,7 @@
                   <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
                 </template>
                 <template slot-scope="scope">
-                  <el-button size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
+                  <el-button type="info" size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -95,7 +97,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="订金" prop="deposit">
-            <el-input v-model="ruleForm.deposit"></el-input>
+            <el-input v-model="ruleForm.deposit" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -121,7 +123,7 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

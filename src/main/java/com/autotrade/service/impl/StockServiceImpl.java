@@ -10,6 +10,7 @@ import com.autotrade.dao.VehichleClassificationDao;
 import com.autotrade.entity.Stock;
 import com.autotrade.entityVo.StockVo;
 import com.autotrade.service.StockService;
+import com.autotrade.utils.JsonUtil;
 @Service
 public class StockServiceImpl implements StockService  {
 	@Autowired
@@ -29,11 +30,53 @@ public class StockServiceImpl implements StockService  {
 	}
 
 	@Override
-	public int updateByPrimaryKeySelective(Stock record) {
-		int a=stockDao.updateByPrimaryKeySelective(record);
-		return a;
+	public String updateByPrimaryKeySelective(Stock record) {
+		
+		String str;
+		try{
+			
+			int insert=stockDao.updateByPrimaryKeySelective(record);
+		if (insert >= 1) {
+			str= JsonUtil.getResponseJson(1, "修改成功", null, null);
+		} else {
+			str=JsonUtil.getResponseJson(1, "修改失败", null, null);
+		}
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		str= JsonUtil.getResponseJson(-1, "系统异常", null, null);
 	}
 
+
+
+		
+		return str;
+	}
+
+	
+	@Override
+	public String updateByPrimaryKeySelectives(Stock record) {
+		
+		String str;
+		try{
+			
+			int insert=stockDao.updateByPrimaryKeySelectives(record);
+		if (insert >= 1) {
+			str= JsonUtil.getResponseJson(1, "修改成功", null, null);
+		} else {
+			str=JsonUtil.getResponseJson(1, "修改失败", null, null);
+		}
+
+	} catch (Exception e) {
+		e.printStackTrace();
+		str= JsonUtil.getResponseJson(-1, "系统异常", null, null);
+	}
+
+
+
+		
+		return str;
+	}
 	@Override
 	public Stock selectById(String commodity_number) {
 		Stock a=stockDao.selectById(commodity_number);

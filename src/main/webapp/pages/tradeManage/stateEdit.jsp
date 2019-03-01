@@ -3,12 +3,15 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">分期管理</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
-      <el-input v-model="ruleForm.id"></el-input>
       <el-form-item label="客户信息"></el-form-item>
       <el-row>
         <el-col :span="12">
@@ -18,7 +21,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.id)"></el-input>
+            <el-input v-model="ruleForm.phone" :readonly="Boolean(ruleForm.id)" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -31,12 +34,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="贷款金额" prop="loanAmount">
-            <el-input v-model="ruleForm.loanAmount" @input="count"></el-input>
+            <el-input v-model="ruleForm.loanAmount" @input="count" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="贷款期限" prop="totalPeriod">
-            <el-input v-model="ruleForm.totalPeriod" @input="count"></el-input>
+          <el-form-item label="贷款期限（月）" prop="totalPeriod">
+            <el-input v-model="ruleForm.totalPeriod" @input="count" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -46,12 +49,12 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="每期还款" prop="monthlySupply">
-            <el-input v-model="ruleForm.monthlySupply"></el-input>
+            <el-input v-model="ruleForm.monthlySupply" type="number"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

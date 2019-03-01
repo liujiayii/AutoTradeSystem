@@ -3,7 +3,11 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">采购记录</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
@@ -32,17 +36,17 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="单价" prop="priace">
-            <el-input v-model="ruleForm.priace"></el-input>
+            <el-input v-model="ruleForm.priace" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="数量" prop="quantity">
-            <el-input v-model="ruleForm.quantity"></el-input>
+            <el-input v-model="ruleForm.quantity" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="总金额" prop="purchaseMoney">
-            <el-input v-model="ruleForm.purchaseMoney"></el-input>
+            <el-input v-model="ruleForm.purchaseMoney" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -73,9 +77,10 @@
               <el-option label="否" :value="1"></el-option>
             </el-select>
           </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
@@ -88,7 +93,7 @@
     mixins: [mixin, rules],
     data: function () {
       return {
-        navActive: '6-1',
+        navActive: '6-2',
         ruleForm: {
           name: '',
           type: '',

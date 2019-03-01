@@ -7,6 +7,7 @@
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdn.bootcss.com/vue/2.6.4/vue.js"></script>
   <script src="https://cdn.bootcss.com/element-ui/2.5.4/index.js"></script>
+  <script src="https://cdn.bootcss.com/qs/6.6.0/qs.js"></script>
   <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
   <link rel="stylesheet" href="./login/login.css">
 </head>
@@ -85,10 +86,10 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.loading = true
-           /* axios({
+            /*axios({
               method: 'post',
               url: '/loginTwo.action',
-              data: {'auth_code': this.ruleForm.code},
+              data: qs.stringify({'auth_code': this.ruleForm.code}),
               headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
               }
@@ -121,7 +122,7 @@
                 this.ruleForm.code = ''
                 this.loading = false
                 this.notifyError(r.msg)
-              });*/
+              })*/
             $.ajax({
               type: "post",
               url: "loginTwo.action",
@@ -137,7 +138,7 @@
                     success: (res) => {
                       console.log(res)
                       if (res.code == 1) {
-                        window.location.href = '/pages/customerInfo/buyingCarConsult.jsp'
+                        window.location.href = '/pages/index/index.jsp'
                       } else if (res.code == -1) {
                         this.loading = false
                         this.notifyError(res.msg)

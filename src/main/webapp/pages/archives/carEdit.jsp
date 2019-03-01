@@ -2,18 +2,22 @@
 
 <%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">车辆档案</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main">
-    <el-form :model="ruleForm" inline ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form :model="ruleForm" inline ref="ruleForm" label-width="100px" :rules="rules">
       <el-row>
         <el-col :span="24">
           <el-form-item label="车辆信息："></el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="车辆号码" prop="vehicle_number">
-        <el-input v-model="ruleForm.vehicle_number"></el-input>
+        <el-input v-model="ruleForm.vehicle_number" @blur="searchNum"></el-input>
       </el-form-item>
       <el-form-item label="来源" prop="source">
         <el-input v-model="ruleForm.source"></el-input>
@@ -36,7 +40,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="厂牌" prop="brand">
-        <el-input v-model="ruleForm.brand"></el-input>
+        <el-input v-model="ruleForm.brand" readonly></el-input>
       </el-form-item>
       <el-form-item label="发动机号" prop="engine_number">
         <el-input v-model="ruleForm.engine_number"></el-input>
@@ -68,18 +72,18 @@
         </el-col>
       </el-row>
       <el-form-item label="联系电话" prop="phone_code">
-        <el-input style="width: 202px" v-model="ruleForm.phone_code">
+        <el-input style="width: 202px" v-model="ruleForm.phone_code" type="number">
           <el-button slot="append" icon="el-icon-search" @click="search1"></el-button>
         </el-input>
       </el-form-item>
       <el-form-item label="车主名称" prop="customer_name">
-        <el-input v-model="ruleForm.customer_name"></el-input>
+        <el-input v-model="ruleForm.customer_name" readonly></el-input>
       </el-form-item>
       <el-form-item label="地址" prop="address">
-        <el-input v-model="ruleForm.address"></el-input>
+        <el-input v-model="ruleForm.address" readonly></el-input>
       </el-form-item>
       <el-form-item label="邮编" prop="postcode">
-        <el-input v-model="ruleForm.postcode"></el-input>
+        <el-input v-model="ruleForm.postcode" readonly></el-input>
       </el-form-item>
       <el-row>
         <el-col :span="24">
@@ -87,18 +91,18 @@
         </el-col>
       </el-row>
       <el-form-item label="手机" prop="move_number">
-        <el-input style="width: 202px" v-model="ruleForm.move_number">
+        <el-input style="width: 202px" v-model="ruleForm.move_number" type="number">
           <el-button slot="append" icon="el-icon-search" @click="search2"></el-button>
         </el-input>
       </el-form-item>
       <el-form-item label="驾驶员" prop="driver_name">
-        <el-input v-model="ruleForm.driver_name"></el-input>
+        <el-input v-model="ruleForm.driver_name" readonly></el-input>
       </el-form-item>
       <el-form-item label="驾驶证号" prop="driver_license_number">
-        <el-input v-model="ruleForm.driver_license_number"></el-input>
+        <el-input v-model="ruleForm.driver_license_number" readonly></el-input>
       </el-form-item>
       <el-form-item label="身份证号" prop="id_number">
-        <el-input v-model="ruleForm.id_number"></el-input>
+        <el-input v-model="ruleForm.id_number" readonly></el-input>
       </el-form-item>
       </el-row>
       <el-row>
@@ -124,7 +128,7 @@
       <el-row>
         <el-col :span="24">
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+            <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
             <el-button @click="goBack">取消</el-button>
           </el-form-item>
         </el-col>
@@ -136,7 +140,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         navActive: '9-1',
@@ -196,6 +200,27 @@
       }
     },
     methods: {
+      searchNum(){
+        console.log('------')
+        $.ajax({
+          type: 'post',
+          url: '/carRecord/findVehicleArchivesByVehicleNumber.action',
+          data: {vehicle_number: this.ruleForm.vehicle_number},
+          dataType: 'json',
+          success: (res) => {
+            console.log(res)
+            if (res.code == 1) {
+
+            } else {
+              this.notifyError(res.msg)
+            }
+          },
+          error: (res) => {
+            console.log(res)
+            this.notifyError(res.msg)
+          }
+        })
+      },
       selectCarName(val) {
         let obj = {}
         obj = this.carName.find((item) => {
@@ -285,14 +310,14 @@
               dataType: 'json',
               success: (res) => {
                 console.log(res)
-                if(res.code == 1){
-                	this.notifySuc(res.msg, 'carArchives.jsp')
-                }else{
-                	this.notifyError(res.msg)
+                if (res.code == 1) {
+                  this.notifySuc(res.msg, 'carArchives.jsp')
+                } else {
+                  this.notifyError(res.msg)
                 }
               },
               error: (res) => {
-            	  this.notifyError(res.msg)
+                this.notifyError(res.msg)
                 console.log(res)
               }
             })

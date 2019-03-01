@@ -10,7 +10,12 @@ public interface StockService {
 	 int insertSelective(Stock record);
 
 	    List<StockVo> selectByPrimaryKey(Integer page, Integer limit);
-	    int updateByPrimaryKeySelective(Stock record);
+	    
+	    
+	   String updateByPrimaryKeySelective(Stock record);
+	   
+	   
+	   String updateByPrimaryKeySelectives(Stock record);
 	    Stock selectById(String commodity_number);
 	    Integer getcount();
 

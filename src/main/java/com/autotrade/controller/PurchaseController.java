@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.autotrade.dao.StockDao;
 import com.autotrade.entity.Purchase;
 import com.autotrade.entity.Stock;
 import com.autotrade.service.PurchaseService;
@@ -35,6 +36,9 @@ public class PurchaseController {
 	private PurchaseService purchaseService;
 	@Autowired
 	private StockService stockService;
+	
+	@Autowired
+	private StockDao stockDao;
 	
 	
 	/**
@@ -157,7 +161,7 @@ public class PurchaseController {
 				
 				if(s!=null){
 					System.out.println("s"+s);
-					int a=stockService.updateByPrimaryKeySelective(stock);
+					int a=stockDao.updateByPrimaryKeySelective(stock);
 				}else{
 					int a=stockService.insertSelective(stock);
 				}

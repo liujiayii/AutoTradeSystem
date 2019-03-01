@@ -345,6 +345,23 @@ public interface RepairDao {
     * @createDate 2019年2月23日
     */
 	Integer selectPartsShowCount(Long repair_id);
+	/**
+	 * 
+	*
+	 * @Title: selectRepairDetailsByVehicleNumber
+	
+	 * @description 
+	*
+	 * @param @param vehicleNumber
+	 * @param @return 
+	   
+	 * @return List<RepairDetails>    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年2月28日
+	 */
+     List<RepairDetails> selectRepairDetailsByVehicleNumber(String vehicleNumber);
 	
 	
 }

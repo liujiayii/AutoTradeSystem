@@ -3,12 +3,15 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">员工管理</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
-      <el-input v-model="ruleForm.id"></el-input>
       <el-row>
         <el-col :span="12">
           <el-form-item label="姓名" prop="name">
@@ -17,7 +20,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone"></el-input>
+            <el-input v-model="ruleForm.phone" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -47,7 +50,7 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

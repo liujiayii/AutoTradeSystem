@@ -3,8 +3,12 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">维修工单</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round
              onclick="window.location.href='formEdit.jsp'">添加工单
   </el-button>
 </el-container>
@@ -23,11 +27,14 @@
           <el-form-item label="车型" prop="vehicleType">
             <el-input v-model="ruleForm.vehicleType"></el-input>
           </el-form-item>
-          <el-form-item label="发动机号" prop="engineNumber">
-            <el-input v-model="ruleForm.engineNumber"></el-input>
+          <el-form-item label="客户电话" prop="phoneNumber">
+            <el-input v-model="ruleForm.phoneNumber"></el-input>
           </el-form-item>
-          <el-form-item label="维修类别" prop="category">
-            <el-input v-model="ruleForm.category"></el-input>
+          <el-form-item label="客户姓名" prop="customerName">
+            <el-input v-model="ruleForm.customerName"></el-input>
+          </el-form-item>
+          <el-form-item label="车辆颜色" prop="color">
+            <el-input v-model="ruleForm.color"></el-input>
           </el-form-item>
           <el-form-item label="VIN号" prop="vin">
             <el-input v-model="ruleForm.vin"></el-input>
@@ -36,29 +43,29 @@
             <el-date-picker style="width: 202px" v-model="ruleForm.appointmentTime" type="date" placeholder="选择日期"
                             format="yyyy 年 MM 月 dd 日" value-format="timestamp"></el-date-picker>
           </el-form-item>
-          <el-form-item label="进厂时间" prop="enterTime">
+         <!--  <el-form-item label="进厂时间" prop="enterTime">
             <el-date-picker style="width: 202px" v-model="ruleForm.enterTime" type="date" placeholder="选择日期"
                             format="yyyy 年 MM 月 dd 日" value-format="timestamp"></el-date-picker>
-          
-          </el-form-item>       
+
+          </el-form-item> -->
           <el-form-item label="目前情况">
             <el-select v-model="ruleForm.state" placeholder="车辆目前维修进度">
-             <el-option label="预约" :value="0"></el-option>
+              <el-option label="预约" :value="0"></el-option>
               <el-option label="在修" :value="1"></el-option>
               <el-option label="完工" :value="2"></el-option>
               <el-option label="结算" :value="3"></el-option>
               <el-option label="结账" :value="4"></el-option>
             </el-select>
           </el-form-item>
-        
-          <el-form-item label="预约完工时间" prop="makespanTime">
+
+          <!-- <el-form-item label="预约完工时间" prop="makespanTime">
             <el-date-picker style="width: 202px" v-model="ruleForm.makespanTime" type="date" placeholder="选择日期"
                             format="yyyy 年 MM 月 dd 日" value-format="timestamp"></el-date-picker>
-          </el-form-item>
+          </el-form-item> -->
           <el-row>
             <el-col :span="24">
               <el-form-item>
-                <el-button type="primary" @click="submitForm()">搜索</el-button>
+                <el-button type="info" @click="submitForm()">搜索</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
               </el-form-item>
             </el-col>
@@ -81,7 +88,7 @@
           <el-table-column label="车主名称" prop="customerName" show-overflow-tooltip></el-table-column>
           <el-table-column label="车型" prop="vehicleType" show-overflow-tooltip></el-table-column>
           <!-- <el-table-column label="进厂时间" prop="enterTime" :formatter="dateFormat"
-                           show-overflow-tooltip></el-table-column> -->                          
+                           show-overflow-tooltip></el-table-column> -->
           <el-table-column label="客户电话" prop="phone_number" show-overflow-tooltip></el-table-column>
           <el-table-column label="居住地址" prop="address" show-overflow-tooltip></el-table-column>
           <el-table-column label="状态" prop="state" :formatter="stateFormat" show-overflow-tooltip></el-table-column>
@@ -90,7 +97,7 @@
               <el-input placeholder="输入关键词进行搜索" @focus="activeName='first'"/>
             </template>
             <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button type="info" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -127,7 +134,7 @@
     },
     methods: {
       resetForm(formName) {
-        this.$refs[formName].resetFields();
+        this.ruleForm = {page: 1, limit: 10};
       },
       stateFormat(row, column, cellValue, index) {
         console.log(cellValue)
@@ -135,7 +142,7 @@
       },
       handleEdit(index, row) {
         console.log(index, row);
-        window.location.href = 'formEdit.jsp?id=' + row.vehicleId+'&repair_id='+row.repair_id
+        window.location.href = 'formEdit.jsp?id=' + row.vehicleId + '&repair_id=' + row.repair_id
       },
       handleCurrentChange(page) {
         console.log(page)

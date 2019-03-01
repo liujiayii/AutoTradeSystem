@@ -2,8 +2,12 @@
 
 <%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">客户类型</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round @click="dialogFormVisible=true">添加</el-button>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round @click="dialogFormVisible=true">添加</el-button>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main">
@@ -16,20 +20,20 @@
               style="width: 100%">
       <el-table-column label="编号" prop="id" show-overflow-tooltip></el-table-column>
       <el-table-column label="类型" prop="type" show-overflow-tooltip></el-table-column>
-      <el-table-column label="创建时间" prop="create_time"  :formatter="dateFormat" show-overflow-tooltip></el-table-column>
+      <el-table-column label="创建时间" prop="create_time" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog title="客户类型" :visible.sync="dialogFormVisible" @close="clearForm" width="500px">
-      <el-form :model="ruleForm" ref="ruleForm" inline label-width="100px">
+      <el-form :model="ruleForm" ref="ruleForm" inline label-width="100px" :rules="rules">
         <el-form-item label="类型" prop="type">
           <el-input v-model="ruleForm.type"></el-input>
         </el-form-item>
         <el-form-item style="width: 100%">
-          <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+          <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
           <el-button @click="dialogFormVisible=false">取消</el-button>
         </el-form-item>
       </el-form>
@@ -49,7 +53,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         navActive: '9-5',
@@ -83,7 +87,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-        	 delete this.ruleForm.create_time
+            delete this.ruleForm.create_time
             $.ajax({
               type: 'post',
               url: this.ruleForm.id ? '/Project/updateMaintenance.action' : '/Project/insertMaintenance.action',

@@ -3,7 +3,11 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">车辆置换</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
@@ -18,7 +22,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="电话" prop="phone">
-            <el-input v-model="ruleForm.phone"></el-input>
+            <el-input v-model="ruleForm.phone" type="number"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -39,7 +43,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="客户预算" prop="budget">
-            <el-input v-model="ruleForm.budget"></el-input>
+            <el-input v-model="ruleForm.budget" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -54,12 +58,12 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="使用年限" prop="service_life">
-            <el-input v-model="ruleForm.service_life"></el-input>
+            <el-input v-model="ruleForm.service_life" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="公里数" prop="kilometres">
-            <el-input v-model="ruleForm.kilometres"></el-input>
+            <el-input v-model="ruleForm.kilometres" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -72,7 +76,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="粗略报价" prop="offer">
-            <el-input v-model="ruleForm.offer"></el-input>
+            <el-input v-model="ruleForm.offer" type="number"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -82,7 +86,7 @@
         </el-col>
       </el-row>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>

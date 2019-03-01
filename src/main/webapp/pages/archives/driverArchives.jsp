@@ -2,8 +2,12 @@
 
 <%@ include file="../layout/header.jsp" %>
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">驾驶员档案</div>
-  <el-button class="btn" type="primary" icon="el-icon-plus" round @click="dialogFormVisible=true">添加</el-button>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
+  <el-button class="btn" type="info" icon="el-icon-plus" round @click="dialogFormVisible=true">添加</el-button>
 </el-container>
 <el-card shadow="hover">
   <el-container class="main">
@@ -22,12 +26,12 @@
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
         </template>
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog title="驾驶员档案" :visible.sync="dialogFormVisible" @close="clearForm">
-      <el-form :model="ruleForm" ref="ruleForm" inline label-width="100px">
+      <el-form :model="ruleForm" ref="ruleForm" inline label-width="100px" :rules="rules">
         <el-form-item label="驾驶员姓名" prop="driver_name">
           <el-input v-model="ruleForm.driver_name"></el-input>
         </el-form-item>
@@ -48,10 +52,10 @@
           <el-input v-model="ruleForm.id_number"></el-input>
         </el-form-item>
         <el-form-item label="手机" prop="move_number">
-          <el-input v-model="ruleForm.move_number"></el-input>
+          <el-input v-model="ruleForm.move_number" type="number"></el-input>
         </el-form-item>
         <el-form-item label="住宅电话号码" prop="phone_number">
-          <el-input v-model="ruleForm.phone_number"></el-input>
+          <el-input v-model="ruleForm.phone_number" type="number"></el-input>
         </el-form-item>
         <el-form-item label="驾驶证号" prop="driver_license_number">
           <el-input v-model="ruleForm.driver_license_number"></el-input>
@@ -71,10 +75,10 @@
           <el-input v-model="ruleForm.e_mail"></el-input>
         </el-form-item>
         <el-form-item label="办公室电话" prop="office_telephone">
-          <el-input v-model="ruleForm.office_telephone"></el-input>
+          <el-input v-model="ruleForm.office_telephone" type="number"></el-input>
         </el-form-item>
         <el-form-item style="width: 100%">
-          <el-button type="primary" @click="submitForm('ruleForm')">确定</el-button>
+          <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
           <el-button @click="dialogFormVisible=false">取消</el-button>
         </el-form-item>
       </el-form>
@@ -94,7 +98,7 @@
 <script>
   new Vue({
     el: '#app',
-    mixins: [mixin],
+    mixins: [mixin, rules],
     data: function () {
       return {
         navActive: '9-3',

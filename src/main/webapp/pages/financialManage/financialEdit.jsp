@@ -3,7 +3,11 @@
 <%@ include file="../layout/header.jsp" %>
 <!-- Form -->
 <el-container class="secondNav">
-  <div class="title" @click="isCollapse = !isCollapse">{{title}}</div>
+  <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb-item><a href="/pages/index/index.jsp">首页</a></el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
+    <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
+  </el-breadcrumb>
 </el-container>
 
 <el-card shadow="hover">
@@ -22,7 +26,7 @@
         <el-input v-model="ruleForm[type == 'income' ? 'income' : 'expenditure']"></el-input>
       </el-form-item>
       <el-form-item label="金额">
-        <el-input v-model="ruleForm[type == 'income' ? 'incomeMoney' : 'expenditureMoney']"></el-input>
+        <el-input v-model="ruleForm[type == 'income' ? 'incomeMoney' : 'expenditureMoney']"  type="number"></el-input>
       </el-form-item>
       <el-form-item label="摘要">
         <el-input type="textarea"
@@ -37,7 +41,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button type="info" @click="submitForm('ruleForm')">提交</el-button>
         <el-button @click="goBack">返回</el-button>
       </el-form-item>
     </el-form>
@@ -63,8 +67,7 @@
           detailedExpenditure: '',
           data: ''
         },
-        branchData: [],
-        title: this.getHrefParam('type') == 'income' ? '收入管理' : '支出管理'
+        branchData: []
       }
     },
     methods: {

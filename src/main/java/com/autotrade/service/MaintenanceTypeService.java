@@ -83,12 +83,36 @@ public interface MaintenanceTypeService {
 	 * @createDate 2019年2月20日-上午11:10:43
 	 */
 	public int insertSelective(MaintenanceType maintenanceType);
+	/**
+	 * 获取所有的维修类型
+	*@author lichangchun
+	* @return
+	*@return String
+	*@date 2019年2月28日    
+	*
+	 */
 	
 	
 	String selectAll();
+	/**
+	 * 获取所有的维修类型（只查名字）
+	*@author lichangchun
+	* @return
+	*@return String
+	*@date 2019年2月28日    
+	*
+	 */
 	
 	String selectAllByString();
-	
+	/**
+	 * 根据具体类型的名字获取id
+	*@author lichangchun
+	* @param name
+	* @return
+	*@return MaintenanceType
+	*@date 2019年2月28日    
+	*
+	 */
 	public MaintenanceType selectByName(String name);
 	
 }

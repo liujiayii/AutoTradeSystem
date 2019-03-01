@@ -71,5 +71,15 @@
     </set>
     where `commodity_number` = #{commodity_number,jdbcType=VARCHAR}
   </update>
-	
+	<update id="updateByPrimaryKeySelectives" parameterType="com.autotrade.entity.Stock" >
+    update `t_stock`
+    <set >
+     
+      <if test="number != null" >
+        `number` = number-#{number,jdbcType=INTEGER},
+      </if>
+     
+    </set>
+    where `commodity_number` = #{commodity_number,jdbcType=VARCHAR}
+  </update>
 </mapper>
