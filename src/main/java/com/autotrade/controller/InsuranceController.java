@@ -1,22 +1,36 @@
 package com.autotrade.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.regex.Pattern;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.autotrade.entity.BuyingCustomer;
 import com.autotrade.entity.Insurance;
+import com.autotrade.entity.InsuranceImg;
 import com.autotrade.service.BuyingCustomerService;
+import com.autotrade.service.InsuranceImgService;
 import com.autotrade.service.InsuranceService;
 import com.autotrade.utils.JsonUtil;
 
@@ -37,6 +51,9 @@ public class InsuranceController {
 	// 保险表
 	@Autowired
 	private InsuranceService insuranceService;
+	// 保险图片表
+	@Autowired
+	private InsuranceImgService insuranceImgService;
 	//买车客户表接口
 	@Autowired
 	private BuyingCustomerService buyingCustomerService;
@@ -285,5 +302,115 @@ public class InsuranceController {
 		
 		return JsonUtil.getResponseJson(code, msg, null, null);
 	}
+	
+	/**
+	 * 保险图片上传
+	 *
+	 * @Title: uploadFile
+	
+	 * @description 
+	 *
+	 * @param file
+	 * @param request
+	 * @return 
+	   
+	 * String
+	 *
+	 * @author lujinpeng
+	 * @createDate 2019年3月4日-下午3:11:35
+	 */
+	@RequestMapping("/uploadFile")
+	public String uploadFile(@RequestParam(value = "file", required=false) MultipartFile[] file, HttpServletRequest request
+			, Long id) {
+		File targetFile=null;
+		String msg="上传成功";
+	    int code=1;
+	    String url="";//返回存储路径
+	    List<String> imgList=new ArrayList<>();
+	    System.out.println("上传文件个数："+file.length);
+	    if (file!=null && file.length>0) {
+	    	//文件存储位置
+	    	//String path = request.getSession(true).getServletContext().getRealPath("/upload"); 
+	    	String path = "E:\\upload";//保存图片的路径
+	    	System.out.println("path="+path);
+            //存储路径
+            String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() +"/upload/";
+            System.out.println("returnUrl="+returnUrl);
+            //先判断文件夹是否存在
+            String fileAdd = new SimpleDateFormat("yyyyMMdd").format(new Date());
+            File newFile =new File(path+"/"+fileAdd); 
+            //如果文件夹不存在则创建    
+            if(!newFile.exists()  && !newFile.isDirectory()){  
+            	newFile.mkdirs();  
+            }
+            
+	        for (int i = 0; i < file.length; i++) {
+	        	//获取文件名加后缀
+	            String fileName=file[i].getOriginalFilename();
+	            
+	            if(fileName != null && fileName != ""){   
+	            	//获取文件后缀
+	                String fileSuffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+	                //创建新的文件名
+	                fileName=new Date().getTime()+"_"+new Random().nextInt(1000)+fileSuffix;
+	                
+	                targetFile = new File(newFile, fileName);
+	                try {
+	                    file[i].transferTo(targetFile);
+	                    //url=returnUrl+fileAdd+"/"+fileName;
+	                    url = path+"/"+fileAdd+"/"+fileName;
+	                    System.out.println("url="+url);
+	                    imgList.add(url);
+	                    
+	                    // 将图片地址插入到图片表中
+	                    /*InsuranceImg insuranceImg = new InsuranceImg();
+	                    insuranceImg.setCreate_time(new Date());
+	                    insuranceImg.setInsurance_id(id);
+	                    insuranceImg.setUrl(url);
+	                    insuranceImgService.insertAll(insuranceImg);*/
+	                    
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                    code = -1;
+	                    msg = "系统异常";
+	                }
+	            }
+	        }
+	    } 
+		System.out.println("imgList="+imgList);
+		return JsonUtil.getResponseJson(code, msg, null, imgList);
+	}
+	
+	/**
+	 * 通过保险单id查询图片
+	 *
+	 * @Title: showInsuranceImg
+	
+	 * @description 
+	 *
+	 * @param id 保险单id
+	 * @return String
+	 *
+	 * @author lujinpeng
+	 * @createDate 2019年3月4日-下午4:52:58
+	 */
+	@RequestMapping("/showInsuranceImg")
+	public String showInsuranceImg(Long id) {
+		String msg="查询成功";
+	    int code=1;
+	    List<InsuranceImg> imgList = null;
+	    
+		try {
+			imgList = insuranceImgService.selectByInsuranceId(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+			msg = "系统异常";
+		}
+		
+		return JsonUtil.getResponseJson(code, msg, null, imgList);
+	}
+	
+	
 	
 }

@@ -129,5 +129,24 @@
 		WHERE p.`name` = #{name} AND p.id = m.project_id
 
 	</select>
+	
+	<!-- 根据工单id 材料名称 厂家查询 -->
+	<select id="selectBySelective" parameterType="com.autotrade.entity.Parts" 
+	resultType="com.autotrade.entity.Parts">
+	select 
+  	  *
+  	from t_parts
+  	<where>
+  	  <if test="repair_id != null">
+        and repair_id = #{repair_id}
+      </if>
+      <if test="name != null">
+        and name = #{name}
+      </if>
+      <if test="brand != null">
+        and brand = #{brand}
+      </if>
+  	</where>
+	</select>
 
 </mapper>

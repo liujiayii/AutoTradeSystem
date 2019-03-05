@@ -9,6 +9,7 @@ import com.autotrade.entity.Repair;
 import com.autotrade.entity.RepairProject;
 import com.autotrade.entity.VehicleArchives;
 import com.autotrade.entity.VehicleArchivesVo;
+import com.autotrade.entityVo.MaterialsVo;
 
 public interface VehicleArchivesDao {
 
@@ -158,9 +159,26 @@ public interface VehicleArchivesDao {
 	
 	
 	
+	/**
+	  * @Title: printMaterialsBill
+	  * @description 根据工单id查询领料信息
+	  * @param @param id 工单id
+	  * @return List<MaterialsVo> 返回领料对象集合
+	  * @author ZhaoSong
+	  * @createDate 2019年3月4日
+	 */
+	List<MaterialsVo> printMaterialsBill(Long id);
 	
 	
-	
+	/**
+	  * @Title: findClientNameById
+	  * @description 根据工单id查询用户名称
+	  * @param @param id 工单id
+	  * @return String  用户名称  
+	  * @author ZhaoSong
+	  * @createDate 2019年3月4日
+	 */
+	String findClientNameById(Long id);
 	
 	
 	

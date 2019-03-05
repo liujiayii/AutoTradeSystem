@@ -40,6 +40,9 @@ public class Repair {
     /***/
     private String vehicle_number;
     
+    /**形式里程*/
+    private String roadHaul;
+    
     public String getVehicle_number() {
 		return vehicle_number;
 	}
@@ -145,14 +148,26 @@ public class Repair {
     public void setEntryPerson(String entryPerson) {
         this.entryPerson = entryPerson == null ? null : entryPerson.trim();
     }
+    
+
+	public String getRoadHaul() {
+		return roadHaul;
+	}
+
+	public void setRoadHaul(String roadHaul) {
+		this.roadHaul = roadHaul;
+	}
 
 	@Override
 	public String toString() {
 		return "Repair [id=" + id + ", vehicleId=" + vehicleId + ", remark=" + remark + ", enterTime=" + enterTime
 				+ ", appointmentTime=" + appointmentTime + ", makespanTime=" + makespanTime + ", settlement="
 				+ settlement + ", closingDate=" + closingDate + ", money=" + money + ", type=" + type + ", entryPerson="
-				+ entryPerson + ", state=" + state + "]";
+				+ entryPerson + ", state=" + state + ", vehicle_number=" + vehicle_number + ", roadHaul=" + roadHaul
+				+ "]";
 	}
+
+	
 
     
 }

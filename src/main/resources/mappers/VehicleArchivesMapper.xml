@@ -339,4 +339,39 @@
 	</insert>
 	
 	
+	
+	
+	
+	<!-- 根据工单id查询领料信息 -->
+	<!-- List<MaterialsVo> printMaterialsBill(Long id) -->
+	<select id="printMaterialsBill" resultType="com.autotrade.entityVo.MaterialsVo">
+		select
+			number,price,money,model,name,repair_id
+		from
+			t_parts
+		where
+			repair_id=#{id}
+	</select>
+	
+	
+	<!-- 根据工单id查询用户名称 -->
+	<!-- 	String findClientNameById(Long id) -->
+	<select id="findClientNameById" resultType="java.lang.String">
+		select
+			ca.customer_name as name
+		from
+			t_repair r join t_vehicle_archives v on r.vehicle_id = v.id
+			join t_customer_archives ca on v.customer_archives_id = ca.id
+		where
+			r.id = #{id}
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

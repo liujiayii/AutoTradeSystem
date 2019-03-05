@@ -34,7 +34,6 @@ public class ShiroRealm extends AuthorizingRealm{
 	//授权
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		System.out.println("------>授权开始");
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		Subject subject = SecurityUtils.getSubject();
 		User user = (User)subject.getPrincipal();
@@ -49,7 +48,6 @@ public class ShiroRealm extends AuthorizingRealm{
 	//验证
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		System.out.println("------>认证开始");
 		UsernamePasswordToken uptoken = (UsernamePasswordToken)token;
 		User user = userService.findUserByUserName(uptoken.getUsername());
 		if(user==null){//账号不存

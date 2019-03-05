@@ -189,4 +189,22 @@ public interface PartsDao {
 	 * @createDate 2019年2月27日
 	 */
 	List<String> selectMNameByProjectName(String name);
+	/**
+	 * 
+	*
+	 * @Title: selectBySelective
+	
+	 * @description 条件查询
+	*
+	 * @param @param parts
+	 * @param @return 
+	   
+	 * @return List<Parts>    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年3月4日
+	 */
+	List<Parts> selectBySelective(Parts parts);
+	
 }

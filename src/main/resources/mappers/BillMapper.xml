@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.BillDao">
+
+	<select id="creatBill" resultType="com.autotrade.entityVo.Closebills">
+		SELECT
+		*,T.id AS repair_id
+		FROM t_vehicle_archives AS V INNER JOIN
+		t_model_definition AS M
+		INNER JOIN t_customer_archives AS C
+		INNER JOIN
+		t_repair AS T
+		INNER JOIN t_driver_information AS D
+		WHERE
+		V.customer_archives_id =C.id AND V.model_definition_id
+		=
+		M.model_definition_id AND V.driver_id = D.id AND T.vehicle_id =V.id
+		AND T.id = #{repair_id}
+	</select>
+
+</mapper>

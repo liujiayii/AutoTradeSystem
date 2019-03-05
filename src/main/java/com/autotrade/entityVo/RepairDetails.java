@@ -248,6 +248,11 @@ public class RepairDetails {
 	 * */
 	private Date makespan_time;
 	
+	/***
+	 * 行驶里程
+	 * */
+	private String road_haul;
+	
 	public Date getMakespan_time() {
 		return makespan_time;
 	}
@@ -589,6 +594,13 @@ public class RepairDetails {
 	}
 	public void setVehicle_id(String vehicle_id) {
 		this.vehicle_id = vehicle_id;
+	}
+	
+	public String getRoad_haul() {
+		return road_haul;
+	}
+	public void setRoad_haul(String road_haul) {
+		this.road_haul = road_haul;
 	}
 	@Override
 	public String toString() {

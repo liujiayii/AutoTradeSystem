@@ -82,7 +82,8 @@ table {
 .access .checkbox-group { /*权限*/
     padding-top: 4px;
 }
-.el-table__empty-block{
+
+.el-table__empty-block {
     height: 15%;
 }
 

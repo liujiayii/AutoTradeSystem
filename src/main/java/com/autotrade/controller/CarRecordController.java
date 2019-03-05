@@ -1,14 +1,11 @@
 package com.autotrade.controller;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.autotrade.entity.CustomerArchives;
@@ -529,4 +526,49 @@ public class CarRecordController {
 		
 		return str;
 	}
+	
+	
+	/**
+	  * @Title: printMaterialsBill
+	  * @description 根据工单id查询领料信息
+	  * @param @param id 工单id
+	  * @return String  返回领料信息  
+	  * @author ZhaoSong
+	  * @createDate 2019年3月4日
+	 */
+	@RequestMapping("printMaterials")
+	@ResponseBody
+	public String printMaterialsBill(Long id){
+		System.out.println(id);
+		String str = vehicleArchliesService.printMaterialsBill(id);
+		return str;
+	}
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

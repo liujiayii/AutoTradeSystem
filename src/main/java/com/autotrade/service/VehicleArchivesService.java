@@ -1,8 +1,8 @@
 package com.autotrade.service;
 
+
 import com.autotrade.entity.Repair;
 import com.autotrade.entity.VehicleArchives;
-import com.autotrade.entity.VehicleArchivesVo;
 
 public interface VehicleArchivesService {
 
@@ -19,4 +19,6 @@ public interface VehicleArchivesService {
 	String closeAnAccount(Long id);
 	
 	String windUpAnAccount(Repair epair);
+	
+	String printMaterialsBill(Long id);
 }

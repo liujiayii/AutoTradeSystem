@@ -1,7 +1,12 @@
 package com.autotrade.service.impl;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +17,10 @@ import com.autotrade.entity.Repair;
 import com.autotrade.entity.RepairProject;
 import com.autotrade.entity.VehicleArchives;
 import com.autotrade.entity.VehicleArchivesVo;
+import com.autotrade.entityVo.MaterialsVo;
 import com.autotrade.service.VehicleArchivesService;
 import com.autotrade.utils.JsonUtil;
+import com.autotrade.utils.MoneyUntil;
 
 @Service
 public class VehicleArchivesServiceImpl implements VehicleArchivesService {
@@ -139,6 +146,40 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 			}
 		} catch (Exception e) {
 			str = JsonUtil.getResponseJson(-1, "系统异常", null,null);
+		}
+		return str;
+	}
+
+	@Override
+	public String printMaterialsBill(Long id) {
+		String str;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日");
+		Date date = new Date();
+		String printDate = sdf.format(date);
+		String ChineseChar;
+		String name;
+		try {
+			List<MaterialsVo> materials= vehicleArchivesDao.printMaterialsBill(id);
+			name = vehicleArchivesDao.findClientNameById(id);
+			if(materials.size()>0&&name!=null){//有数据
+				BigDecimal decimal =BigDecimal.ZERO;
+				for(MaterialsVo m :materials){
+					decimal=decimal.add(m.getMoney());
+				}
+				ChineseChar = MoneyUntil.toChinese(decimal.toString());
+				Map<String,Object> map =new HashMap<String,Object>();
+				map.put("materials", materials);
+				map.put("decimal",decimal);
+				map.put("printDate", printDate);
+				map.put("ChineseChar", ChineseChar);
+				map.put("name", name);
+				map.put("length", materials.size());
+			str = JsonUtil.getResponseJson(1,"成功",null,map);
+			}else{//没数据
+				str = JsonUtil.getResponseJson(1, "无用料记录", null,materials);
+			}
+		} catch (Exception e) {
+			str = JsonUtil.getResponseJson(-1,"请检查用料信息是否填写完整", null, null);
 		}
 		return str;
 	}

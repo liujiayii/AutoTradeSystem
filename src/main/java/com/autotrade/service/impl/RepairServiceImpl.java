@@ -2,6 +2,7 @@ package com.autotrade.service.impl;
 
 import java.lang.reflect.Field;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -260,7 +261,7 @@ public class RepairServiceImpl implements RepairService {
 
 	@Override
 	public String insert(Repair repair, String vehicle_number) {
-		System.out.println(repair);
+		
 		try {
 			repair.setState(0);
 			int result = repairDao.insert(repair);

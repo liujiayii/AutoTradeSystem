@@ -1,119 +1,118 @@
-let javas = 'javascript:;'
 let Menu = [
   {
     name: '首页',
-    path: '/pages/index/index.jsp',
+    path: '/views/index/index.jsp',
     icon: 'fa fa-home fa-fw'
   }, {
     name: '客户信息',
     icon: 'fa fa-address-book fa-fw',
     child: [{
       name: '车辆资源',
-      path: '/pages/customerInfo/carResources.jsp'
+      path: '/views/customerInfo/carResources.jsp'
     }, {
       name: '买车咨询',
-      path: '/pages/customerInfo/buyingCarConsult.jsp'
+      path: '/views/customerInfo/buyingCarConsult.jsp'
     }, {
       name: '置换车辆',
-      path: '/pages/customerInfo/replaceCar.jsp'
+      path: '/views/customerInfo/replaceCar.jsp'
     }]
   }, {
     name: '交易管理',
     icon: 'fa fa-suitcase fa-fw',
     child: [{
       name: '评估审核',
-      path: '/pages/tradeManage/evaluation.jsp'
+      path: '/views/tradeManage/evaluation.jsp'
     }, {
       name: '保险凭证',
-      path: '/pages/tradeManage/insurance.jsp'
+      path: '/views/tradeManage/insurance.jsp'
     }, {
       name: '分期管理',
-      path: '/pages/tradeManage/stateManage.jsp'
+      path: '/views/tradeManage/stateManage.jsp'
     }]
   }, {
     name: '售车管理',
     icon: 'fa fa-car fa-fw',
     child: [{
       name: '订车管理',
-      path: '/pages/carSales/booking.jsp'
+      path: '/views/carSales/booking.jsp'
     }, {
       name: '售车管理',
-      path: '/pages/carSales/carSales.jsp'
+      path: '/views/carSales/carSales.jsp'
     }/*, {
       name: '退车管理',
-      path: '/pages/carSales/carSales.jsp'
+      path: '/views/carSales/carSales.jsp'
     }*/]
   }, {
     name: '车辆管理',
     icon: 'fa fa-cab fa-fw',
     child: [{
       name: '车辆管理',
-      path: '/pages/carManage/carManage.jsp'
+      path: '/views/carManage/carManage.jsp'
     }, {
       name: '车辆信息',
-      path: '/pages/carManage/carinformation.jsp'
+      path: '/views/carManage/carinformation.jsp'
     }]
   }, {
     name: '财务管理',
     icon: 'fa fa-book fa-fw',
     child: [{
       name: '部门管理',
-      path: '/pages/financialManage/branch.jsp'
+      path: '/views/financialManage/branch.jsp'
     }, {
       name: '收入管理',
-      path: '/pages/financialManage/income.jsp'
+      path: '/views/financialManage/income.jsp'
     }, {
       name: '支出管理',
-      path: '/pages/financialManage/expend.jsp'
+      path: '/views/financialManage/expend.jsp'
     }]
   }, {
     name: '库存管理',
     icon: 'fa fa-truck fa-fw',
     child: [{
       name: '库存详情',
-      path: '/pages/inventoryManage/stock.jsp'
+      path: '/views/inventoryManage/stock.jsp'
     }, {
       name: '采购记录',
-      path: '/pages/inventoryManage/inventoryManage.jsp'
+      path: '/views/inventoryManage/inventoryManage.jsp'
     }]
   }, {
     name: '公司管理',
     icon: 'fa fa-group fa-fw',
     child: [{
       name: '员工管理',
-      path: '/pages/personManage/staffManage.jsp'
+      path: '/views/personManage/staffManage.jsp'
     }, {
       name: '权限管理',
-      path: '/pages/personManage/accessManage.jsp'
+      path: '/views/personManage/accessManage.jsp'
     }]
   }, {
     name: '维修管理',
     icon: 'fa fa-wrench fa-fw',
     child: [{
       name: '维修工单',
-      path: '/pages/repair/form.jsp'
+      path: '/views/repair/form.jsp'
     }, {
       name: '维修项目',
-      path: '/pages/repair/repairItem.jsp'
+      path: '/views/repair/repairItem.jsp'
     }]
   }, {
     name: '维修档案',
     icon: 'fa fa-archive fa-fw',
     child: [{
       name: '车辆档案',
-      path: '/pages/archives/carArchives.jsp'
+      path: '/views/archives/carArchives.jsp'
     }, {
       name: '客户档案',
-      path: '/pages/archives/custArchives.jsp'
+      path: '/views/archives/custArchives.jsp'
     }, {
       name: '驾驶员档案',
-      path: '/pages/archives/driverArchives.jsp'
+      path: '/views/archives/driverArchives.jsp'
     }, {
       name: '车型设置',
-      path: '/pages/archives/carType.jsp'
+      path: '/views/archives/carType.jsp'
     }, {
       name: '客户类型',
-      path: '/pages/archives/custClass.jsp'
+      path: '/views/archives/custClass.jsp'
     }]
   }/*, {
     name: '报表管理',
@@ -260,6 +259,7 @@ const rules = {
         range_rover: [{required: true, message: '请输入车名', trigger: 'blur'}],
         remark: [{required: true, message: '请输入详细信息', trigger: 'blur'}],
         repaymentDate: [{required: true, message: '请选择日期', trigger: 'blur'}],
+        road_haul:{required: true, message: '请输入行驶里程', trigger: 'blur'},
         source: [{required: true, message: '请输入来源', trigger: 'blur'}],
         service_life: [{required: true, message: '请输入使用年限', trigger: 'blur'},
           {required: 'number', message: '请输入正确的使用年限', trigger: 'blur'}],
@@ -302,7 +302,7 @@ const mixin = {
     return {
       isCollapse: false,
       menu: Menu,
-      footer: '©2018 智莱云 All rights resered 石家庄智莱云信息技术有限公司',
+      footer: '©2019 智莱云 All rights resered 石家庄智莱云信息技术公司提供技术支持',
       breadcrumb: {first: '', second: ''}
     }
   },
@@ -322,7 +322,6 @@ const mixin = {
       }
     },
     handleCommand(command) {
-      console.log(command)
     },
     getHrefParam(key) {
       var s = window.location.href;
@@ -374,13 +373,12 @@ const mixin = {
         data,
         dataType: 'json',
         success: (res) => {
-          console.log(res)
           if (res.code == 1) {
-            this.$notify({
+            /*this.$notify({
               title: '成功',
               message: res.msg,
               type: 'success'
-            });
+            });*/
             Object.assign(this.ruleForm, res.data)
           } else {
             this.$notify({
@@ -396,7 +394,6 @@ const mixin = {
             message: res.msg,
             type: 'warning'
           });
-          console.log(res)
         }
       })
     },
@@ -409,7 +406,6 @@ const mixin = {
         dataType: 'json',
         success: (res) => {
           this.loading2 = false
-          console.log(res)
           if (res.code == 1) {
             if (res.data != 'null') {
               arr ? arr.data = res.data : this.tableData.data = res.data
@@ -419,7 +415,6 @@ const mixin = {
             }
             arr ? arr.count = res.count : this.tableData.count = res.count
           } else {
-            console.log('aa')
             this.notifyError(res.msg)
           }
         },

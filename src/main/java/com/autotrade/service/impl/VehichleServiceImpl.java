@@ -1,13 +1,13 @@
 package com.autotrade.service.impl;
 
 import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autotrade.dao.VehichleDao;
-import com.autotrade.entity.VehichileDetailed;
 import com.autotrade.entity.Vehichle;
 import com.autotrade.service.VehichleService;
 import com.autotrade.utils.JsonUtil;

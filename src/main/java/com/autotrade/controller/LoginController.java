@@ -71,7 +71,6 @@ public class LoginController {
 		Integer code = 1;
 		String msg;
 		User user = null;
-		System.out.println("------>获得主体，登录");
 		Subject subject = SecurityUtils.getSubject();
 		AuthenticationToken usernamePasswordToken = new UsernamePasswordToken(username, password);
 		try {
@@ -94,6 +93,8 @@ public class LoginController {
 		}
 		return JsonUtil.getResponseJson(code, msg, null, user);
 	}
+	
+	
 
 	/**
 	 * @Title: logout
