@@ -7,8 +7,49 @@
 	<!-- List<VehicleClassification> findCarType() -->
 	<select id="findCarType" resultType="com.autotrade.entity.VehicleClassification">
 		select
-			id,vehicle_classification
+		id,vehicle_classification
 		from
-			t_vehicle_classification
+		t_vehicle_classification
 	</select>
+
+	<insert id="insert" parameterType="com.autotrade.entity.VehicleClassification">
+		insert into t_vehicle_classification (id, vehicle_classification)
+		values (#{id}, #{vehicle_classification})
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.autotrade.entity.VehicleClassification">
+		update t_vehicle_classification
+		set vehicle_classification = #{vehicle_classification}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_vehicle_classification
+		where id = #{id}
+	</delete>
+
+	<select id="selectByPrimaryKey" resultType="com.autotrade.entity.VehicleClassification"
+		parameterType="java.lang.Long">
+		select
+		*
+		from t_vehicle_classification
+		where id = #{id}
+	</select>
+
+
+<select id="selectAll" resultType="com.autotrade.entity.VehicleClassification">
+		select
+		id,vehicle_classification
+		from
+		t_vehicle_classification
+		Limit #{star},#{limit}
+	</select>
+	
+	<select id="selectAllCount" resultType="java.lang.Integer">
+		select
+		COUNT(*)
+		from
+		t_vehicle_classification
+	</select>
+	
 </mapper>

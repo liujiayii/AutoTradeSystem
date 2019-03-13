@@ -49,7 +49,7 @@ public class MaintenanceMaterialsServiceImpl implements MaintenanceMaterialsServ
 
 		String string = null;
 		Integer number = 0;
-		System.out.println("list" + obj);
+	
 		String data = obj.toJSONString();
 		// 解析json数据
 		JSONObject json = JSON.parseObject(data);
@@ -94,7 +94,7 @@ public class MaintenanceMaterialsServiceImpl implements MaintenanceMaterialsServ
 		try {
 
 			List<MaintenanceMaterials> selectAssessmentById = maintenanceMaterialsDao.selectByPrimaryKey(id);
-            System.out.println("selectAssessmentById"+selectAssessmentById);
+          
 			string = JsonUtil.getResponseJson(1, "查询成功", 1, selectAssessmentById);
 
 			return string;

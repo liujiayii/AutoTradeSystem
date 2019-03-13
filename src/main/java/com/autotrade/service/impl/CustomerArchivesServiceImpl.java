@@ -28,6 +28,9 @@ public class CustomerArchivesServiceImpl implements CustomerArchivesService {
 	@Override
 	public String findLast() {
 		String number = customerArchiverDao.findLast();
+		if( null == number){
+			number="wx00000";
+		}
 		Integer id = Integer.parseInt(number.substring(2));
 		String n = id.toString().format("%05d", id + 1);
 		number = number.substring(0, 2) + n;

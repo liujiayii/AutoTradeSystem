@@ -48,7 +48,7 @@ public class AssessmentController {
 	@ResponseBody
 	public String insertAssessment(@RequestBody Assessment assessment) {
 		assessment.setCreateTime(new Date());
-		System.out.println(assessment);
+
 		String string = assessmentService.insertinsertAssessment(assessment);
 		return string;
 
@@ -295,7 +295,5 @@ public class AssessmentController {
 		String string = assessmentService.Allselect(assessment_name, star, limit);
 		return string;
 	}
-	
-	
 
 }

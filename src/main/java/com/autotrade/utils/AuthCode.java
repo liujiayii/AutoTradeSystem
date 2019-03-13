@@ -64,7 +64,7 @@ public class AuthCode {
 			//将产生的四个随机数组合到一起
 			randomCode.append(strRnd);
 		}
-		System.out.println(randomCode.toString());
+		
 		try {
 			//清空缓存
 			g.dispose();
@@ -79,7 +79,7 @@ public class AuthCode {
 	}
 	public static void main(String[] args) {
 		authCode();
-		System.out.println("已画完");
+		
 	}
 	
 }

@@ -80,7 +80,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="业务员" prop="person">
+          <el-form-item label="业务员" >
             <el-input v-model="ruleForm.person" :readonly="Boolean(ruleForm.c_id)"></el-input>
           </el-form-item>
         </el-col>
@@ -111,12 +111,12 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="车型代码" prop="vehicle_code">
+          <el-form-item label="车型代码" >
             <el-input v-model="ruleForm.vehicle_code" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="产地" prop="place">
+          <el-form-item label="产地">
             <el-input v-model="ruleForm.place" readonly></el-input>
           </el-form-item>
         </el-col>
@@ -210,6 +210,8 @@
           selling_price: ''
         }
       }
+      
+      
     },
     methods: {
       submitForm(formName) {
@@ -219,7 +221,8 @@
             $.ajax({
               type: 'post',
               url: this.ruleForm.c_id ? '/sellCar/updateSellCar.action' : '/sellCar/addSellCar.action',
-              data: this.ruleForm,
+              data: JSON.stringify(this.ruleForm),
+              contentType: 'application/json; charset=UTF-8',
               dataType: 'json',
               success: (res) => {
                 if (res.code == 1) {
@@ -231,14 +234,17 @@
                     }
                   });
                 } else {
+                	alert("789")
                   this.notifyError(res.msg)
                 }
               },
               error: (res) => {
+            	
                 this.notifyError(res.msg)
               }
             })
           } else {
+        	  
             return false;
           }
         })
@@ -294,7 +300,7 @@
     },
     created() {
       if (this.getHrefParam('id')) {
-        ths.onLoad('/sellCar/findById.action', {c_id: this.getHrefParam('id')})
+        this.onLoad('/sellCar/findById.action', {c_id: this.getHrefParam('id')})
       }
     }
   })

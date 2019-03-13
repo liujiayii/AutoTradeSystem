@@ -122,7 +122,7 @@
                   this.dialogFormVisible = false
                   this.$refs[formName].resetFields();
                   this.notifyNoPath(res.msg)
-                  this.handleCurrentChange(1)
+                  this.handleCurrentChange(this.page)
                 } else {
                   this.notifyError(res.msg)
                 }

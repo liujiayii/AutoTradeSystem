@@ -63,7 +63,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 			if (count >= 1) {
 				return JsonUtil.getResponseJson(1, "查询成功", count, selectAllDepartment);
 			} else {
-				return JsonUtil.getResponseJson(1, "暂无数据", count, selectAllDepartment);
+				return JsonUtil.getResponseJson(1, "", count, selectAllDepartment);
 			}
 		} catch (Exception e) {
 			return null;

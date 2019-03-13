@@ -66,11 +66,11 @@
       </el-form-item>
       <el-form-item label="维修档案：">
         <el-checkbox-group v-model="ruleForm.popedoms" class="checkbox-group">
-          <el-checkbox :label="1022">客户档案</el-checkbox>
           <el-checkbox :label="1021">车辆档案</el-checkbox>
-          <el-checkbox :label="1025">客户类型</el-checkbox>
+          <el-checkbox :label="1022">客户档案</el-checkbox>
           <el-checkbox :label="1023">驾驶员信息档案</el-checkbox>
           <el-checkbox :label="1024">车型设置</el-checkbox>
+          <el-checkbox :label="1025">客户类型</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <!--<el-form-item label="报表管理：">

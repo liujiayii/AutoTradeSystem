@@ -22,6 +22,20 @@
 		t.commodity_number=p.commodity_number limit #{star},#{limit}
 
 	</select>
+	
+	<select id="selectByPrimaryKeys" resultMap="BaseResultMap">
+		select DISTINCT
+		t.id id,t.commodity_number commodity_number,p.type type,p.brand
+		brand,p.purchase purchase,t.number number
+		from `t_stock` t left join t_purchase p on
+		t.commodity_number=p.commodity_number
+		where 
+		p.brand LIKE CONCAT('%',#{s},'%') 
+       or p.purchase  LIKE CONCAT('%',#{s},'%')
+       or p.type LIKE CONCAT('%',#{s},'%')
+		limit #{star},#{limit}
+
+	</select>
 	 <select id="selectById" resultType="com.autotrade.entity.Stock" parameterType="String" >
     select 
     <include refid="Base_Column_List" />
@@ -32,6 +46,18 @@
     select 
     COUNT(*)
     from t_stock 
+  </select>
+  
+   <select id="getcounts" resultType="java.lang.Integer">
+    select 
+    COUNT(t.id) 
+    from t_stock t
+    left join t_purchase p on
+		t.commodity_number=p.commodity_number
+    where 
+    	p.brand LIKE CONCAT('%',#{s},'%') 
+       or p.purchase LIKE CONCAT('%',#{s},'%')
+       or p.type LIKE CONCAT('%',#{s},'%')
   </select>
 	
 	<insert id="insertSelective" parameterType="com.autotrade.entity.Stock">

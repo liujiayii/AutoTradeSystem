@@ -23,7 +23,7 @@ public class TBookingController {
 	@RequestMapping("selectAllBooking")
 	@ResponseBody
 	public String selectAllBooking(Integer page, Integer limit){
-		System.out.println("******"+page+"///"+limit);
+	
 		
 		return tBookingService.selectAll(page,limit);
 		
@@ -34,7 +34,7 @@ public class TBookingController {
 	public String insertAssessment(TBooking record) {
 		
 		record.setCreateTime(new Date());
-		System.out.println("增加"+record);
+	
 		String string = tBookingService.insert(record);
 		return string;
 
@@ -43,9 +43,9 @@ public class TBookingController {
 	@RequestMapping("updatebooking")
 	@ResponseBody
 	public String updatebooking(TBooking record) {
-		System.out.println("ttttttttttt");
+		
 	
-		System.out.println("修改"+record);
+		
 		String string = tBookingService.updateByPrimaryKeySelective(record);
 		return string;
 
@@ -54,7 +54,7 @@ public class TBookingController {
 	@RequestMapping("findById")
 	@ResponseBody
 	public String selectById(Long id){
-		System.out.println("id"+id);
+		
 		
 		return tBookingService.selectAllbookbyId(id);
 	}

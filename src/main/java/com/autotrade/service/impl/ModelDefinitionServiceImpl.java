@@ -44,14 +44,14 @@ public class ModelDefinitionServiceImpl implements ModelDefinitionService {
 		if(keyWord==null||keyWord.equals("")){
 			lists = modelDefinitionDao.findCarTypeByLimit(page, limit);
 			if(lists.size()==0||lists==null){
-				str = JsonUtil.getResponseJson(-1,"暂无信息", null, null);
+				str = JsonUtil.getResponseJson(1,"暂无信息", null, null);
 			}else{
 				str = JsonUtil.getResponseJson(1, "查询成功", modelDefinitionDao.findCarTypeSum(), lists);
 			}
 		}else{
 			lists = modelDefinitionDao.findCarTypeByKeyWord(page, limit, keyWord);
 			if(lists.size()==0||lists==null){
-				str = JsonUtil.getResponseJson(-1, "暂无信息",null, null);
+				str = JsonUtil.getResponseJson(1, "暂无信息",null, null);
 			}else{
 				str = JsonUtil.getResponseJson(1, "查询成功", modelDefinitionDao.findCountByLimit(keyWord), lists);
 			}

@@ -195,7 +195,7 @@ public class ByStagesController {
 		List<BuyingCustomer> buyingCustomerList = null;
 		Long buyingId = 0L;
 		int code = 1;
-		String msg = "插入成功";
+		String msg = "添加成功";
 		
 		// 将map对象转换成json字符串
 		String carFormStr = JSONObject.toJSONString(map.get("carForm"));
@@ -324,7 +324,7 @@ public class ByStagesController {
 	@RequestMapping("/updateDetailsInstallments")
 	@Transactional
 	public String updateDetailsInstallments(@RequestBody DetailsInstallments detailsInstallments) {
-		System.out.println("detailsInstallments"+detailsInstallments);
+	
 		int code = 1;
 		String msg = "修改成功";
 		DetailsInstallments newDetailsInstallments = new DetailsInstallments();
@@ -339,7 +339,7 @@ public class ByStagesController {
 				// 获得总期数
 				int totalPeriod = byStages.getTotalPeriod();
 				// 获取当前分期表type状态
-				int type = byStages.getType();
+				int type = byStages.getType() != null ? byStages.getType() : 0;
 				
 				// 如果修改成功,并且当前期数小于总期数则在详情表中添加下一条还款记录
 				if (detailsInstallments.getNowStage() < totalPeriod) {

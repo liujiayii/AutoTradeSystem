@@ -98,13 +98,13 @@
 	<insert id="insert" parameterType="com.autotrade.entity.TBooking">
 		insert into t_booking (id, buying_id, vehicle_code,
 		number, deposit, time,
-		business, single_person, remark
+		business, single_person, remark,create_time
 		)
 		values (#{id,jdbcType=BIGINT}, #{buyingId,jdbcType=BIGINT},
 		#{vehicleCode,jdbcType=VARCHAR},
 		#{number,jdbcType=INTEGER}, #{deposit,jdbcType=DECIMAL}, #{time,jdbcType=DATE},
 		#{business,jdbcType=VARCHAR}, #{singlePerson,jdbcType=VARCHAR},
-		#{remark,jdbcType=VARCHAR}
+		#{remark,jdbcType=VARCHAR},#{createTime,jdbcType=DATE}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.autotrade.entityVo.bookingVo">

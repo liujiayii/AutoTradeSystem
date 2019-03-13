@@ -42,6 +42,7 @@ public class ShiroRealm extends AuthorizingRealm{
     	for (Popedom popedom : popedoms) {
 			authorizationInfo.addStringPermission(popedom.getPopedomUrl());
 		}
+    
 		return authorizationInfo;
 	}
 	

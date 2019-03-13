@@ -60,6 +60,6 @@ public class AuthCodeUtils {
 	}
 	public static void main(String[] args) {
 		authCode();
-		System.out.println("已画完");
+	
 	}
 }

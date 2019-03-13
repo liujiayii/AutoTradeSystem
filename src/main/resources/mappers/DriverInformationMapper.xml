@@ -12,64 +12,90 @@
 	
 	<!-- 添加驾驶员信息 -->
 	<!-- Integer insertDriver(DriverInformation driverInformation) -->
-	<insert id="insertDriver" parameterType="com.autotrade.entity.DriverInformation" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertDriver" parameterType="com.autotrade.entity.DriverInformation" >
 		insert into
 			t_driver_information(
 			id,
+		<if test="gender!=null and gender!=''">
 			gender,
+		</if>
+		<if test="duty!=null and duty!=''">
 			duty,
+		</if>	
+		<if test="brithday!=null and brithday!=''">
 			brithday,
+		</if>
+		<if test="id_number!=null and id_number!=''">
 			id_number,
+		</if>	
+		<if test="move_number!=null and move_number!=''">
 			move_number,
+		</if>	
+		<if test="phone_number!=null and phone_number!=''">
 			phone_number,
+		</if>	
+		<if test="driver_license_number!=null and driver_license_number!=''">
 			driver_license_number,
+		</if>
+		<if test="quasi_driving_type!=null and quasi_driving_type!=''">
 			quasi_driving_type,
+		</if>	
+		<if test="opening_date!=null and opening_date!=''">
 			opening_date,
+		</if>
+		<if test="expiry_date!=null and expiry_date!=''">
 			expiry_date,
+		</if>
+		<if test="e_mail!=null and e_mail!=''">
 			e_mail,
+		</if>	
+		<if test="office_telephone!=null and office_telephone!=''">
 			office_telephone,
+		</if>	
+		<if test="driver_name！=null and driver_name!=''">
 			driver_name
+		</if>	
 			)values(
 			null,
-			<if test="gender!=null and gender!=''">
+		<if test="gender!=null and gender!=''">	
 			#{gender},
-			</if>
-			<if test="duty!=null and duty!=''">
+		</if>	
+		<if test="duty!=null and duty!=''">
 			#{duty},
-			</if>
-			<if test="brithday!=null and brithday!=''">
+		</if>	
+		<if test="brithday!=null and brithday!=''">
 			#{brithday},
-			</if>
-			<if test="id_number!=null and id_number!=''">
+		</if>	
+		<if test="id_number!=null and id_number!=''">
 			#{id_number},
-			</if>
-			<if test="move_number!=null and move_number !=''">
+		</if>	
+		<if test="move_number!=null and move_number!=''">
 			#{move_number},
-			</if>
-			<if test="phone_number!=null and phone_number!=''">
+		</if>	
+		<if test="phone_number!=null and phone_number!=''">
 			#{phone_number},
-			</if>
-			<if test="driver_license_number!=null and driver_license_number!=''">
+		</if>
+		<if test="driver_license_number!=null and driver_license_number!=''">
 			#{driver_license_number},
-			</if>
-			<if test="quasi_driving_type!=null and quasi_driving_type!=''">
+		</if>
+		<if test="quasi_driving_type!=null and quasi_driving_type!=''">
 			#{quasi_driving_type},
-			</if>
-			<if test="opening_date!=null and opening_date!=''">
+		</if>
+		<if test="opening_date!=null and opening_date!=''">
 			#{opening_date},
-			</if>
-			<if test="expiry_date!=null and expiry_date!=''">
+		</if>	
+		<if test="expiry_date!=null and expiry_date!=''">
 			#{expiry_date},
-			</if>
-			<if test="e_mail!=null and e_mail !=''">
+		</if>	
+		<if test="e_mail!=null and e_mail!=''">
 			#{e_mail},
-			</if>
-			<if test="office_telephone!=null and office_telephone!=''">
+		</if>	
+		<if test="office_telephone!=null and office_telephone!=''">
 			#{office_telephone},
-			</if>
-			<if test="driver_name!= null and driver_name!=''">
+		</if>	
+		<if test="driver_name!=null and driver_name!=''">
 			#{driver_name}
-			</if>
+		</if>	
 			)
 	</insert>
 	

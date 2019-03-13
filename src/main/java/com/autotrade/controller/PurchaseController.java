@@ -148,6 +148,7 @@ public class PurchaseController {
 	 */
 	@RequestMapping("/insertPurchase")
 	public String insertPurchase(@RequestBody Purchase purchase) {
+		System.out.println("编号"+purchase);
 		int code = 1;
 		String msg = "新增成功";
 		Stock stock=new Stock();
@@ -155,18 +156,24 @@ public class PurchaseController {
 		stock.setNumber(purchase.getQuantity());
 		try {
 			purchaseService.insertSelective(purchase);
+			if(purchase.getLibrary()==null){//后台处理没有选择入库状态抛异常的情况
+				
+				code = -1;
+				msg = "请选择入库状态";
+			}else {
 			if(purchase.getLibrary()==0){
 				
 				Stock s=stockService.selectById(purchase.getCommodityNumber());
 				
 				if(s!=null){
-					System.out.println("s"+s);
+				
 					int a=stockDao.updateByPrimaryKeySelective(stock);
 				}else{
 					int a=stockService.insertSelective(stock);
 				}
 				
 			}
+		}
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;

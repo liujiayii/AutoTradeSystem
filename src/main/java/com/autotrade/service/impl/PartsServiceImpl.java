@@ -39,12 +39,9 @@ public class PartsServiceImpl implements PartsService {
 		try {
 			//设置创建时间
 			parts.setCreate_time(new Date());
-			System.out.println(parts);
+		
 			//获取工单信息
 			Repair rep = repair.selectByPrimaryKey(parts.getRepair_id());
-			System.out.println(rep);
-			//获取工单状态
-			System.out.println(parts.getRepair_id());
 			//状态如果已经大于2则不可添加
 			if (rep.getState() >= 2) {
 				return JsonUtil.getResponseJson(1, "已完成维修不可再添加材料", null, null);
@@ -127,7 +124,7 @@ public class PartsServiceImpl implements PartsService {
 			if (result.size() >= 1) {
 				return JsonUtil.getResponseJson(1, "查询成功", count, result);
 			} else {
-				return JsonUtil.getResponseJson(1, "查询失败", count, result);
+				return JsonUtil.getResponseJson(1, "", count, result);
 			}
 
 		} catch (Exception e) {

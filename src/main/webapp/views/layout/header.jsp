@@ -6,6 +6,7 @@
   <link href="//lib.baomitu.com/element-ui/2.6.1/theme-chalk/index.css" rel="stylesheet">
   <script src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
   <script src="//lib.baomitu.com/vue/2.6.8/vue.min.js"></script>
+  <!--<script src="//lib.baomitu.com/vue/2.6.8/vue.js"></script>-->
   <script src="//lib.baomitu.com/element-ui/2.6.1/index.js"></script>
   <link href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/page.css">

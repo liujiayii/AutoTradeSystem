@@ -17,6 +17,7 @@ public class MoneyUntil {
 	    str = str.replaceAll(",", "");// 去掉"," 
 	    String integerStr;// 整数部分数字 
 	    String decimalStr;// 小数部分数字 
+	    
 	  
 	    // 初始化：分离整数部分和小数部分 
 	    if (str.indexOf(".") > 0) { 

@@ -180,7 +180,7 @@ public class SellingCustomerController {
 	@RequestMapping("/insertAllSellingCustomer")
 	@ResponseBody
 	public String insertAll(@RequestBody SellingCustomer sc) {
-		System.out.println("sc"+sc);
+		
 		String str = null;
 		sc.setCreate_time(new Date());
 		sc.setUpdate_time(new Date());
@@ -212,7 +212,7 @@ public class SellingCustomerController {
 	@RequestMapping(value = "/updateSellingCustomerById", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String updateSellingCustomerById(@RequestBody SellingCustomer sc) {
-		System.out.println("sc");
+	
 		String str;
 		try {
 
@@ -239,9 +239,9 @@ public class SellingCustomerController {
 		}
 		int star = (page - 1) * limit;
 		try {
-			System.out.println("s" + s + "star" + star);
+		
 			List<SellingCustomer> list = sellingCustomerService.selectByCustomer(s, star, limit);
-			System.out.println("list" + list);
+		
 			if (list.size() >= 1) {
 				str = JsonUtil.getResponseJson(1, "查询成功", sellingCustomerService.selectCountByCustomer(s), list);
 			} else {

@@ -98,7 +98,7 @@ public class ExpenditureServiceImpl implements ExpenditureService {
 			if (result.size() >= 1) {
 				string = JsonUtil.getResponseJson(1, "查询成功", expenditureDao.selectAllExpenditureCount(), result);
 			} else {
-				string = JsonUtil.getResponseJson(1, "暂无数据", 0, result);
+				string = JsonUtil.getResponseJson(1, "", 0, result);
 			}
 
 			return string;
@@ -143,7 +143,7 @@ public class ExpenditureServiceImpl implements ExpenditureService {
 				string = JsonUtil.getResponseJson(1, "查询成功", expenditureDao.selectExpenditureCountByDepartmentId(department_id),
 						result);
 			} else {
-				string = JsonUtil.getResponseJson(1, "暂无数据", 1, result);
+				string = JsonUtil.getResponseJson(1, "", 0, result);
 			}
 
 			return string;
@@ -167,7 +167,7 @@ public class ExpenditureServiceImpl implements ExpenditureService {
 				string = JsonUtil.getResponseJson(1, "查询成功",
 						expenditureDao.selectExpenditureByExpenditureCount(expenditure), result);
 			} else {
-				string = JsonUtil.getResponseJson(1, "暂无数据", null, null);
+				string = JsonUtil.getResponseJson(1, "", null, null);
 			}
 
 			return string;
@@ -189,7 +189,7 @@ public class ExpenditureServiceImpl implements ExpenditureService {
 		Integer count = expenditureDao.hybridSelectCount(department_id,s);
 		
 		if(count <= 0){
-			return JsonUtil.getResponseJson(1, "暂无数据", null, result);
+			return JsonUtil.getResponseJson(1, "", null, result);
 		}
 		
 		return  JsonUtil.getResponseJson(1, "查询成功", count, result);

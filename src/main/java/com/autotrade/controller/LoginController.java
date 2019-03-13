@@ -126,7 +126,7 @@ public class LoginController {
 	@RequestMapping(value = "/showAuthCode")
 	public void showAuthCode(HttpSession session, HttpServletResponse resp, Model model) {
 
-		System.out.println("45464");
+	
 		int width = 150; // 宽
 		int height = 60; // 高
 		int codeCount = 4; // 产生随机的数量
@@ -203,19 +203,19 @@ public class LoginController {
 		int result = 0;
 		if (cen.equals("-")) {
 			result = start - end;
-			System.out.println(result);
+		
 
 		} else if (cen.equals("+")) {
 			result = start + end;
-			System.out.println(result);
+		
 		}
 		// 不需要计算的
 		randomCode.append(coderesult);
 		randomCode.append(strRndwhy);
 
-		System.out.println("randomCode" + randomCode);
+		
 		session.setAttribute("validateCode", randomCode.toString());
-		System.out.println("results" + result);
+	
 		session.setAttribute("results", result);
 		model.addAttribute("results", result);
 		ServletOutputStream sos;
@@ -237,7 +237,7 @@ public class LoginController {
 		String str;
 		// 前端输入的值
 		String auth_code = request.getParameter("auth_code").toString();
-		System.out.println("auth_code" + auth_code);
+	
 		// 验证码获取的结果值
 		String resultNum = (String) session.getAttribute("results").toString();
 

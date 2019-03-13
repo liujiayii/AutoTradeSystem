@@ -24,10 +24,10 @@
   <insert id="insertAll" parameterType="com.autotrade.entity.SubCustomer">
     insert into t_substitution 
     	(id,name,phone,address,vehicleType,brand,service_life,kilometres,
-    	 maintenance_record,major_accidents,offer,brands,intention,budget)
+    	 maintenance_record,major_accidents,offer,brands,intention,budget,create_time)
     values 
    		(null,#{name},#{phone},#{address},#{vehicleType},#{brand},#{service_life},#{kilometres},
-    	#{maintenance_record},#{major_accidents},#{offer},#{brands},#{intention},#{budget})
+    	#{maintenance_record},#{major_accidents},#{offer},#{brands},#{intention},#{budget},#{create_time})
   </insert>  
   <!-- 插入指定字段 -->
   <insert id="insertSelective" parameterType="com.autotrade.entity.SubCustomer">

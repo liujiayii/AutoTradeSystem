@@ -157,7 +157,7 @@ public class RepairServiceImpl implements RepairService {
 			if (result.size() >= 1) {
 				return JsonUtil.getResponseJson(1, "查询成功", count, result);
 			} else {
-				return JsonUtil.getResponseJson(1, "查询失败", count, result);
+				return JsonUtil.getResponseJson(1, "", count, result);
 			}
 
 		} catch (Exception e) {
@@ -230,7 +230,7 @@ public class RepairServiceImpl implements RepairService {
 			if (result.size() >= 1) {
 				return JsonUtil.getResponseJson(1, "查询成功", count, result);
 			} else {
-				return JsonUtil.getResponseJson(1, "查询失败", count, result);
+				return JsonUtil.getResponseJson(1, "", count, result);
 			}
 
 		} catch (Exception e) {

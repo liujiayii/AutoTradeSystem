@@ -8,6 +8,7 @@
     <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
     <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
   </el-breadcrumb>
+  <el-button type="info" id="printBtn">打印</el-button>
 </el-container>
 <template v-if="type=='data'">
   <el-card shadow="hover">
@@ -20,7 +21,7 @@
           <span style="font-weight:bold"> 打印日期：</span>{{tableData.printDate}}
         </p>
         <table cellspacing="0" cellpadding="0" border="1"
-               style="border-collapse:collapse;font-family:宋体; font-size:10.5pt">
+               style="border-collapse:collapse;font-family:宋体; font-size:10.5pt;width: 100%;">
           <tr style="height:38.05pt; font-weight:bold; text-align:center;vertical-align:middle">
             <td>商品名称</td>
             <td>型号</td>
@@ -46,7 +47,6 @@
         </table>
       </div>
     </div>
-    <el-button type="info" id="printBtn">打印</el-button>
   </el-card>
 </template>
 <template v-if="type=='balance'">
@@ -55,7 +55,7 @@
       <div style="display: flex;flex-direction: column;justify-content: center;padding: 10px">
         <p style="text-align:center;font-family:宋体; font-size:18pt; font-weight:bold">结算单</p>
         <table cellspacing="0" cellpadding="0" border="1"
-               style="border-collapse:collapse;text-align:center;font-size:10.5pt;vertical-align:middle">
+               style="border-collapse:collapse;text-align:center;font-size:10.5pt;vertical-align:middle;width: 100%">
           <tr style="height:24pt;font-family:宋体;font-weight: bold">
             <td colspan="10">单号</td>
             <td colspan="7">页码</td>
@@ -169,7 +169,6 @@
         </div>
       </div>
     </div>
-    <el-button type="info" id="printBtn">打印</el-button>
   </el-card>
 </template>
 <%@ include file="../layout/footer.jsp" %>

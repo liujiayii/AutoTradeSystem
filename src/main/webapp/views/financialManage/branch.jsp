@@ -9,7 +9,7 @@
     <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
   </el-breadcrumb>
   <el-button class="btn" type="info" icon="el-icon-plus" round @click="dialogFormVisible = true">添加</el-button>
-  <el-dialog title="添加部门" :visible.sync="dialogFormVisible" width="500px">
+  <el-dialog title="添加部门" :visible.sync="dialogFormVisible" width="500px" @close="closeForm">
     <el-form :model="form">
       <el-form-item label="部门名称" :label-width="formLabelWidth"
                     :rules="[{required: true, message: '请输入部门名称', trigger: 'blur'}]">
@@ -77,6 +77,9 @@
       }
     },
     methods: {
+      closeForm() {
+        this.form = {name: ''}
+      },
       search(value) {
         this.handleCurrentChange(1)
       },
@@ -91,7 +94,7 @@
           dataType: 'json',
           success: (res) => {
             if (res.code == 1) {
-              this.handleCurrentChange(1)
+              this.handleCurrentChange(this.page)
               this.notifyNoPath(res.msg)
             } else {
               this.notifyError(res.msg)
@@ -117,7 +120,7 @@
             dataType: 'json',
             success: (res) => {
               if (res.code == 1) {
-                this.handleCurrentChange(1)
+                this.handleCurrentChange(this.page)
                 this.notifyNoPath(res.msg)
               } else {
                 this.notifyError(res.msg)

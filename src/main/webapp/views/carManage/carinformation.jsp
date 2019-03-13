@@ -32,7 +32,7 @@
         </template>
         <template slot-scope="scope">
           <el-button type="info" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button type="info" size="mini" @click="handlebooking(scope.$index, scope.row)">预定</el-button>
+       
         </template>
       </el-table-column>
     </el-table>

@@ -38,9 +38,8 @@ public class SubCustomerController {
 			List<SubCustomer> list = subCustomerService.selectAll(star, limit);
 			if(list.size()>=1){
 				str = JsonUtil.getResponseJson(1, "查询成功", subCustomerService.selectAllCount(), list);
-				System.out.println(str+"str");
-			}else{
-				str = JsonUtil.getResponseJson(-1, "查询失败", null, null);
+					}else{
+				str = JsonUtil.getResponseJson(1, "无数据", null, null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,11 +85,11 @@ public class SubCustomerController {
 	@RequestMapping(value = "/selectSubCustomerById", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String selectById(Long id) {
-		System.out.println("id" + id);
+		
 		String str = null;
 		try {
 			SubCustomer bc = subCustomerService.selectById(id);
-			System.out.println("bc" + bc);
+		
 			if (bc != null) {
 				str = JsonUtil.getResponseJson(1, "成功", 1, bc);
 			} else {
@@ -100,7 +99,7 @@ public class SubCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "异常", null, null);
 		}
-		System.out.println(str);
+	
 		return str;
 	}
 
@@ -194,7 +193,7 @@ public class SubCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "异常", null, null);
 		}
-		System.out.println("删除的条数:" + rows);
+	
 		return str;
 	}
 
@@ -228,7 +227,7 @@ public class SubCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "发生异常", null, null);
 		}
-		System.out.println("添加条数:" + rows);
+	
 		return str;
 	}
 
@@ -248,7 +247,7 @@ public class SubCustomerController {
 	public String insertSelective(SubCustomer bc) {
 		String str = null;
 		int rows = 0;
-		
+		bc.setCreate_time(new Date());
 		try {
 			rows = subCustomerService.insertSelective(bc);
 			if (rows >= 1) {

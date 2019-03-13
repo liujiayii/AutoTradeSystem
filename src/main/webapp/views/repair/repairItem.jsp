@@ -175,7 +175,7 @@
           contentType: 'application/json',
           dataType: 'json',
           success: (res) => {
-            alert(res)
+           // alert(res)
             if (res.code == 1) {
               this.notifyNoPath(res.msg)
               this.dialogFormVisible = false

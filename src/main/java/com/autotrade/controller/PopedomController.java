@@ -37,7 +37,7 @@ public class PopedomController {
 	public String updatePopedomById(Long id, Integer[] popedoms) {
 		Integer row = popedomService.updatePopedomById(id, popedoms);
 		if(popedoms!=null){
-			System.out.println("id :  "+id + " popedoms :  "+popedoms);
+		
 		}
 		String msg;
 		if (row >= 1) {
@@ -64,6 +64,7 @@ public class PopedomController {
 		Integer code = 1;
 		String msg;
 		List<Popedom> popedoms = popedomService.findPopedomByUserId(id);
+		System.out.println("popedoms"+popedoms);
 		if (popedoms != null) {
 			msg = "查询成功";
 			return JsonUtil.getResponseJson(code, msg, null, popedoms);

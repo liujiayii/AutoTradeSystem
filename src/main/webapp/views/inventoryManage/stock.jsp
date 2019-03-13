@@ -86,28 +86,28 @@
       save(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if (this.form.number > this.form.num && this.form.type == 'yes'){
+            if (this.form.number > this.form.num && this.form.type == 'yes') {
               this.notifyError('领料大于库存')
-            }else {
+            } else {
               $.ajax({
-                              type: 'post',
-                              url: '/stock/updateByPrimaryKey.action',
-                              data: JSON.stringify(this.form),
-                              dataType: 'json',
-                              contentType: "application/json",
-                              success: (res) => {
-                                if (res.code == 1) {
-                                  this.dialogFormVisible = false
-                                  this.handleCurrentChange(1)
-                                  this.notifyNoPath(res.msg)
-                                } else {
-                                  this.notifyError(res.msg)
-                                }
-                              },
-                              error: (res) => {
-                                this.notifyError(res.msg)
-                              }
-                            })
+                type: 'post',
+                url: '/stock/updateByPrimaryKey.action',
+                data: JSON.stringify(this.form),
+                dataType: 'json',
+                contentType: "application/json",
+                success: (res) => {
+                  if (res.code == 1) {
+                    this.dialogFormVisible = false
+                    this.handleCurrentChange(this.page)
+                    this.notifyNoPath(res.msg)
+                  } else {
+                    this.notifyError(res.msg)
+                  }
+                },
+                error: (res) => {
+                  this.notifyError(res.msg)
+                }
+              })
             }
           } else {
             return false;
@@ -128,7 +128,7 @@
           limit: 10,
           page,
           searchKeyWords: this.searchVal
-        }, '/stock/selectStock.action', '/stock/selectStock.action')
+        }, '/stock/selectStock.action', '/stock/selectStocks.action')
       }
     },
     created() {

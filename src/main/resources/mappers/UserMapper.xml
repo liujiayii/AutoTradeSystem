@@ -31,30 +31,74 @@
 		insert into 
 			t_user(
 				id,
+			<if test="pId!=null and pId!=''">
 				p_id,
+			</if>	
+			<if test="name!=null and name!=''">
 				name,
+			</if>
+			<if test="post!=null and post!=''">
 				post,
+			</if>
+			<if test="phone!=null and phone!=''">	
 				phone,
+			</if>	
+			<if test="userName!=null and userName!=''">
 				username,
+			</if>
+			<if test="passWord!=null and passWord!=''">
 				password,
+			</if>	
+			<if test="status!=null and status!=''">
 				status,
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
 				key_word,
+			</if>	
+			<if test="address!=null and address!=''">
 				address,
+			</if>	
+			<if test="createTime!=null and createTime!=''">
 				create_time,
+			</if>	
+			<if test="updateTime!=null and updateTime!=''">
 				update_time
+			</if>	
 			)values(
 				null,
+			<if test="pId!=null and pId!=''">	
 				#{pId},
+			</if>	
+			<if test="name!=null and name!=''">
 				#{name},
+			</if>	
+			<if test="post!=null and post!=''">
 				#{post},
+			</if>	
+			<if test="phone!=null and phone!=''">
 				#{phone},
+			</if>
+			<if test="userName!=null and userName!=''">	
 				#{userName},
+			</if>	
+			<if test="passWord!=null and passWord!=''">
 				#{passWord},
+			</if>	
+			<if test="status!=null and status!=''">
 				#{status},
+			</if>	
+			<if test="keyWord!=null and keyWord!=''">
 				#{keyWord},
+			</if>
+			<if test="address!=null and address!=''">		
 				#{address},
+			</if>	
+			<if test="createTime!=null and createTime!=''">
 				#{createTime},
+			</if>	
+			<if test="updateTime !=null and updateTime!=''">
 				#{updateTime}
+			</if>
 			)
 	</insert>
 

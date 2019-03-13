@@ -19,18 +19,17 @@
               :data="tableData.data"
               style="width: 100%">
       <el-table-column label="编号" prop="id" show-overflow-tooltip></el-table-column>
-      <el-table-column label="类型" prop="type" show-overflow-tooltip></el-table-column>
-      <el-table-column label="创建时间" prop="create_time" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
+      <el-table-column label="类型" prop="vehicle_classification" show-overflow-tooltip></el-table-column>
       <el-table-column align="right">
         <template slot-scope="scope">
           <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="客户类型" :visible.sync="dialogFormVisible" @close="clearForm" width="500px">
+    <el-dialog title="车辆类型" :visible.sync="dialogFormVisible" @close="clearForm" width="500px">
       <el-form :model="ruleForm" ref="ruleForm" inline label-width="100px" :rules="rules">
-        <el-form-item label="类型" prop="type">
-          <el-input v-model="ruleForm.type"></el-input>
+        <el-form-item label="类型" prop="vehicle_classification">
+          <el-input v-model="ruleForm.vehicle_classification"></el-input>
         </el-form-item>
         <el-form-item style="width: 100%">
           <el-button type="info" @click="submitForm('ruleForm')">确定</el-button>
@@ -56,7 +55,7 @@
     mixins: [mixin, rules],
     data: function () {
       return {
-        navActive: '9-6',
+        navActive: '9-5',
         tableData: {
           data: [],
           count: 0
@@ -78,9 +77,8 @@
       handleCurrentChange(page) {
         this.getTable({
           limit: 10,
-          page,
-          keyWord: this.searchVal
-        }, '/Project/selectMaintenance.action', '/Project/selectMaintenance.action')
+          page
+        }, '/VehicleClassification/selectAll.action', '/VehicleClassification/selectAll.action')
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -88,7 +86,7 @@
             delete this.ruleForm.create_time
             $.ajax({
               type: 'post',
-              url: this.ruleForm.id ? '/Project/updateMaintenance.action' : '/Project/insertMaintenance.action',
+              url: this.ruleForm.id ? '/VehicleClassification/update.action' : '/VehicleClassification/insert.action',
               data: this.ruleForm,
               dataType: 'json',
               success: (res) => {

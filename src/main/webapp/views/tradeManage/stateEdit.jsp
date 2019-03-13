@@ -97,7 +97,7 @@
                 byStages: {
                   totalPeriod: this.ruleForm.totalPeriod,
                   loanAmount: this.ruleForm.loanAmount,
-                  monthlySupply: this.ruleForm.monthly_supply
+                  monthlySupply: this.ruleForm.monthlySupply
                 }
               }) : JSON.stringify({
                 "buyingCustomer": {
@@ -110,7 +110,7 @@
                   byStages: {
                     totalPeriod: this.ruleForm.totalPeriod,
                     loanAmount: this.ruleForm.loanAmount,
-                    monthlySupply: this.ruleForm.monthly_supply
+                    monthlySupply: this.ruleForm.monthlySupply
                   },
                   repaymentDate: this.ruleForm.repaymentDate
                 }

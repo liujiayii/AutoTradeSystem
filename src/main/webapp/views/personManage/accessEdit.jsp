@@ -47,9 +47,16 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="密码" prop="passWord">
-            <el-input v-model="ruleForm.passWord" placeholder="如无需更改请不要填"></el-input>
-          </el-form-item>
+          <template v-if="this.getHrefParam('id')">
+            <el-form-item label="密码" prop="passWord">
+              <el-input v-model="ruleForm.passWord" placeholder="如无需更改请不要填"></el-input>
+            </el-form-item>
+          </template>
+          <template v-else>
+            <el-form-item label="密码" prop="passWord">
+              <el-input v-model="ruleForm.passWord"></el-input>
+            </el-form-item>
+          </template>
         </el-col>
       </el-row>
       <el-form-item>
@@ -67,6 +74,20 @@
     el: '#app',
     mixins: [mixin, rules],
     data: function () {
+      let validPass = (rule, value, callback) => {
+        const valid = /^[a-zA-Z0-9_-]{6,12}$/
+        if (value && value.length != 0) {
+          if (!valid.test(value)) {
+            callback(new Error('请输入正确的密码'));
+          } else if (value.length < 6 || value.length > 12) {
+            callback(new Error('长度在 6 到 12 个字符'));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      }
       return {
         navActive: '7-2',
         ruleForm: {
@@ -76,6 +97,9 @@
           pId: '',
           userName: '',
           passWord: ''
+        },
+        rules: {
+          passWord: (this.getHrefParam('id')) ? [{validator: validPass, trigger: 'blur'}] : [{required: true, message: '密码不能为空'}, {validator: validPass, trigger: 'blur'}]
         }
       }
     },

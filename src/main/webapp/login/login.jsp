@@ -99,11 +99,13 @@
                         window.location.href = '/views/index/index.jsp'
                       } else if (res.code == -1) {
                         this.loading = false
+                        this.codeUpdate()
                         this.notifyError(res.msg)
                       }
                     },
-                    error(res) {
+                    error:(res)=> {
                       this.loading = false
+                      this.codeUpdate()
                       this.notifyError(res.msg)
                     }
                   })

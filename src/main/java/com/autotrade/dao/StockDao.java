@@ -17,7 +17,11 @@ public interface StockDao {
     int insertSelective(Stock record);
 
     List<StockVo> selectByPrimaryKey(@Param("star")Integer star,@Param("limit")Integer limit);
+    
+    List<StockVo> selectByPrimaryKeys(@Param("s")String s,@Param("star")Integer star,@Param("limit")Integer limit);
     Integer getcount();
+    Integer getcounts(String s);
+    
     Stock selectById(String commodity_number);
 
     

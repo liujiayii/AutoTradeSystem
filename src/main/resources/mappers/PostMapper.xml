@@ -13,5 +13,7 @@
 		id, name, phone, address, post_id, department_id
 	</sql>
 
-	
+	<select id="selectAllPost" resultType="com.autotrade.entity.Post">
+	SELECT id,post FROM t_post
+	</select>
 </mapper>

@@ -54,7 +54,7 @@ public class BuyingCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
-		System.out.println(str);
+		
 		return str;
 	}
 
@@ -71,11 +71,11 @@ public class BuyingCustomerController {
 	@RequestMapping(value = "/selectBuyingCustomerById", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String selectById(Long id) {
-		System.out.println("id" + id);
+	
 		String str = null;
 		try {
 			BuyingCustomer bc = buyingCustomerService.selectById(id);
-			System.out.println("bc" + bc);
+		
 			if (bc != null) {
 				str = JsonUtil.getResponseJson(1, "成功", 1, bc);
 			} else {
@@ -85,7 +85,7 @@ public class BuyingCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "异常", null, null);
 		}
-		System.out.println(str);
+	
 		return str;
 	}
 
@@ -105,7 +105,7 @@ public class BuyingCustomerController {
 	public String selectByName(String name) {
 		String str = null;
 		String names = "%" + name + "%";
-		System.out.println(names);
+	
 		try {
 			List<BuyingCustomer> list = buyingCustomerService.selectByName(names);
 			if (list.size() >= 1) {
@@ -117,7 +117,7 @@ public class BuyingCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "异常", null, null);
 		}
-		System.out.println(str);
+	
 		return str;
 	}
 
@@ -148,7 +148,7 @@ public class BuyingCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "异常", null, null);
 		}
-		System.out.println(str);
+	
 		return str;
 	}
 
@@ -179,7 +179,7 @@ public class BuyingCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "异常", null, null);
 		}
-		System.out.println("删除的条数:" + rows);
+	
 		return str;
 	}
 
@@ -202,6 +202,8 @@ public class BuyingCustomerController {
 		
 
 		try {
+			
+			bc.setCreateTime(new Date());
 			rows = buyingCustomerService.insertAll(bc);
 			if (rows >= 1) {
 				str = JsonUtil.getResponseJson(1, "添加成功", null, null);
@@ -212,7 +214,7 @@ public class BuyingCustomerController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "发生异常", null, null);
 		}
-		System.out.println("添加条数:" + rows);
+	
 		return str;
 	}
 
@@ -266,7 +268,7 @@ public class BuyingCustomerController {
 	public String updateAllById(@RequestBody BuyingCustomer bc) {
 		String str = null;
 		int rows = 0;
-System.out.println("bc"+bc);
+
 		try {
 			rows = buyingCustomerService.updateAllById(bc);
 			if (rows >= 1) {

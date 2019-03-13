@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,6 +73,7 @@ public class SellCarController {
 	@RequestMapping("/findById")
 	@ResponseBody
 	public String findById(@RequestParam("c_id") Integer id) {
+		System.out.println("id"+id);
 		ShowCarVo showCarVo = sellCarService.findById(id);
 		if (!showCarVo.equals(null)) {
 			return JsonUtil.getResponseJson(1, "查询成功", null, showCarVo);
@@ -91,8 +93,8 @@ public class SellCarController {
 	 */
 	@RequestMapping("/updateSellCar")
 	@ResponseBody
-	public String updateSellCar(ShowCarVo showCarVo) {
-		System.out.println(showCarVo.toString());
+	public String updateSellCar(@RequestBody ShowCarVo showCarVo) {
+		
 		Integer row = sellCarService.updateSellCar(showCarVo);
 		if (row == 1) {
 			return JsonUtil.getResponseJson(1, "修改成功", null, null);
@@ -165,9 +167,10 @@ public class SellCarController {
 	 */
 	@RequestMapping("/addSellCar")
 	@ResponseBody
-	public String addSellCar(ShowCarVo showCarVo){
+	public String addSellCar(@RequestBody ShowCarVo showCarVo){
+	
 		String json="";
-		System.out.println(showCarVo.toString());
+		System.out.println("showCarVo"+showCarVo);
 		if( showCarVo.getVehile_number()!="" && showCarVo.getVehile_number()!=null){
 			 json = sellCarService.addCarOrder(showCarVo);
 		}else{

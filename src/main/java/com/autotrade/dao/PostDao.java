@@ -1,5 +1,9 @@
 package com.autotrade.dao;
 
+import java.util.List;
+
+import com.autotrade.entity.Post;
+
 /**
  * 职位表dao层
  *
@@ -12,4 +16,20 @@ package com.autotrade.dao;
  */
 public interface PostDao {
 
+	/**
+	 * 
+	*
+	 * @Title: selectAllPost
+	
+	 * @description 查询所有职位
+	*
+	 * @param @return 
+	   
+	 * @return List<Post>    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年3月6日
+	 */
+	List<Post> selectAllPost();
 }

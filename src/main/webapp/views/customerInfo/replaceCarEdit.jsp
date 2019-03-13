@@ -63,7 +63,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="公里数" prop="kilometres">
-            <el-input v-model="ruleForm.kilometres" type="number"></el-input>
+            <el-input v-model="ruleForm.kilometres"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -111,7 +111,9 @@
           brand: '',
           major_accidents: 0,
           maintenance_record: '',
-          offer: ''
+          offer: '',
+          service_life:'',
+          kilometres:''
         },
         rules: {
           name: [

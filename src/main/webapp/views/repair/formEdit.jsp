@@ -307,7 +307,7 @@
             <el-form-item label="工时单价" prop="price">
               <el-input v-model="ruleForm5.price" @input="count" type="number"></el-input>
             </el-form-item>
-            <el-form-item label="工时费" prop="money">
+            <el-form-item label="工时费">
               <el-input v-model="ruleForm5.money" readonly></el-input>
             </el-form-item>
             <el-row>

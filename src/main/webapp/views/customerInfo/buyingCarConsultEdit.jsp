@@ -84,7 +84,7 @@
               dataType: 'json',
               success: (res) => {
                 if (res.code == 1) {
-                  this.notifySuc(res.msg, 'buyingCarConsult.jsp"')
+                  this.notifySuc(res.msg, 'buyingCarConsult.jsp')
                 } else {
                   this.notifyError(res.msg)
                 }

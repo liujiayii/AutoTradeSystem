@@ -13,16 +13,32 @@
 		insert
 			t_model_definition(
 				model_definition_id,
+			<if test="vehicle_classification_id!=null and vehicle_classification_id!=''">
 				vehicle_classification_id,
+			</if>	
+			<if test="vehicle_type!=null and vehicle_type!=''">
 				vehicle_type,
+			</if>	
+			<if test="range_rover!=null and range_rover!=''">
 				range_rover,
+			</if>	
+			<if test="brand!=null and brand!=''">
 				brand
+			</if>	
 			)values(
 				null,
+			<if test="vehicle_classification_id!=null and vehicle_classification_id!=''">				
 				#{vehicle_classification_id},
+			</if>
+			<if test="vehicle_type!=null and vehicle_type!=''">
 				#{vehicle_type},
+			</if>
+			<if test="range_rover!=null and range_rover!=''">
 				#{range_rover},
+			</if>
+			<if test="brand!=null and brand!=''">
 				#{brand}
+			</if>
 			)
 		
 	</insert>

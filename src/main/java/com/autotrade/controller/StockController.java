@@ -70,6 +70,45 @@ public class StockController {
 	}
 	
 
+	/**
+	 * 模糊查询
+	*@author lichangchun
+	* @param s
+	* @param page
+	* @param limit
+	* @return
+	*@return String
+	*@date 2019年3月4日    
+	*
+	 */
+	@RequestMapping("/selectStocks")
+	@ResponseBody
+	public String selectStocks(String searchKeyWords,Integer page, Integer limit) {
+		int code = 1;
+		int count = 0;
+		String msg = "查询成功";
+		List<StockVo> insuranceList = null;
+		
+		if(page <= 0 || page == null){
+			page = 1;
+		}
+		page = (page - 1) * limit;
+		
+		
+		
+		try {
+			// 查询保险表所有数据
+			insuranceList = stockService.selectByPrimaryKeys(searchKeyWords,page, limit);
+			// 获取总条数
+			count = stockService.getcounts(searchKeyWords);
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+			msg = "查询失败";
+		}
+		return JsonUtil.getResponseJson(code, msg, count, insuranceList);
+	}
+	
 	@RequestMapping("/updateByPrimaryKey")
 	@ResponseBody
 	public String updateByPrimaryKey(@RequestBody JSONObject obj) {

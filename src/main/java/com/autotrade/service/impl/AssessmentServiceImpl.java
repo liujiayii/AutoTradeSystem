@@ -1,6 +1,6 @@
 package com.autotrade.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -117,9 +117,10 @@ public class AssessmentServiceImpl implements AssessmentService {
 			List<Assessment> AssessmentList = assessmentDao.selectAll(star, limit);
 			// 未查到数据
 			if (AssessmentList.size() <= 0) {
-				string = JsonUtil.getResponseJson(1, "暂无数据", null, null);
+				string = JsonUtil.getResponseJson(1, "", null, AssessmentList);
 			} else {
 				// 查询到数据返回总数及当前页数据
+				//System.out.println("返回的数据为"+assessmentDao.selectAllCount()+"      "+AssessmentList);
 				string = JsonUtil.getResponseJson(1, "查询成功", assessmentDao.selectAllCount(), AssessmentList);
 			}
 
@@ -177,7 +178,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 				string = JsonUtil.getResponseJson(1, "查询成功", assessmentDao.selectAssessmentCountByIntention(intention),
 						selectAssessmentByIntention);
 			} else {
-				string = JsonUtil.getResponseJson(1, "暂无数据", null, null);
+				string = JsonUtil.getResponseJson(1, "", null, selectAssessmentByIntention);
 			}
 
 		} catch (Exception e) {
@@ -200,7 +201,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 						assessmentDao.selectAssessmentCountByassessment_name(assessment_name),
 						selectAssessmentByassessment_name);
 			} else {
-				string = JsonUtil.getResponseJson(1, "暂无数据", null, null);
+				string = JsonUtil.getResponseJson(1, "", null, selectAssessmentByassessment_name);
 			}
 
 		} catch (Exception e) {
@@ -219,7 +220,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 			Integer selectAllselectCount = assessmentDao.selectAllselectCount(assessment_name);
 
 			if (selectAllselectCount == 0) {
-				return JsonUtil.getResponseJson(1, "暂无数据", null, null);
+				return JsonUtil.getResponseJson(1, "", null, selectAllselect);
 			}
 
 			return JsonUtil.getResponseJson(1, "查询成功", selectAllselectCount, selectAllselect);

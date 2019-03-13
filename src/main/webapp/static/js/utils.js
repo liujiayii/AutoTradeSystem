@@ -111,6 +111,9 @@ let Menu = [
       name: '车型设置',
       path: '/views/archives/carType.jsp'
     }, {
+      name: '车辆类型',
+      path: '/views/archives/carClass.jsp'
+    }, {
       name: '客户类型',
       path: '/views/archives/custClass.jsp'
     }]
@@ -152,7 +155,6 @@ const rules = {
       } else {
         callback();
       }
-
     }
     return {
       rules: {
@@ -239,7 +241,8 @@ const rules = {
         phone: [{required: true, message: '请输入电话', trigger: 'blur'},
           {required: 'number', min: 5, max: 11, message: '请输入正确的电话', trigger: 'blur'}],
         place: [{required: true, message: '请输入产地', trigger: 'blur'}],
-        passWord: [{validator: validPass, trigger: 'blur'}],
+        passWord: [{validator: validPass, trigger: 'blur'},
+          /*{required: true, message: '请输入密码', trigger: 'blur'}*/],
         person: [{required: true, message: '请输入业务员', trigger: 'blur'}],
         purchase: [{required: true, message: '请输入采购项目', trigger: 'blur'}],
         purchaseMoney: [{required: true, message: '请输入采购金额', trigger: 'blur'},
@@ -259,7 +262,7 @@ const rules = {
         range_rover: [{required: true, message: '请输入车名', trigger: 'blur'}],
         remark: [{required: true, message: '请输入详细信息', trigger: 'blur'}],
         repaymentDate: [{required: true, message: '请选择日期', trigger: 'blur'}],
-        road_haul:{required: true, message: '请输入行驶里程', trigger: 'blur'},
+        road_haul: {required: true, message: '请输入行驶里程', trigger: 'blur'},
         source: [{required: true, message: '请输入来源', trigger: 'blur'}],
         service_life: [{required: true, message: '请输入使用年限', trigger: 'blur'},
           {required: 'number', message: '请输入正确的使用年限', trigger: 'blur'}],
@@ -289,6 +292,7 @@ const rules = {
         vehicleType: [{required: true, message: '请输入车型', trigger: 'blur'}],
         vehicleCode: {required: true, message: '请选择车型', trigger: 'blur'},
         vehicle_code: {required: true, message: '请选择车型', trigger: 'blur'},
+        vehicle_classification: {required: true, message: '请输入类型', trigger: 'blur'},
         vehicle_classification_id: {required: true, message: '请选择车型', trigger: 'blur'},
         working_hours: [{required: true, message: '请输入工时', trigger: 'blur'},
           {required: 'number', message: '请输入正确的工时', trigger: 'blur'}]
@@ -303,7 +307,8 @@ const mixin = {
       isCollapse: false,
       menu: Menu,
       footer: '©2019 智莱云 All rights resered 石家庄智莱云信息技术公司提供技术支持',
-      breadcrumb: {first: '', second: ''}
+      breadcrumb: {first: '', second: ''},
+      page: 1
     }
   },
   computed: {
@@ -313,7 +318,7 @@ const mixin = {
   },
   methods: {
     getBreadcrumb() {
-      if(this.navActive != '0'){
+      if (this.navActive != '0') {
         let t = this.navActive.split('-')
         this.breadcrumb = {
           first: this.menu[parseInt(t[0])].name,
@@ -399,6 +404,7 @@ const mixin = {
     },
     getTable(data, url_a, url_b, arr) {
       this.loading2 = true
+      this.page = data.page
       $.ajax({
         type: 'post',
         url: this.searchVal.length == 0 ? url_a : url_b,
@@ -411,7 +417,6 @@ const mixin = {
               arr ? arr.data = res.data : this.tableData.data = res.data
             } else {
               this.tableData.data = []
-              this.notifyError(res.msg)
             }
             arr ? arr.count = res.count : this.tableData.count = res.count
           } else {

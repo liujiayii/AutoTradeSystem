@@ -29,14 +29,10 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="职位" prop="p_id">
-            <el-select v-model="ruleForm.p_id" placeholder="请选择职位">
-              <el-option label="总经理" :value="2000"></el-option>
-              <el-option label="销售主管" :value="2001"></el-option>
-              <el-option label="财务主管" :value="2002"></el-option>
-              <el-option label="维修主管" :value="2003"></el-option>
-              <el-option label="采购" :value="2004"></el-option>
-              <el-option label="金融主管" :value="2005"></el-option>
+          <el-form-item label="职位" prop="postId">
+            <el-select v-model="ruleForm.postId" placeholder="请选择职位">
+            <el-option v-for="item in postData" :label="item.post" :value="item.id"
+                         :key="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -72,6 +68,7 @@
           departmentId: '',
         },
         branchData: [],
+        postData:[]
       }
     },
     methods: {
@@ -121,9 +118,27 @@
           }
         })
       },
+      getPost() {
+          $.ajax({
+            type: 'post',
+            url: '/department/selectAllPost.action',
+            dataType: 'json',
+            success: (res) => {
+              if (res.code == 1) {
+                this.postData = res.data
+              } else {
+                this.notifyError(res.msg)
+              }
+            },
+            error: (res) => {
+              this.notifyError(res.msg)
+            }
+          })
+        },
     },
     created() {
       this.getBranch()
+      this.getPost()
       if (this.getHrefParam('id')) {
         this.onLoad('/staff/selectById.action', {id: this.getHrefParam('id')})
       }

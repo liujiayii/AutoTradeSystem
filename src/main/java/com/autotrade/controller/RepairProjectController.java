@@ -144,7 +144,7 @@ public class RepairProjectController {
 	 */
 	@RequestMapping("/insertSelective")
 	public String insertSelective(@RequestBody Map<String, Object> map) {
-		System.out.println("map="+map);
+		
 		int code = 1;
 		String msg = "查询成功";
 		BigDecimal totalMoney = null;

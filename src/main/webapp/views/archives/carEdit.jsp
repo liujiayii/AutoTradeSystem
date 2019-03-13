@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/header.jsp" %>
@@ -19,10 +21,10 @@
       <el-form-item label="车辆号码" prop="vehicle_number">
         <el-input v-model="ruleForm.vehicle_number" @blur="searchNum"></el-input>
       </el-form-item>
-      <el-form-item label="来源" prop="source">
+      <el-form-item label="来源" >
         <el-input v-model="ruleForm.source"></el-input>
       </el-form-item>
-      <el-form-item label="性质" prop="nature">
+      <el-form-item label="性质" >
         <el-input v-model="ruleForm.nature"></el-input>
       </el-form-item>
       <el-form-item label="车型" prop="vehicle_type">
@@ -42,13 +44,13 @@
       <el-form-item label="厂牌" prop="brand">
         <el-input v-model="ruleForm.brand" readonly></el-input>
       </el-form-item>
-      <el-form-item label="发动机号" prop="engine_number">
+      <el-form-item label="发动机号" >
         <el-input v-model="ruleForm.engine_number"></el-input>
       </el-form-item>
-      <el-form-item label="底盘号" prop="chassis_number">
+      <el-form-item label="底盘号" >
         <el-input v-model="ruleForm.chassis_number"></el-input>
       </el-form-item>
-      <el-form-item label="变速箱号" prop="gearbox_number">
+      <el-form-item label="变速箱号" >
         <el-input v-model="ruleForm.gearbox_number"></el-input>
       </el-form-item>
       <el-form-item label="类别" prop="category">
@@ -57,10 +59,10 @@
       <el-form-item label="机型" prop="aircraft_type">
         <el-input v-model="ruleForm.aircraft_type"></el-input>
       </el-form-item>
-      <el-form-item label="VIN号" prop="vin">
+      <el-form-item label="VIN号" >
         <el-input v-model="ruleForm.vin"></el-input>
       </el-form-item>
-      <el-form-item label="内部编号" prop="internal_number">
+      <el-form-item label="内部编号" >
         <el-input v-model="ruleForm.internal_number"></el-input>
       </el-form-item>
       <el-form-item label="车身颜色" prop="color">
@@ -79,10 +81,10 @@
       <el-form-item label="车主名称" prop="customer_name">
         <el-input v-model="ruleForm.customer_name" readonly></el-input>
       </el-form-item>
-      <el-form-item label="地址" prop="address">
+      <el-form-item label="地址">
         <el-input v-model="ruleForm.address" readonly></el-input>
       </el-form-item>
-      <el-form-item label="邮编" prop="postcode">
+      <el-form-item label="邮编">
         <el-input v-model="ruleForm.postcode" readonly></el-input>
       </el-form-item>
       <el-row>
@@ -98,10 +100,10 @@
       <el-form-item label="驾驶员" prop="driver_name">
         <el-input v-model="ruleForm.driver_name" readonly></el-input>
       </el-form-item>
-      <el-form-item label="驾驶证号" prop="driver_license_number">
+      <el-form-item label="驾驶证号" >
         <el-input v-model="ruleForm.driver_license_number" readonly></el-input>
       </el-form-item>
-      <el-form-item label="身份证号" prop="id_number">
+      <el-form-item label="身份证号" >
         <el-input v-model="ruleForm.id_number" readonly></el-input>
       </el-form-item>
       </el-row>
@@ -110,12 +112,12 @@
           <el-form-item label="保险归属："></el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="三包单位" prop="three_guarantees">
+          <el-form-item label="三包单位" >
             <el-input v-model="ruleForm.three_guarantees"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="经销商" prop="dealer">
+          <el-form-item label="经销商" >
             <el-input v-model="ruleForm.dealer"></el-input>
           </el-form-item>
         </el-col>

@@ -57,7 +57,7 @@ public class UserController {
 	@RequestMapping(value="/insertUser",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String insertUser(User user){
-		System.out.println("user :"+user.toString());
+	
 		Integer code = 1;
 		String msg;
 		if(userService.insertUser(user)>0){
@@ -105,7 +105,7 @@ public class UserController {
 		if(user!=null){
 			return JsonUtil.getResponseJson(1, "查询成功", null, user);
 		}else{
-			return JsonUtil.getResponseJson(-1, "查询失败，信息可能被删除", null, null);
+			return JsonUtil.getResponseJson(-1, "无数据", null, null);
 		}
 	}
 	

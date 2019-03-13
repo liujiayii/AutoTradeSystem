@@ -35,46 +35,46 @@
         <el-form-item label="驾驶员姓名" prop="driver_name">
           <el-input v-model="ruleForm.driver_name"></el-input>
         </el-form-item>
-        <el-form-item label="性别" prop="gender">
+        <el-form-item label="性别">
           <el-select style="width: 202px" v-model="ruleForm.gender" placeholder="请选择性别">
             <el-option label="男" :value="1"></el-option>
             <el-option label="女" :value="2"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="职务" prop="duty">
+        <el-form-item label="职务">
           <el-input v-model="ruleForm.duty"></el-input>
         </el-form-item>
-        <el-form-item label="出生日期" prop="brithday">
+        <el-form-item label="出生日期">
           <el-date-picker style="width: 202px" v-model="ruleForm.brithday" type="date" placeholder="选择出生日期"
                           value-format="timestamp"></el-date-picker>
         </el-form-item>
-        <el-form-item label="身份证号" prop="id_number">
+        <el-form-item label="身份证号">
           <el-input v-model="ruleForm.id_number"></el-input>
         </el-form-item>
-        <el-form-item label="手机" prop="move_number">
+        <el-form-item label="手机">
           <el-input v-model="ruleForm.move_number" type="number"></el-input>
         </el-form-item>
-        <el-form-item label="住宅电话号码" prop="phone_number">
+        <el-form-item label="住宅电话号码">
           <el-input v-model="ruleForm.phone_number" type="number"></el-input>
         </el-form-item>
-        <el-form-item label="驾驶证号" prop="driver_license_number">
+        <el-form-item label="驾驶证号">
           <el-input v-model="ruleForm.driver_license_number"></el-input>
         </el-form-item>
-        <el-form-item label="准驾车型" prop="quasi_driving_type">
+        <el-form-item label="准驾车型">
           <el-input v-model="ruleForm.quasi_driving_type"></el-input>
         </el-form-item>
-        <el-form-item label="发证日期" prop="opening_date">
+        <el-form-item label="发证日期">
           <el-date-picker style="width: 202px" v-model="ruleForm.opening_date" type="date" placeholder="选择发证日期"
                           value-format="timestamp"></el-date-picker>
         </el-form-item>
-        <el-form-item label="失效日期" prop="expiry_date">
+        <el-form-item label="失效日期">
           <el-date-picker style="width: 202px" v-model="ruleForm.expiry_date" type="date" placeholder="选择失效日期"
                           value-format="timestamp"></el-date-picker>
         </el-form-item>
-        <el-form-item label="电子邮箱" prop="e_mail">
+        <el-form-item label="电子邮箱">
           <el-input v-model="ruleForm.e_mail"></el-input>
         </el-form-item>
-        <el-form-item label="办公室电话" prop="office_telephone">
+        <el-form-item label="办公室电话">
           <el-input v-model="ruleForm.office_telephone" type="number"></el-input>
         </el-form-item>
         <el-form-item style="width: 100%">
@@ -108,7 +108,22 @@
         },
         searchVal: '',
         loading2: true,
-        ruleForm: {},
+        ruleForm: {
+          brithday: '',
+          driver_license_number: '',
+          driver_name: '',
+          duty: '',
+          e_mail: '',
+          expiry_date: '',
+          gender: '',
+          id: '',
+          id_number: '',
+          move_number: '',
+          office_telephone: '',
+          opening_date: '',
+          phone_number: '',
+          quasi_driving_type: ''
+        },
         dialogFormVisible: false
       }
     },
@@ -144,7 +159,7 @@
                   this.dialogFormVisible = false
                   this.$refs[formName].resetFields();
                   this.notifyNoPath(res.msg)
-                  this.handleCurrentChange(1)
+                  this.handleCurrentChange(this.page)
                 } else {
                   this.notifyError(res.msg)
                 }

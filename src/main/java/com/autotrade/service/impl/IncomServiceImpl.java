@@ -124,7 +124,7 @@ public class IncomServiceImpl implements IncomeService {
 		if(result.size() >= 1){
 			string = JsonUtil.getResponseJson(1, "查询成功", incomDao.selectAllCount(), result);
 		}else{
-			string = JsonUtil.getResponseJson(1, "暂无数据", null, result);
+			string = JsonUtil.getResponseJson(1, "", null, result);
 		}
 		
 		return string;
@@ -161,7 +161,7 @@ public class IncomServiceImpl implements IncomeService {
 				string = JsonUtil.getResponseJson(1, "查询成功", incomDao.selectIncomeCountByDepartmentId(department_id),
 						result);
 			} else {
-				string = JsonUtil.getResponseJson(1, "暂无数据", 1, result);
+				string = JsonUtil.getResponseJson(1, "", 0, result);
 			}
 
 			return string;

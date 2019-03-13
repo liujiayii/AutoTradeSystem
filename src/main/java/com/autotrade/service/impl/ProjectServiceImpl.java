@@ -82,15 +82,15 @@ public class ProjectServiceImpl implements ProjectService {
 		String string;
 		Integer star = (page - 1) * limit;
 		/* try { */
-		System.out.println("------" + star + "++++" + limit);
+	
 		List<ProjectVo> projectList = projectDao.selectAll(star, limit);
-		System.out.println("heheh");
+		
 		// 未查到数据
 		if (projectList.size() <= 0) {
-			System.out.println("shibai");
+		
 			string = JsonUtil.getResponseJson(1, "暂无数据", null, null);
 		} else {
-			System.out.println("chneggong");
+		
 
 			// 查询到数据返回总数及当前页数据
 			string = JsonUtil.getResponseJson(1, "查询成功", projectDao.countAll(), projectList);
@@ -139,7 +139,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 		String string = null;
 		Integer number = 0;
-		System.out.println("list" + obj);
+	
 		String data = obj.toJSONString();
 		// 解析json数据
 		JSONObject json = JSON.parseObject(data);

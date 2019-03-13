@@ -327,15 +327,15 @@ public class InsuranceController {
 	    int code=1;
 	    String url="";//返回存储路径
 	    List<String> imgList=new ArrayList<>();
-	    System.out.println("上传文件个数："+file.length);
+	 
 	    if (file!=null && file.length>0) {
 	    	//文件存储位置
 	    	//String path = request.getSession(true).getServletContext().getRealPath("/upload"); 
 	    	String path = "E:\\upload";//保存图片的路径
-	    	System.out.println("path="+path);
+	    
             //存储路径
             String returnUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() +"/upload/";
-            System.out.println("returnUrl="+returnUrl);
+        
             //先判断文件夹是否存在
             String fileAdd = new SimpleDateFormat("yyyyMMdd").format(new Date());
             File newFile =new File(path+"/"+fileAdd); 
@@ -359,7 +359,7 @@ public class InsuranceController {
 	                    file[i].transferTo(targetFile);
 	                    //url=returnUrl+fileAdd+"/"+fileName;
 	                    url = path+"/"+fileAdd+"/"+fileName;
-	                    System.out.println("url="+url);
+	                 
 	                    imgList.add(url);
 	                    
 	                    // 将图片地址插入到图片表中

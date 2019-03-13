@@ -12,7 +12,7 @@
 <el-card shadow="hover">
   <el-container class="main" style="width: 736px">
     <el-form :model="ruleForm" ref="ruleForm" label-width="100px" :rules="rules">
-      <el-input v-model="ruleForm.id"></el-input>
+      <!-- <el-input v-model="ruleForm.id"></el-input> -->
       <el-row>
         <el-col :span="12">
           <el-form-item label="采购人" prop="name">
@@ -101,7 +101,8 @@
           singName: '',
           purchaseMoney: '',
           createTime: '',
-          remark: ''
+          remark: '',
+          brand:''
         }
       }
     },
@@ -130,11 +131,11 @@
             return false;
           }
         })
-      },
-      created() {
-        if (this.getHrefParam('id')) {
-          this.onLoad('/purchase/selectPurchaseById.action', {id: this.getHrefParam('id')})
-        }
+      }
+    },
+    created() {
+      if (this.getHrefParam('id')) {
+        this.onLoad('/purchase/selectPurchaseById.action', {id: this.getHrefParam('id')})
       }
     }
   })

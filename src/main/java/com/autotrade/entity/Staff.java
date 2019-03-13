@@ -1,4 +1,8 @@
 package com.autotrade.entity;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * 
  *
@@ -17,7 +21,7 @@ public class Staff {
     private String phone;
 
     private String address;
-
+    
     private Integer postId;
 
     private Integer departmentId;

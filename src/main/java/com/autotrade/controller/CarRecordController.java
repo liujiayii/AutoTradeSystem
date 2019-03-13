@@ -62,7 +62,7 @@ public class CarRecordController {
 	@RequestMapping("insertCustomer")
 	@ResponseBody
 	public String insertCustomerArchives(CustomerArchives customerArchives) {
-		System.out.println(customerArchives.toString());
+	
 		String str = null;
 		Integer row = customerArchivesService.insertCustomerArchives(customerArchives);
 		if (row == 1) {
@@ -142,7 +142,7 @@ public class CarRecordController {
 		} else if(row==-1){
 			str = JsonUtil.getResponseJson(-1, "添加失败", null, null);
 		}else{
-			str =JsonUtil.getResponseJson(-1, "系统异常", null, null);
+			str =JsonUtil.getResponseJson(-2, "系统异常", null, null);
 		}
 		return str;
 	}
@@ -208,7 +208,7 @@ public class CarRecordController {
 		if (lists.size() >= 1) {
 			str = JsonUtil.getResponseJson(1, "查询成功", lists.size(), lists);
 		} else {
-			str = JsonUtil.getResponseJson(-1, "查询失败", null, lists);
+			str = JsonUtil.getResponseJson(1, "", null, lists);
 		}
 		return str;
 	}
@@ -503,7 +503,7 @@ public class CarRecordController {
 	@ResponseBody
 	public String windUpAnAccount(@RequestBody Repair r){
 		String str;
-		System.out.println(r.toString());
+	
 		Repair repair = new Repair();
 		if(r.getMoney()!=null){
 			if(r.getState()==3){
@@ -539,7 +539,7 @@ public class CarRecordController {
 	@RequestMapping("printMaterials")
 	@ResponseBody
 	public String printMaterialsBill(Long id){
-		System.out.println(id);
+	
 		String str = vehicleArchliesService.printMaterialsBill(id);
 		return str;
 	}

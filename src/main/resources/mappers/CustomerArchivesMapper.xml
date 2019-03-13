@@ -8,57 +8,78 @@
 	
 	<!-- 添加维修客户档案 -->
 	<!-- Integer insertCustomerArchives(CustomerArchives customerArchives) -->
-	<insert id="insertCustomerArchives" parameterType="com.autotrade.entity.CustomerArchives" useGeneratedKeys="true"
-		keyProperty="id">
+	<insert id="insertCustomerArchives" parameterType="com.autotrade.entity.CustomerArchives" useGeneratedKeys="true"  keyProperty="id">
 		insert
 			t_customer_archives(
 			id,
+		<if test="customer_id!=null and customer_id!=''">
 			customer_id,
+		</if>
+		<if test="customer_type!=null and customer_type!=''">
 			customer_type,
+		</if>	
+		<if test="area!=null and area!=''">
 			area,
+		</if>	
+		<if test="customer_name!=null and customer_name!=''">
 			customer_name,
+		</if>	
+		<if test="postcode!=null and postcode!=''">
 			postcode,
+		</if>
+		<if test="phone_number!=null and phone_number!=''">
 			phone_number,
+		</if>	
+		<if test="province!=null and province!=''">
 			province,
+		</if>
+		<if test="region!=null and region!=''">
 			region,
+		</if>
+		<if test="address!=null and address!=''">
 			address,
+		</if>	
+		<if test="fax!=null and fax!=''">
 			fax,
+		</if>	
+		<if test="company!=null and company!=''">
 			company
+		</if>	
 			)values(
 			null,
-			<if test="customer_id!=null and customer_id!=''">
+		<if test="customer_id!=null and customer_id!=''">
 			#{customer_id},
-			</if>
-			<if test="customer_type!=null and customer_type!=''">
+		</if>	
+		<if test="customer_type!=null and customer_type!=''">
 			#{customer_type},
-			</if>
-			<if test="area!=null and area!=''">
+		</if>	
+		<if test="area!=null and area!=''">
 			#{area},
-			</if>
-			<if test="customer_name!=null and customer_name!=''">
+		</if>	
+		<if test="customer_name!=null and customer_name!=''">
 			#{customer_name},
-			</if>
-			<if test="postcode!=null and postcode!=''">
+		</if>	
+		<if test="postcode!=null and postcode!=''">
 			#{postcode},
-			</if>
-			<if test="phone_number!=null and phone_number!=''">
+		</if>
+		<if test="phone_number!=null and phone_number!=''">
 			#{phone_number},
-			</if>
-			<if test="province!=null and province!=''">
+		</if>	
+		<if test="province!=null and province!=''">
 			#{province},
-			</if>
-			<if test="region!=null and region!=''">
+		</if>	
+		<if test="region!=null and region!=''">
 			#{region},
-			</if>
-			<if test="address!=null and address!=''">
+		</if>	
+		<if test="address!=null and address!=''">
 			#{address},
-			</if>
-			<if test="fax!=null and fax!=''">
+		</if>	
+		<if test="fax!=null and fax!=''">
 			#{fax},
-			</if>
-			<if test="company!=null and company!=''">
+		</if>	
+		<if test="company!=null and company!=''">
 			#{company}
-			</if>
+		</if>	
 			)
 	</insert>
 

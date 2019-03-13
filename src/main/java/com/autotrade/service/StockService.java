@@ -11,12 +11,13 @@ public interface StockService {
 
 	    List<StockVo> selectByPrimaryKey(Integer page, Integer limit);
 	    
-	    
+	    List<StockVo> selectByPrimaryKeys(String s,Integer page, Integer limit);
 	   String updateByPrimaryKeySelective(Stock record);
 	   
 	   
 	   String updateByPrimaryKeySelectives(Stock record);
 	    Stock selectById(String commodity_number);
 	    Integer getcount();
+	    Integer getcounts(String s);
 
 }

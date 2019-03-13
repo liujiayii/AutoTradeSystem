@@ -15,7 +15,7 @@
       <el-form-item label="车辆信息"></el-form-item>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="车型代码" prop="vehicleCode">
+          <el-form-item label="车型代码" >
             <el-input v-model="ruleForm.vehicleCode" placeholder="点我" @focus="dialogTableVisible = true"></el-input>
           </el-form-item>
           <el-dialog title="车型代码" :visible.sync="dialogTableVisible">
@@ -188,7 +188,8 @@
           vehile_number: '',
           place: '',
           vehicle_code: '',
-          vehicle_types: ''
+          vehicle_types: '',
+          vehicleCode:''
         },
         tableData: {
           data: [],

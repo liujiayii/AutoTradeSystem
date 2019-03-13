@@ -39,31 +39,31 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="区域" prop="area">
+        <el-form-item label="区域" >
           <el-input v-model="ruleForm.area"></el-input>
         </el-form-item>
         <el-form-item label="客户姓名" prop="customer_name">
           <el-input v-model="ruleForm.customer_name"></el-input>
         </el-form-item>
-        <el-form-item label="邮编" prop="postcode">
+        <el-form-item label="邮编" >
           <el-input v-model="ruleForm.postcode" type="number"></el-input>
         </el-form-item>
         <el-form-item label="电话号码" prop="phone_number">
           <el-input v-model="ruleForm.phone_number" type="number"></el-input>
         </el-form-item>
-        <el-form-item label="省份" prop="province">
+        <el-form-item label="省份">
           <el-input v-model="ruleForm.province"></el-input>
         </el-form-item>
-        <el-form-item label="地区" prop="region">
+        <el-form-item label="地区">
           <el-input v-model="ruleForm.region"></el-input>
         </el-form-item>
-        <el-form-item label="地址" prop="address">
+        <el-form-item label="地址">
           <el-input v-model="ruleForm.address"></el-input>
         </el-form-item>
-        <el-form-item label="传真" prop="fax">
+        <el-form-item label="传真" >
           <el-input v-model="ruleForm.fax"></el-input>
         </el-form-item>
-        <el-form-item label="公司名称" prop="company">
+        <el-form-item label="公司名称" >
           <el-input v-model="ruleForm.company"></el-input>
         </el-form-item>
         <el-form-item style="width: 100%">
@@ -134,7 +134,7 @@
                   this.dialogFormVisible = false
                   this.$refs[formName].resetFields();
                   this.notifyNoPath(res.msg)
-                  this.handleCurrentChange(1)
+                  this.handleCurrentChange(this.page)
                 } else {
                   this.notifyError(res.msg)
                 }

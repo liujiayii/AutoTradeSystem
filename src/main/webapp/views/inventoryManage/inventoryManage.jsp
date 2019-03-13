@@ -7,7 +7,7 @@
     <el-breadcrumb-item><a href="/views/index/index.jsp">首页</a></el-breadcrumb-item>
     <el-breadcrumb-item>{{breadcrumb.first}}</el-breadcrumb-item>
     <el-breadcrumb-item>{{breadcrumb.second}}</el-breadcrumb-item>
-  </el-breadcrumb>>
+  </el-breadcrumb>
   <el-button class="btn" type="info" icon="el-icon-plus" round
              onclick="window.location.href='inventoryEdit.jsp'">添加
   </el-button>

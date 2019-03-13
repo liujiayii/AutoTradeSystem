@@ -29,7 +29,7 @@ public class VehichileDetailedServiceImpl implements VehichileDetailedService {
 
 	@Override
 	public String insert(VehichileDetailed vehic) {
-		System.out.println("vehic"+vehic);
+	
 		
 		try {
 

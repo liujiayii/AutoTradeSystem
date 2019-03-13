@@ -39,7 +39,7 @@ public class DriverInformationServiceImpl implements DriverInformationService {
 		if (keyWord == null || keyWord.equals("")) {// 纯分页
 			try {
 				lists = driverInformationDao.findAllBylimit(page, limit);
-				System.out.println(lists.toString());
+			
 				if (lists.size() > 0) {
 					str = JsonUtil.getResponseJson(1, "查询成功", driverInformationDao.findAllCount(), lists);
 				} else {

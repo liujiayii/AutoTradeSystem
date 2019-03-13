@@ -89,4 +89,16 @@ public class StockServiceImpl implements StockService  {
 		return a;
 	}
 
+	@Override
+	public List<StockVo> selectByPrimaryKeys(String s,Integer page, Integer limit) {
+		
+		return stockDao.selectByPrimaryKeys(s, page, limit);
+	}
+
+	@Override
+	public Integer getcounts(String s) {
+	
+		return stockDao.getcounts(s);
+	}
+
 }

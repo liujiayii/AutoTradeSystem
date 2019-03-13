@@ -40,7 +40,7 @@
   <insert id="insertAll" parameterType="com.autotrade.entity.Purchase">
     insert into t_purchase (id, name, commodity_number,purchase, 
       purchase_money, create_time, type, sing_name, remark, quantity,brand,priace,library)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{purchase,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},#{commodityNumber,jdbcType=VARCHAR}, #{purchase,jdbcType=VARCHAR}, 
       #{purchaseMoney,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR},
       #{singName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER},#{brand,jdbcType=VARCHAR},#{priace,jdbcType=DECIMAL},#{library,jdbcType=INTEGER})
   </insert>
@@ -53,6 +53,9 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="commodityNumber != null">
+        commodity_number,
       </if>
       <if test="brand != null">
         brand,
@@ -91,6 +94,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+        <if test="commodityNumber != null">
+        #{commodityNumber,jdbcType=VARCHAR},
       </if>
       <if test="brand != null">
         #{brand,jdbcType=VARCHAR},

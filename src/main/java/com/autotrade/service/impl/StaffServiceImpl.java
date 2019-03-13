@@ -76,7 +76,7 @@ public class StaffServiceImpl implements StaffService{
 			if (list.size() <= 0) {
 				return JsonUtil.getResponseJson(1, "查询成功", count, list);
 			} else {
-				return JsonUtil.getResponseJson(1, "暂无信息", count, list);
+				return JsonUtil.getResponseJson(1, "", count, list);
 			}
 
 		

@@ -92,7 +92,7 @@ public class ProjectController {
 			e.printStackTrace();
 			str = JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
-		System.out.println("che类型"+str);
+
 		return str;
 	}
 	/**
@@ -141,7 +141,7 @@ public class ProjectController {
 	@RequestMapping(value = "/updateMaintenance", produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String updateMaintenance(MaintenanceParts maintenanceParts){
-		System.out.println("-*--");
+	
 		return maintenancePartsService.update(maintenanceParts);
 	}
 	/***
@@ -157,7 +157,7 @@ public class ProjectController {
 	@ResponseBody
 	
 	public String AddMaintenance(Project project){
-		System.out.println("project"+project);
+	
 		String s;
 		
 		try {
@@ -197,10 +197,10 @@ public class ProjectController {
 			
 		List<ProjectVo> list=projectService.selectAllbytype(s, star, limit);
 		if (list.size() <= 0) {
-			System.out.println("shibai");
+		
 			str = JsonUtil.getResponseJson(1, "暂无数据", null, null);
 		} else {
-			System.out.println("chneggong");
+		
 			
 			// 查询到数据返回总数及当前页数据
 			str = JsonUtil.getResponseJson(1, "查询成功", projectService.countAllbytype(s), list);
@@ -318,7 +318,7 @@ public class ProjectController {
 	@ResponseBody
 	public String insertSelective(@RequestBody JSONObject obj){
 		
-	System.out.println("++++++++");
+	
       return maintenanceMaterialsService.insertSelective(obj);
 	}
 	@RequestMapping(value = "/deleteByPrimaryKey", produces = "application/json; charset=utf-8")

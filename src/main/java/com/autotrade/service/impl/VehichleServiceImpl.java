@@ -106,7 +106,7 @@ public class VehichleServiceImpl implements VehichleService{
         if( null != result || !"".equals(result) ){
 			string = JsonUtil.getResponseJson(1, "查询成功", 1, result);
 		}else{
-			string = JsonUtil.getResponseJson(1, "查询失败", null, null);
+			string = JsonUtil.getResponseJson(1, "暂无数据", null, null);
 		}
 		} catch (Exception e) {
 			string = JsonUtil.getResponseJson(-1,"查询异常", null, null);
@@ -123,7 +123,7 @@ public class VehichleServiceImpl implements VehichleService{
         if( result.size()>=1){
 			string = JsonUtil.getResponseJson(1, "查询成功", vehichleDao.selectAllCount(), result);
 		}else{
-			string = JsonUtil.getResponseJson(1, "查询失败", null, null);
+			string = JsonUtil.getResponseJson(1, "", null, result);
 		}
 		} catch (Exception e) {
 			string = JsonUtil.getResponseJson(-1,"查询异常", null, null);
