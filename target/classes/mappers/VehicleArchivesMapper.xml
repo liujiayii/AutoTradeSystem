@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.VehicleArchivesDao">
+
+
+	<!-- 分页查询车辆档案信息 -->
+	<!-- List<VehicleArchivesVo> findByLimit(@Param("page")Integer page,@Param("limit")Integer limit) -->
+	<select id="findByLimit" resultType="com.autotrade.entity.VehicleArchivesVo">
+		select
+			va.*,di.*,ca.*,md.*,di.id as d_id,ca.id as c_id,md.model_definition_id as m_id,ca.phone_number as phone_code
+		from
+			t_vehicle_archives va  join t_driver_information di 
+				on va.driver_id = di.id 
+				
+			 join t_customer_archives ca 
+				on va.customer_archives_id = ca.id 
+				
+			join t_model_definition md 
+				on va.model_definition_id = md.model_definition_id
+				
+		limit #{page},#{limit}
+	
+	</select>
+	
+	
+	<!-- 查询车辆档案总条数 -->
+	<!-- Integer findAllCount() -->
+	<select id="findAllCount" resultType="java.lang.Integer">
+			select
+				count(id)
+			from
+				t_vehicle_archives
+	</select>
+	
+	
+	
+	
+	
+	<!-- 根据车辆档案id查询相关信息 -->
+	<!-- VehicleArchives findCarArchivesById(Long id) -->
+	<select id="findCarArchivesById" resultType="com.autotrade.entity.VehicleArchivesVo">
+		select
+			va.*,di.*,ca.*,md.*,va.*,ca.phone_number as phone_code,vc.id as v_id
+		from
+			t_vehicle_archives va join t_driver_information di on va.driver_id = di.id
+			join t_customer_archives ca on va.customer_archives_id = ca.id
+			join t_model_definition md on va.model_definition_id = md.model_definition_id
+			join t_vehicle_classification vc on md.vehicle_classification_id = vc.id
+		where
+			va.id=#{id}
+	</select>
+	
+	
+	<!-- 修改车辆档案信息 -->
+	<!-- Integer updateCarArchives(VehicleArchivesVo vehicleArchivesVo) -->
+	<update id="updateCarArchives" parameterType="com.autotrade.entity.VehicleArchivesVo">
+		update
+			t_vehicle_archives
+		<set>
+			<if test="vehicle_number!=null and vehicle_number!=''">
+			vehicle_number=#{vehicle_number},
+			</if>
+			<if test="source!=null and source!=''">
+			source=#{source},
+			</if>
+			<if test="nature!=null and nature!=''">
+			nature=#{nature},
+			</if>
+			<if test="engine_number!=null and engine_number!=''">
+			engine_number=#{engine_number},
+			</if>
+			<if test="chassis_number!=null and chassis_number!=''">
+			chassis_number=#{chassis_number},
+			</if>
+			<if test="gearbox_number!=null and gearbox_number!=''">
+			gearbox_number=#{gearbox_number},
+			</if>
+			<if test="category!=null and category!=''">
+			category=#{category},
+			</if>
+			<if test="aircraft_type!=null and aircraft_type!=''">
+			aircraft_type=#{aircraft_type},
+			</if>
+			<if test="vin!=null and vin!=''">
+			vin=#{vin},
+			</if>
+			<if test="internal_number!=null and internal_number!=''">
+			internal_number=#{internal_number},
+			</if>
+			<if test="color!=null and color!=''">
+			color=#{color},
+			</if>
+			<if test="model_definition_id!=null and model_definition_id!=''">
+			model_definition_id=#{model_definition_id},
+			</if>
+			<if test="customer_archives_id!=null and customer_archives_id!=''">
+			customer_archives_id=#{customer_archives_id},
+			</if>
+			<if test="driver_id!=null and driver_id!=''">
+			driver_id=#{driver_id},
+			</if>
+			<if test="three_guarantees!=null and three_guarantees!=''">
+			three_guarantees=#{three_guarantees},
+			</if>
+			<if test="dealer!=null and dealer!=''">
+			dealer=#{dealer},
+			</if>
+			<if test="vehicle_note!=null and vehicle_note!=''">
+			vehicle_note=#{vehicle_note}
+			</if>
+		</set>
+		where
+			id=#{id}
+	</update>
+	
+	<!-- 增加车辆档案 -->
+	<!-- Integer insertCarArchives(VehicleArchives vehicleArchives) -->
+	<insert id="insertCarArchives" parameterType="com.autotrade.entity.VehicleArchives" useGeneratedKeys="true"
+			keyProperty="id">
+		insert into
+			t_vehicle_archives(
+				id,
+				vehicle_number,
+				source,
+				nature,
+				engine_number,
+				chassis_number,
+				gearbox_number,
+				category,
+				aircraft_type,
+				vin,
+				internal_number,
+				color,
+				model_definition_id,
+				customer_archives_id,
+				driver_id,
+				three_guarantees,
+				dealer,
+				vehicle_note
+			)values(
+				null,
+				#{vehicle_number},
+				#{source},
+				#{nature},
+				#{engine_number},
+				#{chassis_number},
+				#{gearbox_number},
+				#{category},
+				#{aircraft_type},
+				#{vin},
+				#{internal_number},
+				#{color},
+				#{model_definition_id},
+				#{customer_archives_id},
+				#{driver_id},
+				#{three_guarantees},
+				#{dealer},
+				#{vehicle_note}
+			)
+	
+	</insert>
+	
+	<!-- 根据关键字分页查询 -->
+	<!-- List<VehicleArchivesVo> findKeyWordByLimit(@Param("page")Integer page,@Param("limit")Integer limit,@Param("keyWord")String keyWord) -->
+	<select id="findKeyWordByLimit" resultType="com.autotrade.entity.VehicleArchivesVo">
+		select
+			va.*,di.*,ca.*,md.*,di.id as d_id,ca.id as c_id,md.model_definition_id as m_id,ca.phone_number as phone_code
+		from
+			t_vehicle_archives va  join t_driver_information di 
+				on va.driver_id = di.id 
+				
+			 join t_customer_archives ca 
+				on va.customer_archives_id = ca.id 
+				
+			join t_model_definition md 
+				on va.model_definition_id = md.model_definition_id
+			where
+				ca.customer_name like #{keyWord} or ca.phone_number like #{keyWord} or di.driver_name like #{keyWord} or md.vehicle_type like #{keyWord} or md.range_rover like #{keyWord} or va.vehicle_number like #{keyWord}
+		limit #{page},#{limit}
+	</select>
+	
+	
+	
+	<!-- 根据关键字查询车型条数 -->
+	<!-- Integer findKeyWordCount(String keyWord) -->
+	<select id="findKeyWordCount" resultType="java.lang.Integer">
+		select
+			count(va.id)
+		from
+			t_vehicle_archives va  join t_driver_information di 
+				on va.driver_id = di.id 
+				
+			 join t_customer_archives ca 
+				on va.customer_archives_id = ca.id 
+				
+			join t_model_definition md 
+				on va.model_definition_id = md.model_definition_id
+			where
+				ca.customer_name like #{keyWord} or ca.phone_number like #{keyWord} or di.driver_name like #{keyWord} or md.vehicle_type like #{keyWord} or md.range_rover like #{keyWord} or va.vehicle_number like #{keyWord}
+	</select>
+	
+	
+	<!-- 根据车牌号查询车辆档案 -->
+	<!-- VehicleArchives findVehicleArchivesByVehicleNumber(String vehicle_number) -->
+	<select id="findVehicleArchivesByVehicleNumber" resultType="com.autotrade.entity.VehicleArchives">
+		select
+			*
+		from	
+			t_vehicle_archives
+		where
+			vehicle_number=#{vehicle_number}
+	</select>
+	
+	
+	
+	
+	<!-- 根据工单Id查询所用维修材料 -->	
+	<!-- List<Parts> closeAnAccountParts(Long id) -->	
+	<select id="closeAnAccountParts" resultType="com.autotrade.entity.Parts">
+		select
+			money,id
+		from	
+			t_parts
+		where
+			repair_id=#{id}	
+	</select>
+	
+	
+	<!-- 根据工单id查询所有维修修理单 -->
+	<!-- List<RepairProject> closeAnAccountRepairProject(Long id) -->
+	<select id="closeAnAccountRepairProject" resultType="com.autotrade.entity.RepairProject">
+		select
+			money,id
+		from
+			t_repair_project
+		where
+			repair_id=#{id}
+	</select>
+	
+	<!-- 修改工单 -->
+	<!-- Integer windUpAnAccount(Repair repair) -->
+	<update id="windUpAnAccount" parameterType="com.autotrade.entity.Repair">
+		update
+			t_repair
+		<set>
+			<if test="money !=null and money!=''">
+				money=#{money},
+			</if>
+			<if test="state!=null and state!=''">
+				state=#{state},
+			</if>
+			<if test="type!=null and type!=''">
+				type=#{type},
+			</if>
+			<if test="settlement!=null and settlement!=''">
+				settlement=#{settlement},
+			</if>
+			<if test="closingDate!=null and closingDate!=''">
+				closing_date=#{closingDate},
+			</if>
+		</set>	
+		where
+			id=#{id}
+	</update>
+	
+	<insert id="insert" parameterType="com.autotrade.entity.VehicleArchives"
+	useGeneratedKeys="true" keyProperty="id">
+	insert into
+	t_vehicle_archives(vehicle_number)
+	values(#{vehicle_number})
+	</insert>
+	
+	
+	
+	
+	
+	<!-- 根据工单id查询领料信息 -->
+	<!-- List<MaterialsVo> printMaterialsBill(Long id) -->
+	<select id="printMaterialsBill" resultType="com.autotrade.entityVo.MaterialsVo">
+		select
+			number,price,money,model,name,repair_id
+		from
+			t_parts
+		where
+			repair_id=#{id}
+	</select>
+	
+	
+	<!-- 根据工单id查询用户名称 -->
+	<!-- 	String findClientNameById(Long id) -->
+	<select id="findClientNameById" resultType="java.lang.String">
+		select
+			ca.customer_name as name
+		from
+			t_repair r join t_vehicle_archives v on r.vehicle_id = v.id
+			join t_customer_archives ca on v.customer_archives_id = ca.id
+		where
+			r.id = #{id}
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

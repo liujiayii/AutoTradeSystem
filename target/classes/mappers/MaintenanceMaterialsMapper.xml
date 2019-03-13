@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.MaintenanceMaterialsDao" >
+  <resultMap id="BaseResultMap" type="com.autotrade.entity.MaintenanceMaterials" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="project_id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id`, `project_id`, `name`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from `t_maintenance_materials`
+    where `project_id` = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from `t_maintenance_materials`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  
+   <delete id="deleteByPid" parameterType="java.lang.Long" >
+    delete from `t_maintenance_materials`
+    where `project_id` = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.autotrade.entity.MaintenanceMaterials" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into `t_maintenance_materials`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="project_id != null" >
+        `project_id`,
+      </if>
+      <if test="name != null" >
+        `name`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="project_id != null" >
+        #{project_id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.autotrade.entity.MaintenanceMaterials" >
+    update `t_maintenance_materials`
+    <set >
+      <if test="project_id != null" >
+        `project_id` = #{project_id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+ 
+ 	<!-- 通过指定条件获取材料信息 -->
+ 	<select id="selectBySelective" parameterType="com.autotrade.entity.MaintenanceMaterials" resultMap="BaseResultMap">
+ 	  select	
+ 		<include refid="Base_Column_List" />
+      from `t_maintenance_materials`
+      <where>
+      	<if test="id != null">
+      		and id = #{id,jdbcType=BIGINT}
+      	</if>
+      	<if test="project_id != null">
+      		and project_id = #{id,jdbcType=BIGINT}
+      	</if>
+      </where>
+ 	</select>
+ 
+</mapper>

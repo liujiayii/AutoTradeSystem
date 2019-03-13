@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.PartsDao">
+
+	<!-- 领料详情表公共结果映射 -->
+	<resultMap id="BaseResultMap" type="com.autotrade.entity.RepairProject">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="commodity_number" jdbcType="VARCHAR" property="commodity_number" />
+		<result column="number" jdbcType="INTEGER" property="number" />
+		<result column="price" jdbcType="DECIMAL" property="price" />
+		<result column="money" jdbcType="DECIMAL" property="money" />
+		<result column="repair_id" jdbcType="BIGINT" property="repair_id" />
+		<result column="create_time" jdbcType="DATE" property="create_time" />
+	</resultMap>
+
+	<!-- 领料详情表公共sql字段 -->
+	<sql id="Base_Column_List">
+		id, name, commodity_number, number, price, money,
+		repair_id, create_time
+	</sql>
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.autotrade.entity.Parts">
+		insert into
+		t_parts(
+		brand,
+		model,
+		name,
+		number,
+		price,
+		money,
+		repair_id,
+		create_time
+		)values(
+		#{brand},
+		#{model},
+		#{name},
+		#{number},
+		#{price},
+		#{money},
+		#{repair_id},
+		#{create_time}
+		)
+	</insert>
+
+	<!-- 根据主键删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		t_parts
+		where id
+		=
+		#{id}
+	</delete>
+	<!-- 分页查询所有 -->
+	<select id="selectAll" resultType="com.autotrade.entity.Parts">
+		Select *
+		from t_parts
+		limit
+		#{star},#{limit}
+	</select>
+	<!-- 查询所有数据数量 -->
+	<select id="selectAllCount" resultType="java.lang.Integer">
+		Select
+		COUNT(*)
+		from
+		t_parts
+	</select>
+	<!-- 根据id查询领料信息 -->
+	<select id="selectById" parameterType="java.lang.Long"
+		resultType="com.autotrade.entity.Parts">
+		Select
+		*
+		from t_parts
+		where
+		id = #{id}
+	</select>
+
+	<!-- 根据id修改领料详情 -->
+	<update id="updateByid" parameterType="com.autotrade.entity.Parts">
+		update t_parts
+		set name =
+		#{name},
+		brand = #{brand},
+		model = #{model},
+		number =#{number},
+		price =
+		#{price},
+		money = #{money},
+		repair_id = #{repair_id},
+		create_time =
+		#{create_time}
+		where id =#{id}
+	</update>
+
+	<!-- 工单耗费材料展示 -->
+	<select id="selectPartsShow" resultType="com.autotrade.entity.Parts">
+		SELECT
+		*
+		FROM t_parts
+		WHERE repair_id = #{repair_id}
+		Limit #{star},#{limit}
+	</select>
+	<!-- 工单耗损材料数量 -->
+	<select id="selectPartsShowCount" resultType="java.lang.Integer">
+		SELECT
+		Count(*)
+		FROM
+		t_parts
+		WHERE repair_id = #{repair_id}
+	</select>
+
+	<!-- 查询工单都用了那种材料 -->
+	<select id="selectMName" resultType="java.lang.String">
+		SELECT DISTINCT m.name
+		FROM
+		t_repair_project AS r
+		INNER JOIN t_project AS p
+		INNER JOIN
+		t_maintenance_materials AS m
+		WHERE r.repair_id =#{repair_id} AND
+		r.`name` = p.`name` AND p.id = m.project_id
+	</select>
+   <!-- 根据项目名称查询使用那种材料 -->
+	<select id="selectMNameByProjectName" resultType="java.lang.String">
+		SELECT m.name
+		FROM t_project AS p
+		INNER JOIN t_maintenance_materials AS m
+		WHERE p.`name` = #{name} AND p.id = m.project_id
+
+	</select>
+	
+	<!-- 根据工单id 材料名称 厂家查询 -->
+	<select id="selectBySelective" parameterType="com.autotrade.entity.Parts" 
+	resultType="com.autotrade.entity.Parts">
+	select 
+  	  *
+  	from t_parts
+  	<where>
+  	  <if test="repair_id != null">
+        and repair_id = #{repair_id}
+      </if>
+      <if test="name != null">
+        and name = #{name}
+      </if>
+      <if test="brand != null">
+        and brand = #{brand}
+      </if>
+  	</where>
+	</select>
+
+</mapper>

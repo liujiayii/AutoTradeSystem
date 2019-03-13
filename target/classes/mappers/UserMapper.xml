@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autotrade.dao.UserDao">
+	
+	
+	<sql id="Base_Column_List">
+		id,p_id as pId,name,post,phone,username as userName,password as passWord, create_time as createTime,update_time as updatTime,status,key_word  as keyWord,address
+	</sql>
+	<sql id="All">
+		id,p_id as pId,name,phone,username as userName,update_time as updatTime,status,key_word  as keyWord,address
+	</sql>
+	<!-- 根据用户名查询用户 -->
+	<!-- User findUserByUserName(String username) -->
+	<select id="findUserByUserName" resultType="com.autotrade.entity.User">
+		select 
+			<include refid="Base_Column_List"/>
+		from 
+		 	t_user 
+		where 
+		    username=#{username}
+	</select>
+
+	
+	<!-- 添加用户  -->
+	<!-- Integer insert(User user) -->
+	<insert id="insert" parameterType="com.autotrade.entity.User"
+			useGeneratedKeys="true"
+			keyProperty="id">
+		insert into 
+			t_user(
+				id,
+			<if test="pId!=null and pId!=''">
+				p_id,
+			</if>	
+			<if test="name!=null and name!=''">
+				name,
+			</if>
+			<if test="post!=null and post!=''">
+				post,
+			</if>
+			<if test="phone!=null and phone!=''">	
+				phone,
+			</if>	
+			<if test="userName!=null and userName!=''">
+				username,
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				password,
+			</if>	
+			<if test="status!=null and status!=''">
+				status,
+			</if>
+			<if test="keyWord!=null and keyWord!=''">
+				key_word,
+			</if>	
+			<if test="address!=null and address!=''">
+				address,
+			</if>	
+			<if test="createTime!=null and createTime!=''">
+				create_time,
+			</if>	
+			<if test="updateTime!=null and updateTime!=''">
+				update_time
+			</if>	
+			)values(
+				null,
+			<if test="pId!=null and pId!=''">	
+				#{pId},
+			</if>	
+			<if test="name!=null and name!=''">
+				#{name},
+			</if>	
+			<if test="post!=null and post!=''">
+				#{post},
+			</if>	
+			<if test="phone!=null and phone!=''">
+				#{phone},
+			</if>
+			<if test="userName!=null and userName!=''">	
+				#{userName},
+			</if>	
+			<if test="passWord!=null and passWord!=''">
+				#{passWord},
+			</if>	
+			<if test="status!=null and status!=''">
+				#{status},
+			</if>	
+			<if test="keyWord!=null and keyWord!=''">
+				#{keyWord},
+			</if>
+			<if test="address!=null and address!=''">		
+				#{address},
+			</if>	
+			<if test="createTime!=null and createTime!=''">
+				#{createTime},
+			</if>	
+			<if test="updateTime !=null and updateTime!=''">
+				#{updateTime}
+			</if>
+			)
+	</insert>
+
+
+	<!-- 通过id修改用户信息  -->
+	<!-- Integer updateUserById(Long id,User user) -->
+	<update id="updateUserById"  parameterType="com.autotrade.entity.User">
+		update 
+			t_user
+		<set>
+			<if test="pId!=null">
+				p_id=#{pId},
+			</if>
+			<if test="name!=null">
+				name=#{name},			
+			</if>
+			<if test="post!=null">
+				post=#{post},
+			</if>
+			<if test="phone!=null">
+				phone=#{phone},
+			</if>
+			<if test="userName!=null">
+				username=#{userName},
+			</if>
+			<if test="passWord!=null">
+				password=#{passWord},
+			</if>
+			<if test="status!=null">
+				status=#{status},
+			</if>
+			<if test="keyWord!=null">
+				key_word=#{keyWord},
+			</if>
+			<if test="createTime!=null">
+				create_time=#{createTime},
+			</if>
+			<if test="updateTime!=null">
+				update_time=#{updateTime}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	
+	<!-- 分页查询所有用户信息 -->	
+	<!-- List<User> findByLimit(@Param("page")Integer page ,@Param("limit")Integer limit) -->	
+	<select id="findByLimit" resultType="com.autotrade.entity.User">
+		select 
+			<include refid="Base_Column_List"/>
+		from
+			t_user
+		limit #{page},#{limit}
+	</select>
+	
+	<!-- 查询所有用户数量 -->
+	<!-- Integer findAllCount() -->
+	<select id="findAllCount" resultType="java.lang.Integer">
+		select 
+			count(id)
+		from 
+			t_user	
+	</select>
+	
+	
+	
+	
+	<!-- 根据用户id查询信息 -->
+	<!-- User findbyId(Long id) -->
+	<select id="findbyId" resultType="com.autotrade.entity.User">
+		
+		select
+			<include refid="All"/>
+		from
+			t_user
+		where
+			id=#{id}	
+	</select>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

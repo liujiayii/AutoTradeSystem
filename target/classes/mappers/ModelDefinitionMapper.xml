@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.ModelDefinitionDao" >
+	
+	
+	<sql id="All">
+		model_definition_id,vehicle_classification_id,vehicle_type,range_rover,brand
+	</sql>
+	
+	<!-- 添加车辆类型信息 -->
+	<!-- Integer insertModelDefinition(ModelDefinition modelDefinition) -->
+	<insert id="insertModelDefinition" parameterType="com.autotrade.entity.ModelDefinition" useGeneratedKeys="true" keyProperty="model_definition_id" >
+		insert
+			t_model_definition(
+				model_definition_id,
+			<if test="vehicle_classification_id!=null and vehicle_classification_id!=''">
+				vehicle_classification_id,
+			</if>	
+			<if test="vehicle_type!=null and vehicle_type!=''">
+				vehicle_type,
+			</if>	
+			<if test="range_rover!=null and range_rover!=''">
+				range_rover,
+			</if>	
+			<if test="brand!=null and brand!=''">
+				brand
+			</if>	
+			)values(
+				null,
+			<if test="vehicle_classification_id!=null and vehicle_classification_id!=''">				
+				#{vehicle_classification_id},
+			</if>
+			<if test="vehicle_type!=null and vehicle_type!=''">
+				#{vehicle_type},
+			</if>
+			<if test="range_rover!=null and range_rover!=''">
+				#{range_rover},
+			</if>
+			<if test="brand!=null and brand!=''">
+				#{brand}
+			</if>
+			)
+		
+	</insert>
+
+
+	<!-- 通过车名查询车辆类型 -->
+	<!-- ModelDefinition findByRangeRover(String range_rover) -->
+	<select id="findByRangeRover" resultType="com.autotrade.entity.ModelDefinition" parameterType="java.lang.String">
+		select
+			<include refid="All"/>
+		from
+			t_model_definition
+		where
+			range_rover = #{range_rover}
+	
+	</select>
+	
+	
+	<!-- 分页查询车型信息 -->
+	<!-- List<ModelDefinition> findCarTypeByLimit(@Param("page")Integer page,@Param("limit")Integer limit) -->
+	<select id="findCarTypeByLimit" resultType="com.autotrade.entity.ModelDefinition">
+		select
+			<include refid="All"/>
+		from 
+			t_model_definition
+			
+		limit #{page},#{limit}
+	</select>
+	
+	
+	
+	
+	<!-- 查询车型分类信息条数 -->
+	<!-- Integer findCarTypeSum() -->
+	<select id="findCarTypeSum" resultType="java.lang.Integer">
+	select
+		count(model_definition_id)
+	from
+		t_model_definition
+	</select>
+	
+	
+	<!-- 根据关键字分页查询车型信息 -->
+	<!-- List<ModelDefinition> findCarTypeByKeyWord(Integer page,Integer limit,String keyWord) -->
+	<select id="findCarTypeByKeyWord" resultType="com.autotrade.entity.ModelDefinition">
+	select
+		<include refid="All"/>
+	from
+		t_model_definition
+	where
+		vehicle_type like #{keyWord} or range_rover like#{keyWord} or brand like#{keyWord}
+	limit #{page},#{limit}
+	</select>
+	
+	
+	<!-- 查询符合关键字条件的车型信息条数 -->
+	<!-- Integer findCountByLimit(Integer page,Integer limit,String keyWord) -->
+	<select id="findCountByLimit" resultType="java.lang.Integer">
+		select
+			count(model_definition_id)
+		from
+			t_model_definition
+		where
+		vehicle_type like #{keyWord} or range_rover like#{keyWord} or brand like#{keyWord}
+	</select>
+	
+	
+	<!-- 修改车型信息 -->
+	<!-- Integer updateCarType(ModelDefinition modelDefinition) -->
+	<update id="updateCarType" parameterType="com.autotrade.entity.ModelDefinition">
+		update
+			t_model_definition
+		<set>
+			<if test="vehicle_classification_id!=null">
+			vehicle_classification_id=#{vehicle_classification_id},
+			</if>
+			<if test="vehicle_type!=null">
+			vehicle_type=#{vehicle_type},
+			</if>
+			<if test="range_rover!=null">
+			range_rover=#{range_rover},
+			</if>
+			<if test="brand!=null">
+			brand=#{brand}
+			</if>
+		</set>
+		where
+			model_definition_id=#{model_definition_id}
+	</update>
+	
+	
+	<!-- 查询车型 -->
+	<!-- ModelDefinition findCarType(@Param("vehicle_classification_id")Long vehicle_classification_id,@Param("range_rover")String range_rover) -->
+	<select id="findCarType" resultType="com.autotrade.entity.ModelDefinition">
+		select
+			<include refid="All"/>
+			t_model_definition
+		where
+			vehicle_classification_id=#{vehicle_classification_id} and range_rover=#{range_rover}
+	</select>
+	
+	
+	<!-- 根据车型id查车名 -->
+	<!-- ModelDefinition findCarNameByid(Long id) -->
+	<select id="findCarNameByid" resultType="com.autotrade.entity.ModelDefinition">
+		select
+			<include refid="All"/>
+		from
+			t_model_definition
+		where
+			vehicle_classification_id=#{id}
+	</select>
+	
+	
+	
+	
+	
+</mapper>

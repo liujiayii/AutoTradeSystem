@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autotrade.dao.CustomerArchivesDao">
+	
+	<sql id="All">
+		id,customer_id,customer_type,area,customer_name,postcode,phone_number,province,region,address,fax,company
+	</sql>
+	
+	<!-- 添加维修客户档案 -->
+	<!-- Integer insertCustomerArchives(CustomerArchives customerArchives) -->
+	<insert id="insertCustomerArchives" parameterType="com.autotrade.entity.CustomerArchives" useGeneratedKeys="true"  keyProperty="id">
+		insert
+			t_customer_archives(
+			id,
+		<if test="customer_id!=null and customer_id!=''">
+			customer_id,
+		</if>
+		<if test="customer_type!=null and customer_type!=''">
+			customer_type,
+		</if>	
+		<if test="area!=null and area!=''">
+			area,
+		</if>	
+		<if test="customer_name!=null and customer_name!=''">
+			customer_name,
+		</if>	
+		<if test="postcode!=null and postcode!=''">
+			postcode,
+		</if>
+		<if test="phone_number!=null and phone_number!=''">
+			phone_number,
+		</if>	
+		<if test="province!=null and province!=''">
+			province,
+		</if>
+		<if test="region!=null and region!=''">
+			region,
+		</if>
+		<if test="address!=null and address!=''">
+			address,
+		</if>	
+		<if test="fax!=null and fax!=''">
+			fax,
+		</if>	
+		<if test="company!=null and company!=''">
+			company
+		</if>	
+			)values(
+			null,
+		<if test="customer_id!=null and customer_id!=''">
+			#{customer_id},
+		</if>	
+		<if test="customer_type!=null and customer_type!=''">
+			#{customer_type},
+		</if>	
+		<if test="area!=null and area!=''">
+			#{area},
+		</if>	
+		<if test="customer_name!=null and customer_name!=''">
+			#{customer_name},
+		</if>	
+		<if test="postcode!=null and postcode!=''">
+			#{postcode},
+		</if>
+		<if test="phone_number!=null and phone_number!=''">
+			#{phone_number},
+		</if>	
+		<if test="province!=null and province!=''">
+			#{province},
+		</if>	
+		<if test="region!=null and region!=''">
+			#{region},
+		</if>	
+		<if test="address!=null and address!=''">
+			#{address},
+		</if>	
+		<if test="fax!=null and fax!=''">
+			#{fax},
+		</if>	
+		<if test="company!=null and company!=''">
+			#{company}
+		</if>	
+			)
+	</insert>
+
+	<!-- 查找最后一条客户编号 -->
+	<!-- String findLast() -->
+	<select id="findLast" resultType="java.lang.String">
+		select
+			customer_id
+		from
+			t_customer_archives
+		order by id  desc limit 0,1
+	</select>
+
+	<!-- 分页查询用户档案信息 -->
+	<!-- List<CustomerArchives> findByLimit(@Param("page")Integer page,@Param("limit")Integer limit) -->
+	<select id="findByLimit" parameterType="com.autotrade.entity.CustomerArchives">
+		
+		select
+			<include refid="All"/>
+		from 
+			t_customer_archives
+		limit #{page},#{limit}
+	</select>
+
+	
+	<!-- 查询所有用户档案条数 -->
+	<!-- Integer findAllCustomerCount() -->
+	<select id="findAllCustomerCount" resultType="java.lang.Integer">
+		select
+			count(id)
+		from
+			t_customer_archives
+	
+	</select>
+
+	
+	<!-- 根据关键字分页查询用户档案 -->
+	<!-- List<CustomerArchives> findLimitByKeyWord(@Param("page")Integer page,@Param("limit")Integer limit,@Param("keyWord")String keyWord) -->
+	<select id="findLimitByKeyWord" resultType="com.autotrade.entity.CustomerArchives">
+		select
+			<include refid="All"/>
+		from
+			t_customer_archives
+		where
+			customer_name like #{keyWord} or phone_number like #{keyWord} or company like #{keyWord} or address like #{keyWord}
+		limit 	#{page},#{limit}
+	</select>
+	
+	
+	<!-- 根据关键字查询用户档案条数 -->
+	<!-- Integer findCountByKeyWord(String keyWord) -->
+	<select id="findCountByKeyWord" resultType="java.lang.Integer">
+		select
+			count(id)
+		from
+			t_customer_archives
+		where
+			customer_name like #{keyWord} or phone_number like #{keyWord} or company like #{keyWord} or address like #{keyWord}
+	
+	
+	</select>
+
+
+	
+	<!-- 修改用户档案信息 -->
+	<!-- Integer updateCustomer(CustomerArchives customerArchives) -->
+	<update id="updateCustomer" parameterType="com.autotrade.entity.CustomerArchives" > 
+		update
+			t_customer_archives
+		<set>
+			<if test="customer_id!=null and customer_id!=''">
+			customer_id=#{customer_id},	
+			</if>
+			<if test="customer_type!=null and customer_type!=''">
+			customer_type=#{customer_type},
+			</if>
+			<if test="area!=null and area!=''">
+			area=#{area},
+			</if>
+			<if test="customer_name !=null and customer_name!=''">
+			customer_name=#{customer_name},
+			</if>
+			<if test="postcode!=null and postcode!=''">
+			postcode=#{postcode},
+			</if>
+			<if test="phone_number!=null and phone_number!=''">
+			phone_number=#{phone_number},
+			</if>
+			<if test="province!=null and province!=''">
+			province=#{province},
+			</if>
+			<if test="region!=null and region!=''">
+			region=#{region},
+			</if>
+			<if test="address!=null and address!=''">
+			address=#{address},
+			</if>
+			<if test="fax!=null and fax!=''">
+			fax=#{fax},
+			</if>
+			<if test="company!=null and company!=''">
+			company=#{company},
+			</if>
+		</set>
+		where
+			id=#{id}
+	
+	</update>
+
+	
+	<!-- 根据电话号码查询用户档案 -->
+	<!-- CustomerArchives findClientByPhone(String phone) -->
+	<select id="findClientByPhone" resultType="com.autotrade.entity.CustomerArchives">
+		select
+			<include refid="All"/>
+		from
+			t_customer_archives
+		where
+			phone_number = #{phone}
+	</select>
+
+
+
+
+
+
+
+</mapper>

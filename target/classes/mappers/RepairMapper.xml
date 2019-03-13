@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.autotrade.dao.RepairDao">
+	<resultMap id="BaseResultMap" type="com.autotrade.entity.Repair">
+		<id column="id" property="id" />
+		<result column="vehicle_id" property="vehicleId" />
+		<result column="remark" property="remark" />
+		<result column="enter_time" property="enterTime" />
+		<result column="appointment_time" property="appointmentTime" />
+		<result column="makespan_time" property="makespanTime" />
+		<result column="settlement" property="settlement" />
+		<result column="closing_date" property="closingDate" />
+		<result column="money" property="money" />
+		<result column="type" property="type" />
+		<result column="entry_person" property="entryPerson" />
+		<result column="state" property="state" />
+		<result column="road_haul" property="roadHaul" />
+		
+	</resultMap>
+	<resultMap id="BaseResultMap2" type="com.autotrade.entityVo.RepairShow">
+		<id column="vehicle_id" property="vehicleId" />
+		<result column="vehicle_number" property="vehicleNumber" />
+		<result column="customer_name" property="customerName" />
+		<result column="vehicle_type" property="vehicleType" />
+		<result column="enter_time" property="enterTime" />
+		<result column="state" property="state" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, vehicle_id, remark, enter_time, appointment_time,
+		makespan_time,
+		settlement,
+		closing_date, money, type, entry_person,
+		state,road_haul
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.autotrade.entity.RepairExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_repair
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_repair
+		where id = #{id}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		t_repair
+		where id = #{id}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.autotrade.entity.RepairExample">
+		delete from t_repair
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.autotrade.entity.Repair"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_repair (id,
+		vehicle_id, remark,
+		enter_time, appointment_time, makespan_time,
+		settlement, closing_date, money,
+		type, entry_person, state, road_haul
+		)
+		values
+		(#{id}, #{vehicleId}, #{remark},
+		#{enterTime}, #{appointmentTime},
+		#{makespanTime},
+		#{settlement}, #{closingDate}, #{money},
+		#{type},
+		#{entryPerson}, #{state}, #{roadHaul}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.autotrade.entity.Repair">
+		insert into t_repair
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="vehicleId != null">
+				vehicle_id,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="enterTime != null">
+				enter_time,
+			</if>
+			<if test="appointmentTime != null">
+				appointment_time,
+			</if>
+			<if test="makespanTime != null">
+				makespan_time,
+			</if>
+			<if test="settlement != null">
+				settlement,
+			</if>
+			<if test="closingDate != null">
+				closing_date,
+			</if>
+			<if test="money != null">
+				money,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="entryPerson != null">
+				entry_person,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="vehicleId != null">
+				#{vehicleId},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="enterTime != null">
+				#{enterTime},
+			</if>
+			<if test="appointmentTime != null">
+				#{appointmentTime},
+			</if>
+			<if test="makespanTime != null">
+				#{makespanTime},
+			</if>
+			<if test="settlement != null">
+				#{settlement},
+			</if>
+			<if test="closingDate != null">
+				#{closingDate},
+			</if>
+			<if test="money != null">
+				#{money},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="entryPerson != null">
+				#{entryPerson},
+			</if>
+			<if test="state != null">
+				#{state},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.autotrade.entity.RepairExample"
+		resultType="java.lang.Integer">
+		select count(*) from t_repair
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_repair
+		<set>
+			<if test="record.id != null">
+				id = #{record.id},
+			</if>
+			<if test="record.vehicleId != null">
+				vehicle_id = #{record.vehicleId},
+			</if>
+			<if test="record.remark != null">
+				remark = #{record.remark},
+			</if>
+			<if test="record.enterTime != null">
+				enter_time = #{record.enterTime},
+			</if>
+			<if test="record.appointmentTime != null">
+				appointment_time = #{record.appointmentTime},
+			</if>
+			<if test="record.makespanTime != null">
+				makespan_time = #{record.makespanTime},
+			</if>
+			<if test="record.settlement != null">
+				settlement = #{record.settlement},
+			</if>
+			<if test="record.closingDate != null">
+				closing_date = #{record.closingDate},
+			</if>
+			<if test="record.money != null">
+				money = #{record.money},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type},
+			</if>
+			<if test="record.entryPerson != null">
+				entry_person = #{record.entryPerson},
+			</if>
+			<if test="record.state != null">
+				state = #{record.state},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_repair
+		set id = #{record.id},
+		vehicle_id = #{record.vehicleId},
+		remark = #{record.remark},
+		enter_time = #{record.enterTime},
+		appointment_time = #{record.appointmentTime},
+		makespan_time =
+		#{record.makespanTime},
+		settlement = #{record.settlement},
+		closing_date
+		= #{record.closingDate},
+		money = #{record.money},
+		type = #{record.type},
+		entry_person = #{record.entryPerson},
+		state = #{record.state}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.autotrade.entity.Repair">
+		update t_repair
+		<set>
+			<if test="vehicleId != null">
+				vehicle_id = #{vehicleId},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="enterTime != null">
+				enter_time = #{enterTime},
+			</if>
+			<if test="appointmentTime != null">
+				appointment_time = #{appointmentTime},
+			</if>
+			<if test="makespanTime != null">
+				makespan_time = #{makespanTime},
+			</if>
+			<if test="settlement != null">
+				settlement = #{settlement},
+			</if>
+			<if test="closingDate != null">
+				closing_date = #{closingDate},
+			</if>
+			<if test="money != null">
+				money = #{money},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="entryPerson != null">
+				entry_person = #{entryPerson},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.autotrade.entity.Repair">
+		update t_repair
+		set vehicle_id = #{vehicleId},
+		remark = #{remark},
+		enter_time =
+		#{enterTime},
+		appointment_time = #{appointmentTime},
+		makespan_time =
+		#{makespanTime},
+		settlement = #{settlement},
+		closing_date =
+		#{closingDate},
+		money = #{money},
+		type = #{type},
+		entry_person =
+		#{entryPerson},
+		state = #{state},
+		road_aul = #{roadHaul}
+		where id = #{id}
+	</update>
+	<!-- 根据id查询车辆档案信息 -->
+	<select id="SelectRepairShow" resultType="com.autotrade.entityVo.RepairDetails">
+		SELECT
+		*,V.id AS vehicle_id,T.id AS repair_id
+		FROM t_vehicle_archives AS
+		V INNER JOIN t_model_definition AS M
+		INNER JOIN t_customer_archives AS
+		C
+		INNER JOIN t_repair AS T
+		INNER JOIN t_driver_information AS D
+		WHERE
+		V.id =#{id}
+		<if test="repair_id != null">
+			And T.id =#{repair_id}
+		</if>
+		AND V.customer_archives_id =C.id AND V.model_definition_id
+		=
+		M.model_definition_id AND V.driver_id = D.id AND T.vehicle_id =V.id
+	</select>
+	
+	<select id="selectRepairDetailsByVehicleNumber" resultType="com.autotrade.entityVo.RepairDetails">
+		SELECT
+		*,V.id AS vehicle_id
+		FROM t_vehicle_archives AS
+		V INNER JOIN t_model_definition AS M
+		INNER JOIN t_customer_archives AS
+		C
+		INNER JOIN t_driver_information AS D
+		WHERE
+		V.vehicle_number =#{vehicle_number}
+		AND V.customer_archives_id =C.id AND V.model_definition_id
+		=
+		M.model_definition_id AND V.driver_id = D.id 
+	</select>
+	<!-- 根据id查询车辆档案信息数量 -->
+	<!-- <select id="SelectRepairShowCount" resultType="java.lang.Integer"> 
+		SELECT COUNT(*) FROM t_vehicle_archives AS V INNER JOIN t_model_definition 
+		AS M INNER JOIN t_customer_archives AS C INNER JOIN t_repair AS T WHERE V.id 
+		IN(#{id}) AND V.customer_archives_id =C.id AND V.model_definition_id = M.model_definition_id 
+		</select> -->
+
+	<!-- 查询所有车辆档案信息 -->
+	<!-- <select id="SelectAllRepairShow" resultMap="BaseResultMap2"> SELECT 
+		V.id as vehicle_id ,V.vehicle_number,V.customer_archives_id, V.model_definition_id 
+		,C.customer_name, M.vehicle_type ,T.enter_time, T.state FROM t_vehicle_archives 
+		AS V INNER JOIN t_model_definition AS M INNER JOIN t_customer_archives AS 
+		C INNER JOIN t_repair AS T WHERE V.customer_archives_id =C.id AND V.model_definition_id 
+		= M.model_definition_id Limit #{star},#{limit} </select> -->
+	<!-- 查询所有车辆档案信息数量 -->
+	<!-- <select id="SelectAllRepairShowCount" resultType="java.lang.Integer"> 
+		SELECT Count(*) FROM t_vehicle_archives AS V INNER JOIN t_model_definition 
+		AS M INNER JOIN t_customer_archives AS C INNER JOIN t_repair AS T WHERE V.customer_archives_id 
+		=C.id AND V.model_definition_id = M.model_definition_id </select> -->
+	<!-- 根据条件查询简略工单 -->
+	<select id="hybridSelect" resultMap="BaseResultMap2"
+		parameterType="com.autotrade.entityVo.RepairSelect">
+		SELECT
+		*,T.id AS repair_id
+		FROM t_vehicle_archives AS V INNER JOIN
+		t_model_definition AS M
+		INNER JOIN t_customer_archives AS C
+		INNER JOIN
+		t_repair AS T
+		INNER JOIN t_driver_information AS D
+		<where>
+			V.customer_archives_id =C.id AND V.model_definition_id
+			=
+			M.model_definition_id AND V.driver_id = D.id AND T.vehicle_id =V.id
+			<if test="entryPerson != null">
+				AND entry_person = #{entryPerson}
+			</if>
+			<if test="vehicleNumber != null">
+				AND vehicle_number = #{vehicleNumber}
+			</if>
+			<if test="vehicleType != null">
+				AND vehicle_type = #{vehicleType}
+			</if>
+			<if test="customerName != null">
+				AND customer_name = #{customerName}
+			</if>
+			<if test="phoneNumber != null">
+				AND phone_number = #{phoneNumber}
+			</if>
+			<if test="color != null">
+				AND color = #{color}
+			</if>
+			<if test="engineNumber != null">
+				AND engine_number = #{engineNumber}
+			</if>
+			<if test="category != null">
+				AND category = #{category}
+			</if>
+			<if test="vin != null">
+				AND vin = #{vin}
+			</if>
+			<if test="appointmentTime != null">
+				AND appointment_time = #{appointmentTime}
+			</if>
+			<if test="enterTime != null">
+				AND enter_time = #{enterTime}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			LIMIT #{star},#{limit}
+		</where>
+	</select>
+	<!-- 根据条件查询简略工单数量 -->
+	<select id="hybridSelectCount" resultType="java.lang.Integer"
+		parameterType="com.autotrade.entityVo.RepairSelect">
+		SELECT
+		COUNT(*)
+		FROM t_vehicle_archives AS V INNER JOIN
+		t_model_definition AS M
+		INNER JOIN t_customer_archives AS C
+		INNER JOIN
+		t_repair AS T
+		INNER JOIN t_driver_information AS D
+		<where>
+			V.customer_archives_id =C.id AND V.model_definition_id =
+			M.model_definition_id
+			AND V.driver_id = D.id AND T.vehicle_id =V.id
+			<if test="entryPerson != null">
+				AND entry_person = #{entryPerson}
+			</if>
+			<if test="vehicleNumber != null">
+				AND vehicle_number = #{vehicleNumber}
+			</if>
+			<if test="vehicleType != null">
+				AND vehicle_type = #{vehicleType}
+			</if>
+			<if test="customerName != null">
+				AND customer_name = #{customerName}
+			</if>
+			<if test="phoneNumber != null">
+				AND phone_number = #{phoneNumber}
+			</if>
+			<if test="color != null">
+				AND color = #{color}
+			</if>
+			<if test="engineNumber != null">
+				AND engine_number = #{engineNumber}
+			</if>
+			<if test="category != null">
+				AND category = #{category}
+			</if>
+			<if test="vin != null">
+				AND vin = #{vin}
+			</if>
+			<if test="appointmentTime != null">
+				AND appointment_time = #{appointmentTime}
+			</if>
+			<if test="enterTime != null">
+				AND enter_time = #{enterTime}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+		</where>
+	</select>
+	<!-- 通过车辆牌照号码查询车辆档案中的id -->
+	<select id="selectIdByVehicleNumber" resultType="java.lang.Long">
+		SELECT id FROM t_vehicle_archives WHERE vehicle_number = #{vehicleNumber}
+	</select>
+<!--   工单耗费材料展示 -->
+	 <select id="selectPartsShow" resultType="com.autotrade.entityVo.PartsShow">
+		SELECT P.id AS commodity_number , P.purchase, P.id AS PId, M.vehicle_type,
+		S.number,
+		S.price,S.money,S.repair_id
+		FROM t_purchase AS P
+		INNER JOIN t_parts AS S
+		INNER JOIN t_repair AS R
+		INNER JOIN t_vehicle_archives AS A
+		INNER JOIN t_model_definition AS M
+
+		WHERE S.repair_id = #{repair_id} AND S.commodity_number =p.id AND S.repair_id =R.id
+		AND R.vehicle_id =A.id
+		AND A.model_definition_id = M.model_definition_id
+		Limit #{star},#{limit}
+	</select>  
+	<!-- 工单耗损材料数量 -->
+	 <select id="selectPartsShowCount" resultType="java.lang.Integer">
+		SELECT 
+		Count(*)
+		FROM t_purchase AS P
+		INNER JOIN t_parts AS S
+		INNER JOIN t_repair AS R
+		INNER JOIN t_vehicle_archives AS A
+		INNER JOIN t_model_definition AS M
+
+		WHERE S.repair_id = #{repair_id} AND S.commodity_number =p.id AND S.repair_id =R.id
+		AND R.vehicle_id =A.id
+		AND A.model_definition_id = M.model_definition_id
+	</select>
+
+	
+	</mapper>

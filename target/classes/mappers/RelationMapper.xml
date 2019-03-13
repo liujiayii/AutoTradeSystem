@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.autotrade.dao.RelationDao">
+  <!-- 车型，维修项目、维修类别关联表公共结果映射 -->
+  <resultMap id="BaseResultMap" type="com.autotrade.entity.Relation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="project_id" />
+    <result column="vehicle_classification_id" jdbcType="BIGINT" property="vehicle_classification_id" />
+    <result column="maintenance_parts_id" jdbcType="BIGINT" property="maintenance_parts_id" />
+    <result column="houser" jdbcType="INTEGER" property="houser" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="create_time" jdbcType="DATE" property="create_time" />
+  </resultMap>
+  
+  <!-- 维修类型表公共sql字段 -->
+  <sql id="Base_Column_List">
+    id, project_id, vehicle_classification_id, maintenance_parts_id, houser, price, create_time
+  </sql>
+  
+  <!-- 通过关联关系id查询 -->
+  <select id="selectByRelationId" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List" />
+  	from t_relation 
+  	where 
+  	    project_id=#{project_id} 
+  	    and vehicle_classification_id=#{vehicle_classification_id} 
+  	    and maintenance_parts_id=#{maintenance_parts_id}
+  </select>
+  
+  <!-- 查询维修客户类别 -->
+  <select id="selectMaintenancePartsId" resultType="com.autotrade.entity.MaintenanceParts">
+  	select * 
+  	from t_maintenance_parts tmp
+  	where tmp.type = (select customer_type from t_customer_archives where phone_number = #{phone_number})	
+  </select>
+  <select id="selcectByproject" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT maintenance_parts_id,vehicle_classification_id,houser,price from t_relation
+     WHERE project_id=#{id}
+  
+  </select>
+  
+  <select id="selcectByMpid"  resultMap="BaseResultMap" parameterType="java.lang.Long">
+  
+   SELECT DISTINCT maintenance_parts_id from t_relation WHERE project_id=#{id}
+  </select>
+  
+   <select id="selcectByMpidList"  resultMap="BaseResultMap" parameterType="java.lang.Long">
+  
+   SELECT vehicle_classification_id,houser,price from t_relation WHERE project_id=#{id} and maintenance_parts_id=#{mpid}
+  </select>
+  
+</mapper>

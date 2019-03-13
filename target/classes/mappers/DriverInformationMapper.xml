@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.autotrade.dao.DriverInformationDao">
+
+
+	<sql id="All">
+		id,driver_name,gender,duty,brithday,id_number,move_number,phone_number,
+		driver_license_number,quasi_driving_type,opening_date,expiry_date,e_mail,office_telephone
+	</sql>
+	
+	
+	
+	<!-- 添加驾驶员信息 -->
+	<!-- Integer insertDriver(DriverInformation driverInformation) -->
+	<insert id="insertDriver" parameterType="com.autotrade.entity.DriverInformation" >
+		insert into
+			t_driver_information(
+			id,
+		<if test="gender!=null and gender!=''">
+			gender,
+		</if>
+		<if test="duty!=null and duty!=''">
+			duty,
+		</if>	
+		<if test="brithday!=null and brithday!=''">
+			brithday,
+		</if>
+		<if test="id_number!=null and id_number!=''">
+			id_number,
+		</if>	
+		<if test="move_number!=null and move_number!=''">
+			move_number,
+		</if>	
+		<if test="phone_number!=null and phone_number!=''">
+			phone_number,
+		</if>	
+		<if test="driver_license_number!=null and driver_license_number!=''">
+			driver_license_number,
+		</if>
+		<if test="quasi_driving_type!=null and quasi_driving_type!=''">
+			quasi_driving_type,
+		</if>	
+		<if test="opening_date!=null and opening_date!=''">
+			opening_date,
+		</if>
+		<if test="expiry_date!=null and expiry_date!=''">
+			expiry_date,
+		</if>
+		<if test="e_mail!=null and e_mail!=''">
+			e_mail,
+		</if>	
+		<if test="office_telephone!=null and office_telephone!=''">
+			office_telephone,
+		</if>	
+		<if test="driver_name！=null and driver_name!=''">
+			driver_name
+		</if>	
+			)values(
+			null,
+		<if test="gender!=null and gender!=''">	
+			#{gender},
+		</if>	
+		<if test="duty!=null and duty!=''">
+			#{duty},
+		</if>	
+		<if test="brithday!=null and brithday!=''">
+			#{brithday},
+		</if>	
+		<if test="id_number!=null and id_number!=''">
+			#{id_number},
+		</if>	
+		<if test="move_number!=null and move_number!=''">
+			#{move_number},
+		</if>	
+		<if test="phone_number!=null and phone_number!=''">
+			#{phone_number},
+		</if>
+		<if test="driver_license_number!=null and driver_license_number!=''">
+			#{driver_license_number},
+		</if>
+		<if test="quasi_driving_type!=null and quasi_driving_type!=''">
+			#{quasi_driving_type},
+		</if>
+		<if test="opening_date!=null and opening_date!=''">
+			#{opening_date},
+		</if>	
+		<if test="expiry_date!=null and expiry_date!=''">
+			#{expiry_date},
+		</if>	
+		<if test="e_mail!=null and e_mail!=''">
+			#{e_mail},
+		</if>	
+		<if test="office_telephone!=null and office_telephone!=''">
+			#{office_telephone},
+		</if>	
+		<if test="driver_name!=null and driver_name!=''">
+			#{driver_name}
+		</if>	
+			)
+	</insert>
+	
+	
+	<!-- 分页查询驾驶员信息 -->
+	<!-- List<DriverInformation> findAllBylimit(@Param("page")Integer page,@Param("limit")Integer limit) -->
+	<select id="findAllBylimit" resultType="com.autotrade.entity.DriverInformation">
+		select
+			<include refid="All"/>
+		from
+			t_driver_information
+		limit
+			#{page},#{limit}
+	</select>
+	
+	
+	<!-- 查询驾驶员信息总条数 -->
+	<!-- Integer findAllCount() -->
+	<select id="findAllCount" resultType="java.lang.Integer">
+		select
+			count(id)
+		from
+			t_driver_information
+	</select>
+	
+	<!-- 根据关键字分页查询 -->
+	<!-- List<DriverInformation> findLimitByKeyWord(@Param("page")Integer page,@Param("limit")Integer limit,@Param("keyWord")String keyWord) -->
+	<select id="findLimitByKeyWord" resultType="com.autotrade.entity.DriverInformation">
+		select
+			<include refid="All"/>
+		from	
+			t_driver_information
+		where
+			driver_name like #{keyWord} or move_number like #{keyWord}
+		limit 
+			#{page},#{limit}
+	</select>
+	
+	
+	<!-- 根据关键字查询数量 -->
+	<!-- Integer findKeyWordCount(String keyWord) -->
+	<select id="findKeyWordCount" resultType="java.lang.Integer">
+		select
+			count(id)
+		from
+			t_driver_information
+		where
+			driver_name like #{keyWord} or move_number like #{keyWord}
+		
+	</select>
+	
+	
+	<!-- 修改驾驶员档案信息 -->
+	<!-- Integer updateDriver(DriverInformation driver) -->
+	<update id="updateDriver" parameterType="com.autotrade.entity.DriverInformation">
+		update
+			t_driver_information
+		<set>
+			<if test="driver_name!=null and driver_name!=''">
+			driver_name=#{driver_name},
+			</if>
+			<if test="gender!=null and gender!=''">
+			gender=#{gender},
+			</if>
+			<if test="duty!=null and duty!=''">
+			duty=#{duty},
+			</if>
+			<if test="brithday!=null and brithday!=''">
+			brithday=#{brithday},
+			</if>
+			<if test="id_number!=null and id_number!=''">
+			id_number=#{id_number},	
+			</if>
+			<if test="move_number!=null and move_number!=''">
+			move_number=#{move_number},
+			</if>
+			<if test="phone_number!=null and phone_number!=''">
+			phone_number=#{phone_number},
+			</if>
+			<if test="driver_license_number!=null and driver_license_number!=''">
+			driver_license_number=#{driver_license_number},
+			</if>
+			<if test="quasi_driving_type!=null and quasi_driving_type!=''">
+			quasi_driving_type=#{quasi_driving_type},
+			</if>
+			<if test="opening_date!=null and opening_date!=''">
+			opening_date=#{opening_date},
+			</if>
+			<if test="expiry_date!=null and expiry_date!=''">
+			expiry_date=#{expiry_date},
+			</if>
+			<if test="e_mail!=null and e_mail!=''">
+			e_mail=#{e_mail},
+			</if>
+			<if test="office_telephone!=null and office_telephone!=''">
+			office_telephone=#{office_telephone},
+			</if>
+		</set>		
+		where
+			id=#{id}
+	</update>
+	
+	
+	<!-- 根据电话号码查询驾驶员信息 -->
+	<!-- DriverInformation findDriverByPhone(String phone) -->
+	<select id="findDriverByPhone" resultType="com.autotrade.entity.DriverInformation">
+		select
+			<include refid="All"/>
+		from
+			t_driver_information
+		where
+			move_number=#{phone}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
