@@ -656,6 +656,7 @@
         var obj = {
           "repairProject": {"name": row.name, "repair_id": this.repair_id},
           "phone": this.ruleForm.phone_number,
+          "customer_name": this.ruleForm.customer_name,
           "project_id": row.id,
           "vehicle_classification_id": this.ruleForm.vehicle_classification_id
         };

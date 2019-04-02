@@ -52,7 +52,7 @@ public interface RelationDao {
 	 * @author lujinpeng
 	 * @createDate 2019年2月23日-下午2:40:21
 	 */
-	MaintenanceParts selectMaintenancePartsId(String phone);
+	MaintenanceParts selectMaintenancePartsId(@Param("phone_number") String phone_number, @Param("customer_name") String customer_name);
 	
 	/**
 	 * 根据项目查询设置的工时

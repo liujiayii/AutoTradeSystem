@@ -19,16 +19,16 @@ public class DriverInformationServiceImpl implements DriverInformationService {
 	@Override
 	public Integer insertDriver(DriverInformation driverInformation) {
 
-		try {
+	//	try {
 			Integer row = driverInformationDao.insertDriver(driverInformation);
 			if (row >= 1) {
 				return row;
 			} else {
 				return -1;
 			}
-		} catch (Exception e) {
-			return -2;
-		}
+	//	} catch (Exception e) {
+		//	return -2;
+	//	}
 
 	}
 

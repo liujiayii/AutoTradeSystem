@@ -164,7 +164,7 @@ public class RepairProjectController {
 				return JsonUtil.getResponseJson(code, "该项目已存在", null, null);
 			}
 			// 通过维修客户电话查询维修客户类别
-			MaintenanceParts maintenanceParts = relationDao.selectMaintenancePartsId(map.get("phone").toString());
+			MaintenanceParts maintenanceParts = relationDao.selectMaintenancePartsId(map.get("phone").toString(), map.get("customer_name").toString());
 			if (maintenanceParts == null) {
 				return JsonUtil.getResponseJson(code, "请检查该客户电话是否正确", null, null);
 			}

@@ -32,7 +32,7 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 	public String findByLimit(Integer page, Integer limit, String keyWord) {
 		List<VehicleArchivesVo> lists;
 		String str;
-		//try {
+		try {
 			if(!keyWord.equals("")&&keyWord!=null){//关键字分页
 				lists = vehicleArchivesDao.findKeyWordByLimit(page, limit, keyWord);
 				if(lists.size()>0){
@@ -48,9 +48,9 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 					str = JsonUtil.getResponseJson(1,"暂无数据", null, null);
 				}
 			}
-		//} catch (Exception e) {
-				//	str = JsonUtil.getResponseJson(-1,"系统异常", null, null);
-		//}
+		} catch (Exception e) {
+					str = JsonUtil.getResponseJson(-1,"系统异常", null, null);
+		}
 		return str;
 	}
 

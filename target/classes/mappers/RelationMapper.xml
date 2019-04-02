@@ -33,7 +33,7 @@
   <select id="selectMaintenancePartsId" resultType="com.autotrade.entity.MaintenanceParts">
   	select * 
   	from t_maintenance_parts tmp
-  	where tmp.type = (select customer_type from t_customer_archives where phone_number = #{phone_number})	
+  	where tmp.type = (select customer_type from t_customer_archives where phone_number = #{phone_number} and customer_name=#{customer_name})	
   </select>
   <select id="selcectByproject" resultMap="BaseResultMap" parameterType="java.lang.Long">
     SELECT maintenance_parts_id,vehicle_classification_id,houser,price from t_relation

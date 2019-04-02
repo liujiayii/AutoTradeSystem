@@ -12,74 +12,30 @@
 		insert
 			t_customer_archives(
 			id,
-		<if test="customer_id!=null and customer_id!=''">
 			customer_id,
-		</if>
-		<if test="customer_type!=null and customer_type!=''">
 			customer_type,
-		</if>	
-		<if test="area!=null and area!=''">
 			area,
-		</if>	
-		<if test="customer_name!=null and customer_name!=''">
 			customer_name,
-		</if>	
-		<if test="postcode!=null and postcode!=''">
 			postcode,
-		</if>
-		<if test="phone_number!=null and phone_number!=''">
 			phone_number,
-		</if>	
-		<if test="province!=null and province!=''">
 			province,
-		</if>
-		<if test="region!=null and region!=''">
 			region,
-		</if>
-		<if test="address!=null and address!=''">
 			address,
-		</if>	
-		<if test="fax!=null and fax!=''">
 			fax,
-		</if>	
-		<if test="company!=null and company!=''">
 			company
-		</if>	
 			)values(
 			null,
-		<if test="customer_id!=null and customer_id!=''">
 			#{customer_id},
-		</if>	
-		<if test="customer_type!=null and customer_type!=''">
 			#{customer_type},
-		</if>	
-		<if test="area!=null and area!=''">
 			#{area},
-		</if>	
-		<if test="customer_name!=null and customer_name!=''">
 			#{customer_name},
-		</if>	
-		<if test="postcode!=null and postcode!=''">
 			#{postcode},
-		</if>
-		<if test="phone_number!=null and phone_number!=''">
 			#{phone_number},
-		</if>	
-		<if test="province!=null and province!=''">
 			#{province},
-		</if>	
-		<if test="region!=null and region!=''">
 			#{region},
-		</if>	
-		<if test="address!=null and address!=''">
 			#{address},
-		</if>	
-		<if test="fax!=null and fax!=''">
 			#{fax},
-		</if>	
-		<if test="company!=null and company!=''">
 			#{company}
-		</if>	
 			)
 	</insert>
 

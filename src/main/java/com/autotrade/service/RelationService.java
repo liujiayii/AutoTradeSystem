@@ -49,7 +49,7 @@ public interface RelationService {
 	 * @author lujinpeng
 	 * @createDate 2019年2月23日-下午2:40:21
 	 */
-	MaintenanceParts selectMaintenancePartsId(String phone);
+	MaintenanceParts selectMaintenancePartsId(String phone_number, String customer_name);
 	
 	
 	

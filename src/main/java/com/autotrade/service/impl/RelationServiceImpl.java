@@ -39,9 +39,9 @@ public class RelationServiceImpl implements RelationService {
 	 * 通过维修客户电话查询维修客户类型信息
 	 */
 	@Override
-	public MaintenanceParts selectMaintenancePartsId(String phone) {
+	public MaintenanceParts selectMaintenancePartsId(String phone_number, String customer_name) {
 		
-		return relationDao.selectMaintenancePartsId(phone);
+		return relationDao.selectMaintenancePartsId(phone_number, customer_name);
 	}
 
 }
