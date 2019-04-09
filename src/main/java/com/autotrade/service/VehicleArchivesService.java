@@ -21,4 +21,6 @@ public interface VehicleArchivesService {
 	String windUpAnAccount(Repair epair);
 	
 	String printMaterialsBill(Long id);
+
+	String deleteVehicleArchlByid(Long id);
 }

@@ -97,4 +97,22 @@ public class DriverInformationServiceImpl implements DriverInformationService {
 		return str;
 	}
 
+	@Override
+	public String deleteByid(Long id) {
+		try {
+					
+		Integer result = driverInformationDao.deleteDerverInformationByid(id);
+		
+		if(result >= 1){
+			return JsonUtil.getResponseJson(1, "删除成功", null, null);
+		}else {
+			return JsonUtil.getResponseJson(1, "暂无数据", null, null);
+		}
+				
+		} catch (Exception e) {
+			
+			return JsonUtil.getResponseJson(-1, "程序异常", null, null);
+		}
+	}
+
 }

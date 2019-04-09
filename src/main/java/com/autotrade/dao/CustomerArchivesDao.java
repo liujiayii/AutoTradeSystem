@@ -96,6 +96,24 @@ public interface CustomerArchivesDao {
 	  * @createDate 2019年2月25日
 	 */
 	CustomerArchives findClientByPhone(String phone);
+
+    /**
+     * 
+    *
+     * @Title: deleteCustomerById
+    
+     * @description 根据主键删除客户信息
+    *
+     * @param @param id
+     * @param @return 
+       
+     * @return Integer    
+    
+     *
+     * @author lishaozhang
+     * @createDate 2019年4月3日
+     */
+	Integer deleteCustomerById(Long id);
 	
 	
 }

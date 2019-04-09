@@ -158,7 +158,12 @@
 	</select>
 
 
-
+	<!-- 根据id删除修车用户档案 -->
+	<delete id="deleteCustomerById">
+		    delete from t_customer_archives
+			where
+			id = #{id}	 
+		 </delete>
 
 
 

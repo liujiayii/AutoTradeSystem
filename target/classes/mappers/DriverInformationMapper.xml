@@ -159,8 +159,12 @@
 	</select>
 	
 	
-	
-	
+	<!-- 根据id删除驾驶员信息 -->
+	<delete id="deleteDerverInformationByid">
+	delete from t_driver_information
+		where
+		id = #{id}
+	</delete>
 	
 	
 	

@@ -14,4 +14,6 @@ public interface CustomerArchivesService {
 	String updateCustomer(CustomerArchives customerArvchives);
 	
 	String findClientByPhone(String phone);
+
+	String deleteCustomerById(Long id);
 }

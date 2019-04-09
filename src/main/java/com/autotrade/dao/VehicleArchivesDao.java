@@ -179,6 +179,40 @@ public interface VehicleArchivesDao {
 	  * @createDate 2019年3月4日
 	 */
 	String findClientNameById(Long id);
+     /**
+      * 
+     *
+      * @Title: deleteVehicleArchlByid
+     
+      * @description 根据id删除车辆档案
+     *
+      * @param @param id
+      * @param @return 
+        
+      * @return Integer    
+     
+      *
+      * @author lishaozhang
+      * @createDate 2019年4月3日
+      */
+	Integer deleteVehicleArchlByid(Long id);
+    /**
+     * 
+    *
+     * @Title: selectById
+    
+     * @description 根据id查询车辆档案信息
+    *
+     * @param @param id
+     * @param @return 
+       
+     * @return VehicleArchives    
+    
+     *
+     * @author lishaozhang
+     * @createDate 2019年4月3日
+     */
+	VehicleArchives selectById(Long id);
 	
 	
 	

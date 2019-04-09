@@ -545,6 +545,76 @@ public class CarRecordController {
 	}
 
 
+	/**
+	 * 
+	*
+	 * @Title: deleteCustomerById
+	
+	 * @description 根据主键删除修车用户信息
+	*
+	 * @param @param id
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年4月3日
+	 */
+	@RequestMapping("deleteCustomer")
+	@ResponseBody
+	public String deleteCustomerById(Long id){
+		
+		String str = customerArchivesService.deleteCustomerById(id);	
+		return str;
+	}
+	/**
+	 * 
+	*
+	 * @Title: deleteVehicleArchlByid
+	
+	 * @description 删除车辆档案 同时会删除车辆的客户信息 驾驶员信息
+	*                //一个客户可能会有多辆车 只删除车辆档案
+	 * @param @param id
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年4月3日
+	 */
+	@RequestMapping("deleteVehicleArchlByid")
+	@ResponseBody
+	public String deleteVehicleArchlByid(Long id){
+
+		return vehicleArchliesService.deleteVehicleArchlByid(id);
+	}
+	
+	/**
+	 * 
+	*
+	 * @Title: deletedriverByid
+	
+	 * @description 通过逐渐删除驾驶员信息
+	*
+	 * @param @param id
+	 * @param @return 
+	   
+	 * @return String    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年4月3日
+	 */
+	@RequestMapping("deletedriverByid")
+	@ResponseBody
+	public String deletedriverByid(Long id){
+
+		return driverInformationService.deleteByid(id);
+	}
+	
+	
 
 }
 

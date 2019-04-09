@@ -98,6 +98,7 @@
             </template>
             <template slot-scope="scope">
               <el-button type="info" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+              <el-button type="danger" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -133,6 +134,37 @@
       }
     },
     methods: {
+    	handleDelete(index,row){
+    		this.$confirm('此操作将永久删除该工单, 是否继续?', '提示', {
+    	          confirmButtonText: '确定',
+    	          cancelButtonText: '取消',
+    	          type: 'warning'
+    	        }).then(() => {
+    	        	console.log(row)
+    	        	$.ajax({
+    	                type: 'post',
+    	                url: '/Repair/deleteByPrimaryKey.action',
+    	                dataType: 'json',
+    	                data:{id:row.repair_id},
+    	                success: (res) => {
+    	                  if (res.code == 1) {
+    	                	  this.handleCurrentChange(1)
+    	                   this.notifyNoPath(res.msg)
+    	                  } else {
+    	                    this.notifyError(res.msg)
+    	                  }
+    	                },
+    	                error: (res) => {
+    	                  this.notifyError(res.msg)
+    	                }
+    	              })
+    	        }).catch(() => {
+    	          this.$message({
+    	            type: 'info',
+    	            message: '已取消删除'
+    	          });          
+    	        });
+    	},
       resetForm(formName) {
         this.ruleForm = {page: 1, limit: 10};
       },

@@ -1,8 +1,8 @@
 package com.autotrade.service.impl;
 
 import java.math.BigDecimal;
+
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.autotrade.dao.CustomerArchivesDao;
+import com.autotrade.dao.DriverInformationDao;
 import com.autotrade.dao.VehicleArchivesDao;
 import com.autotrade.entity.Parts;
 import com.autotrade.entity.Repair;
@@ -27,29 +30,33 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 
 	@Autowired
 	private VehicleArchivesDao vehicleArchivesDao;
-	
+	@Autowired
+	private CustomerArchivesDao customerArchivesDao;
+	@Autowired
+	private DriverInformationDao DriverInformationDao;
+
 	@Override
 	public String findByLimit(Integer page, Integer limit, String keyWord) {
 		List<VehicleArchivesVo> lists;
 		String str;
 		try {
-			if(!keyWord.equals("")&&keyWord!=null){//关键字分页
+			if (!keyWord.equals("") && keyWord != null) {// 关键字分页
 				lists = vehicleArchivesDao.findKeyWordByLimit(page, limit, keyWord);
-				if(lists.size()>0){
-					str = JsonUtil.getResponseJson(1,"查询成功",vehicleArchivesDao.findKeyWordCount(keyWord),lists);
-				}else{
+				if (lists.size() > 0) {
+					str = JsonUtil.getResponseJson(1, "查询成功", vehicleArchivesDao.findKeyWordCount(keyWord), lists);
+				} else {
 					str = JsonUtil.getResponseJson(1, "暂无数据", null, null);
 				}
-			}else{//普通分页
+			} else {// 普通分页
 				lists = vehicleArchivesDao.findByLimit(page, limit);
-				if(lists.size()>0){
+				if (lists.size() > 0) {
 					str = JsonUtil.getResponseJson(1, "查询成功", vehicleArchivesDao.findAllCount(), lists);
-				}else{
-					str = JsonUtil.getResponseJson(1,"暂无数据", null, null);
+				} else {
+					str = JsonUtil.getResponseJson(1, "暂无数据", null, null);
 				}
 			}
 		} catch (Exception e) {
-					str = JsonUtil.getResponseJson(-1,"系统异常", null, null);
+			str = JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
 		return str;
 	}
@@ -57,12 +64,12 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 	@Override
 	public String findCarArchivesById(Long id) {
 		String str;
-		//try {
-			VehicleArchivesVo vehicleArchivesVo = vehicleArchivesDao.findCarArchivesById(id);
-			str = JsonUtil.getResponseJson(1, "查询成功", null, vehicleArchivesVo);
-		//} catch (Exception e) {
-			//str = JsonUtil.getResponseJson(-1,"系统异常", null, null);
-		//}
+		// try {
+		VehicleArchivesVo vehicleArchivesVo = vehicleArchivesDao.findCarArchivesById(id);
+		str = JsonUtil.getResponseJson(1, "查询成功", null, vehicleArchivesVo);
+		// } catch (Exception e) {
+		// str = JsonUtil.getResponseJson(-1,"系统异常", null, null);
+		// }
 		return str;
 	}
 
@@ -70,10 +77,10 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 	public String updateCarArchives(VehicleArchives vehicleArchives) {
 		String str;
 		try {
-			Integer row=vehicleArchivesDao.updateCarArchives(vehicleArchives);
-			if(row>0){
-				str = JsonUtil.getResponseJson(1,"修改成功", null, null);
-			}else{
+			Integer row = vehicleArchivesDao.updateCarArchives(vehicleArchives);
+			if (row > 0) {
+				str = JsonUtil.getResponseJson(1, "修改成功", null, null);
+			} else {
 				str = JsonUtil.getResponseJson(-1, "修改失败", null, null);
 			}
 		} catch (Exception e) {
@@ -86,51 +93,52 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 	public String insertCarArchives(VehicleArchives vehicleArchives) {
 		String str;
 		try {
-			Integer row =vehicleArchivesDao.insertCarArchives(vehicleArchives);
-			if(row>0){
-				str = JsonUtil.getResponseJson(1,"添加成功", null, null);
-			}else{
-				str = JsonUtil.getResponseJson(-1,"添加失败",null, null);
-			}	
+			Integer row = vehicleArchivesDao.insertCarArchives(vehicleArchives);
+			if (row > 0) {
+				str = JsonUtil.getResponseJson(1, "添加成功", null, null);
+			} else {
+				str = JsonUtil.getResponseJson(-1, "添加失败", null, null);
+			}
 		} catch (Exception e) {
-			str = JsonUtil.getResponseJson(-1,"请输入有效信息", null, null);
-		}		
-		
+			str = JsonUtil.getResponseJson(-1, "请输入有效信息", null, null);
+		}
+
 		return str;
 	}
 
 	@Override
 	public VehicleArchives findVehicleArchivesByVehicleNumber(String vehicle_number) {
-		VehicleArchives vehicleArchives  = vehicleArchivesDao.findVehicleArchivesByVehicleNumber(vehicle_number);
+		VehicleArchives vehicleArchives = vehicleArchivesDao.findVehicleArchivesByVehicleNumber(vehicle_number);
 		return vehicleArchives;
 	}
 
 	@Override
 	public String closeAnAccount(Long id) {
 		String str;
-		BigDecimal money=BigDecimal.ZERO;
+		BigDecimal money = BigDecimal.ZERO;
 		try {
 			List<Parts> partsList = vehicleArchivesDao.closeAnAccountParts(id);
 			List<RepairProject> repairProjectList = vehicleArchivesDao.closeAnAccountRepairProject(id);
-			if(partsList!=null && partsList.size()>0 && repairProjectList!=null && repairProjectList.size()>0){
-				for(Parts p:partsList){
-					if(p.getMoney()!=null){
-						money=money.add(p.getMoney());
+			if (partsList != null && partsList.size() > 0 && repairProjectList != null
+					&& repairProjectList.size() > 0) {
+				for (Parts p : partsList) {
+					if (p.getMoney() != null) {
+						money = money.add(p.getMoney());
 					}
 				}
-				for(RepairProject r:repairProjectList){
-					if(r.getMoney()!=null){
-						money =money.add(r.getMoney());
+				for (RepairProject r : repairProjectList) {
+					if (r.getMoney() != null) {
+						money = money.add(r.getMoney());
 					}
 				}
-				    str = JsonUtil.getResponseJson(1, "结算完成",null, money);
-			}else{
-					str = JsonUtil.getResponseJson(-1,"暂无数据", null, money);
+				str = JsonUtil.getResponseJson(1, "结算完成", null, money);
+			} else {
+				str = JsonUtil.getResponseJson(-1, "暂无数据", null, money);
 
 			}
 		} catch (Exception e) {
-					str = JsonUtil.getResponseJson(-1, "系统异常",null, null);
-	}
+			str = JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
 		return str;
 	}
 
@@ -139,13 +147,13 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 		String str;
 		try {
 			Integer row = vehicleArchivesDao.windUpAnAccount(epair);
-			if(row>0){
-				str =  JsonUtil.getResponseJson(1, "处理完成", null, null);
-			}else{
-				str= JsonUtil.getResponseJson(-1,"处理失败",null, null);
+			if (row > 0) {
+				str = JsonUtil.getResponseJson(1, "处理完成", null, null);
+			} else {
+				str = JsonUtil.getResponseJson(-1, "处理失败", null, null);
 			}
 		} catch (Exception e) {
-			str = JsonUtil.getResponseJson(-1, "系统异常", null,null);
+			str = JsonUtil.getResponseJson(-1, "系统异常", null, null);
 		}
 		return str;
 	}
@@ -159,46 +167,54 @@ public class VehicleArchivesServiceImpl implements VehicleArchivesService {
 		String ChineseChar;
 		String name;
 		try {
-			List<MaterialsVo> materials= vehicleArchivesDao.printMaterialsBill(id);
+			List<MaterialsVo> materials = vehicleArchivesDao.printMaterialsBill(id);
 			name = vehicleArchivesDao.findClientNameById(id);
-			if(materials.size()>0&&name!=null){//有数据
-				BigDecimal decimal =BigDecimal.ZERO;
-				for(MaterialsVo m :materials){
-					decimal=decimal.add(m.getMoney());
+			if (materials.size() > 0 && name != null) {// 有数据
+				BigDecimal decimal = BigDecimal.ZERO;
+				for (MaterialsVo m : materials) {
+					decimal = decimal.add(m.getMoney());
 				}
 				ChineseChar = MoneyUntil.toChinese(decimal.toString());
-				Map<String,Object> map =new HashMap<String,Object>();
+				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("materials", materials);
-				map.put("decimal",decimal);
+				map.put("decimal", decimal);
 				map.put("printDate", printDate);
 				map.put("ChineseChar", ChineseChar);
 				map.put("name", name);
 				map.put("length", materials.size());
-			str = JsonUtil.getResponseJson(1,"成功",null,map);
-			}else{//没数据
-				str = JsonUtil.getResponseJson(1, "无用料记录", null,materials);
+				str = JsonUtil.getResponseJson(1, "成功", null, map);
+			} else {// 没数据
+				str = JsonUtil.getResponseJson(1, "无用料记录", null, materials);
 			}
 		} catch (Exception e) {
-			str = JsonUtil.getResponseJson(-1,"请检查用料信息是否填写完整", null, null);
+			str = JsonUtil.getResponseJson(-1, "请检查用料信息是否填写完整", null, null);
 		}
 		return str;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@Override
+	@Transactional
+	public String deleteVehicleArchlByid(Long id) {
+
+		try {
+
+			// 现根据id查询车辆档案信息获取驾驶员id客户档案id然后都删除
+			VehicleArchives vea = vehicleArchivesDao.selectById(id);
+
+			/*// 删除对应的客户信息
+			customerArchivesDao.deleteCustomerById(vea.getCustomer_archives_id());
+
+			// 删除对应的驾驶员信息
+			DriverInformationDao.deleteDerverInformationByid(vea.getDriver_id());*/
+			// 删除车辆档案信息
+			vehicleArchivesDao.deleteVehicleArchlByid(id);
+
+			return JsonUtil.getResponseJson(1, "删除成功", null, null);
+		} catch (Exception e) {
+			
+			return JsonUtil.getResponseJson(-1, "程序异常", null, null);
+		}
+
+	}
+
 }

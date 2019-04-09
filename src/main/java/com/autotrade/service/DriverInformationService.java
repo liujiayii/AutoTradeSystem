@@ -11,4 +11,6 @@ public interface DriverInformationService {
 	String updateDriver(DriverInformation driver);
 	
 	String findDriverByPhone(String phone);
+
+	String deleteByid(Long id);
 }

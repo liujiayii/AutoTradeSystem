@@ -84,6 +84,24 @@ public interface DriverInformationDao {
 	  * @createDate 2019年2月25日
 	 */
 	DriverInformation findDriverByPhone(String phone);
+    
+	/**
+	 * 
+	*
+	 * @Title: deleteDerverInformationByid
+	
+	 * @description 删除驾驶员信息
+	*
+	 * @param @param driver_id
+	 * @param @return 
+	   
+	 * @return Integer    
+	
+	 *
+	 * @author lishaozhang
+	 * @createDate 2019年4月3日
+	 */
+	Integer deleteDerverInformationByid(Long driver_id);
 	
 
 }

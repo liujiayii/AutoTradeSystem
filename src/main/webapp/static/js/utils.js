@@ -177,6 +177,7 @@ const rules = {
         category: [{required: true, message: '请输入类别', trigger: 'blur'}],
         color: {required: true, message: '请输入车身颜色', trigger: 'blur'},
         createTime: [{required: true, message: '请选择时间', trigger: 'blur'}],
+        closingDate: [{required: true, message: '请选择时间', trigger: 'blur'}],
         customer_type: {required: true, message: '请选择客户类型', trigger: 'blur'},
         customer_name: {required: true, message: '请选择客户姓名', trigger: 'blur'},
         driver_name: [{required: true, message: '请输入姓名', trigger: 'blur'}],

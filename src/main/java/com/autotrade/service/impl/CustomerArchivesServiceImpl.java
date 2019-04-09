@@ -28,8 +28,8 @@ public class CustomerArchivesServiceImpl implements CustomerArchivesService {
 	@Override
 	public String findLast() {
 		String number = customerArchiverDao.findLast();
-		if( null == number){
-			number="wx00000";
+		if (null == number) {
+			number = "wx00000";
 		}
 		Integer id = Integer.parseInt(number.substring(2));
 		String n = id.toString().format("%05d", id + 1);
@@ -95,6 +95,25 @@ public class CustomerArchivesServiceImpl implements CustomerArchivesService {
 		}
 
 		return str;
+	}
+
+	@Override
+	public String deleteCustomerById(Long id) {
+		try {
+
+			String str;
+			Integer result = customerArchiverDao.deleteCustomerById(id);
+
+			if (result >= 1) {
+				str = JsonUtil.getResponseJson(1, "删除成功", null, null);
+			} else {
+				str = JsonUtil.getResponseJson(1, "已删除", null, null);
+			}
+
+			return str;
+		} catch (Exception e) {
+			return JsonUtil.getResponseJson(-1, "系统异常", null, null);
+		}
 	}
 
 }
