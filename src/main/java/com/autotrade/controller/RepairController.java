@@ -1,6 +1,8 @@
 package com.autotrade.controller;
 
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +46,10 @@ public class RepairController {
      */
 	@RequestMapping("insert")
 	public String insert(@RequestBody Repair repair) {
-
+		if(repair.getMoney()==null || repair.getMoney().equals("")){
+			repair.setMoney(new BigDecimal(0));
+		}
+		//System.out.println(repair);
 		return repairService.insert(repair);
 
 	}

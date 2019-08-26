@@ -21,13 +21,11 @@
               element-loading-spinner="el-icon-loading"
               :data="tableData.data"
               style="width: 100%">
-
       <el-table-column label="采购人" prop="name" show-overflow-tooltip></el-table-column>
       <el-table-column label="采购项目" prop="purchase" show-overflow-tooltip></el-table-column>
       <el-table-column label="类型" prop="type" show-overflow-tooltip></el-table-column>
       <el-table-column label="总金额" prop="purchaseMoney" show-overflow-tooltip></el-table-column>
       <el-table-column label="采购时间" prop="createTime" :formatter="dateFormat" show-overflow-tooltip></el-table-column>
-
       <el-table-column align="right">
         <template slot="header" slot-scope="scope">
           <el-input v-model="searchVal" placeholder="输入关键词进行搜索" @input="search"/>
@@ -42,9 +40,9 @@
 <el-container class="page-box">
   <div class="block">
     <el-pagination
-            @current-change="handleCurrentChange"
-            layout="total,prev, pager, next, jumper"
-            :total="tableData.count">
+      @current-change="handleCurrentChange"
+      layout="total,prev, pager, next, jumper"
+      :total="tableData.count">
     </el-pagination>
   </div>
 </el-container>

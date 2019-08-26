@@ -144,5 +144,33 @@ public class StockController {
 		return str;
 		
 	}
+	/**
+	 * 
+	     * @Title: inventoryWarning
+	     * @description 库存预警（需要采购商品）
+	     * @param  
+	     * @return    
+	     * @author chenshuxian	
+	     * @createDate 2019年7月15日
+	 */
 	
+	@RequestMapping("/inventoryWarning")
+	@ResponseBody
+	public String inventoryWarning(Integer page, Integer limit) {
+		int code = 1;
+		int count = 0;
+		String msg = "查询成功";
+		List<StockVo> list= null;
+		try {
+			
+			list= stockService.inventoryWarning(page, limit);
+			// 获取总条数
+			count = stockService.inventoryWarningCount();
+		} catch (Exception e) {
+			e.printStackTrace();
+			code = -1;
+			msg = "查询失败";
+		}
+		return JsonUtil.getResponseJson(code, msg, count, list);
+	}
 }

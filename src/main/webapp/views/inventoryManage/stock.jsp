@@ -80,6 +80,7 @@
       }
     },
     methods: {
+    	
       closeDia() {
         this.form = {type: '', number: '', num: '', commodity_number: ''}
       },

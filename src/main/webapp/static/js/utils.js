@@ -74,7 +74,11 @@ let Menu = [
     }, {
       name: '采购记录',
       path: '/views/inventoryManage/inventoryManage.jsp'
-    }]
+    },
+      {
+        name: '库存预警',
+        path: '/views/inventoryManage/inventoryAlert.jsp'
+      }]
   }, {
     name: '公司管理',
     icon: 'fa fa-group fa-fw',
@@ -117,20 +121,7 @@ let Menu = [
       name: '客户类型',
       path: '/views/archives/custClass.jsp'
     }]
-  }/*, {
-    name: '报表管理',
-    icon: 'fa fa-wpforms fa-fw',
-    child: [{
-      name: '维修报表',
-      path: javas
-    }, {
-      name: '售车报表',
-      path: javas
-    }, {
-      name: '进车报表',
-      path: javas
-    }]
-  }*/]
+  }]
 
 const rules = {
   data() {
@@ -214,6 +205,7 @@ const rules = {
         key_number: [{required: true, message: '请输入钥匙号', trigger: 'blur'}],
         loanAmount: [{required: true, message: '请输入贷款金额', trigger: 'blur'},
           {required: 'number', message: '请输入正确的贷款金额', trigger: 'blur'}],
+        library: [{required: true, message: '请选择', trigger: 'blur'}],
         major_accidents: [{required: true, message: '请选择有无重大事故', trigger: 'blur'}],
         maintenance_record: [{required: true, message: '请输入维修记录', trigger: 'blur'}],
         money: [{required: true, message: '请输入金额', trigger: 'blur'},
@@ -319,7 +311,7 @@ const mixin = {
   },
   methods: {
     getBreadcrumb() {
-      if (this.navActive != '0') {
+      if (this.navActive !== '0') {
         let t = this.navActive.split('-')
         this.breadcrumb = {
           first: this.menu[parseInt(t[0])].name,
@@ -379,12 +371,7 @@ const mixin = {
         data,
         dataType: 'json',
         success: (res) => {
-          if (res.code == 1) {
-            /*this.$notify({
-              title: '成功',
-              message: res.msg,
-              type: 'success'
-            });*/
+          if (res.code === 1) {
             Object.assign(this.ruleForm, res.data)
           } else {
             this.$notify({
@@ -408,13 +395,13 @@ const mixin = {
       this.page = data.page
       $.ajax({
         type: 'post',
-        url: this.searchVal.length == 0 ? url_a : url_b,
+        url: this.searchVal.length === 0 ? url_a : url_b,
         data,
         dataType: 'json',
         success: (res) => {
           this.loading2 = false
-          if (res.code == 1) {
-            if (res.data != 'null') {
+          if (res.code === 1) {
+            if (res.data !== 'null') {
               arr ? arr.data = res.data : this.tableData.data = res.data
             } else {
               this.tableData.data = []

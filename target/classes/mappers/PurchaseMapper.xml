@@ -22,7 +22,7 @@
   </resultMap>
   <!-- 采购表公共sql字段 -->
   <sql id="Base_Column_List">
-    id, name, purchase, purchase_money as purchaseMoney, create_time as createTime, type, sing_name as singName, remark, quantity,brand,priace,library
+    id, name, commodity_number commodityNumber, purchase, purchase_money as purchaseMoney, create_time as createTime, type, sing_name as singName, remark, quantity,brand,priace,library
   </sql>
   <!-- 通过主键查询 -->
   <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -138,8 +138,9 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+     
        <if test="brand != null">
-        name = #{brand,jdbcType=VARCHAR},
+        brand = #{brand,jdbcType=VARCHAR},
       </if>
       <if test="purchase != null">
         purchase = #{purchase,jdbcType=VARCHAR},
@@ -166,7 +167,7 @@
         priace = #{priace,jdbcType=DECIMAL},
       </if>
        <if test="library != null">
-       library= #{library,jdbcType=INTEGER},
+       library= #{library,jdbcType=INTEGER}
         
       </if>
     </set>

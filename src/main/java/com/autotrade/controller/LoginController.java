@@ -79,15 +79,19 @@ public class LoginController {
 			session.setAttribute("user", user);
 			msg = "登陆成功:" + user.getUserName();
 		} catch (UnknownAccountException e) {
+			e.printStackTrace();
 			code = -1;
 			msg = "登录失败:" + e.getMessage();
 		} catch (LockedAccountException e) {
+			e.printStackTrace();
 			code = -1;
 			msg = "登录失败:" + e.getMessage();
 		} catch (IncorrectCredentialsException e) {
+			e.printStackTrace();
 			code = -1;
 			msg = "登录失败:密码错误";
 		} catch (Exception e) {
+			e.printStackTrace();
 			code = -1;
 			msg = "登陆失败:系统异常";
 		}

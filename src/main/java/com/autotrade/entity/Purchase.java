@@ -15,7 +15,7 @@ import java.util.Date;
 public class Purchase {
 	
     private Long id;
-    /**姓名*/
+    /**采购人*/
     private String name;
    
     /**采购金额*/
@@ -26,7 +26,7 @@ public class Purchase {
     private String type;
     /*品牌*/
     private String brand;
-    /**名称*/
+    /**商品名称*/
     private String purchase;
     /*配件编号*/
     private String commodityNumber;

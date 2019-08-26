@@ -91,7 +91,7 @@
     <set >
      
       <if test="number != null" >
-        `number` = number+#{number,jdbcType=INTEGER},
+        `number` =#{number,jdbcType=INTEGER},
       </if>
      
     </set>
@@ -108,4 +108,20 @@
     </set>
     where `commodity_number` = #{commodity_number,jdbcType=VARCHAR}
   </update>
+  <select id="getStocksLessThree" resultMap="BaseResultMap">
+    select DISTINCT
+        t.id id,t.commodity_number commodity_number,p.type type,p.brand
+        brand,p.purchase purchase,t.number number
+        from `t_stock` t left join t_purchase p on
+        t.commodity_number=p.commodity_number 
+        WHERE t.number &lt;=3
+        limit #{page},#{limit}
+  </select>
+  <select id="inventoryWarningCount" resultType="Integer">
+  
+   select count(t.id)
+        from `t_stock` t left join t_purchase p on
+        t.commodity_number=p.commodity_number 
+        WHERE t.number &lt;=3
+  </select>
 </mapper>

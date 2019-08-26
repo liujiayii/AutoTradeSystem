@@ -15,7 +15,7 @@
 	<insert id="insertDriver" parameterType="com.autotrade.entity.DriverInformation" >
 		insert into
 			t_driver_information(
-			id,
+			
 			gender,
 			duty,
 			brithday,
@@ -30,7 +30,7 @@
 			office_telephone,
 			driver_name
 			)values(
-			null,
+			
 			#{gender},
 			#{duty},
 			#{brithday},

@@ -100,5 +100,31 @@ public class StockServiceImpl implements StockService  {
 	
 		return stockDao.getcounts(s);
 	}
-
+	/**
+     * 
+         * @Title: getStocksLessThree
+         * @description 获得库存数量少于三个的商品
+         * @param  
+         * @return    
+         * @author chenshuxian
+         * @createDate 2019年7月15日
+     */
+	@Override
+	public List<StockVo> inventoryWarning(Integer page, Integer limit) {
+		Integer beginPage = limit *(page-1);
+		return stockDao.getStocksLessThree(beginPage, limit);
+	}
+	 /**
+     * 
+         * @Title: getStocksLessThree
+         * @description 获得库存数量少于三个的商品的总数量
+         * @param  
+         * @return    
+         * @author chenshuxian
+         * @createDate 2019年7月15日
+     */
+	@Override
+	public Integer inventoryWarningCount(){
+		return stockDao.inventoryWarningCount();
+	}
 }

@@ -1,29 +1,31 @@
 package com.autotrade.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.ws.RespectBinding;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.autotrade.dao.StockDao;
 import com.autotrade.entity.Purchase;
-import com.autotrade.entity.Stock;
+import com.autotrade.entityVo.PurchaseList;
 import com.autotrade.service.PurchaseService;
 import com.autotrade.service.StockService;
+import com.autotrade.service.ex.ServiceException;
 import com.autotrade.utils.JsonUtil;
 
 /**
  * 采购表控制层
  *
  * @ClassName: PurchaseController
-
- * @description 
+ * 
+ * @description
  *
  * @author lujinpeng
  * @createDate 2019年2月13日-上午9:31:05
@@ -36,23 +38,22 @@ public class PurchaseController {
 	private PurchaseService purchaseService;
 	@Autowired
 	private StockService stockService;
-	
+
 	@Autowired
 	private StockDao stockDao;
-	
-	
+
 	/**
 	 * 分页查询采购表信息
 	 *
 	 * @Title: showAllPurchase
-	
-	 * @description 
+	 * 
+	 * @description
 	 *
 	 * @param page
 	 * @param limit
-	 * @return 
-	   
-	 * String
+	 * @return
+	 * 
+	 *         String
 	 *
 	 * @author lujinpeng
 	 * @createDate 2019年2月13日-上午9:42:32
@@ -63,16 +64,16 @@ public class PurchaseController {
 		int count = 0;
 		String msg = "查询成功";
 		List<Purchase> purchaseList = null;
-		
+
 		if (page <= 0 || page == null) {
 			page = 1;
 		}
 		page = (page - 1) * limit;
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("page", page);
 		map.put("limit", limit);
-		
+
 		try {
 			purchaseList = purchaseService.selectAllPurchase(map);
 			count = purchaseService.getCount(null);
@@ -81,23 +82,23 @@ public class PurchaseController {
 			code = -1;
 			msg = "系统异常";
 		}
-		
+
 		return JsonUtil.getResponseJson(code, msg, count, purchaseList);
 	}
-	
+
 	/**
 	 * 搜索接口
 	 *
 	 * @Title: searchPurchase
-	
-	 * @description 
+	 * 
+	 * @description
 	 *
 	 * @param searchKeyWords
 	 * @param page
 	 * @param limit
-	 * @return 
-	   
-	 * String
+	 * @return
+	 * 
+	 *         String
 	 *
 	 * @author lujinpeng
 	 * @createDate 2019年2月14日-上午10:02:27
@@ -108,20 +109,22 @@ public class PurchaseController {
 		int count = 0;
 		String msg = "查询成功";
 		List<Purchase> purchaseList = null;
-		
+
 		if (page <= 0 || page == null) {
 			page = 1;
 		}
 		page = (page - 1) * limit;
-		
-		Map<String, Object> map = new HashMap<> ();
+
+		Map<String, Object> map = new HashMap<>();
 		map.put("s", searchKeyWords);
 		map.put("page", page);
 		map.put("limit", limit);
-		
+
 		try {
-			/*purchaseList = purchaseService.selectBySelective(map);
-			count = purchaseService.getCount(map);*/
+			/*
+			 * purchaseList = purchaseService.selectBySelective(map); count =
+			 * purchaseService.getCount(map);
+			 */
 			purchaseList = purchaseService.searchByLike(map);
 			count = purchaseService.getCountByLike(map);
 		} catch (Exception e) {
@@ -129,16 +132,16 @@ public class PurchaseController {
 			code = -1;
 			msg = "系统异常";
 		}
-		
+
 		return JsonUtil.getResponseJson(code, msg, count, purchaseList);
 	}
-	
+
 	/**
-	 * 新增采购信息
+	 * 批量新增采购信息
 	 *
 	 * @Title: insertPurchase
-	
-	 * @description 
+	 * 
+	 * @description
 	 *
 	 * @param purchase
 	 * @return String
@@ -147,48 +150,34 @@ public class PurchaseController {
 	 * @createDate 2019年2月14日-上午10:18:08
 	 */
 	@RequestMapping("/insertPurchase")
-	public String insertPurchase(@RequestBody Purchase purchase) {
-		System.out.println("编号"+purchase);
-		int code = 1;
-		String msg = "新增成功";
-		Stock stock=new Stock();
-		stock.setCommodity_number(purchase.getCommodityNumber());
-		stock.setNumber(purchase.getQuantity());
+	@ResponseBody
+	public Map<String, Object> insertPurchase(String name, BigDecimal purchaseMoney, Date createTime, String[] type,
+			String[] brand, String[] purchase, String[] commodityNumber, String[] quantity, String[] priace,
+			Integer library, String remark, String singName) {
+		// List<Purchase> purchases = purchaseList.getPurchases();
+		Map<String, Object> map = new HashMap<>();
 		try {
-			purchaseService.insertSelective(purchase);
-			if(purchase.getLibrary()==null){//后台处理没有选择入库状态抛异常的情况
-				
-				code = -1;
-				msg = "请选择入库状态";
-			}else {
-			if(purchase.getLibrary()==0){
-				
-				Stock s=stockService.selectById(purchase.getCommodityNumber());
-				
-				if(s!=null){
-				
-					int a=stockDao.updateByPrimaryKeySelective(stock);
-				}else{
-					int a=stockService.insertSelective(stock);
-				}
-				
+			Integer row = purchaseService.insertSelective(name, purchaseMoney, createTime, type, brand, purchase,
+					commodityNumber, quantity, priace, library, remark, singName);
+			if (row == 0) {
+				map.put("code", 0);
+				map.put("msg", "添加失败，请联系管理员");
 			}
+		} catch (ServiceException e) {
+
+			map.put("code", 0);
+			map.put("msg", e.getMessage());
 		}
-		} catch (Exception e) {
-			e.printStackTrace();
-			code = -1;
-			msg = "系统异常";
-		}
-		
-		return JsonUtil.getResponseJson(code, msg, null, null);
+
+		return map;
 	}
-	
+
 	/**
 	 * 通过id查询采购表信息
 	 *
 	 * @Title: selectPurchaseById
-	
-	 * @description 
+	 * 
+	 * @description
 	 *
 	 * @param id
 	 * @return String
@@ -197,51 +186,68 @@ public class PurchaseController {
 	 * @createDate 2019年2月14日-上午10:21:56
 	 */
 	@RequestMapping("/selectPurchaseById")
-	public String selectPurchaseById(Long id) {
+	public String selectPurchaseById(String[] id) {
 		int code = 1;
 		String msg = "查询成功";
 		Purchase purchase = null;
-		
+		PurchaseList purchases = new PurchaseList();
+		List<Purchase> p = new ArrayList<>();
 		try {
-			purchase = purchaseService.selectById(id);
+			if (id != null && !id.equals("")) {
+
+				for (int i = 0; i < id.length; i++) {
+
+					purchase = purchaseService.selectById(Long.parseLong(id[i]));
+					purchases.setCreateTime(purchase.getCreateTime());
+					purchases.setLibrary(purchase.getLibrary());
+					purchases.setName(purchase.getName());
+					purchases.setPurchaseMoney(purchase.getPurchaseMoney());
+					purchases.setRemark(purchase.getRemark());
+					purchases.setSingName(purchase.getSingName());
+					p.add(purchase);
+
+				}
+				purchases.setPurchases(p);
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;
 			msg = "系统异常";
 		}
-		
-		return JsonUtil.getResponseJson(code, msg, null, purchase);
+
+		return JsonUtil.getResponseJson(code, msg, null, purchases);
 	}
-	
+
 	/**
 	 * 修改采购表信息
 	 *
 	 * @Title: updatePurchaseById
-	
-	 * @description 
+	 * 
+	 * @description
 	 *
 	 * @param purchase
-	 * @return 
-	   
-	 * String
+	 * @return
+	 * 
+	 *         String
 	 *
 	 * @author lujinpeng
 	 * @createDate 2019年2月15日-上午10:12:52
 	 */
 	@RequestMapping("/updatePurchaseById")
-	public String updatePurchaseById(@RequestBody Purchase purchase) {
+	public String updatePurchaseById(Purchase purchase) {
 		int code = 1;
 		String msg = "更新成功";
-		
+
 		try {
 			purchaseService.updateByIdSelective(purchase);
 		} catch (Exception e) {
 			e.printStackTrace();
 			code = -1;
-			msg = "更新失败";
+			msg = e.getMessage();
 		}
-		
+
 		return JsonUtil.getResponseJson(code, msg, null, null);
 	}
-	
+
 }

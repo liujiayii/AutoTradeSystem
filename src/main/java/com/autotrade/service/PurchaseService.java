@@ -1,5 +1,7 @@
 package com.autotrade.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +61,9 @@ public interface PurchaseService {
      * @author lujinpeng
      * @createDate 2019年1月4日-下午2:47:24
      */
-    int insertSelective(Purchase purchase);
+    int insertSelective(String name,BigDecimal purchaseMoney,Date createTime, String[] type,
+			String[] brand,String[] purchase,String[] commodityNumber,String[] quantity,String[] priace,Integer library,
+			String remark,String singName);
 
     /**
      * 通过id查询
@@ -193,5 +197,7 @@ public interface PurchaseService {
      * @createDate 2019年2月15日-上午11:10:24
      */
     int getCountByLike(Map<String, Object> map) throws Exception;
+
+	
     
 }
