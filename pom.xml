@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>4.3.9.RELEASE</version>
+			<version>5.2.7.RELEASE</version>
 		</dependency>
 
 		<!-- junit测试jar包 -->
